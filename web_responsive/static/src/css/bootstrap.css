@@ -1,0 +1,405 @@
+/*!
+ * Bootstrap v4.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*.o_main_navbar {
+  background-image : url("/web_responsive/static/img/pexels-photo.jpeg") !important;
+  border-bottom-color: #241007 !important;
+}
+
+.o_menu_apps .dropdown-menu.show{
+  background-size: 100% !important;
+  background-image : url("/web_responsive/static/img/pexels-photo.jpeg") !important;
+}*/
+
+.o_menu_apps .dropdown-menu.show{
+  padding-top: 10%;
+}
+
+#trialdb {
+  color: white !important;
+}
+
+ .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0px;
+}
+
+.o_form_view .oe_button_box .oe_stat_button .o_button_icon{
+  color: #7c8797;
+}
+
+.table-responsive .o_list_view thead {
+  position: static !important;
+}
+
+.display{
+  display: none ;
+  pointer-events: fill;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.o_web_client .o_export .o_export_panel > div > button{
+    margin-left: 36%;
+    margin-right: 36%;
+}
+
+.o_web_client .o_export .o_export_panel > div.o_center_panel{
+      position: initial;
+}
+
+.displ
+{
+    pointer-events: none;
+}
+
+.displcontent
+{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.displuser {
+    pointer-events: all;
+}
+
+.o_form_view .oe_button_box .oe_stat_button {
+  color: #4c4c4c !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #263544;
+}
+
+@media (max-width: 1024px){
+
+.o_thread_window{
+  z-index: 10000 !important;
+}
+
+/*.o_technical_modal{
+  z-index: 10000 !important;
+}  */
+
+.o_mail_systray_item .o_mail_systray_dropdown .o_mail_systray_dropdown_top .o_filter_button.active  
+{
+  color: white !important;
+}
+
+button[name="do_print_picking"]{
+  display: none !important;
+}
+
+button.btn-secondary:nth-child(6) {
+  display: none !important; 
+}
+
+.do_print_picking {
+  display: none !important;
+}
+
+.o_control_panel > .o_cp_right{
+  width: 100% !important;
+}
+
+.o_base_settings .o_setting_container .settings {
+  position: sticky !important;
+}
+
+a[data-action-model="ir.actions.act_url"]{
+  display: none !important;
+}
+
+.o_search_options > div > .btn-group {
+    max-width: 100% !important;
+}
+
+
+html .o_web_client .o_main .o_main_content .o_content {
+    overflow: scroll !important;
+}
+
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_print_journal"] {
+  display: none;
+}
+
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_partner_ledger"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_general_ledger"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_general_Balance_report"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_account_report_bs"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_account_report_pl"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_aged_trial_balance"]{
+  display: none;
+}
+a.o_menu_entry_lvl_3[data-menu-xmlid="accounting_pdf_reports.menu_account_report"]{
+  display: none;
+}
+
+.o_mrp_bom_print {
+  display: none;
+}
+
+.o_mrp_bom_report_type{
+    width: 130px;
+}
+
+.o_mrp_bom_print_unfolded{
+  display: none;
+}
+
+a.undefined[data-index="0"] {
+  display: none !important;
+}
+
+.o_sale_print {
+  display: none;
+}
+
+.o_viewer_toolbar{
+  display: none;
+}
+
+.o_pivot_download{
+  display: none;
+}
+
+.alert-info {
+    width: 178px;
+    }
+
+.btn-group > .btn-group:not(:last-child) > .btn 
+{
+  display: none;
+}
+
+.o_attachment_download{
+  display: none !important;
+}
+
+
+.btn-primary{
+  background: white;
+  color: black;
+}
+
+
+
+.o_web_client{
+  position: fixed;
+}
+header{
+    /*position: fixed;*/
+    z-index: 10000;
+}
+
+.o_content .o_form_view .o_statusbar_buttons .btn,{
+  background: white;
+    color: black;
+}
+}
+
+
+@media (max-width: 1024px){
+.o_menu_brand, .o_menu_sections{
+display: none;
+}
+
+.dropdown-item{
+  color: white !important;
+}
+
+.o_main_navbar .dropdown-menu.show{
+  left : auto !important;
+}
+
+.o_menu_header_lvl_2{
+  color: white !important;
+}
+.o_menu_sections.visible{
+  display: none !important;
+}
+.o_menu_sections.show{
+  display: block !important;
+}
+
+.o_main_navbar .o_menu_sections.show .show .dropdown-menu{
+  position: unset !important;
+  z-index: unset !important;
+  margin-left :0px;
+  min-width: -webkit-fill-available;
+}
+.dropdown-menu{
+  background-color: #263544;
+  color: #e9ecef !important;
+  border : 0px !important;
+}
+.o_main_navbar > ul.o_menu_systray > li .dropdown-menu.show{
+  min-width: 100px !important;
+}
+.o_main_navbar .o_menu_sections.show > li:hover, .o_main_navbar .o_menu_sections.show .o_menu_entry_lvl_1:hover, .o_main_navbar .o_menu_sections.show .o_menu_header_lvl_1:hover{
+  background-color: #263544 !important;
+  color: #e9ecef !important;
+}
+.o_main_navbar .o_menu_sections.show .o_menu_header_lvl_1{
+  background-color: #263544 !important;
+  color: #e9ecef !important;
+}
+.o_main_navbar .o_menu_sections.show .o_menu_entry_lvl_1{
+  background-color: #263544 !important;
+  color: #e9ecef !important;
+}
+.o_main_navbar .dropdown-menu .dropdown-item{
+  background-color: transparent !important;
+  color: #e9ecef !important;
+}
+.o_kanban_view.o_kanban_grouped .o_kanban_mobile_tabs{
+  background-color: #263544 !important;
+}
+.o_menu_apps .dropdown-menu.show .form-row{
+  display: none !important;
+}
+.o_base_settings .o_setting_container .settings_tab{
+  background-color: #263544 !important;
+}
+.disp
+{
+  display: none !important;
+}
+/*.dropdown-menu{
+  left: auto !important;
+}*/
+}
+@media (min-width: 767.98px){
+
+button[name="do_print_picking"] {
+  display: none;
+}
+
+.o_menu_brand, .o_menu_sections{
+display: none;
+}
+ .o_menu_sections.visible{
+  display: block !important;
+}
+.o_main_navbar .dropdown-menu.show{
+  left : auto !important;
+}
+/*.dropdown-menu{
+  left: auto !important;
+}*/
+.o_mail_systray_item .o_mail_systray_dropdown{
+  width: 490% !important;
+}
+}
+
+@media (max-width: 767.98px){
+
+.o_menu_sections > li{
+  float :none !important;
+}
+.fa-list-ul {
+  display: none;
+}
+
+.o_menu_brand, .o_menu_sections{
+display: none;
+}
+.o_menu_brand.visible, .o_menu_sections.visible{
+  display: none;
+}
+}
+
+.o_tooltip{
+  display: none !important;
+}
+
+.o_menu_apps .dropdown-menu.show .o_app{
+  color: #fff !important;
+}
+
+.bootstrap-datetimepicker-widget{
+  position: absolute;
+  margin: 10%;
+}
+
+.o_main_navbar > ul > li > a:hover, .o_main_navbar > ul > li > label:hover {
+    background-color: #263544;
+}
+
+.o_main_navbar > a:hover, .o_main_navbar > a:focus, .o_main_navbar > button:hover, .o_main_navbar > button:focus {
+    background-color: #263544;
+}
+
+.o_main_navbar .show .dropdown-toggle {
+    background-color: #263544;
+}

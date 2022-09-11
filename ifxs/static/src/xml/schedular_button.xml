@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after" >
+            <button type="button" t-if='widget.modelName == "account.move"'
+                    class="btn btn-primary btn-sm o_list_button_fetch_data">Fetch Data
+            </button>
+        </t>
+    </t>
+</templates>

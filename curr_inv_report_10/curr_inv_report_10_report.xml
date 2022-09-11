@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<odoo>
+    <data>
+      <report
+          id="curr_inv_report_9"
+          model="sale.order"
+          string="Current Inventory Valuation Report"
+          report_type="qweb-pdf"
+          name="cur_inv.sale.order.xlsx"
+          file="cur_inv.sale.order.xlsx"
+          attachment_use="False"
+      />
+
+            <report 
+            id="action_report_saleorder_report_inventory"
+            string="Reports"
+            model="stock.quant" 
+            report_type="qweb-pdf"
+            file="curr_inv_report_10.curr_inv_report_pdf_report" 
+            name="curr_inv_report_10.curr_inv_report_pdf_report"
+            print_report_name="'Reports - %s' % (object.id)"
+        />
+<!--       <report
+          id="product_inv_report_alnashmi"
+          model="sale.order.line"
+          string="Product Inventory Report"
+          report_type="qweb-pdf"
+          name="prod_inv.sale.order.xlsx"
+          file="prod_inv.sale.order.xlsx"
+          attachment_use="False"
+      /> -->
+<!--         <report
+            id="curr_inv_report_9pdf"
+            model="sale.order.curr_inv_report"
+            string="Current Inventory Valuation Report PDF"
+            report_type="qweb-pdf"
+            name="curr_inv_report_pdf"
+            file="curr_inv_report_10.curr_inv_report_pdf"
+            attachment_use="False"
+        /> -->
+
+      <record id="record_id_sale_order_curr_inv_report" model="ir.actions.report">
+        <field name="name">sale.order.curr_inv_report</field>
+        <field name="model">sale.order.curr_inv_report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">curr_inv_report_10.curr_inv_report_pdf</field>
+    </record>
+    </data>
+</odoo>

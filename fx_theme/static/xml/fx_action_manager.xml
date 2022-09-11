@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- template for header  -->
+    <t t-name="fx_theme.action_manager">
+        <main class="main-content o_action_manager">
+            <div class="page-header"/>
+            <div class="card fx_theme_action_container"/>
+            <div class="page-footer" />
+        </main>
+    </t>
+</templates>

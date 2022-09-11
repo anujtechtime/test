@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template2" xml:space="preserve">
+    <t t-name="PosTicket">
+        <div class="pos-alnashmi-receipt-cnt">
+            <div class="pos-alnashmi-receipt">
+                <div id="pos-alnashmi-receipt-main">
+                    <div id="pos_receipt_left_bar">
+                        <div id="receipt_txt" class="rotate">RECEIPT</div>
+                    </div>
+                    <div id="pos_receipt_body">
+                        <div id="pos_receipt_header">
+                            <div id="pos_left_logo" class="text-center">
+                                <img src="/alnashmi_pos_receipt/static/src/img/zen_logo.jpg" alt="Zen Logo" />
+                                <div>www.zendiamond.com</div>
+                            </div>
+                            <div id="pos_center_logo">
+                                <img src="/alnashmi_pos_receipt/static/src/img/alnashmi_header.jpg" id="pos_center_logo_upper_img" alt="" />
+                                <img src="/alnashmi_pos_receipt/static/src/img/ar_title.png" alt="" style="height:30px;" />
+                            </div>
+                            <div id="pos_right_logo" class="text-center">
+                                <img src="/alnashmi_pos_receipt/static/src/img/logo.png" alt="" />
+                                <div>www.alnashmi.co</div>
+                            </div>
+                        </div>
+                        <div id="pos_receipt_content">
+                            <div id="pos_receipt_content_row1">
+                                <div id="pos_receipt_content_row1_block1">
+                                    <div>Name: <t t-esc="widget.pos.get_client().name"/> </div>
+                                    <div>Phone: <t t-esc="widget.pos.get_client().phone"/> </div>
+                                </div>
+                                <div id="pos_receipt_content_row1_block2">
+                                    <div>Date: <t t-esc="moment().format('DD/MM/YYYY h:mm a')"/> </div>                                    
+                                    <div>Ref. No.: <t t-esc="order.name"/></div>
+                                </div>
+                            </div>
+                            <div id="pos_receipt_content_row2">
+                                <table cellspacing="0" cellpadding="3" id="row2_main_tb">
+                                    <thead>
+                                        <tr>
+                                            <th>Barcode (رقم القطعة) </th>
+                                            <th>Description</th>
+                                            <th>Value (القيمة)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="padd5 text-center" style="width:22%;">
+                                                <img t-if="barcode_image_url" t-att-src="barcode_image_url" alt="" style="width:60px;" />
+                                                <div style="clear:both;"><img t-if="product_image_url" t-att-src="product_image_url" alt="" style="width:90px;"  /></div>
+                                            </td>
+                                            <td class="padd5">
+                                                <div><t t-esc="orderlines[0].get_product().display_name"/></div>
+                                                <table cellpadding="2" cellspacing="0" id="desc_table">
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Gold <div> الذهب </div></td>
+                                                        <td>
+                                                            <table cellpadding="1" cellspacing="0">
+                                                                <tr>
+                                                                    <td>Gram:</td>
+                                                                    <td>
+                                                                        <t t-if="orderlines[0].get_product().gold_gram">
+                                                                            <t t-esc="orderlines[0].get_product().gold_gram"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Purity:</td>
+                                                                    <td>
+                                                                        <t t-if="orderlines[0].get_product().gold_purity">
+                                                                            <t t-esc="orderlines[0].get_product().gold_purity"/>
+                                                                        </t>                                                                        
+                                                                    </td>
+                                                                </tr>                                                           
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Diamond <div> الماس </div></td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Diamond Ct:</td>
+                                                                    <td>
+                                                                        <t t-if="orderlines[0].get_product().dw">
+                                                                            <t t-esc="orderlines[0].get_product().dw"/>
+                                                                        </t>                                                                        
+                                                                    </td>                                                             
+                                                                </tr>                                                          
+                                                            </table>                                                        
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Precious Stones <div> الاحجار الكريمة  </div></td>
+                                                        <td>
+                                                            <table cellpadding="1" cellspacing="0">
+                                                                <tr>
+                                                                    <td style="width:25%;">Color Ct:</td>
+                                                                    <td style="width:25%;">
+                                                                        <t t-if="orderlines[0].get_product().sw">
+                                                                            <t t-esc="orderlines[0].get_product().sw"/>
+                                                                        </t>                                                                        
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Pearl Carat:</td>
+                                                                    <td>
+                                                                        <t t-if="orderlines[0].get_product().pearl_carat">
+                                                                            <t t-esc="orderlines[0].get_product().pearl_carat"/>
+                                                                        </t>                                                                          
+                                                                    </td>                                                                    
+                                                                </tr>                                                           
+                                                            </table>                                                        
+                                                        </td>
+                                                    </tr>                                                                                               
+                                                </table>
+                                            </td>
+                                            <td class="padd5" style="width:20%;">
+                                                Total: <t t-esc="widget.format_currency(order.get_total_with_tax())"/><br />
+												<div class="desc_table">
+													<t t-foreach="paymentlines" t-as="line">
+													  <br />
+													  <t t-esc="line.name"/>:
+													  <br /> <t t-esc="widget.format_currency(line.get_amount())"/>
+													</t>
+												</div>
+											</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="padd5">Value in words: <div> القيمة كتابتاً </div> </td>
+                                            <td colspan="2" class="padd5">
+                                                <div style="text-transform:capitalize;">
+                                                    <b><t t-esc="widget.pos.toWords(receipt.total_with_tax.toFixed(2))" /></b> 
+                                                </div>                                                 
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>              
+                </div>
+                <div id="pos-alnashmi-receipt-footer">
+                    <div id="pos-alnashmi-receipt-footer-inner">
+                        <div class="width_40_per">
+                            <img src="/alnashmi_pos_receipt/static/src/img/fb.png" alt="Facebook" /> <span> Alnashmi for Gold and Jewelry </span> 
+                        </div>
+                        <div class="width_30_per">
+                            <img src="/alnashmi_pos_receipt/static/src/img/web-icon.png" alt="Web" id="insta_icon" /> <span> alnashmi.co </span> 
+                        </div>
+                        <div class="width_30_per">
+                            <img src="/alnashmi_pos_receipt/static/src/img/email-icon.png" alt="Email" /> <span> info@alnashmi.co </span>
+                        </div>
+                        <div class="width_40_per">
+                            <img src="/alnashmi_pos_receipt/static/src/img/map.png" alt="Map" id="map_icon" /> <span> العراق - البصرة  -العشار - سوق الذهب  </span> 
+                        </div>                        
+                        <div class="width_60_per">
+                            <img src="/alnashmi_pos_receipt/static/src/img/phone-icon.png" alt="Phone" /> <span> +9647802421102  -  +9647801410319  </span> 
+                        </div>                          
+                    </div>                                       
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

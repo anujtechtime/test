@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="fx_pager_limit">
+        <div class="page_limit">
+            <select>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    </t>
+    <!-- switch btns -->
+    <t t-name="fx.Pager">
+        <div>
+            <!-- accesskeys not wanted in X2Many widgets -->
+            <t t-if="widget.options.withAccessKey">
+                <t t-set="att_prev" t-value="{'accesskey': 'p'}" />
+                <t t-set="att_next" t-value="{'accesskey': 'n'}" /></t>
+            <button type="button" class="fa fa-chevron-left btn btn-txt o_pager_previous" t-att="att_prev" aria-label="Previous" title="Previous" tabindex="-1"/>
+            <span class="o_pager_counter">
+                <span class="o_pager_value"></span> / 
+            
+                <span class="o_pager_limit"></span>
+            </span>
+            <button type="button" class="fa fa-chevron-right btn btn-txt o_pager_next" t-att="att_next" aria-label="Next" title="Next" tabindex="-1"/>
+        </div>
+    </t>
+</templates>

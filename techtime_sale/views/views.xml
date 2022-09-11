@@ -1,0 +1,131 @@
+<odoo>
+  <data>
+         <record id="sale_orderform_view_oppor_revenue_user_id" model="ir.ui.view">
+            <field name="name">sale.order.revenue.oppor.inherited.crm</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+              <xpath expr="//form//header//button[@name='action_draft']" position="after">
+                    <button name="action_installment_invoice" type="object" string="Create Installment Invoices"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="sponsor"/>
+                </xpath>
+
+                <xpath expr="//page[@name='order_lines']" position="before">
+                    
+                <page string="Installment">
+                  <group>
+                    <group>
+                      <field name="downpayment" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="installment_amount" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="second_payment_date" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
+                    </group>
+                    <group>
+                      <field name="payable_amount" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="tenure_month" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
+                    </group>
+                    <field name="sale_installment_line_ids" attrs="{'readonly': [('state', 'in', ('sale'))]}">
+                        <tree string="Installment Lines" editable="bottom">
+                            <field name="number"/>
+                            <field name="payment_date"/>
+                            <field name="invoice_id"/>
+                            <field name="amount_installment" widget='monetary'/>
+                            <field name="description"/>
+                            <field name="status"/>
+                            <field name="payment_status"/>
+                        </tree>
+                      </field>
+                  </group>
+                </page>
+                </xpath>
+              </field>
+            </record>
+
+
+          <record id="res_partner_form_view_employee_id" model="ir.ui.view">
+            <field name="name">res.partner.inherited.employee.number</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="employee_number"/>
+                </xpath>
+              </field>
+            </record>
+
+
+
+            <record id="account_invoice_form_view_oppor_revenue_user_id" model="ir.ui.view">
+            <field name="name">account.move.revenue.oppor.inherited.crm</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="sponsor"/>
+                </xpath>
+                <xpath expr="//page[@name='other_info']" position="after">
+                    
+                <page string="Installment">
+                    <field name="account_installment_line_ids">
+                          
+                          <tree string="Installment Lines" editable="bottom">
+                              <field name="number"/>
+                              <field name="payment_date"/>
+                              <field name="amount_installment" widget='monetary'/>
+                              <field name="description"/>
+                              <field name="status"/>
+                              <field name="Pay"/>
+                          </tree>
+                          
+                      </field>                  
+                </page>
+                </xpath>
+              </field>
+            </record>
+
+            <record id="sale_membership_view_tree" model="ir.ui.view">
+      <field name="name">sale.installment.tree</field>
+      <field name="model">sale.installment</field>
+      <field name="arch" type="xml">
+        <tree  string="Installment">
+          <field name="number"/>
+          <field name="payment_date"/>
+          <field name="invoice_id"/>
+          <field name="amount_installment" widget='monetary'/>
+          <field name="description"/>
+          <field name="status"/>
+          <field name="payment_status"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="sale_membership_view_form" model="ir.ui.view">
+      <field name="name">sale.installment.form</field>
+      <field name="model">sale.installment</field>
+        <field name="arch" type="xml">
+          <form string="Installment" class="o_sale_order">
+          <sheet>
+              <group>
+                <group>
+                  <field name="number"/>
+                  <field name="payment_date"/>
+                  <field name="college_installment_id"/>
+                  <field name="invoice_id"/>
+                  <field name="amount_installment" widget='monetary'/>
+                </group>
+                <group>
+                  <field name="description"/>
+                  <field name="status"/>
+                  <field name="payment_status"/>
+                </group>
+              </group>
+          </sheet>
+          </form>
+          </field>
+        </record>
+  </data>
+</odoo>

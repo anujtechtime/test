@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Tecnativa - Jairo Llopis
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<template>
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_export_xlsx" t-operation="after">
+            <button type="button" class="btn btn-secondary o_list_export_pdf" title="Download PDF">PDF</button>
+        </t>
+    </t>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Disabled Custom Select -->
+    <select t-name='fx_selection' class="custom-select">
+    </select>
+
+    <t t-name='fx_selection.option'>
+        <option t-attr-value="widget.val"><t t-esc='widget.txt'></t></option>
+    </t>
+    
+</templates>

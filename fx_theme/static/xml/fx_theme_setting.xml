@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- style setting -->
+    <li t-name="fx.style_setting_extend" role="menuitem">
+        <a role="button" href="#" class="customizer-toggler" >
+            <span class="fa fa-cog fa-fw"/>
+        </a>
+        <t t-call="fx_theme.customizer" />
+    </li>
+
+    <!-- customizer -->
+    <div t-name="fx_theme.customizer" class="customizer d-none d-flex flex-column">
+        <a class="customizer-close" href="#">
+            <i class="fa fa-close"/>
+        </a>
+        <div class="d-flex flex-column flex-fill" style="overflow: hidden;">
+            <div class="customizer-content flex-fill d-flex flex-column" style="overflow-y: hidden">
+                <h4 class="text-uppercase mb-0 " style="margin: 15px 15px 0px 15px">Theme Customizer</h4>
+                <div class="theme_modes d-flex flex-column flex-fill p-4" style="overflow-y: auto">
+                    <t t-set="theme_modes" t-value="widget.user_setting.theme_modes"/>
+                    <div class="theme_modes d-flex flex-column">
+                        <div class="custom-controls-stacked">
+                        	<t t-if="theme_modes">
+                            <div class="custom-control custom-radio mb-3 theme-mode-radio" 
+                                t-foreach="theme_modes" 
+                                t-as="theme_mode"
+                                t-attrf-data-id="{{theme_mode.id}}">
+                              <input type="radio" 
+                                t-attrf-id="theme-mode-{{theme_mode.id}}" 
+                                t-attrf-data-mode-id="{{theme_mode.id}}" 
+                                t-attrf-data-mode-name="{{theme_mode.name}}"
+                                name="theme_mode_radio" 
+                                class="custom-control-input"/>
+                              <label class="custom-control-label" t-attrf-for="theme-mode-{{theme_mode.id}}"><t t-esc="theme_mode.name"/></label>
+                            </div>
+                        </t>
+                        </div>
+        
+                        <t t-set="default_mode" t-value="widget.user_setting.default_modes.normal"/>
+                        <t t-set="default_style" t-value="default_mode.theme_styles[0]"/>
+                        <div class="theme-modes-container d-flex flex-column flex-fill">
+                        	<t t-if="theme_modes">
+                            <div t-foreach="theme_modes" 
+                                t-as="theme_mode" 
+                                class="theme-mode-container flex-column flex-fill d-none" 
+                                t-attr-data-mode-id="{{theme_mode.id}}">
+                                <t t-if="theme_mode">
+                                <t t-set="theme_styles" t-value="theme_mode.theme_styles"/>
+                                <t t-set="cur_mode" t-value="theme_mode"/>
+                                <div class="theme_styles d-flex flex-column">
+                                    <h5 class="mt-1">Theme styles</h5>
+                                    <ul class="nav nav-pills theme-style-contianer">
+                                    	<t t-if="theme_styles">
+                                        <t t-foreach="theme_styles" t-as="theme_style">
+                                            <t t-call="fx_theme.theme_style_tab" />
+                                        </t>
+                                    </t>
+                                        <li class="nav-item theme-style add_new_style">
+                                            <a class="nav-link theme_style_tab" href="void();">
+                                                <div class="style-preview-box d-flex flex-column align-items-center justify-content-center">
+                                                    <svg class="add_new_style_icon" width="48" height="48" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M511.17819 1023.449171C232.458621 1030.059121-1.643784 782.185986 0.008703 508.974708 1.661191 236.865089 239.068571-1.64395 516.135653 0.008538c271.55879 1.652488 510.618658 239.059868 508.966171 516.12695C1023.449336 787.694278 787.694443 1031.711609 511.17819 1023.449171zM491.34834 97.505304c-195.544362-1.652488-418.630184 188.383583-394.944528 457.188227 15.974046 181.222803 190.03607 398.249504 459.942373 374.013019 181.773632-16.524876 396.046187-190.586899 371.809703-459.391544C911.080182 278.177278 730.408208 79.327941 491.34834 97.505304z"></path><path d="M560.201988 362.454144c0 27.541459 0.550829 55.082919 0 82.624378-0.550829 15.423217 5.508292 20.38068 20.38068 19.829851 55.082919-0.550829 110.165838 0 165.248757-0.550829 15.974046 0 22.583997 4.406634 21.482338 20.931509-1.101658 18.728192-1.101658 37.456385 0 55.633748 0.550829 14.872388-5.508292 19.279022-19.279022 18.728192-55.082919-0.550829-110.165838 0-165.248757-0.550829-16.524876 0-23.134826 4.957463-22.583997 22.033168 1.101658 54.53209 0 108.51335 0.550829 163.04544 0.550829 17.626534-6.059121 23.134826-22.583997 22.033168-17.075705-1.101658-34.702239-1.101658-51.777944 0-15.974046 1.101658-21.482338-4.957463-21.482338-21.482338 0.550829-53.430431-0.550829-107.411692 0.550829-160.842123 0.550829-20.38068-6.60995-25.888972-25.888972-25.338143-53.430431 1.101658-107.411692 0-160.842123 0.550829-14.872388 0-21.482338-4.406634-20.38068-19.829851 1.101658-18.728192 1.101658-37.456385 0-55.633748-1.101658-15.974046 5.508292-19.829851 20.38068-19.829851 54.53209 0.550829 108.51335-0.550829 163.04544 0.550829 17.626534 0.550829 24.236484-4.406634 23.685655-23.134826-1.101658-54.53209 0-108.51335-0.550829-163.04544 0-16.524876 5.508292-22.033168 21.482338-21.482338 17.626534 1.101658 35.803897 1.101658 53.430431 0 14.872388-0.550829 20.931509 4.406634 20.38068 19.829851C559.651159 306.269567 560.201988 334.361856 560.201988 362.454144z"></path></svg>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content flex-fill" style="margin:10px 0px; border-color: #3b425c">
+                                    	<t t-if="theme_styles">
+                                        <t t-foreach="theme_styles" t-as="theme_style">
+                                            <t t-call="fx_theme.theme_style_tab_pane" />
+                                        </t>
+                                    </t>
+                                    </div>
+                                </div>
+                            </t>
+                            </div>
+                        </t>
+                        </div>
+                    </div>
+                    <!-- othe`r settings -->
+                    <div class="settings mt-1">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="#menu_type" class="nav-link active" data-toggle="tab">
+                                    menu type
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#font_type" class="nav-link" data-toggle="tab">
+                                    font type
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="#other_setting" class="nav-link" data-toggle="tab">
+                                    other setting
+                                </a>
+                            </li> -->
+                        </ul>
+                        <div class="tab-content setting-tab-content">
+                            <div class="tab-pane p-3 active show" id="menu_type">
+                                <!-- horizon mode -->
+                                <div class="custom-controls-stacked">
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="menu_type" id="menu_type_horizon" data-menu-type="horizon" class="custom-control-input" />
+                                        <label class="custom-control-label" for="menu_type_horizon">horizon</label>
+                                    </div>
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="menu_type" id="menu_type_vertical" data-menu-type="vertical" class="custom-control-input" />
+                                        <label class="custom-control-label" for="menu_type_vertical">vertical</label>
+                                    </div>
+                                </div>
+                                <!-- show app name -->
+                                <div class="custom-control custom-toggle my-2">
+                                    <input type="checkbox" id="show_app_name" name="show_app_name" class="custom-control-input"/>
+                                    <label class="custom-control-label" for="show_app_name">show app name</label>
+                                </div>
+                                <!-- favorite mode -->
+                                <div class="custom-control custom-toggle my-2">
+                                    <input type="checkbox" id="favorite_mode" name="favorite_mode" class="custom-control-input"/>
+                                    <label class="custom-control-label" for="favorite_mode">favorite mode</label>
+                                </div>
+                            </div>
+                            <div class="tab-pane p-3" id="font_type">
+                                <div class="custom-controls-stacked">
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type1" data-font-type="Roboto" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type1">Roboto</label>
+                                    </div>
+                                    
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type2" data-font-type="sans-serif" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type2">sans-serif</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type3" data-font-type="Helvetica" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type3">Helvetica</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type4" data-font-type="Arial" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type4">Arial</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type6" data-font-type="Verdana" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type6">Verdana</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type7" data-font-type="Tahoma" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type7">Tahoma</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" name="font_type" id="font_type8" data-font-type="Trebuchet" class="custom-control-input" />
+                                        <label class="custom-control-label" for="font_type8">Trebuchet MS</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="customizer-footer d-flex align-items-center justify-content-left">
+                <button class="preview-btn btn btn-primary ml-2">preview</button>
+                <button class="save-btn btn btn-primary ml-2">save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- nav item -->
+    <li t-name="fx_theme.theme_style_tab" 
+        class="nav-item theme-style-nav-item"
+        role="presentation"
+        t-attrf-data-style-id="{{theme_style.id}}" >
+        <a class="nav-link theme_style_tab" 
+            data-toggle="tab" 
+            t-attrf-href="#theme_style_tab_{{theme_style.id}}" 
+            t-attrf-data-style-id="{{theme_style.id}}" 
+            role="tab" >
+            <div class="style-preview-box d-flex flex-row" t-attrf-style="border: 1px solid {{theme_style.border_color}};">
+                <div class="sidebar-box" 
+                    t-attrf-style="background-color: {{theme_style.side_bar_color}}; border-right: 1px solid {{theme_style.border_color}}; width:20px" ></div>
+                <div class="main-box d-flex flex-column flex-fill">
+                    <div class="preview-header-box" 
+                        t-attrf-style="background-color: {{theme_style.header_color}}; border-bottom: 1px solid {{theme_style.border_color}}; height:10px"></div>
+                    <div class="preview-body-box flex-fill" 
+                        t-attrf-style="background-color: {{theme_style.body_color}}"></div>
+                    <div class="preview-footer-box" 
+                        t-attrf-style="background-color: {{theme_style.footer_color}}; border-top: 1px solid {{theme_style.border_color}}; height:10px"></div>
+                </div>
+                <div t-if="theme_style.deletable" 
+                    class="operation-toolbar d-flex justify-content-end">
+                    <svg class="tool-bar-icon delete_style" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1530" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M168.18242 219.516576l48.700165-48.700165 633.096009 633.096009-48.699142 48.700165L168.18242 219.516576z" p-id="1531" fill="#d81e06"></path><path d="M216.882586 852.612585l-48.699142-48.700165 633.096009-633.096009 48.699142 48.699142L216.882586 852.612585z" fill="#d81e06"></path></svg>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <!-- nav pane -->
+    <div t-name="fx_theme.theme_style_tab_pane" class="tab-pane theme-style-tab-pane fade p-10" 
+        t-attrf-id="theme_style_tab_{{theme_style.id}}" 
+        t-attrf-data-style-id="{{theme_style.id}}" >
+        <div class="style_item_container d-flex justify-content-between flex-wrap flex-row" 
+            t-attr-data-style-id="{{theme_style.id}}">
+            <div class="style_item" 
+                t-foreach="theme_style.style_items" 
+                t-as="style_item"
+                t-attr-data-style-item-id="{{style_item.id}}">
+                <t t-if="style_item">
+                <div class="title"><t t-esc="style_item.name" /></div>
+                <div class="color-container d-flex flex-row">
+                    <div class="input-group style_color_item" t-attr-data-identity="{{style_item.identity}}">
+                        <input type="text" class="form-control" t-attr-value="{{style_item.val}}"/>
+                        <span class="input-group-append">
+                          <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                        </span>
+                    </div>
+                </div>
+            </t>
+            </div>
+        </div>
+    </div>
+</templates>

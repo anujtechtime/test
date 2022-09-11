@@ -1,0 +1,197 @@
+
+
+.header {
+    position: fixed;
+    background-color: #fff;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 3;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 60px;
+    margin-left: 300px;
+    border-bottom: 1px solid #ebebeb;
+    padding: 0 1.8rem;
+}
+
+.header .navigation-toggler {
+    background-color: #f4f4f4;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    border-radius: .5rem;
+    margin-right: 1rem;
+}
+
+.header .navigation-toggler.mobile-toggler {
+    display: none;
+}
+
+.header .navigation-toggler a {
+    color: #000;
+}
+
+.header .navbar-nav a {
+    color: #828282;
+}
+
+.header ul.navbar-nav li.nav-item a.nav-link {
+    line-height: 100%;
+    padding: 10px 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+ .header ul.navbar-nav li.nav-item a.nav-link:focus, 
+ .header ul.navbar-nav li.nav-item a.nav-link:hover {
+    outline: 0;
+}
+
+.header ul.navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.header ul.navbar-nav li.nav-item a.nav-link,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.btn {
+    line-height: 100%;
+    padding: 10px 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.header ul.navbar-nav li.nav-item a.nav-link svg,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.btn svg {
+    width: 18px;
+    height: 18px
+}
+
+.header ul.navbar-nav li.nav-item a.nav-link.nav-link-notify,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.nav-link-notify.btn {
+    position: relative
+}
+
+.header ul.navbar-nav li.nav-item a.nav-link.nav-link-notify:before,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.nav-link-notify.btn:before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    right: 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    top: 3px;
+    background: #f44
+}
+
+.header ul.navbar-nav li.nav-item .chat-block .chat-sidebar .chat-sidebar-content .list-group .nav-link.list-group-item.active:focus,
+.header ul.navbar-nav li.nav-item .chat-block .chat-sidebar .chat-sidebar-content .list-group .nav-link.list-group-item.active:hover,
+.header ul.navbar-nav li.nav-item a.nav-link:focus,
+.header ul.navbar-nav li.nav-item a.nav-link:hover,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.btn:focus,
+.header ul.navbar-nav li.nav-item form .input-group .input-group-append button.nav-link.btn:hover {
+    outline: 0
+}
+
+.header ul.navbar-nav+form.search {
+    margin-left: 1.5rem
+}
+
+.header .dropdown-menu {
+    position: absolute
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    opacity: 0;
+    background: rgba(0, 0, 0, .3);
+    -webkit-transition: opacity .5s;
+    -o-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    transition: opacity .5s
+}
+
+.overlay.show {
+    opacity: 1
+}
+
+.fx_theme_systray {
+    position: relative;
+}
+
+.fx_theme_systray > li {
+    margin: 0px 10px;
+    position: relative;
+}
+
+.header .navigation-logo-container {
+    display: none;
+    width: 251px;
+}
+
+body.hz_menu .header .navigation-logo-container {
+    display: block;
+}
+
+.o_user_menu {
+    display: display;
+}
+
+.hz_menu .o_user_menu {
+    display: block !important;
+}

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_department_department,department.department,model_department_department,base.group_user,1,1,1,1
+access_faculty_faculty,faculty.faculty,model_faculty_faculty,base.group_user,1,1,1,1
+access_level_level,level.level,model_level_level,base.group_user,1,1,1,1
+access_installment_details,installment.details,model_installment_details,base.group_user,1,1,1,1
+access_year_year,year.year,model_year_year,base.group_user,1,1,1,1
+
+

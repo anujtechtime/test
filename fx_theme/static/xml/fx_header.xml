@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- template for header  -->
+    <t t-name="fx_theme_header">
+        <div class="header fx_theme_header">
+            <div class="navigation-logo-container" style="display : block !important;">
+                <div class="navigation-logo">
+                    <!-- company logo here  -->
+                    <img class="img-responsive d-block" style="width : 69px !important;" t-attf-src="/web/binary/company_logo" alt="Logo"/>
+                </div>
+            </div>
+
+            <div class="app_menu flex-fill align-items-center" />
+            <ul class="navbar-nav fx_theme_systray" />
+        </div>
+    </t>
+
+</templates>

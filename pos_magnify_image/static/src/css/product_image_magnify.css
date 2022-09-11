@@ -1,0 +1,109 @@
+.pos-product-magnify {
+    position: absolute;
+    bottom:auto;
+    top:0;
+    left: 2px;
+    line-height: 13px;
+    border-radius: 2px;
+    z-index:1000;
+}
+.product_large_image{
+    margin: 0 auto;
+    width: 250px;
+    height:250px;
+}
+.product_large_image img{
+    width: 100%;
+    height:100%;
+}
+
+.pos .leftpane{
+    width : 85% !important;
+}
+
+.pos .rightpane{
+    left : 85% !important;
+}
+
+.pos .order{
+    max-width : 100% !important;
+}
+
+
+.pos .numpad{
+    float: none !important;
+
+}
+
+.blockUI {
+    display: none !important;
+}
+
+
+.pos .searchbox input{
+    width: 69px !important;
+}
+
+.pos .actionpad .button.pay{
+    height: auto !important;
+}
+
+.pos .actionpad{
+    display: contents !important;
+}
+
+.subwindow-container-fix{
+    display: flex !important;
+    /*height: 3px !important;*/
+
+}
+
+.pos .actionpad .button.pay {
+    height: 54px !important;
+    }
+
+    /*.pos .actionpad .button.pay .pay-circle{
+        display: none !important;
+    }*/
+
+
+    .pos .actionpad .button .fa-user{
+        left : 120px !important;
+    }
+
+    .pos .actionpad .button.pay .pay-circle{
+        font-size: 13px !important; 
+    line-height: 17px !important;
+    float: right !important; 
+    }
+
+
+/*.pos .subwindow .subwindow-container{
+    height: 9% !important;
+}*/
+
+
+.product-disable-css {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.js_email{
+    display: none !important;
+}
+
+.numpad{
+    display: none !important;
+}
+
+.pos .payment-buttons{
+    width: 95% !important;
+}
+
+.pos .rightpane-header{
+    height: 56px !important;
+}
+
+.subentry {
+    display: none !important;
+}

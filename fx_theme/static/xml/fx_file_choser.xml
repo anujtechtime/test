@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Normal Custom File Selector -->
+    <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" id="customFile"/>
+        <label class="custom-file-label" for="customFile">Default custom file input</label>
+    </div>
+    
+</templates>

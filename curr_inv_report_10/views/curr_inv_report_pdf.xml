@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<template id="curr_inv_report_pdf_report">
+	    <t t-call="web.html_container">
+	        <t t-call="web.internal_layout">
+	            <div class="page">
+	            <div class="text-center">
+	                <h2>Current Inventory Valuation Report</h2>
+	            </div>
+
+	       <div class="page">
+            <div class="oe_structure"/>
+ 					<div class="row mt32">
+		                <table class="table table-sm o_main_table" style="border: 1px solid #808080;">
+		                    <thead>
+		                    	<tr style="background-color:#fdd5b1;font-weight:bold;">
+<!-- 			                        <th><strong>No.</strong></th> -->
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Product</strong></th>
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Barcode</strong></th>
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Weight</strong></th>
+									<th style="border: 1px solid #808080; padding:11px;"><strong>Location</strong></th>
+									<th style="border: 1px solid #808080; padding:11px;"><strong>Reserved Quantity</strong></th>
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Quantity</strong></th>
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Value</strong></th>
+			                        <th style="border: 1px solid #808080; padding:11px;"><strong>Branch</strong></th>
+		                    	</tr>
+		                    </thead>
+		                    <tbody class="">
+		                    	<t t-foreach="docs" t-as="line_ids">
+			                    	<tr>
+<!-- 			                    		<td><span t-esc="line_ids" /></td> -->
+			                    		<td style="border: 1px solid #808080;">
+			                    			<img t-att-src="'http://zen.erp.techtime.me/web/image?model=product.product&amp;field=image_128&amp;id=%s'%(line_ids['product_id'].id)" alt="" style="width:90px; height: 90px"  />
+			                    			<br/>
+			                    			[<span t-esc="line_ids['product_id'].default_code" />]<span t-esc="line_ids['product_id'].name" />
+			                    		</td>
+			                    		<td style="border: 1px solid #808080;"><span t-esc="line_ids['product_id'].barcode" /></td>
+			                    		<td style="border: 1px solid #808080;"><span t-esc="line_ids['product_id'].gold_gram" /> </td>
+										<td style="border: 1px solid #808080;"><span t-esc="line_ids['location_id'].name" />/<span t-esc=" line_ids['location_id'].location_id.name"/></td>
+										<td style="border: 1px solid #808080;"><span t-esc="line_ids['reserved_quantity']" /> </td>
+										<td style="border: 1px solid #808080;"><span t-esc="line_ids['quantity']" /> </td>
+										<td style="border: 1px solid #808080;"><span t-esc="line_ids['value']"/></td>
+										<td style="border: 1px solid #808080;"><span t-esc="line_ids['location_id'].branch_id.name" /></td>
+			                    		<!--
+			                    		<td><span t-esc="line_ids['quantity']" /></td>
+			                    		<td><span t-esc="line_ids['inventory_value']" /></td>
+										<td t-if="is_stock_move == 'yes'"><span t-esc="line_ids['stock_location']" /></td> -->
+			                    	</tr>
+		                    	</t>
+		                    </tbody>
+		                </table>
+ 					</div>
+ 				</div>
+	            </div>
+	        </t>
+	    </t>
+	</template>
+
+
+	<template id="curr_inv_report_pdf">
+	    <t t-call="web.html_container">
+	        <t t-call="web.internal_layout">
+	            <div class="page">
+	            <div class="text-center">
+	                <h2>Current Inventory Valuation Report</h2>
+	            </div>
+
+ 					<div class="row mt32">
+		                <table class="table table-bordered">
+		                    <thead>
+		                    	<tr>
+			                        <th><strong>No.</strong></th>
+			                        <th><strong>Product</strong></th>
+															<th><strong>Barcode</strong></th>
+															<th><strong>Weight</strong></th>
+			                        <th><strong>Company</strong></th>
+			                        <th><strong>Incoming Date</strong></th>
+			                        <th><strong>Unit of Measure</strong></th>
+			                        <th><strong>Product QTY</strong></th>
+			                        <th><strong>Inventory Value</strong></th>
+															<th t-if="is_stock_move == 'yes'"><strong>Location</strong></th>
+		                    	</tr>
+		                    </thead>
+		                    <tbody>
+		                    	<t t-foreach="curr_inv_report_pdf_row" t-as="line_ids">
+			                    	<tr>
+			                    		<td><span t-esc="line_ids['sr_no']" /></td>
+			                    		<td>
+			                    			<img t-att-src="'/web/image?model=product.product&amp;field=image_medium&amp;id=%s'%(line_ids['product_id'])" alt="" style="width:90px;"  />
+			                    			<br /> <span t-esc="line_ids['product']" />
+			                    		</td>
+															<td><span t-esc="line_ids['barcode']" /></td>
+															<td><span t-esc="line_ids['gold_gram']" /> </td>
+			                    		<td><span t-esc="line_ids['company']" /> </td>
+			                    		<td><span t-esc="line_ids['incoming_date']" t-options="{'widget': 'datetime'}" /></td>
+			                    		<td><span t-esc="line_ids['unit_of_measure']" /></td>
+			                    		<td><span t-esc="line_ids['quantity']" /></td>
+			                    		<td><span t-esc="line_ids['inventory_value']" /></td>
+															<td t-if="is_stock_move == 'yes'"><span t-esc="line_ids['stock_location']" /></td>
+			                    	</tr>
+		                    	</t>
+													<tr style="background-color:#fdd5b1;font-weight:bold;">
+		                    		<td></td>
+														<td></td>
+		                    		<td>Total</td>
+		                    		<td><span t-esc="total_gold_gram" /></td>
+		                    		<td></td>
+		                    		<td></td>
+		                    		<td></td>
+		                    		<td><span t-esc="total_qty" /></td>
+		                    		<td><span t-esc="total_inventory_val" /></td>
+														<td t-if="is_stock_move == 'yes'"></td>
+		                    	</tr>
+		                    </tbody>
+		                </table>
+ 					</div>
+
+	            </div>
+	        </t>
+	    </t>
+	</template>
+</data>
+</openerp>

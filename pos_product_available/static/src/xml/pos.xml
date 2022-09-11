@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Copyright 2014-2015 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License MIT (https://opensource.org/licenses/MIT). -->
+<templates id="template" xml:space="preserve">
+    <t t-extend="Product">
+        <t t-jquery=".product-img" t-operation="append">
+            <!-- <t t-esc="product.deafult_code"/> -->
+            <t t-if="widget.pos.config.show_qtys &amp;&amp; product.type == 'product'">
+                <span class="qty-tag">
+                    <t t-esc="widget.pos.db.get_stock_quantity(product.id)"/>
+                </span>
+            </t>
+        </t>
+    </t>
+    <t t-extend="Orderline">
+        <t t-jquery=".info-list>t:first-child">
+            this.attr('t-if', "line.get_quantity_str() !== '1' || line.selected || line.get_product().qty_available lt line.quantity ");
+        </t>
+
+        <t t-jquery=".price" t-operation="replace">
+            <t>
+            </t>
+        </t>
+
+        
+        <t t-jquery=".info-list" t-operation="replace">
+            
+        </t>
+<!--         <t t-jquery=".product-name" t-operation="replace">
+            
+        </t> -->
+
+        <t t-jquery=".product-name" t-operation="replace">
+            <table class="table table-sm" style="border: 1px solid #ddd;">
+                <thead>
+                    <tr>
+                        <th name="th_quantity" class="text-right" style="border: 1px solid #ddd;">Internal Reference</th>
+                        <th name="th_description" class="text-left" style="border: 1px solid #ddd;">Product</th>
+                        <th name="th_priceunit" class="text-right" style="border: 1px solid #ddd;">Quantity</th>
+                        <th name="th_discount" style="border: 1px solid #ddd;">
+                            <span>Unit Price</span>
+                        </th>
+                        <th name="th_taxes" class="text-right" style="border: 1px solid #ddd;">Net Price</th>
+                        <th name="th_priceunit" class="text-right" style="border: 1px solid #ddd;">Dis(%)</th>
+                        <th name="th_priceunit" class="text-right" style="border: 1px solid #ddd;">Margin</th>
+                        <th name="th_priceunit" class="text-right" style="border: 1px solid #ddd;">Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <tr>
+
+
+            <td name="td_customer" style="width : 2%; border: 1px solid #ddd;">
+                <span class="product-name" style="width: 79px; font-weight: 500;">
+                <t t-esc="line.get_product().default_code"/>
+            </span>
+            </td>
+
+                <td name="td_customer" style="width : 15%; border: 1px solid #ddd;">
+                    <span class="product-name">
+                <t t-esc="line.get_product().display_name"/>
+                <t t-if="line.get_product().tracking!=='none'">
+                    <i class="oe_link_icon fa fa-list oe_icon line-lot-icon oe_green" t-if="line.has_valid_product_lot()"
+                       aria-label="Valid product lot" role="img" title="Valid product lot"/>
+                    <i class="oe_link_icon fa fa-list oe_icon line-lot-icon oe_red" t-if="!line.has_valid_product_lot()"
+                       aria-label="Invalid product lot" role="img" title="Invalid product lot"/>
+                </t>
+            </span>
+            </td>
+
+            
+
+            
+            
+            <td name="td_amount_total_label" style="width :2%; border: 1px solid #ddd;">
+                <span class="product-name" style="width: 79px; font-weight: 500;">
+                        <em >
+                            <t t-esc="line.get_quantity_str()" />
+                            <t
+                t-if="widget.pos.config.show_qtys &amp;&amp; line.get_product().type == 'product'"
+            >
+                <t t-set='qty_available' t-value='line.get_product().qty_available' />
+                <!-- (of <span
+                    t-attf-class="qty-info #{qty_available lt line.quantity ? 'not-available':''}"
+                >
+                    <t t-esc="line.get_product().rounded_qty()" />
+                </span>) -->
+            </t>
+                            <!-- (<t t-esc="line.get_discount_per()" />%) -->
+                        </em>
+                    </span>
+                </td>
+
+                <td name="td_customer" style="width : 2%; border: 1px solid #ddd;">
+                    <span class="product-name" style="width: 79px; font-weight: 500;">
+                    <t t-esc="line.get_lst_price()"/> 
+                </span>
+            </td>
+            
+            <td name="td_amount_total_label" style="width : 2%; border: 1px solid #ddd;">
+                <span class="product-name" style="width: 79px; font-weight: 500;">
+                        <!-- <t t-esc="line.get_unit().name" />
+                        at -->
+                        <t t-if="line.display_discount_policy() == 'without_discount' &amp;&amp;
+                            line.get_unit_display_price() != line.get_lst_price()">
+                            <s>
+                                <t t-esc="widget.format_currency(line.get_fixed_lst_price(),'Product Price')" />
+                            </s>
+                            <t t-esc="widget.format_currency(line.get_unit_display_price(),'Product Price')" />
+                        </t>
+                        <t t-else="">
+                            <t t-esc="widget.format_currency(line.get_unit_display_price(),'Product Price')" />
+                        </t>
+                    </span>
+
+                </td>
+
+            
+            <td name="td_amount_total_label" style="width : 2%; border: 1px solid #ddd;">
+                <span class="product-name" style="width: 79px; font-weight: 500;">
+                <t t-if="line.get_discount_str() !== '0'">
+                        <em>
+                            <!-- <t t-esc="line.get_discount_str()" /> -->
+                            (<t t-esc="line.get_discount_str()" />%)
+                            
+                        </em>
+                </t>
+            </span>
+            </td>
+
+            <td name="td_amount_total_label" style="width : 2%; border: 1px solid #ddd;">
+                <span class="product-name" style="width: 79px; font-weight: 500;">
+                <t t-if="line.get_margin() !== '0'">
+                            <t t-esc="line.get_margin()" />
+                            
+                </t>
+            </span>
+            </td>
+
+
+            
+
+            <td name="td_amount_total_label" style="width : 2%; border: 1px solid #ddd;">
+                <span class="product-name price" style="width: 79px; font-weight: 500;">
+                <t t-esc="widget.format_currency(line.get_display_price())"/>
+            </span>
+            </td>
+
+               <button class="remove-line-button">
+                <i class="fa fa-trash-o" />
+            </button>
+        </tr>
+        </tbody>
+    </table>   
+
+
+            
+            
+            
+        </t>
+
+        
+    </t>
+
+<!--     <t t-extend="ProductCategoriesWidget">
+        <t t-jquery=".searchbox" t-operation="before">
+            <div style="float : left">
+                <select name="cars" id="cars">
+                        <t t-foreach="widget.pos.db.brand_product" t-as="locid">
+                            <option t-att-value="locid" t-att-data-inner="locid"><t t-esc="locid"/></option>
+                          </t>
+                    </select>
+            </div>
+        </t>
+    </t> -->
+
+
+    <t t-name="NoBarcodeFound">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-barcode">
+                <header class="title">Unknown Barcode
+                    <br />
+                    <span class='barcode'>
+        <t t-esc="widget.options.barcode"/>
+            </span>
+                </header>
+                <main class="body">
+                   There is no such a barcode
+                </main>
+                <footer class="footer">
+                    <div class="button cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+       </div>
+ </t>
+
+        <t t-name="Reminder">
+        <div class="modal-dialog">
+            <div class="popup popup-warning" style="height: 40%; width: 40%; border-radius: 0; background: white">
+                <p class="title" style="font-size: 18px; height: 30px; padding: 8px;">
+                    <t t-esc=" widget.options.title || 'Warning' "/>
+                </p>
+                <div class="body">
+                    <div style="display: flex; flex-flow: row;">
+                        <div>
+                            <img t-att-src="widget.options.product_image_url" style="max-width: 128px;"/>
+                        </div>
+                        <div style="flex-grow: 1; margin-left: 16px; text-align: center;">
+                            <p style="font-weight: bold;">
+                                <t t-esc="widget.options.product_name"/>
+                            </p>
+                            <p>
+                                Maximum quantity available is
+                                <b style="color: #32a868"></b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="button cancel" style="width: 64px;">
+                        Cancel
+                    </div>
+                    <div class="button confirm" style="color: #32a868; width: 64px;">
+                        Order
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

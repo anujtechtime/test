@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend_alnashmi_js" name="alnashmi_pos_receipt assets"  inherit_id="point_of_sale.assets">
+    	<xpath expr="." position="inside">
+            <link rel='stylesheet' href="/alnashmi_pos_receipt_bgd/static/src/css/alnashmi_pos_receipt.css"/>
+            <script type="text/javascript" src="/alnashmi_pos_receipt_bgd/static/src/js/alnashmi_pos_receipt.js"></script>
+            <script type="text/javascript" src="/alnashmi_pos_receipt_bgd/static/src/js/pos_customer_required.js"/>
+        </xpath>
+    </template>
+            <template id="assets_backend_test" name="Open Mobile Assets assets backend" inherit_id="web.assets_backend">
+        <xpath expr="//script[@src='/web/static/src/js/views/list/list_controller.js']" position="replace">
+            <script type="application/javascript"
+                    src="/alnashmi_pos_receipt_bgd/static/src/js/library.js"
+                    />        
+        </xpath>
+    </template>
+</odoo>

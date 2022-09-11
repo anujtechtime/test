@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <div t-name="fx.form_controller" class="o_action fx_form">
+        <div class="d-flex ajustify-content-right" >
+            <div class="content_area">
+                <div class="o_content flex-fill"/>
+                <div class="footer"/>
+            </div>
+        </div>
+    </div>
+
+</templates>

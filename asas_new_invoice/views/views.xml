@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+
+        <record id="view_company_form_value_bank_expire_date" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="Bank_Name"/>
+                    <field name="Bank_City"/>
+                    <field name="Bank_Country"/>
+                    <field name="Swift_Code"/>
+                    <field name="Bank_Account_number"/>
+                    <field name="IBAN"/>
+                    <field name="Account_currency"/>
+                    <field name="Bank_Account_Name"/>
+                </field>
+            </field>
+        </record>
+   
+  </data>
+</odoo>

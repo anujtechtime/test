@@ -1,0 +1,295 @@
+<odoo>
+  <data>
+<record id="crm_stage_tree_department_department" model="ir.ui.view">
+        <field name="name">department.department.tree</field>
+        <field name="model">department.department</field>
+        <field name="arch" type="xml">
+            <tree string="Department" multi_edit="1">
+                <field name="department"/>
+                <field name="college"/>
+                <field name="active"/>
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_department_data" model="ir.ui.view">
+        <field name="name">department.department.form</field>
+        <field name="model">department.department</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Pin Code">
+                <sheet>
+                    <group>
+                        <field name="department" required="1"/>
+                        <field name="college" required="1"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_data_department_data" model="ir.actions.act_window">
+        <field name="name">Department Data</field>
+        <field name="res_model">department.department</field>
+        <field name="view_id" ref="techtime_department.crm_stage_tree_department_department"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+    <record id="crm_stage_tree_faculty_faculty" model="ir.ui.view">
+        <field name="name">college.college.tree</field>
+        <field name="model">faculty.faculty</field>
+        <field name="arch" type="xml">
+            <tree string="college" multi_edit="1">
+                <field name="college"/>
+                <field name="active"/>
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_faculty_faculty" model="ir.ui.view">
+        <field name="name">college.college.form</field>
+        <field name="model">faculty.faculty</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="college">
+                <sheet>
+                    <group>
+                        <field name="college" required="1"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_faculty" model="ir.actions.act_window">
+        <field name="name">college Data</field>
+        <field name="res_model">faculty.faculty</field>
+        <field name="view_id" ref="techtime_department.crm_stage_tree_faculty_faculty"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+    <record id="crm_stage_tree_level_level" model="ir.ui.view">
+        <field name="name">level.level.tree</field>
+        <field name="model">level.level</field>
+        <field name="arch" type="xml">
+            <tree string="Student" multi_edit="1">
+                <field name="Student"/>
+                <field name="active"/>
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_data_level_level" model="ir.ui.view">
+        <field name="name">level.level.form</field>
+        <field name="model">level.level</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <sheet>
+                    <group>
+                        <field name="Student" required="1"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_level_level" model="ir.actions.act_window">
+        <field name="name">Student Data</field>
+        <field name="res_model">level.level</field>
+        <field name="view_id" ref="techtime_department.crm_stage_tree_level_level"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+
+    <record id="crm_stage_tree_year_year" model="ir.ui.view">
+        <field name="name">year.year.tree</field>
+        <field name="model">year.year</field>
+        <field name="arch" type="xml">
+            <tree string="year" multi_edit="1">
+                <field name="year"/>
+                <field name="active"/>
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_data_year_year" model="ir.ui.view">
+        <field name="name">year.year.form</field>
+        <field name="model">year.year</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="year">
+                <sheet>
+                    <group>
+                        <field name="year" required="1"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_year_year" model="ir.actions.act_window">
+        <field name="name">year Data</field>
+        <field name="res_model">year.year</field>
+        <field name="view_id" ref="techtime_department.crm_stage_tree_year_year"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+
+
+    <record id="crm_stage_tree_installment_details" model="ir.ui.view">
+        <field name="name">installment.details.tree</field>
+        <field name="model">installment.details</field>
+        <field name="arch" type="xml">
+            <tree string="Installment" multi_edit="1">
+                <field name="year"/>
+                <field name="college"/>
+                <field name="department" domain="[('college', '=', college)]" context="{'default_college' : college}"/>
+                <field name="Student"/>
+                <field name="installment"/>
+
+                
+                
+                
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_data_installment_details" model="ir.ui.view">
+        <field name="name">installment.details.form</field>
+        <field name="model">installment.details</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Installment">
+                <sheet>
+                    <group>
+                        <field name="year"/>
+                        <field name="college"/>
+                        <field name="department"/>
+                <field name="Student"/>
+                <field name="installment"/>
+                <field name="installment_number"/>
+                <field name="sale_installment_line_ids">
+                        <tree string="Installment Lines" editable="bottom">
+                            <field name="number"/>
+                            <field name="payment_date"/>
+                            <field name="amount_installment" widget='monetary'/>
+                            <field name="description"/>
+                        </tree>
+                      </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_installment_details" model="ir.actions.act_window">
+        <field name="name">Installments Data</field>
+        <field name="res_model">installment.details</field>
+        <field name="view_id" ref="techtime_department.crm_stage_tree_installment_details"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+
+    <record id="awesome_view_form_inheirt" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                        <field name="number_exam"/>
+                        <field name="university_no"/>
+                        <field name="notes"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    
+
+
+    <menuitem name="Student Type" id="level_ids_data" parent="sale.sale_order_menu"
+              action="crm_stage_action_symbol_level_level"/>
+
+    <menuitem name="college" id="faculty_id_data" parent="sale.sale_order_menu"
+                  action="crm_stage_action_symbol_faculty"/>
+
+    <menuitem name="Department" id="department_id_data" parent="sale.sale_order_menu"
+                  action="crm_stage_action_symbol_data_department_data"/>
+
+    <menuitem name="Year" id="year_id_data" parent="sale.sale_order_menu"
+                  action="crm_stage_action_symbol_year_year"/>               
+
+    
+    <menuitem name="Installment" id="installment_id_data" parent="sale.sale_order_menu"
+                  action="crm_stage_action_symbol_installment_details"/>              
+
+
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="techtime_department" id="techtime_department.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="techtime_department.menu_1" parent="techtime_department.menu_root"/>
+    <menuitem name="Menu 2" id="techtime_department.menu_2" parent="techtime_department.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="techtime_department.menu_1_list" parent="techtime_department.menu_1"
+              action="techtime_department.action_window"/>
+    <menuitem name="Server to list" id="techtime_department" parent="techtime_department.menu_2"
+              action="techtime_department.action_server"/>
+-->
+  </data>
+</odoo>

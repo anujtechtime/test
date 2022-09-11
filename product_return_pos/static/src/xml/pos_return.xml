@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ReturnButton">
+        <div class='control-button' style="min-width: 145px; height: 38px; font-size: 16px;">
+            Orders &amp;Return
+            <i class='fa fa-rotate-left'/>
+        </div>
+    </t>
+
+    <t t-name="OrderLine">
+        <tr class='order-line' t-att-data-id='order.id'>
+            <td><t t-esc='order.pos_reference' /></td>
+            <td><t t-if="order.return_ref">
+                <t t-esc='order.return_ref'/>
+            </t></td>
+            <td><t t-esc='order.partner_id[1]' /></td>
+            <td><t t-esc='order.date_order' /></td>
+            <td><span class="return-button Product_details">Product Details</span></td>
+            <td><span class="return-button return_order">Return</span></td>
+        </tr>
+    </t>
+
+    <t t-name="OrderListScreenWidget">
+        <div class="return-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    </span>
+
+                    <span class='searchbox'>
+                        <input placeholder='Search'/>
+                        <span class='search-clear'></span>
+                    </span>
+                    <span class='searchbox'></span>
+
+                    <span class='button refresh refreshbutton'>
+                        <i class="fa fa-refresh"></i>
+                        Refresh
+                    </span>
+
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='order-list'>
+                                        <thead>
+                                            <tr>
+                                                <th>Order Ref</th>
+                                                <th>Return Ref</th>
+                                                <th>Partner</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class='order-list-contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+    <t t-name="ReturnWidget">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup popup-selection product_return_pos" style="width : 90% !important;">
+                <p class="title">Return Order</p>
+                <div class='selection scrollable-y touch-scrollable'>
+                    <table id="list" cellspacing="1px" cellpadding="10px" text-align="center"
+                           width="100%" style="border:1px;padding-left:1.16cm;">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Line ID</td>
+                                <td>Name</td>
+                                <td>Internal Refernce</td>
+                                <td>Qty</td>
+                                <td>Unit Price</td>
+                                <td>Net Price</td>
+                                <td>Dis</td>
+                                <td>Margin</td>
+                                
+                                <td>Returned Quantity</td>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="footer">
+                    <div class="button confirm">
+                            Return
+                        </div>
+                    <div class="button cancel">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="ReturnWidgetProductDetails">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup popup-selection product_return_pos" style="width : 90% !important;">
+                <p class="title"><t t-esc="widget.options.ref"/>[<t t-esc="widget.options.client_name"/>]</p>
+                <div class='selection scrollable-y touch-scrollable'>
+                    <table id="lists" cellspacing="1px" cellpadding="10px" text-align="center"
+                           width="100%" style="border:1px;padding-left:1.16cm; border: 1px solid #ddd;">
+                        <thead>
+                            <tr>
+                                <td style='border: 1px solid #ddd;'>Product</td>
+                                <td style='border: 1px solid #ddd;'>Internal Reference</td>
+                                <td style='border: 1px solid #ddd;'>Qty</td>
+                                <td style='border: 1px solid #ddd;'>Unit Price</td>
+                                <td style='border: 1px solid #ddd;'>Net Price</td>
+                                
+                                <td style='border: 1px solid #ddd;'>Dis(%)</td>
+                                <td style='border: 1px solid #ddd;'>Margin</td>
+                                <td style='border: 1px solid #ddd;'>Sub Total</td>
+                            </tr>
+                        </thead>
+                        <tbody id="table-bodys">
+                        </tbody>
+                    </table>
+                    <div style="text-align: end; margin-right : 20px;">
+                        Total : <div style="float: right;" id="all_total"></div>
+                    </div>
+                </div>
+                <div class="footer">
+                   <!--  <div class="button confirm">
+                            Return
+                        </div> -->
+                    <div class="button cancel">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

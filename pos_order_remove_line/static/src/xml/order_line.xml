@@ -1,0 +1,76 @@
+<!--
+  ~ Copyright 2019 LevelPrime
+  ~ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+  -->
+<templates id="template" xml:space="preserve">
+    <t t-extend="Orderline">
+        <t t-jquery=".price" t-operation="before">
+<!--             <button class="remove-line-button">
+                <i class="fa fa-trash-o" />
+            </button>
+ -->        </t>
+    </t>
+
+    <t t-extend="ProductScreenWidget">
+        <t t-jquery=".product-screen" t-operation="replace">
+        <div class="product-screen screen">
+            <div class="rightpane" style="    left: 65% !important; ">
+                <div class='window'>
+                    <div class='subwindow'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix'>
+                                <div class="placeholder-OrderWidget"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='subwindow collapsed'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix pads'>
+                                <div class="control-buttons oe_hidden"></div>
+                                <div class="placeholder-ActionpadWidget"></div>
+                                <div class="placeholder-NumpadWidget"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="leftpane" style="    width: 65% !important;">
+                <table class="layout-table">
+
+                    <tr class="header-row">
+                        <td class="header-cell">
+                            <span class="placeholder-ProductCategoriesWidget" />
+                        </td>
+                    </tr>
+
+                    <tr class="content-row">
+                        <td class="content-cell">
+                            <div class="content-container">
+                                <span class="placeholder-ProductListWidget" />
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </t>
+    </t>
+
+
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery=".searchbox" t-operation="replace">
+            <div class="searchbox">
+                <input placeholder="Search Products"  style="width: 676px !important; height: 40px !important; border-radius: 20px !important; font-size: 19px !important;"/>
+                <span class="search-clear left" style="top: 22px !important;">
+                    <i class="fa fa-search" />
+                </span>
+                <span class="search-clear right" style="display : none;">
+                    <i class="fa fa-remove" />
+                </span>
+            </div>
+        </t>
+    </t>
+</templates>

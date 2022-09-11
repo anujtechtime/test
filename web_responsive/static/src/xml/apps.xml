@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Tecnativa - Jairo Llopis
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+
+<template>
+    <t t-extend="AppsMenu">
+        <!-- App icons must be clickable -->
+        <t t-jquery=".o_app" t-operation="attributes">
+            <attribute name="t-attf-href">#menu_id=#{app.menuID}&amp;action_id=#{app.actionID}</attribute>
+        </t>
+
+        <!-- App icons should be more than a text -->
+        <t t-jquery=".o_app &gt; t" t-operation="replace">
+            <t t-call="web_responsive.AppIcon"/>
+        </t>
+
+        <!-- Same hotkey as in EE -->
+        <t t-jquery=".full" t-operation="attributes">
+            <attribute name="accesskey">a</attribute>
+        </t>
+
+        <!-- Search bar -->
+        <t t-jquery="[t-as=app]" t-operation="before">
+            <!-- <div class="search-container form-row align-items-center mb-4 col-12">
+                <div class="search-input col-md-10 ml-auto mr-auto mb-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-search"/>
+                            </div>
+                        </div>
+                        <input type="search"
+                               autocomplete="off"
+                               placeholder="Search menus..."
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="search-results col-md-10 ml-auto mr-auto"/>
+            </div> -->
+        <!-- <script>function subscribe(){
+          
+          var subscription = document.getElementById("o2b_fname").value;
+          var alertmsg = document.getElementById("alertmsg").style.display;
+
+
+    var resp = $.ajax({
+        type: 'POST',
+        url: '/o2b/get_dbuuid',
+        headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+         
+        async: false,
+        dataType: 'json',
+        data: {},
+        done: function(results) {
+            return results;
+        },
+    }).responseJSON;
+
+    var dbuuid = resp.dbuuid;
+    var base_domain = resp.base_domain;
+    var altli = document.getElementById("altli").setAttribute("href", base_domain + '/help');
+
+
+   data = {'subscription_id' :  subscription, 'dbuuid': dbuuid}
+    
+
+    var subscription_date = $.ajax({
+        type: 'POST',
+        url: base_domain + '/o2b/js/subscription_date',
+        headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+         
+        async: false,
+        dataType: 'json',
+        data: data,
+        done: function(results) {
+            return results;
+        },
+    }).responseJSON;
+
+    if(subscription_date == undefined){
+      document.getElementById("alertmsg").style.display = 'block';
+    }
+
+    if(subscription_date != undefined){
+
+     var subscription_set = $.ajax({
+        type: 'POST',
+        url: '/o2b/set_date',
+        headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+         
+        async: false,
+        dataType: 'json',
+        data: subscription_date,
+        done: function(results) {
+            return results;
+        },
+    }).responseJSON;
+
+    return location.reload();
+    location.reload();
+    }   
+}
+        </script> -->
+
+        <script>
+            $(".o_app").click(function() {
+              var class_define = document.querySelector('.o_menu_apps .dropdown');
+              var class_d = document.querySelector('.o_menu_apps .dropdown-menu');
+              if (class_d.classList.contains('show')) {
+                class_d.classList.remove("show");
+                class_define.classList.remove("show");
+              }
+            });
+
+
+        </script>
+            <style>
+.o-app-icon:hover, .dropdown-item:focus {
+        box-shadow: 0 8px 15px -10px black;
+    transform: translateY(-1px);
+    }
+    .o-app-icon {
+    max-width: 70px;
+    }
+
+    .o_menu_apps .dropdown-menu.show .o_app {
+    padding : 20px;
+    }
+
+    .o-app-name {
+    font-size : 15px;
+    }
+    </style>
+
+        <!-- <h1 id="alertmsg" style="display: none; margin: auto;">INVALID SUBSCRIPTION</h1> -->
+        <!-- <span id="extappuser" class="extappuser display" style="margin-left: 15%;">
+            <h4>You have more apps and users than your membership allows. Kindly upgrade your membership.</h4>
+        </span>
+        <span id="extapp" class="extapp display" style="margin-left: 15%;">
+            <h3>You have more apps than your membership allows. Kindly upgrade your membership.</h3>
+        </span>
+        <span id="extuser" class="extuser display" style="margin-left: 15%;">
+            <h3>You have more users than your membership allows. Kindly upgrade your membership.</h3>
+        </span>
+        <h3 id="dbexpired" class="dbexpired display" style="margin: auto;">
+            This database has been expired. Kindly renew your membership.
+        </h3>
+        <h3 id="trialdbexpired" class="trialdbexpired display" style="margin: auto;">
+            This trial database has been expired. Kindly register your membership.
+        </h3>
+        <h3 id="trialdb" class="trialdb display" style="margin: auto;">
+            This database is running in trial mode and will expire in <span class="diffdays"/> days. Kindly Register
+        </h3>
+        <h3 id="livedb" class="livedb display" style="margin: auto;">
+            This database will expire in <span class="diffdays"/> days. Kindly renew your membership.
+        </h3>
+        <span id="alertmsg" style="display: none; margin: auto;" class="oe_subscription_error">
+          <b>This membership id is not matching with this database while renew. You can try again or contact </b> <a id="altli" style="color: #fefefe;" href="#" target="_blank">O2b Help</a>.
+        </span>
+        <form class="form-inline justify-content-center mt-4 renew_form display" style="width: 94%; height: 5%; margin-left: 2%;z-index: 1; pointer-events: fill;margin-bottom: 2%;" >
+            <div class="form-group" style="margin-bottom: 0%;">
+              <input type="text" id="o2b_fname" class="form-control mx-2" name="subscription_id" placeholder="Your Membership Id ..."/>
+              
+            </div>
+            <input type="button" name="renew" onclick="subscribe();" value="Renew" class="btn btn-primary oe_form_button oe_renew display" style="background-color:#353530; "/>
+            <input type="button" name="renew" onclick="subscribe();" value="Register" class="btn btn-primary oe_form_button oe_register display" style="background-color:#353530; "/>
+        </form> -->
+        </t>
+    </t>
+
+
+    <header t-extend="Menu">
+        <t t-jquery=".o_menu_apps" t-operation="after">
+            <a>
+            <img class="o_sub_menu_logo" style="width: 80px; height: 40px;" src='/web/binary/company_logo'/>
+            <span t-field="widget.company_id"/>
+            </a>
+        </t>
+    </header>
+
+    <!-- Separate app icon template, for easier inheritance -->
+    <t t-name="web_responsive.AppIcon" style="background-color : #707111;">
+        <img class="o-app-icon"
+             t-attf-src="data:image/png;base64,#{app.web_icon_data}" style="width: 70px;
+    margin: 11px;"/>
+        <span class="o-app-name">
+            <t t-esc="app.name"/>
+        </span>
+    </t>
+
+
+    
+
+    <!-- A search result -->
+    <t t-name="web_responsive.MenuSearchResults">
+        <t t-foreach="results" t-as="result">
+            <t t-set="menu" t-value="widget._menuInfo(result.original)"/>
+            <a t-attf-class="o-menu-search-result dropdown-item col-12 ml-auto mr-auto #{result_first ? 'active' : ''}"
+                 t-attf-style="background-image:url('data:image/png;base64,#{menu.web_icon_data}')"
+                 t-attf-href="#menu_id=#{menu.id}&amp;action_id=#{menu.action_id}"
+                 t-att-data-menu-id="menu.id"
+                 t-att-data-action-id="menu.action_id"
+                 t-att-data-parent-id="menu.parent_id[0]"
+                 t-raw="result.string"/>
+        </t>
+    </t>
+</template>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fx_favorite_menu,fx.favorite_menu,model_fx_favorite_menu,,1,1,1,1
+access_fx_theme_user_setting,fx_theme.user_setting,model_fx_theme_user_setting,,1,1,1,1
+access_fx_theme_user_setting_item,fx_theme.user_setting_item,model_fx_theme_user_setting_item,,1,1,1,1
+access_fx_theme_style_item,fx_theme.style_item,model_fx_theme_style_item,,1,1,1,1
+access_fx_theme_theme_style,fx_theme.theme_style,model_fx_theme_theme_style,,1,1,1,1
+access_fx_theme_theme_mode,fx_theme.theme_mode,model_fx_theme_theme_mode,,1,1,1,1

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="fx_theme_user_menu">
+        <div>
+            <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+                <figure class="avatar avatar-sm">
+                    <img class="rounded-circle oe_topbar_avatar" t-att-src="_s + '/web/static/src/img/user_menu_avatar.png'" alt="Avatar" />
+                </figure>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-big" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(95px, 30px, 0px);">
+                <div class="p-3 text-center" data-backround-image="assets/media/image/image1.jpg" style="background: url(&quot;assets/media/image/image1.jpg&quot;);">
+                    <figure class="avatar mb-3">
+                        <img class="rounded-circle oe_topbar_avatar" t-att-src="_s + '/web/static/src/img/user_menu_avatar.png'" alt="Avatar" />
+                    </figure>
+                </div>
+                <div class="dropdown-menu-body">
+                    <div class="list-group list-group-flush">
+                        <a role="menuitem" href="#" data-menu="documentation" class="list-group-item">Documentation</a>
+                        <a role="menuitem" href="#" data-menu="support" class="list-group-item">Support</a>
+                        <a role="menuitem" href="#" data-menu="settings" class="list-group-item">Preferences</a>
+                        <a role="menuitem" href="#" data-menu="account" class="list-group-item">My Odoo.com account</a>
+                        <a role="menuitem" href="#" data-menu="logout" class="list-group-item">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

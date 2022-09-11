@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template2" xml:space="preserve">
+  <t t-name="ClientDetailsEdit">
+      <section class='client-details edit'>
+          <div class='client-picture'>
+              <t t-if='!partner.id'>
+                  <i class='fa fa-camera'></i>
+              </t>
+              <t t-if='partner.id'>
+                  <img t-att-src='widget.partner_icon_url(partner.id)' />
+              </t>
+              <input type='file' class='image-uploader'></input>
+          </div>
+          <input class='detail client-name' name='name' t-att-value='partner.name' placeholder='Name'></input>
+          <div class='edit-buttons'>
+              <div class='button undo'><i class='fa fa-undo' /></div>
+              <div class='button save'><i class='fa fa-floppy-o' /></div>
+          </div>
+          <div class='client-details-box clearfix'>
+              <div class='client-details-left'>
+                  <div class='client-detail'>
+                      <span class='label'>Street</span>
+                      <input class='detail client-address-street' name='street'       t-att-value='partner.street || ""' placeholder='Street'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>City</span>
+                      <input class='detail client-address-city'   name='city'         t-att-value='partner.city || ""' placeholder='City'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Postcode</span>
+                      <input class='detail client-address-zip'    name='zip'          t-att-value='partner.zip || ""' placeholder='ZIP'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Country</span>
+                      <select class='detail client-address-country needsclick' name='country_id'>
+                          <option value=''>None</option>
+                          <t t-foreach='widget.pos.countries' t-as='country'>
+                              <option t-att-value='country.id' t-att-selected="partner.country_id ? ((country.id === partner.country_id[0]) ? true : undefined) : undefined">
+                                  <t t-esc='country.name'/>
+                              </option>
+                          </t>
+                      </select>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>H.Birthday</span>
+                      <input type="date" class='detail client-h_birthday' name='h_birthday' t-att-value='partner.h_birthday || ""' placeholder='H. Birthday'></input>
+                  </div>
+              </div>
+              <div class='client-details-right'>
+                  <div class='client-detail'>
+                      <span class='label'>Email</span>
+                      <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Phone</span>
+                      <input class='detail client-phone'  name='phone'    type='tel'      t-att-value='partner.phone || ""'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Barcode</span>
+                      <input class='detail barcode'       name='barcode'    t-att-value='partner.barcode || ""'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Tax ID</span>
+                      <input class='detail vat'           name='vat'     t-att-value='partner.vat || ""'></input>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>W.Birthday</span>
+                      <input type="date" class='detail client-w_birthday' name='w_birthday' t-att-value='partner.w_birthday || ""' placeholder='W. Birthday'></input>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </t>
+  <t t-name="ClientDetails">
+      <section class='client-details'>
+          <div class='client-picture'>
+              <img t-att-src='widget.partner_icon_url(partner.id)' />
+          </div>
+          <div class='client-name'><t t-esc='partner.name' /></div>
+          <div class='edit-buttons'>
+              <div class='button edit'><i class='fa fa-pencil-square' /></div>
+          </div>
+          <div class='client-details-box clearfix'>
+              <div class='client-details-left'>
+                  <div class='client-detail'>
+                      <span class='label'>Address</span>
+                      <t t-if='partner.address'>
+                          <span class='detail client-address'><t t-esc='partner.address' /></span>
+                      </t>
+                      <t t-if='!partner.address'>
+                          <span class='detail client-address empty'>N/A</span>
+                      </t>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Email</span>
+                      <t t-if='partner.email'>
+                          <span class='detail client-email'><t t-esc='partner.email' /></span>
+                      </t>
+                      <t t-if='!partner.email'>
+                          <span class='detail client-email empty'>N/A</span>
+                      </t>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Phone</span>
+                      <t t-if='partner.phone'>
+                          <span class='detail client-phone'><t t-esc='partner.phone' /></span>
+                      </t>
+                      <t t-if='!partner.phone'>
+                          <span class='detail client-phone empty'>N/A</span>
+                      </t>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>H.Birthday</span>
+                      <t t-if='partner.h_birthday'>
+                          <span class='detail client-h_birthday'><t t-esc='partner.h_birthday' t-options='{"widget": "date"}' /></span>
+                      </t>
+                      <t t-if='!partner.h_birthday'>
+                          <span class='detail client-h_birthday empty'>N/A</span>
+                      </t>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>W.Birthday</span>
+                      <t t-if='partner.w_birthday'>
+                          <span class='detail client-w_birthday'><t t-esc='partner.w_birthday' t-options='{"widget": "date"}' /></span>
+                      </t>
+                      <t t-if='!partner.w_birthday'>
+                          <span class='detail client-w_birthday empty'>N/A</span>
+                      </t>
+                  </div>
+              </div>
+              <div class='client-details-right'>
+                  <div class='client-detail'>
+                      <span class='label'>Barcode</span>
+                      <t t-if='partner.barcode'>
+                          <span class='detail client-id'><t t-esc='partner.barcode'/></span>
+                      </t>
+                      <t t-if='!partner.barcode'>
+                          <span class='detail client-id empty'>N/A</span>
+                      </t>
+                  </div>
+                  <div class='client-detail'>
+                      <span class='label'>Tax ID</span>
+                      <t t-if='partner.vat'>
+                          <span class='detail vat'><t t-esc='partner.vat'/></span>
+                      </t>
+                      <t t-if='!partner.vat'>
+                          <span class='detail vat empty'>N/A</span>
+                      </t>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </t>
+    <t t-name="PosTicket">
+        <t t-foreach="orderlines" t-as="order_line">
+        <div class="pos-alnashmi-receipt-cnt">
+            <div class="pos-alnashmi-receipt">
+                <div id="pos-alnashmi-receipt-main">
+                    <div id="pos_receipt_left_bar">
+                        <div id="receipt_txt" class="rotate">RECEIPT</div>
+                    </div>
+                    <div id="pos_receipt_body">
+                        <div id="pos_receipt_header">
+                            <div id="pos_left_logo" class="text-center">
+                                <img src="/alnashmi_pos_receipt_bgd/static/src/img/zen_logo.jpg" alt="Zen Logo" />
+                                <div>www.zendiamond.com</div>
+                            </div>
+                            <div id="pos_center_logo">
+                                <img src="/alnashmi_pos_receipt_bgd/static/src/img/alnashmi_header.jpg" id="pos_center_logo_upper_img" alt="" />
+                                <img src="/alnashmi_pos_receipt_bgd/static/src/img/ar_title.png" alt="" style="height:30px;" />
+                            </div>
+                            <div id="pos_right_logo" class="text-center">
+                                <img src="/alnashmi_pos_receipt_bgd/static/src/img/logo.png" alt="" />
+                                <div>www.alnashmi.co</div>
+                            </div>
+                        </div>
+                        <div id="pos_receipt_content">
+                            <div id="pos_receipt_content_row1">
+                                <div id="pos_receipt_content_row1_block1">
+                                    <div>Name: <t t-esc="widget.pos.get_client().name"/> </div>
+                                    <div>Phone: <t t-esc="widget.pos.get_client().phone"/> </div>
+                                </div>
+                                <div id="pos_receipt_content_row1_block2">
+                                    <div>Date: <t t-esc="moment().format('DD/MM/YYYY h:mm a')"/> </div>
+                                    <div>Ref. No.: <t t-esc="order.name"/></div>
+                                </div>
+                            </div>
+                            <div id="pos_receipt_content_row2">
+                                <table cellspacing="0" cellpadding="3" id="row2_main_tb">
+                                    <thead>
+                                        <tr>
+                                            <th>Barcode (رقم القطعة) </th>
+                                            <th>Description</th>
+                                            <th>Value (القيمة)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="padd5 text-center" style="width:22%;">
+                                                <img t-if="order_line.barcode_image_url" t-att-src="order_line.barcode_image_url" alt="" style="width:60px;" />
+                                                <br /><t t-esc="order_line.get_product().barcode"/> <br />
+                                                <div style="clear:both;"><img t-if="order_line.product_image_url" t-att-src="order_line.product_image_url" alt="" style="width:90px;"  /></div>
+                                            </td>
+                                            <td class="padd5">
+                                                <div><t t-esc="order_line.get_product().display_name"/></div>
+                                                <table cellpadding="2" cellspacing="0" id="desc_table">
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Gold <div> الذهب </div></td>
+                                                        <td>
+                                                            <table cellpadding="1" cellspacing="0">
+                                                                <tr>
+                                                                    <td>Gram:</td>
+                                                                    <td>
+                                                                        <t t-if="order_line.get_product().gold_gram">
+                                                                            <t t-esc="order_line.get_product().gold_gram"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Purity:</td>
+                                                                    <td>
+                                                                        <t t-if="order_line.get_product().gold_purity">
+                                                                            <t t-esc="order_line.get_product().gold_purity"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Diamond <div> الماس </div></td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Diamond Ct:</td>
+                                                                    <td>
+                                                                        <t t-if="order_line.get_product().dw">
+                                                                            <t t-esc="order_line.get_product().dw"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="attr_td_hl_class">Precious Stones <div> الاحجار الكريمة  </div></td>
+                                                        <td>
+                                                            <table cellpadding="1" cellspacing="0">
+                                                                <tr>
+                                                                    <td style="width:25%;">Color Ct:</td>
+                                                                    <td style="width:25%;">
+                                                                        <t t-if="order_line.get_product().sw">
+                                                                            <t t-esc="order_line.get_product().sw"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Pearl Carat:</td>
+                                                                    <td>
+                                                                        <t t-if="order_line.get_product().pearl_carat">
+                                                                            <t t-esc="order_line.get_product().pearl_carat"/>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="padd5" style="width:20%;">
+                                                Total: <t t-esc="widget.format_currency(order_line.get_display_price())"/><br />
+                                                <div class="desc_table">
+                                                    <t t-foreach="paymentlines" t-as="line">
+                                                      <br />
+                                                      <t t-set="line_name" t-value="line.name" />
+                                                      <t t-esc="line_name.substring(0,8)"/> :
+                                                      <br /> <t t-esc="widget.format_currency(order_line.get_display_price())"/>
+                                                    </t>
+                                                </div>
+                        <span style="display:none">
+                                        <br />
+                                      Discount: <t t-esc="widget.format_currency(order_line.get_discount())"/>
+                        </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="padd5">Value in words: <div> القيمة كتابتاً </div> </td>
+                                            <td colspan="2" class="padd5">
+                                                <div style="text-transform:capitalize;">
+                                                    <b>
+                                                      <t t-esc="order_line.payment_value_inword" /></b>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pos-alnashmi-receipt-footer">
+                    <div id="pos-alnashmi-receipt-footer-inner">
+                        <div class="width_40_per">
+                            <img src="/alnashmi_pos_receipt_bgd/static/src/img/fb.png" alt="Facebook" /> <span> Alnashmi for Gold and Jewelry </span>
+                        </div>
+                        <div class="width_30_per">
+                            <img src="/alnashmi_pos_receipt_bgd/static/src/img/web-icon.png" alt="Web" id="insta_icon" /> <span> / Zen.diamond_iraq </span>
+                        </div>
+                        <div class="width_30_per">
+                            <img src="/alnashmi_pos_receipt_bgd/static/src/img/email-icon.png" alt="Email" /> <span> info@alnashmi.co </span>
+                        </div>
+                        <t t-if="widget.pos.config.stock_location_id == 45">
+                          <div class="width_40_per">
+                              <img src="/alnashmi_pos_receipt_bgd/static/src/img/map.png" alt="Map" id="map_icon" /> <span> البصرة- مول تايم سكوير  </span>
+                          </div>
+                        </t>
+                        <t t-if="widget.pos.config.stock_location_id == 51">
+                          <div class="width_40_per">
+                              <img src="/alnashmi_pos_receipt_bgd/static/src/img/map.png" alt="Map" id="map_icon" /> <span> بغداد-زيونه -مول دريم سيتي   </span>
+                          </div>
+                        </t>
+                        
+                        <t t-if="widget.pos.config.stock_location_id == 29">
+                          <div class="width_40_per">
+                              <img src="/alnashmi_pos_receipt_bgd/static/src/img/map.png" alt="Map" id="map_icon" /> <span>  البصرة-العشار-سوق الذهب   </span>
+                          </div>
+                        </t>
+  
+                        <t t-if="widget.pos.config.stock_location_id == 35">
+                          <div class="width_40_per">
+                              <img src="/alnashmi_pos_receipt_bgd/static/src/img/map.png" alt="Map" id="map_icon" /> <span> بغداد - مول المنصور - الطابق الارضي محل رقم 2 </span>
+                          </div>
+                        </t> 
+                        <t t-if="widget.pos.config.stock_location_id == 15">
+                          <div class="width_40_per">
+                              <img src="/alnashmi_pos_receipt_bgd/static/src/img/map.png" alt="Map" id="map_icon" /> <span> بغداد - مول المنصور - الطابق الارضي محل رقم 2 </span>
+                          </div>
+                        </t>                                                                                                
+                        <div class="width_60_per">
+                            <img src="/alnashmi_pos_receipt_bgd/static/src/img/phone-icon.png" alt="Phone" /> <span> +9647834448889  -  +9647734448889  </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </t>
+    </t>
+</templates>

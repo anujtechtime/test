@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_subscription_user,sale.subscription,model_sale_subscription,base.group_user,1,0,0,0
+access_sale_subscription,sale.subscription,model_sale_subscription,sales_team.group_sale_manager,1,1,1,1
+access_sale_subscription_line_user,sale.subscription.line,model_sale_subscription_line,base.group_user,1,0,0,0
+access_sale_subscription_line,sale.subscription.line,model_sale_subscription_line,sales_team.group_sale_manager,1,1,1,1
+access_sale_subscription_tag,sale.subscription.tag,model_sale_subscription_tag,,1,1,1,1

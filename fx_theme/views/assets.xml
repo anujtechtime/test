@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="assets_backend" name="fx_theme_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+
+                <!-- css -->
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_base.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_pager.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_table.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_custom.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_select2.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_header.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_page_header.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_side_bar.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_kanban.css" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_customizer.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_menu_board.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_app_menu.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/tab.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/fx_dark.scss" />
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/extra.css" />
+
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/lib/pickr/themes/monolith.min.css" />
+                <script type="application/javascript" src="/fx_theme/static/lib/pickr/pickr.min.js" />
+
+                <script type="application/javascript" src="/fx_theme/static/lib/jquery.nicescroll.min.js" />
+
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/lib/dragula/dragula.min.css" />
+                <!-- <script type="application/javascript" src="/fx_theme/static/lib/dragula/dragula.min.js" /> -->
+
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/lib/bootstrap_color_picker/css/bootstrap-colorpicker.min.css" />
+                <script type="application/javascript" src="/fx_theme/static/lib/bootstrap_color_picker/js/bootstrap-colorpicker.min.js" />
+
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/lib/scrollIndicator/jquery.scrollindicatorbullets.css" /> 
+                <script type="application/javascript" src="/fx_theme/static/lib/scrollIndicator/jquery.scrollindicatorbullets.min.js" />
+                
+                <script type="application/javascript" src="/fx_theme/static/lib/webfont.js" />
+
+                <script type="application/javascript" src="/fx_theme/static/js/fx_webclient.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_menu.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_app_menu.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_favorite_menu.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_menu_board.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_header.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_action_manager.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_user_profile.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_user_systray_menu.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_page_header.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_page_footer.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_overlay.js" />
+                
+                <script type="application/javascript" src="/fx_theme/static/js/fx_basic_field.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_many2one.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_selection.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_pager.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_pager_ext.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_style_setting.js" />
+
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_control_pannel_render.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_pannnel_base.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_filter_pannel.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_group_by_pannel.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_search_filters.js" />
+                <script type="application/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_favorite_pannel.js" />
+
+            </xpath>
+        </template>
+        
+        <template id="fx_select_js_assets" name="fx_select_js_assets" inherit_id="web.assets_common">
+            <!-- replace the slect2.js with full select2.js -->
+            <xpath expr="//script[@src='/web/static/lib/select2/select2.js']" position="replace">
+                <script type="text/javascript" src="/fx_theme/static/lib/select2/js/select2.full.min.js"/>
+            </xpath>
+        </template>
+
+        <template id="fx_select_css_assets" name="fx_select_css_assets" inherit_id="web.assets_common">
+            <!-- replace the slect2.css -->
+            <xpath expr="//link[@href='/web/static/lib/select2/select2.css']" position="replace">
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/lib/select2/css/select2.min.css"/>
+            </xpath>
+
+            <!-- <xpath expr="//link[@href='/web/static/src/scss/datepicker.scss']" position="replace">
+                <link rel="stylesheet" type="text/css" href="/fx_theme/static/css/datetime_picker.scss"/>
+            </xpath> -->
+        </template>
+
+        <template id="fx_hook_mibile_render" name="fx_hook_mibile_render" inherit_id="web.assets_backend">
+            <!-- replace the slect2.js with full select2.js -->
+            <xpath expr="//script[@src='/web/static/src/js/views/control_panel/mobile_control_panel_renderer.js']" position="replace">
+                <script type="text/javascript" src="/fx_theme/static/js/fx_control_pannel/fx_mobile_control_pannel_render.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

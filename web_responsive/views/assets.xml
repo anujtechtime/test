@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016 LasLabs Inc.
+    @author Dave Lasley <dave@laslabs.com>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+    <template id="assets_backend" name="Open Mobile Assets" inherit_id="web.assets_backend">
+        <xpath expr=".">
+            <link rel="stylesheet"
+                  href="/web_responsive/static/src/css/web_responsive.scss"
+                  />
+            <script type="application/javascript"
+                    src="/web_responsive/static/src/js/web_responsive.js"
+                    />
+            <link rel="stylesheet"
+                  href="/web_responsive/static/src/css/bootstrap.css"
+                  />        
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/views/kanban/kanban_renderer_mobile.js']" position="replace">
+            <script type="application/javascript"
+                    src="/web_responsive/static/src/js/kanban_render_form.js"
+                    />        
+        </xpath>
+    </template>
+   <!--  <template id="assets_common" name="Open Mobile Assets" inherit_id="web.assets_common">
+        <xpath expr="//script[@src='/web/static/src/js/core/session.js']" position="replace">
+            <script type="text/javascript" src="/web_responsive/static/src/js/session.js"/>
+        </xpath>
+    </template> -->
+    <template id="_assets_primary_variables" inherit_id="web._assets_primary_variables">
+    <xpath expr="//link[@href='/web/static/src/scss/primary_variables.scss']" position="replace">
+        <link rel="stylesheet" type="text/scss" href="/web_responsive/static/src/css/primary_variables.scss"/>
+    </xpath>
+    </template>
+</odoo>

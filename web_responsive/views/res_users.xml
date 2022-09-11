@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<!--
+    Copyright 2018
+    @author Alexanre Díaz <dev@redneboa.es>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+
+    <record id="view_users_form_simple_modif" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="chatter_position" readonly="0" />
+            </xpath>
+            <xpath expr="//field[@name='signature']" position="before">
+                <field name="barcode_for_app" readonly="0" invisible="1"/>
+                <field name="full_barcode" invisible="1"/>
+                <field name="barcode_image"  widget='image' class="" width="30%" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Click on a category -->
+    <record id="view_module_filter_inherit" model="ir.ui.view">
+        <field name="name">ir.module.module.list.select</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.view_module_filter"/>
+        <field name="arch" type="xml">
+            <filter name="app" position="after">
+                <filter name="oca_app" string="OC Apps" domain="[('application', '=', True),('to_buy', '=', False)]"/>
+            </filter>
+        </field>
+    </record>
+
+
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="0"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='languages']" position="after">
+                    <div id="color">
+                            <h2>Theme Color</h2>
+                            <div class='row mt16 o_settings_container'>
+                                <div class='col-xs-12 col-md-6 o_setting_box'>
+                                    <div class='o_setting_right_pane'>
+                                        <!-- TODO This is not an ideal solution but it looks ok on the interface -->
+                                        <div class="w-50">
+                                            <span class="o_form_label">
+                                                Color
+                                            </span>
+                                        </div>
+                                        <div class="mt8">
+                                            <field name="color_picker" widget="color"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </xpath>
+            </field>
+        </record>
+
+
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+        <field name="domain">[('to_buy', '=', False)]</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,146 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="ifxs.list">
+      <field name="name">ifxs list</field>
+      <field name="model">ifxs.ifxs</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+        <record id="awesome_view_form_inheirt" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//form//header//button[@name='action_draft']" position="after">
+                   <button name="action_done_test" type="object" string="data fetch sql"/>
+<!--                     <button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/> -->
+                </xpath>
+        </field>
+    </record>
+
+
+            <record id="awesome_view_form_inheirt_account_move" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//header//button[@name='button_draft']" position="after">
+                   <button name="action_done_test" type="object" string="data fetch sql"/>
+<!--                     <button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/> -->
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+                   <field name="count_from"/>
+                    <field name="count_to"/>
+                    <field name="Platform_Description"/>
+                    <field name="Login"/>
+                    <field name="Trading_Account_Group"/>
+                    <field name="Ticket"/>
+                    <field name="Time"/>
+                    <field name="Symbol"/>
+                    <field name="Action"/>
+                    <field name="Price"/>
+                    <field name="Profit"/>
+                    <field name="Country"/>
+                    <field name="Volume"/>
+                    <field name="Symbol"/>
+                </xpath>
+        </field>
+    </record>
+
+
+    <record id="crm_stage_tree_symbol_data" model="ir.ui.view">
+        <field name="name">symbol.data.tree</field>
+        <field name="model">symbol.data</field>
+        <field name="arch" type="xml">
+            <tree string="location pincode" multi_edit="1">
+                <field name="symbol"/>
+                <field name="trading_account_group"/>
+                <field name="symbol_value"/>
+                <!-- <field name="fincial_institutions"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_data" model="ir.ui.view">
+        <field name="name">symbol.data.form</field>
+        <field name="model">symbol.data</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Pin Code">
+                <sheet>
+                    <group>
+                        <field name="symbol"/>
+                <field name="trading_account_group"/>
+                <field name="symbol_value"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_data" model="ir.actions.act_window">
+        <field name="name">Symbol data</field>
+        <field name="res_model">symbol.data</field>
+        <field name="view_id" ref="ifxs.crm_stage_tree_symbol_data"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="ifxs.action_window">
+      <field name="name">ifxs window</field>
+      <field name="res_model">ifxs.ifxs</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="ifxs.action_server">
+      <field name="name">ifxs server</field>
+      <field name="model_id" ref="model_ifxs_ifxs"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="ifxs" id="ifxs.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="ifxs.menu_1" parent="ifxs.menu_root"/>
+    <menuitem name="Menu 2" id="ifxs.menu_2" parent="ifxs.menu_root"/>
+-->
+    <!-- actions -->
+
+    <menuitem name="Symbol Value" id="ifxs.menu_1_list" parent="account.menu_finance_receivables"
+              action="crm_stage_action_symbol_data"/>
+
+  </data>
+</odoo>

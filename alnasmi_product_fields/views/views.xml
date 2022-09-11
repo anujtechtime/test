@@ -1,0 +1,138 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="product_template_from_alnashmi">
+      <field name="name">product.template.inherit.from</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='default_code']" position="after">
+          <field name="ref_barcode" />
+
+                <field name="gold" />
+                <field name="gold_gram" attrs="{'invisible':[('gold', '=', False)]}" />
+                <field name="gold_purity" attrs="{'invisible':[('gold', '=', False)]}" />
+                <field name="gw" attrs="{'invisible':1}" />
+                <field name="gold_price" invisible="1" />
+                <field name="work_price" invisible="1" />
+                <field name="make" attrs="{'invisible':[('gold', '=', False)]}" />
+
+                <field name="diamond" />
+                <field name="diamond_rd_carat" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="diamond_rd_qty" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="diamond_bd_carat" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="diamond_bd_qty" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="diamond_color" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="diamond_clarity" attrs="{'invisible':[('diamond', '=', False)]}" />
+                <field name="dw" attrs="{'invisible':[('diamond', '=', False)]}" />
+
+                <field name="precious_stones" />
+                <field name="precious_stones_qty" attrs="{'invisible':[('precious_stones', '=', False)]}" />
+                <field name="precious_stones_type" attrs="{'invisible':[('precious_stones', '=', False)]}" />
+                <field name="sw" attrs="{'invisible':[('precious_stones', '=', False)]}" />
+                <field name="pearl_carat" attrs="{'invisible':[('precious_stones', '=', False)]}" />
+
+  </xpath>
+  </field>
+</record>
+
+
+
+  <record id="partner_form_loyalty_reward_loyalty_enabled" model="ir.ui.view">
+      <field name="name">res.partner.loyalty_enabled.added.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+          <xpath expr="//notebook" position="inside">
+            <page name="loyalty_updates" string="Loyalty">
+              <group>
+                <group>
+                  <field name="discount_type" />
+                  <field name="discount_percentage" attrs="{'invisible':[('discount_type', '!=','discount_perc')]}" />
+                  <field name="wk_loyalty_points" readonly="1" />
+                </group>
+                <group></group>
+              </group>
+            </page>
+          </xpath>
+      </field>
+  </record>
+
+
+          <record id="view_product_compair_form" model="ir.ui.view">
+            <field name="name">product.compair.form</field>
+            <field name="model">product.compair</field>
+            <field name="arch" type="xml">
+              <form>
+                <group>
+                  <group>
+                      <field name="default_code"/>
+                      <field name="name"/>
+                      <field name="product_id"/>
+                      <field name="barcode"/>
+                      <field name="record_date"/>
+                      <field name="erp_quantity"/>
+                      <field name="physical_quantity"/>
+                      <field name="status"/>
+                  </group>
+                  <group>
+                    
+                  </group>
+                </group>
+              </form>
+            </field>
+          </record>
+
+
+          <record id="view_product_compair_tree" model="ir.ui.view">
+            <field name="name">product.compair.tree</field>
+            <field name="model">product.compair</field>
+            <field name="arch" type="xml">
+                <tree>
+                  <field name="default_code"/>
+                  <field name="name"/>
+                  <field name="product_id"/>
+                  <field name="barcode"/>
+                  <field name="record_date"/>
+                  <field name="erp_quantity"/>
+                  <field name="physical_quantity"/>
+                  <field name="status"/>
+                </tree>
+              </field>
+            </record>
+
+
+
+          <record id="product_compair_search_view" model="ir.ui.view">
+            <field name="name">product.compair.list.select</field>
+            <field name="model">product.compair</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search>
+                  <filter string="status Pass" name="status" domain="[('status','=','pass')]"/>
+                  <filter string="status More" name="status" domain="[('status','=','more')]"/>
+                  <filter string="status Less" name="status" domain="[('status','=','less')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="status" string="status" domain="[]" context="{'group_by': 'status'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+
+          <record id="action_product_compair_onboarding" model="ir.actions.act_window">
+            <field name="name">Products Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.compair</field>
+            <field name="view_id" ref="view_product_compair_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="product_compair_search_view"/>
+            </record>
+
+
+          <menuitem id="menu_product_compair"
+            name="Physical Count"
+            action="action_product_compair_onboarding"
+            parent="stock.menu_stock_inventory_control"
+            sequence="100"/>
+  </data>
+</odoo>

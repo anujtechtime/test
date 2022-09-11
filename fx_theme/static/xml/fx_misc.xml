@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- fx selction template -->
+    <t t-name="fx.selection">
+        <span t-if="widget.mode === 'readonly'"/>
+        <select t-if="widget.mode !== 'readonly'"
+            style="width: 100%"
+            t-att-name="widget.name"
+            t-att-tabindex="widget.attrs.tabindex"
+            t-att-autofocus="widget.attrs.autofocus"
+            t-att-id="widget.idForLabel"/>
+    </t>
+  
+    <!-- control pannel -->
+    <t t-name="fx_control_pannel">
+        <div class="fx_control_pannel container-fluid">
+            <div class="row">
+                <div class="btn_row col-md-6 col-xs-6 col-sm-12">
+                    <div class="control_btns o_cp_buttons" role="toolbar" aria-label="Control panel toolbar"/>
+                    <div class="o_cp_sidebar" /></div>
+                <div class="search_row col-md-6 col-xs-6 col-sm-12" style="position: relative">
+                    <div class="fx_search_box search_box o_cp_searchview" role="search">
+                        <t t-if="widget.withSearchBar" t-call="FxSearchView" />
+                        <div class="card fx_search_options o_hidden">
+                            <div class="o_search_options card-body">
+                                <ul class="nav nav-tabs fx-tab-header" role="tablist"/>
+                                <div class="tab-content fx-tab-body"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <!-- search view -->
+    <div t-name="FxSearchView" class="o_searchview form-control" role="search" aria-autocomplete="list">
+        <span class="o_searchview_more fa" title="Advanced Search..." role="img" aria-label="Advanced Search..."/>
+    </div>
+    <t t-name="fx.search_option_tab_header">
+        <li class="nav-item">
+            <a class="nav-link" disable_anchor="true" data-toggle="tab" t-attrf-href="#tab_item_{{tab_id}}" role="tab">
+                <t t-esc="tab_name"/>
+            </a>
+        </li>
+    </t>
+    <t t-name="fx.search_option_tab_content">
+        <div class="tab-pane" role="tab-pane" t-attrf-id="tab_item_{{tab_id}}"></div>
+    </t>
+    <!-- filter pannel -->
+    <t t-name="FilterPannel">
+        <div class='fx-filter-pannel'>
+            <div class="filter_container" style="padding: 10px;"/>
+            <div class="propation_container" />
+            <div class="d-flex mt1 justify-content-end fx-filter-btns">
+                <button class="btn btn-primary o_apply_filter" type="button">Apply</button>
+                <button class="btn btn-secondary o_add_condition" type="button" style="margin-left: 10px">
+                    <span class="fa fa-plus-circle"/>
+                    Add
+                </button>
+            </div>
+        </div>
+    </t>
+    <!-- search propation -->
+    <t t-name="fx.extended_search.proposition">
+        <div class="row fx_filter_condition o_filter_condition">
+            <div class="col-sm-12 col-12">
+                <span class="o_searchview_extended_delete_prop fa fa-trash-o" role="img" aria-label="Delete" title="Delete"/>
+                <select class="o_input form_control o_searchview_extended_prop_field">
+                    <t t-foreach="widget.attrs.fields" t-as="field">
+                        <option t-att="{'selected': field === widget.attrs.selected ? 'selected' : null}"
+                                t-att-value="field.name">
+                            <t t-esc="field.string"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <div class="col-sm-12 col-12">
+                <select class="o_input form_control o_searchview_extended_prop_op"/>
+            </div>
+            <div class="col-sm-12 col-12">
+                <span class="o_searchview_extended_prop_value"/>
+            </div>
+        </div>
+    </t>
+    <!-- group by menu -->
+    <t t-name="fx.group_by_content">
+        <div>
+            <div class="group-items-container"></div>
+            <div t-if="widget.presentedFields.length !== 0 &amp;&amp; widget.items.length !== 0" role="separator" class="dropdown-divider o_generator_menu"/>
+            <div class="new-group-container" style="padding:10px 0px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select class="w-auto o_input o_group_selector o_add_group">
+                            <t t-foreach="widget.presentedFields" t-as="field">
+                                <option t-att-value="field.name">
+                                    <t t-esc="field.string"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button type="button" style="margin-left:5px" class="btn btn-primary o_apply_group o_add_group">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <!-- favorite pannel -->
+    <div class="fx-favorite-pannel" t-name="fx.favorite_pannel">
+        <div class="favorite-container"></div>
+        <div class="widget_container"></div>
+    </div>
+    <!-- add arrow for many2one -->
+    <t t-extend="FieldMany2One">
+        <t t-jquery=".o_dropdown_button" t-operation="replace">
+            <span class="o_dropdown_arrow fx-reverse">
+                <i class="fa fa-angle-down" draggable="false"></i>
+            </span>
+        </t>
+    </t>
+    <t t-name="fx.overlay">
+        <div class="fx-overlay" />
+    </t>
+</templates>
+

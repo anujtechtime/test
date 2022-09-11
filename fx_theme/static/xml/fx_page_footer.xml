@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- template for footer  -->
+    <t t-name="fx_theme.footer">
+        <div class="footer_content">
+            <div class="fx-copyright">
+                <a href="#" target="_blank" class="fx-link fx_corp_info"></a>
+            </div>
+            <div class="pager"></div>
+            <div class="switcher"></div>
+        </div>
+    </t>
+</templates>

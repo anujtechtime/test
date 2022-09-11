@@ -1,0 +1,147 @@
+
+.fx_pager {
+	line-height: 1.6;
+	font-family: Marmelad,"Lucida Grande",Arial,"Hiragino Sans GB",Georgia,sans-serif;
+	font-size: 14px;
+	box-sizing: initial;
+	padding: 10px;
+}
+
+.fx_pager:after {
+	display: table;
+	content: " ";
+	clear: both
+}
+
+.fx_pager .fx_pager_pages {
+	float: left
+}
+
+.fx_pager .fx_pager_list{
+	float: left;
+	margin: 0;
+	padding: 0
+}
+
+.fx_pager .go_button, .fx_pager .go_input, .fx_pager .fx_pager_nav {
+	float: left;
+	font-size: 14px
+}
+
+.fx_pager .fx_pager_list li {
+	float: left;
+	list-style: none
+}
+
+.fx_pager .fx_pager_list li > a {
+	height: 26px;
+    line-height: 26px;
+    margin-bottom: 10px;
+    border: none;
+	background: 0 0;
+	display: inline-block;
+	font-size: 14px;
+	color: #333;
+	text-decoration: none;
+	text-align: center;
+	padding: 0 12px;
+	vertical-align: middle;
+}
+
+.fx_pager .fx_pager_list li>a:hover {
+	color: #009688
+}
+
+.fx_pager .fx_pager_list li.active {
+	border: none
+}
+
+.fx_pager .fx_pager_list li.active>a {
+	background: #009688;
+	color: white
+}
+
+.fx_pager .fx_pager_list li.disabled>a {
+	opacity: .3
+}
+
+.fx_pager .fx_pager_list li.disabled>a:hover {
+	background: 0 0
+}
+
+.fx_pager .go_input > input[type=text] {
+	width: 30px;
+	height: 28px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #aaa;
+	padding: 0;
+	font-size: 14px;
+	text-align: center;
+	vertical-align: baseline;
+	outline: 0;
+	box-shadow: none;
+	box-sizing: initial
+}
+
+.fx_pager .go_button > input[type=button] {
+	min-width: 40px;
+	height: 30px;
+	line-height: 28px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #aaa;
+	text-align: center;
+	padding: 0 8px;
+	font-size: 14px;
+	vertical-align: baseline;
+	outline: 0;
+	box-shadow: none;
+	color: #333;
+	cursor: pointer;
+	vertical-align: middle;
+	margin-left: 0px;
+}
+
+.fx_pager .go_button>input[type=button]:hover {
+	background-color: #f8f8f8
+}
+
+.fx_pager .fx_pager_nav {
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+}
+
+.fx_pager .go_input {
+	margin-left: 10px;
+	width: 46px;
+	line-height: 28px;
+	vertical-align: middle
+}
+
+.fx_pager .fx_pager_pages li.fx_pager_next {
+	border-right: 1px solid #aaa
+}
+
+.fx_pager .page_limit {
+	float: left;
+	margin-left: 10px;
+	width: 100px;
+}
+
+.fx_pager .page_limit .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 30px;
+    line-height: calc(1.5em + 0.75rem + 2px);
+}
+
+.fx_pager .page_limit .select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 0px;
+	height: 30px;
+	width: 60px;
+    outline: none;
+	border-radius: 3px;
+	position: relative;
+}

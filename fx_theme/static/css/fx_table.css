@@ -1,0 +1,387 @@
+
+.fx-table-view {
+    margin: 10px 0;
+    background: #FFF;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.fx-table-view .o_group_name {
+    padding-left: 10px;
+}
+
+.fx-table {
+    margin: 10px 0;
+    background-color: #fff;
+    color: #666;
+}
+
+.fx-table th, .fx-table td {
+    border-top: none;
+    border-left: none;
+}
+
+.fx-table th {
+    text-align: left;
+    font-weight: 400;
+}
+
+.fx-table thead tr,
+.fx-table-header,
+.fx-table-patch,
+.fx-table tbody tr:hover,
+.fx-table-hover {
+    background-color: #f2f2f2;
+}
+
+.fx-table .fx-table-selector {
+    width: 50px;
+}
+
+.fx-table th,
+.fx-table td,
+.fx-table-view,
+.fx-table-tool,
+.fx-table-header,
+.fx-table-col-set,
+.fx-table-total,
+.fx-table-page,
+.fx-table-fixed-r,
+.fx-table-tips-main,
+.fx-table-grid-down {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+
+.fx-table-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.fx-table-view .fx-table {
+    position: relative;
+    margin: 0;
+}
+
+.fx-table-view .fx-table th,
+.fx-table-view .fx-table td {
+    border-top: none;
+    border-left: none;
+}
+
+.fx-table-view .fx-table th.fx-unselect .fx-table-cell span {
+    cursor: pointer;
+}
+
+.fx-table-view .fx-table td {
+    cursor: default;
+}
+
+.fx-table-init {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 110;
+}
+
+.fx-table-init .fx-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+    font-size: 30px;
+    color: #c2c2c2;
+}
+
+.fx-table-header {
+    border-width: 0;
+    border-bottom-width: 1px;
+    overflow: hidden;
+}
+
+.fx-table-header .fx-table {
+    margin-bottom: -1px;
+}
+
+.fx-table-col-set {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    border-width: 0;
+    border-left-width: 1px;
+    background-color: #fff;
+}
+
+.fx-table-sort {
+    width: 10px;
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer !important;
+}
+
+.fx-table-sort .fx-edge {
+    position: absolute;
+    left: 5px;
+    border-width: 5px;
+}
+
+.fx-table-sort .fx-table-sort-asc {
+    top: 3px;
+    border-top: none;
+    border-bottom-style: solid;
+    border-bottom-color: #b2b2b2;
+}
+
+.fx-table-sort .fx-table-sort-asc:hover {
+    border-bottom-color: #666;
+}
+
+.fx-table-sort .fx-table-sort-desc {
+    bottom: 5px;
+    border-bottom: none;
+    border-top-style: solid;
+    border-top-color: #b2b2b2;
+}
+
+.fx-table-sort .fx-table-sort-desc:hover {
+    border-top-color: #666;
+}
+
+.fx-table-sort[fx-sort="asc"] .fx-table-sort-asc {
+    border-bottom-color: #000;
+}
+
+.fx-table-sort[fx-sort="desc"] .fx-table-sort-desc {
+    border-top-color: #000;
+}
+
+.fx-table-cell {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.fx_patch_row .fx-table-cell {
+    height: 0px;
+    line-height: 0px;
+    padding: 0px;
+}
+
+.fx-table-body {
+    position: relative;
+    overflow: auto;
+    margin-right: -1px;
+    margin-bottom: -1px;
+}
+
+.fx-table-body .fx-none {
+    line-height: 26px;
+    padding: 15px;
+    text-align: center;
+    color: #999;
+}
+
+.fx-table-fixed {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.fx-table-fixed .fx-table-body {
+    overflow: hidden;
+}
+
+.fx-table-fixed-l {
+    box-shadow: 0 -1px 8px rgba(0, 0, 0, .08);
+}
+
+.fx-table-fixed-r {
+    left: auto;
+    right: -1px;
+    border-width: 0;
+    border-left-width: 1px;
+    box-shadow: -1px 0 8px rgba(0, 0, 0, .08);
+}
+
+.fx-table-fixed-r .fx-table-header {
+    position: relative;
+    overflow: visible;
+}
+
+.fx-table-mend {
+    position: absolute;
+    right: -49px;
+    top: 0;
+    height: 100%;
+    width: 50px;
+}
+
+.fx-table-tool {
+    position: relative;
+    z-index: 890;
+    width: 100%;
+    min-height: 50px;
+    line-height: 30px;
+    padding: 10px 15px;
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+
+.fx-table-tool .fx-btn-container {
+    margin-bottom: -10px;
+}
+
+.fx-table th.fx-table-patch,
+.fx-table td.fx-table-patch {
+    padding: 0px;
+}
+
+.fx-table-trash {
+    width: 40px
+}
+
+.fx-hide {
+    display: none;
+}
+
+.o_list_record_selector {
+    width: 50px
+}
+
+.fx_index {
+    width: 50px;
+}
+
+.fx-resizer {
+    position: absolute;
+    top: 0px;
+    right: -3px;
+    bottom: 0px;
+    width: 6px;
+    z-index: 999;
+    background: transparent;
+    cursor: col-resize
+}
+
+.fx-table-tool-bar {
+    display: none
+}
+
+.fx_sorting_desc:before,
+.fx_sorting_asc:before {
+    position: absolute;
+    bottom: 0.3em;
+    display: block;
+    right: 1em;
+    content: "\2191";
+}
+
+.fx_sorting_desc:after,
+.fx_sorting_asc:after {
+    position: absolute;
+    bottom: 0.2em;
+    display: block;
+    right: 0.5em;
+    content: "\2193";
+}
+
+.fx_sorting_asc:after,
+.fx_sorting_desc::before {
+    opacity: 0.3;
+}
+
+.o_field_cell.o_list_record_selector {
+    vertical-align: middle;
+}
+
+.o_field_cell, .o_column_sortable  {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.fx-table-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fx-table-selector .custom-control {
+    height: 1.8rem;
+}
+
+.fx-main-table-body {
+    flex: 1 1 auto;
+}
+
+.fx-table-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.fx-table-view .o_field_cell {
+    padding: 0px;
+}
+
+/* dark */
+
+body.dark .fx-table-view {
+    background: #313852;
+}
+
+body.dark .fx-table-view {
+    background: #313852;
+}
+
+body.dark .fx-table {
+    background-color: #313852;
+    border-color: #454c66 !important;
+    color: #c7c7c7;
+}
+
+body.dark .fx-table thead tr,
+body.dark .fx-table-header,
+body.dark .fx-table-patch,
+body.dark .fx-table tbody tr:hover,
+body.dark .fx-table-hover {
+    background-color: #313852;
+}
+
+body.dark .fx-table th, 
+body.dark .fx-table td, 
+body.dark .fx-table-view, 
+body.dark .fx-table-tool, 
+body.dark .fx-table-header, 
+body.dark .fx-table-col-set, 
+body.dark .fx-table-total, 
+body.dark .fx-table-page, 
+body.dark .fx-table-fixed-r, 
+body.dark .fx-table-tips-main, 
+body.dark .fx-table-grid-down {
+    border-color: #454c66;
+}
+
+body.dark .fx-table-fixed-l {
+    box-shadow: 0 -1px 8px #141f29;
+}
+
+body.dark .fx-table-fixed-r {
+    box-shadow: 0 -1px 8px #141f29;
+}

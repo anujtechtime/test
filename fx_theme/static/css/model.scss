@@ -1,0 +1,10 @@
+
+.modal {
+    .modal-content {
+        .modal-footer {
+            button:not(:first-child) {
+                margin-left: 5px;
+            }
+        }
+    }
+} 

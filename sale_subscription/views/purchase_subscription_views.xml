@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_subscription_view_graph" model="ir.ui.view">
+        <field name="name">sale.subscription.graph</field>
+        <field name="model">sale.subscription</field>
+        <field name="arch" type="xml">
+            <graph string="Sale Subscriptions">
+                <field name="partner_id"/>
+                <field name="recurring_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="sale_subscription_view_pivot" model="ir.ui.view">
+        <field name="name">sale.subscription.pivot</field>
+        <field name="model">sale.subscription</field>
+        <field name="arch" type="xml">
+            <pivot string="Subscriptions">
+                <field name="partner_id"/>
+                <field name="recurring_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sale_subscription_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription.form.view</field>
+        <field name="model">sale.subscription</field>
+        <field name="arch" type="xml">
+            <form string="Subscription">
+                <header>
+                    <button name="set_open" string="Start Subscription" type="object"
+                            attrs="{'invisible': [('state','=','open')]}" class="oe_highlight"/>
+                    <button name="set_pending" string="To Renew" type="object"
+                            attrs="{'invisible': [('state','in',['pending','draft','close','cancel'])]}"/>
+                    <button name="set_close" string="Close Subscription"
+                            type="object" attrs="{'invisible': [('state','in',['draft','close','cancel'])]}"/>
+                    <button name="set_cancel" string="Cancel Subscription"
+                            type="object" attrs="{'invisible': [('state','in',['cancel','close'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet string="Subscription">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                            icon="fa-book"
+                            name="action_subscription_invoice"
+                            type="object">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name"/>
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group>
+                            <label for="partner_id"/>
+                            <field name="partner_id" required="1" nolabel="1"/>
+                            <field name="code"/>
+                            <field name="recurring_rule_type"/>
+                            <field name="recurring_interval"/>
+                            <label for="recurring_next_date" string="Date of Next Invoice"/>
+                            <div>
+                                <field name="recurring_next_date"/>
+                                <button string="&#8658; Generate Invoice" class="oe_link" name="recurring_invoice"
+                                        type="object" />
+                            </div>
+                        </group>
+                        <group>
+                            <label for="user_id" string="Sale Rep"/>
+                            <field name="user_id" nolabel="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" required="1"/>
+                            <field name="payment_term_id"/>
+                            <field name="date_start"/>
+                            <field name="date"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Subscription Lines" id="lines">
+                            <div>
+                                <field name="recurring_invoice_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="name"/>
+                                        <field name="analytic_account_id"/>
+                                        <field name="quantity" readonly="1" groups="base.group_no_one"/>
+                                        <field name="actual_quantity"/>
+                                        <field name="buy_quantity"/>
+                                        <field name="uom_id"/>
+                                        <field name="price_unit"/>
+                                        <field name="discount"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="recurring_total" class="oe_subtotal_footer_separator"
+                                        widget="monetary" options="{'currency_field': 'currency_id'}"
+                                        modifiers="{'readonly': true}"
+                                    />
+                                </group>
+                            </div>
+                        </page>
+                    </notebook>
+                    <div>
+                        <field name="description"/>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_subscription_view_list" model="ir.ui.view">
+        <field name="name">sale.subscription.list</field>
+        <field name="model">sale.subscription</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+        <field name="arch" type="xml">
+            <tree string="Sale Subscriptions" decoration-info="state=='draft'" decoration-danger="state=='pending'" decoration-muted="state in ('cancel','close')">
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="recurring_next_date"/>
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="recurring_total"/>
+                <field name="state"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="sale_subscription_view_filter" model="ir.ui.view">
+            <field name="name">sale.subscription.list.select</field>
+            <field name="model">sale.subscription</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+            <search string="Search Sales Order">
+<!--                 <field name="name" string="Contract"/>
+ -->                <field name="date"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id"/>
+                <field name="code"/>
+                <field name="tag_ids"/>
+                <filter name="new" string="New" domain="[('state','=','draft')]" help="New Contracts"/>
+                <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Contracts in progress"/>
+                <filter name="pending" string="To Renew" domain="[('state','=','pending')]" help="Pending contracts"/>
+                <filter name="closed" string="Closed" domain="[('state','=','close')]" help="Closed contracts"/>
+                <filter name="cancelled" string="Cancelled" domain="[('state','=','cancelled')]" help="Cancelled contracts"/>
+                <!-- <filter
+                    string="Expired"
+                    domain="[('state','in',('open','draft','pending')), '|', ('date', '!=', False), ('date', '&lt;=', time.strftime('%%Y-%%m-%%d'))]"
+                    help="End date passed" />
+                <filter
+                    string="Expiring soon"
+                    domain="[('date', '!=', False), ('date', '&lt;=', (context_today() + datetime.timedelta(30)).strftime('%%Y-%%m-%%d') )]"
+                    help="End date is in the next month" />-->
+                
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="state" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Account Manager" name="user_id" domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Partner" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Start Month" name="date_start" domain="[]" context="{'group_by' : 'date_start'}" />
+                    <filter string="End Month" domain="[]" name="date" context="{'group_by' : 'date'}" />
+                </group>
+                </search> 
+            </field>
+        </record>
+
+
+    <record id="sale_subscription_see_all" model="ir.rule">
+        <field name="name">Sale Subscription All Orders</field>
+        <field ref="model_sale_subscription" name="model_id"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+
+
+    <record id="sale_subscription_personal_rule" model="ir.rule">
+        <field name="name">Sale Subscription Orders</field>
+        <field ref="model_sale_subscription" name="model_id"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+
+            <record id="sale_subscription_action" model="ir.actions.act_window">
+        <field name="name">Sale Subscriptions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.subscription</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="context">{'default_user_id':uid}</field>
+        <field name="search_view_id" ref="sale_subscription.sale_subscription_view_filter"/>
+    </record>
+
+        <record id="sale_subscription_action_pending" model="ir.actions.act_window">
+        <field name="name">Subscriptions to Renew</field>
+        <field name="res_model">sale.subscription</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="sale_subscription.sale_subscription_view_filter"/>
+        <field name="context">{'search_default_user_id':uid, 'search_default_pending':1, 'search_default_renew':1}</field>
+    </record>
+
+    <record id="group_sale_subscription_product" model="res.groups">
+            <field name="name">Sale subscription</field>
+            <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>  
+
+<!--     <record id="sale_subscription.menu_sale_subscription_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('sale_subscription.group_sale_subscription_product'))]"/>
+    </record>
+
+    <record id="sale_subscription.menu_sale_subscription" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('sale_subscription.group_sale_subscription_product'))]"/>
+    </record> -->
+
+    <!-- Menuitems -->
+    <menuitem id="menu_sale_subscription_root" name="Sale Subscriptions" sequence="10" web_icon="sale_subscription,static/description/rsz_download.png" groups="sale_subscription.group_sale_subscription_product"/>
+
+    <menuitem id="menu_sale_subscription" name="Sales Subscriptions" parent="menu_sale_subscription_root" sequence="5"/>
+    <menuitem action="sale_subscription_action" name="Sale Subscriptions" id="menu_sale_subscription_action" sequence="1" parent="menu_sale_subscription"/>
+    <menuitem action="sale_subscription_action_pending" name="Sale Subscriptions Pending" id="menu_sale_subscription_pending" sequence="2" parent="menu_sale_subscription"/>
+
+<!--     <menuitem action="product_action_subscription_po" name="Sale Subscriptions Product" id="menu_sale_subscription_product" sequence="3" parent="menu_sale_subscription"/> -->
+
+
+
+
+        <record id="sale_subscrition_tag_form" model="ir.ui.view">
+            <field name="name">sale.subscription.tag.form</field>
+            <field name="model">sale.subscription.tag</field>
+            <field name="arch" type="xml">
+                <form string="Sale Tags">
+                    <sheet>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="color" required="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_subscription_tag_tree" model="ir.ui.view">
+            <field name="name">sale.subscription.tag.tree</field>
+            <field name="model">sale.subscription.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Lead Tags" editable="bottom">
+                    <field name="name"/>
+                    <field name="color" groups="base.group_no_one"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="sale_subscription_tag_action" model="ir.actions.act_window">
+            <field name="name">Tags</field>
+            <field name="res_model">sale.subscription.tag</field>
+            <field name="view_id" ref="sale_subscription_tag_tree"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create new tags for your opportunities
+              </p><p>
+                Create tags that fit your business (product structure, sales type, etc.) to better manage and track your opportunities.
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="menu_sale_subscription_categ"
+            name="Tags"
+            groups="sale_subscription.group_sale_subscription_product"
+            action="sale_subscription_tag_action"
+            parent="menu_sale_subscription"
+            sequence="4"/>
+
+
+
+</odoo>

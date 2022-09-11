@@ -1,0 +1,236 @@
+
+/*--- SELECT2 ---*/
+.fx_select {
+    width: 100%;
+}
+
+.select2-results__option {
+    border-radius: 0;
+    margin-bottom: 1px;
+    font-size: 13px;
+}
+
+/* the model is 999 and 998 and the tabel fixed is 1001 side bar is 1002 */
+/* .select2-container--default {
+    z-index: 996;
+} */
+
+.select2-container--default .select2-selection--single {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    height: 34px;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #22252f;
+    line-height: calc(1.5em + 0.75rem + 2px)-0.1rem;
+    padding-left: 0.75rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #686868;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    width: 30px;
+    height: 34px;
+    line-height: calc(1.5em + 0.75rem + 2px);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    width: 7px;
+    height: 7px;
+    border-width: 1px 0 0 1px;
+    border-style: solid;
+    border-color: #c2c3c4;
+    -webkit-transform: rotate(-135deg) translate(0, -50%);
+    -ms-transform: rotate(-135deg) translate(0, -50%);
+    -o-transform: rotate(-135deg) translate(0, -50%);
+    transform: rotate(-135deg) translate(0, -50%);
+    -webkit-transform-origin: top;
+    -ms-transform-origin: top;
+    -o-transform-origin: top;
+    transform-origin: top;
+    top: 50%;
+    margin-top: -4px;
+    left: 50%;
+    margin-left: -4px;
+    -webkit-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out
+}
+
+.select2-container--default.select2-container--open {
+    z-index: 1024   
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-width: 1px 0 0 1px;
+    border-color: #c2c3c4;
+    margin-top: 0px;
+    -webkit-transform: rotate(45deg) translate(0, -50%);
+    -ms-transform: rotate(45deg) translate(0, -50%);
+    -o-transform: rotate(45deg) translate(0, -50%);
+    transform: rotate(45deg) translate(0, -50%);
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #fff;
+    border-color: #e9edf4;
+    border-radius: 0;
+    min-height: 34px;
+    outline: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 0 4px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    position: relative;
+    margin-top: 5px;
+    margin-right: 4px;
+    padding: 3px 10px 3px 20px;
+    border-color: transparent;
+    border-radius: 0;
+    background-color: #4c84ff;
+    color: #fff;
+    line-height: 1.45;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff;
+    opacity: .5;
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 7px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #e9edf4;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border-color: #e9edf4;
+    border-radius: 0;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: white;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #4c84ff;
+}
+
+
+
+.select2-container--default .select2-results>.select2-results__options {
+    margin: 4px;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    margin-top: 7px;
+    line-height: 26px;
+    padding-left: 7px;
+    opacity: 1;
+}
+
+.select2-container--default.select2-container--disabled .select2-selection__choice {
+    padding-left: 10px;
+    background-color: #737688;
+}
+
+.select2-container--default.select2-container--disabled .select2-selection__choice .select2-selection__choice__remove {
+    display: none;
+}
+
+.select2-container--open .select2-selection--single,
+.select2-container--open .select2-selection--multiple {
+    z-index: 1100;
+    background-color: #fff;
+    border-color: #e9edf4;
+}
+
+.select2-container--open .select2-dropdown--above {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.select2-container--open .select2-dropdown--below {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    top: -5px;
+}
+
+.select2-dropdown {
+    border-color: #e9edf4;
+    z-index: 1000;
+}
+
+.select2-search--dropdown {
+    padding-bottom: 0;
+}
+
+.select2-results__option {
+    padding: 6px 10px;
+    font-size: 0.875rem;
+    min-height: 30px;
+}
+
+.has-success .select2-container--default .select2-selection--single,
+.parsley-select.parsley-success .select2-container--default .select2-selection--single {
+    border-color: #28c76f;
+}
+
+.has-warning .select2-container--default .select2-selection--single {
+    border-color: #fcb32d;
+}
+
+.has-danger .select2-container--default .select2-selection--single,
+.parsley-select.parsley-error .select2-container--default .select2-selection--single {
+    border-color: #ff5c77;
+}
+
+.select2-xs+.select2-container {
+    font-size: 12px;
+}
+
+.select2-dropdown-xs .select2-results__option {
+    font-size: 12px;
+}
+
+.select2-sm+.select2-container {
+    font-size: 14px;
+}
+
+.select2-dropdown-sm .select2-results__option {
+    font-size: 14px;
+}
+
+.select2-bd-0+.select2-container--default .select2-selection--single {
+    border-width: 0;
+}
+
+.bg-gray+.select2-container--default .select2-selection--single {
+    background-color: #455473;
+}
+
+.bg-gray+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #f3f7fd;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    outline: none;
+}
+
+/*--- SELECT2 ---*/

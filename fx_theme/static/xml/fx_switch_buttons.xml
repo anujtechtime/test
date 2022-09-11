@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- switch btns -->
+    <t t-extend="ControlPanel.SwitchButton">
+        <t t-jquery="button" t-operation="replace">
+            <button type="button" t-att-accesskey="view.accessKey"
+            t-attf-class="btn btn-txt fa fa-lg #{view.icon} o_cp_switch_#{view.type} #{viewType === view.type ? ' active' : ''}"
+            t-attf-aria-label="View #{view.type}"
+            t-att-data-view-type="view.type" t-attf-title="View #{view.type}" tabindex="-1"/>
+        </t>
+    </t>
+
+</templates>

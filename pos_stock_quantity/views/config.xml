@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--     <record id="pos_config" model="ir.ui.view">
+        <field name="name">pos.config</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//div[hasclass('settings')]" position="inside">
+                <group string="POS Stock">
+                    <group>
+                        <field name="show_qty_available"/>
+                    </group>
+                    <group groups="stock.group_stock_multi_locations" attrs="{'invisible':[('show_qty_available','=',False)]}">
+                        <field name="location_only"/>
+                        <field name="hide_product" attrs="{'invisible':[
+                        ('location_only','=',False)]}" />
+                    </group>
+                    <group attrs="{'invisible':[('show_qty_available','=',False)]}">
+                        <field name="allow_out_of_stock" />
+                        <field name="limit_qty" attrs="{'invisible':[('allow_out_of_stock','=',True)]}"
+                               style="width: 150px;"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record> -->
+
+        <record id="view_pos_product_available_negative_config_form" model="ir.ui.view">
+        <field name="name">pos.pin.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='iface_big_scrollbars']/../.." position="after">
+                <group string="POS Stock">
+                    <group>
+                        <field name="show_qty_available"/>
+                    </group>
+                    <group groups="stock.group_stock_multi_locations" attrs="{'invisible':[('show_qty_available','=',False)]}">
+                        <field name="location_only"/>
+                        <field name="hide_product" attrs="{'invisible':[
+                        ('location_only','=',False)]}" />
+                    </group>
+                    <group attrs="{'invisible':[('show_qty_available','=',False)]}">
+                        <field name="allow_out_of_stock" />
+                        <field name="limit_qty" attrs="{'invisible':[('allow_out_of_stock','=',True)]}"
+                               style="width: 150px;"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+        <record id="pos_payment_method_view_form_inherit" model="ir.ui.view">
+            <field name="name">Payment Method</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='use_payment_terminal']" position="after">
+<!--                     <field name="pos_mercury_config_id" attrs="{'invisible': [('use_payment_terminal', '!=', 'mercury')], 'required': [('use_payment_terminal', '=', 'mercury')]}"/> -->
+                    <field name="currency_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+        <record id="view_report_pos_order_pivot_inherit" model="ir.ui.view">
+            <field name="name">report pos order inherit</field>
+            <field name="model">report.pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_report_pos_order_pivot"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_total']" position="after">
+                    <field name="cost_price" type="measure"/>
+                    <field name="profit_total" type="measure"/>
+                </xpath>
+            </field>
+        </record>
+    
+    <record id="view_company_form_value_expire_date" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="show_qty_available" invisible="1"/>
+                    <field name="location_only" invisible="1"/>
+                    <field name="allow_out_of_stock"/>
+                    <field name="limit_qty"/>
+                    <field name="hide_product"/>
+                </field>
+            </field>
+        </record>
+</odoo>

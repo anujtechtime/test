@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_inv_report" model="ir.ui.view">
+            <field name="name">Product Inventory Report</field>
+            <field name="model">sale.order.product_inv_report</field>
+            <field name="arch" type="xml">
+                <form string="Product Inventory Report">
+                    <group col="4">
+                        <field name="product"/>
+                    </group>
+                    <footer>
+                        <button name="print_xls_report" type="object" string="Download XLS Report" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_inv_report" model="ir.actions.act_window">
+            <field name="name">Product Valuation Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.product_inv_report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+<!--         <menuitem action="action_product_inv_report" id="menu_product_inv_val_report_menu" parent="stock.menu_warehouse_report" sequence="11"/> -->
+    </data>
+</openerp>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- template for header  -->
+    <t t-name="fx_theme.page_header">
+        <div class="page-header-content justify-content-between d-flex align-items-center">
+            <div class="d-flex align-items-center" style="display : none !important;">
+                <ul class="navbar-nav">
+                    <div class="navigation-logo-container">
+                <div class="navigation-logo">
+                    <!-- company logo here  -->
+                    <img class="img-responsive d-block mx-auto" t-attf-src="/web/binary/company_logo" alt="Logo"/>
+                </div>
+            </div>
+                    <!-- begin::navigation-toggler -->
+                </ul>
+                <span class='title action-title'></span>
+            </div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb_box">
+                </ol>
+            </nav>
+        </div>
+    </t>
+
+    <t t-name="fx_theme.breadcrumb_item">
+        <li class="breadcrumb-item">
+            <a href="#"><t t-esc="content"/></a>
+        </li>
+    </t>
+
+</templates>

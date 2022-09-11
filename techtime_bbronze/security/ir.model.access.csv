@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_previous_work,previous.work,model_previous_work,base.group_user,1,1,1,1
+access_res_language,res.language,model_res_language,base.group_user,1,1,1,1
+access_employee_data,employee.data,model_employee_data,base.group_user,1,1,1,1
+
+

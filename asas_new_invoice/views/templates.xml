@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+          <template id="report_invoice_documentinherit" name="report invoice document menu inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('clearfix')]" position="after">                         
+
+          <tr class="border-black clearfix">
+                        <strong>Bank Account Details :-</strong><br/>
+                        <td>Bank Name : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Bank_Name"/><br/>
+                        </td>
+                        <td>Bank City : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Bank_City"/><br/>
+                        </td>
+
+                        <td>Bank Country : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Bank_Country"/><br/>
+                        </td>
+
+                        <td>Swift Code : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Swift_Code"/><br/>
+                        </td>
+
+                        <td>Bank Account number : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Bank_Account_number"/><br/>
+                        </td>
+
+                        <td>IBAN : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.IBAN"/><br/>
+                        </td>
+
+                        <td>Account currency : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Account_currency"/><br/>
+                        </td>
+
+                        <td>Bank Account Name : </td>
+                        <td class="text-right">
+                            <span class="text-nowrap" t-field="o.company_id.Bank_Account_Name"/><br/>
+                        </td>
+                    </tr>
+        </xpath>
+        <xpath expr="//p[@name='payment_term']" position="replace"/>
+        <xpath expr="//div[@name='origin']" position="after">
+        <div class="col-auto mw-100 mb-2" t-if="o.invoice_payment_term_id" name="payment_term">
+                            <strong>Payment term</strong>
+                            <p class="m-0" t-field="o.invoice_payment_term_id.note"/>
+                        </div>
+        </xpath>
+
+                <xpath expr="//t[@t-set='address']" position="replace">
+        <t t-set="address">
+                    <p style="font-size: 20px;">To : <strong><span  t-field="o.partner_id.name"></span></strong> </p>
+                    <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+                    <div t-if="o.partner_id.vat" class="mt16">
+                        <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>
+                </t>
+
+            </xpath>
+
+
+        
+        <xpath expr="//p[@name='comment']" position="replace"/>            
+        <xpath expr="//table[@name='invoice_line_table']" position="before">
+          <p t-if="o.narration" name="comment">
+                        <span t-field="o.narration"/>
+                    </p>
+        </xpath>
+
+        <xpath expr="//th[@name='th_description']" position="before">
+          <th><span>#</span></th>
+        </xpath>
+
+     <xpath expr="//t[@t-set='lines']" position="before">
+          <t t-set="i" t-value="1"/>
+        </xpath>
+
+      <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+        <td> <span t-esc="i"/> 
+            <t t-set="i" t-value="i+1"/>
+        </td>
+      </xpath>
+        </template>
+    </data>
+</odoo>

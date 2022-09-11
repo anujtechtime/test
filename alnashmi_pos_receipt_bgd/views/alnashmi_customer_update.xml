@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="alnashmi_customer_birthday">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="h_birthday" />
+                <field name="h_day" invisible="1" />
+                <field name="h_month" invisible="1" />
+                <field name="h_year" invisible="1" />
+                <field name="w_birthday" />
+                <field name="w_day" invisible="1" />
+                <field name="w_month" invisible="1" />
+                <field name="w_year" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="quant_search_view_inherit">
+        <field name="name">stock.quant.search</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[2]" position="replace">
+                <group expand='0' string='Group by...'>
+                    <filter string='Location' name="locationgroup" domain="[]" context="{'group_by': 'location_id'}"/>
+                    <filter string='Product' name="productgroup" context="{'group_by': 'product_id'}"/>
+                    
+                    <filter string='Owner' name="owner" context="{'group_by': 'owner_id'}" groups="stock.group_tracking_owner"/>
+                    <filter string='Lot/Serial Number' name="Lot_Serial_number" context="{'group_by': 'lot_id'}" groups="stock.group_production_lot"/>
+                    <filter string='Package' name="package" domain="[]" context="{'group_by': 'package_id'}" groups="stock.group_tracking_lot"/>
+                    <filter string='Company' name="company" domain="[]" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+               </group>
+           </xpath>
+       </field>
+   </record>
+
+
+
+        <record id="action_stock_inventory_valuation_stock" model="ir.actions.act_window">
+            <field name="name">Reports</field>
+            <field name="res_model">stock.quant</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_internal_loc': 1,'search_default_locationgroup': 1, 'search_default_productgroup' :1}</field>
+            <field name="search_view_id" ref="stock.quant_search_view"/>
+            
+        </record>
+
+
+
+<!--     <record model="ir.actions.server" id="action_stock_inventory_valuation_stock">
+        <field name="name">Inventory</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.with_context(
+                search_default_internal_loc=1,
+                search_default_locationgroup=1,
+                search_default_productgroup=1,
+            ).action_stock_inventory_valuation_stock()
+        </field>
+    </record> -->
+        <menuitem id="menu_valuation_stock" name="Reports" parent="stock.menu_warehouse_report" sequence="111" action="action_stock_inventory_valuation_stock"/>
+
+
+
+        <record id="action_picking_tree_all_internal" model="ir.actions.act_window">
+            <field name="name">Internal Transfers</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{'default_picking_type_id': 10,'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0]}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new transfer
+                </p><p>
+                    Transfers allow you to move products from one location to another.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="all_picking_internal_transfer" name="Internal Transfers" parent="stock.menu_stock_warehouse_mgmt" sequence="6" action="action_picking_tree_all_internal" groups="stock.group_stock_manager,stock.group_stock_user"/>
+
+            <menuitem action="stock.action_location_form" id="menu_action_location_form_stock_loaction" name="Stock Location"
+        parent="stock.menu_stock_inventory_control" sequence="2" groups="stock.group_stock_multi_locations"/>
+
+
+        <record id="view_picking_form_inhrit_form" model="ir.ui.view">
+        <field name="name">stock.picking.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+            <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,assigned,done" />
+        </xpath>
+
+            <xpath expr="//button[hasclass('o_btn_validate')]" position="replace">
+                <button name="allow_transfer" attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'confirmed')), ('show_validate', '=', False)]}" string="Transfer" type="object" groups="stock.group_stock_user" class="oe_highlight"/>
+
+                <button name="button_validate" string="Accept" attrs="{'invisible': ['|', ('state', 'not in', ('allow_transfer'))]}" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+
+            </xpath>
+            <xpath expr="//button[@name='button_validate']" position="replace"/>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>

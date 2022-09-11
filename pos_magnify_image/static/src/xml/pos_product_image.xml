@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+   
+    <t t-extend="Product">
+        <t t-jquery="t[t-esc='product.display_name']" t-operation="after">
+                    <t t-esc="product.default_code"/>
+        </t>
+    </t>
+
+
+        <t t-extend="NumpadWidget">
+        <t t-jquery=".numpad" t-operation="replace">
+        </t>
+    </t>
+
+
+
+<t t-extend="OrderSelectorWidget">
+
+<t t-jquery=".deleteorder-button" t-operation="after">
+    <t t-set="id_loc" t-value="widget.pos.config.picking_type_id[0]"/>
+    <p id="product_location" style="color: white;">
+        <t t-esc="widget.pos.db.get_stock_picking_id(id_loc)[0].default_location_src_id[1]"/>
+    </p>
+        </t>
+    </t>
+
+    <t t-extend="ProductScreenWidget">
+
+<t t-jquery=".leftpane" t-operation="replace">
+<div class="leftpane">
+                <div class='window'>
+                    
+
+                <div class='subwindow collapsed'>
+                    <div class='subwindow-container' style="height : 54px;">
+                        <div class='subwindow-container-fix pads'>
+                            <div class="control-buttons oe_hidden"></div>
+                            <div class="placeholder-ActionpadWidget"></div>
+                            <div class="placeholder-NumpadWidget"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='subwindow'>
+                    <div class='subwindow-container'>
+                        <div class='subwindow-container-fix'>
+                            <div class="placeholder-OrderWidget"></div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </t>
+    </t>
+<t t-extend="PaymentScreenWidget">
+    <t t-jquery=".payment-buttons" t-operation="replace">
+</t>
+
+<t t-jquery=".paymentmethods-container" t-operation="after">
+
+<div class='payment-buttons'>
+                        <div class='button js_set_customer'>
+                            <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                            <span class='js_customer_name'>
+                                <t t-if="widget.pos.get_client()">
+                                    <t t-esc="widget.pos.get_client().name" />
+                                </t>
+                                <t t-if="!widget.pos.get_client()">
+                                    Customer
+                                </t>
+                            </span>
+                        </div>
+                        <t t-if='widget.pos.config.module_account'>
+                            <t t-if='widget.pos.get_order()'>
+                                <div t-attf-class='button js_invoice #{ widget.pos.get_order().is_to_invoice() ? "highlight" : ""} '>
+                                    <i class='fa fa-file-text-o' /> Invoice
+                                </div>
+                            </t>
+                        </t>
+                        <div class='button js_email'>
+                            <i class='fa fa-inbox' /> Email
+                        </div>
+                        <t t-if='widget.pos.config.tip_product_id'>
+                            <div class='button js_tip'>
+                                <i class='fa fa-heart' /> Tip
+                            </div>
+                        </t>
+                        <t t-if='widget.pos.config.iface_cashdrawer'>
+                            <div class='button js_cashdrawer'>
+                                <i class='fa fa-archive' /> Open Cashbox
+                            </div>
+                        </t>
+                     </div>
+
+
+                 </t>
+
+                 
+             </t>
+
+
+    <t t-name="ProductZoomPopupWidget">
+        <div class="modal-dialog">
+        </div>
+    </t>
+
+
+
+
+    <t t-name="OrderLineZoomPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-barcode" style="height : 600px; width : 1000px;">
+                <p class="title">[<t t-esc="widget.options.code"/>]<t t-esc=" widget.options.title || 'Order Line' " /></p>
+
+<div style="float : left; margin-left : 15%;">
+                <p style="display : none ;">
+                        Price : <input type="number" tabindex="1" id="price" name="price" t-att-value="widget.options.price" readonly="True"/>
+                    </p>
+                    <p>
+                        Quantity : <input type="number" tabindex="1" autofocus="true" autocomplete="off" id="quantity" name="quantity"  t-att-value="widget.options.quantity"/>
+                    </p>
+                    <p>
+                        Net Price : <input type="number" tabindex="1" autocomplete="off" id="new_price" name="new_price" t-att-value="widget.options.new_price"/>
+                    </p>
+                    <p>
+                        Discount : <input type="number" tabindex="1" autocomplete="off" id="discount" name="discount" t-att-value='widget.options.discount'/>
+
+                    </p>
+                    <p>
+                        Margin : <input type="text" tabindex="1" autocomplete="off" id="margin" name="margin" t-att-value="widget.options.margin" readonly="1"/>
+                    </p>
+                    <p>
+                        Sub-Total : <input type="number" tabindex="1" id="subtotal" name="subtotal" t-att-value="widget.options.base_price" readonly="1"/>
+
+                    </p>
+
+                </div>
+
+                <script>
+                    document.getElementById('quantity').select();
+                </script>
+                <div style="float : right; margin-right : 15%;">
+                    <p class="body">
+                    <p>
+                        sale price : <t t-esc='widget.options.sale_price'/>
+
+                    </p>
+                    <p>
+                        cost price : <t t-esc='widget.options.cost_price'/>
+                    </p>
+                    <p>
+                        Total On Hand : <t t-esc="widget.options.qty_available"/>
+                    </p>
+                    <p>
+                        Total Forecasted : <t t-esc="widget.options.virtual_available"/>
+                    </p>
+
+
+
+
+
+<!-- <t t-foreach="widget.pos.db.brand_product" t-as="locid">
+                            
+                            <td name="th_description" class="text-left"><t t-esc="locid"/></td><br/>
+                          </t>
+ -->
+ <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+            <table class="table table-sm" id="customers">
+
+                <thead></thead>
+                <thead style="float: left; display : block !important;">
+                    <tr style="display: grid">
+                        <t t-foreach="widget.pos.db.brand_product" t-as="locid">
+                            
+                            <td style="height: 21px;" name="th_description" class="text-left"><t t-esc="locid"/></td>
+                          </t>
+                        
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody" style="float: right;">
+                    <tr style="display: grid">
+
+                <td style="height: 21px;" name="td_customer" >
+                   <t t-esc="widget.options.res_id0"/>
+            </td>
+
+            <td style="height: 21px;" name="td_customer" >
+                <t t-esc="widget.options.res_id1"/>
+            </td>
+
+            
+            
+            <td style="height: 21px;" name="td_amount_total_label">
+                <t t-esc="widget.options.res_id2"/>
+                        
+                </td>
+
+                <td style="height: 21px;" name="td_customer">
+                    <t t-esc="widget.options.res_id3"/>
+
+            </td>
+            
+            <td style="height: 21px;" name="td_amount_total_label">
+                <t t-esc="widget.options.res_id4"/>
+                        
+
+                </td>
+
+            
+            <td style="height: 21px;" name="td_amount_total_label">
+                <t t-esc="widget.options.res_id5"/>
+                
+            </td>
+
+            <td style="height: 21px;" name="td_amount_total_label">
+                <t t-esc="widget.options.res_id6"/>
+                
+            </td>
+
+            <t t-if="widget.options.res_id7">
+            <td style="height: 21px;"  name="td_amount_total_label" >
+                <t t-esc="widget.options.res_id7"/>
+                
+            </td>
+        </t>
+        </tr>
+<!--         <t t-set="values_data" t-value="values_data + line.id"/>
+ -->        </tbody>
+    </table>
+                    <!-- <t t-esc="widget.options.product_id"/> -->
+
+<!--                         <t t-foreach="widget.options.res_id0" t-as="locid">
+                            <t t-esc="locid"/>
+
+                          </t> -->
+                           
+                                                    
+                       <!--  <t t-foreach="widget.options.res_id" t-as="locid_uu">
+                            <t t-esc="locid_uu"/>
+                          </t> -->
+                   <!--  <p>ON HAND QUANTITY</p> -->
+                    <p id="on_hand"></p>
+                    <!-- <div class="product_large_image">
+                    <img t-att-src='widget.image_url'/>
+                    </div> -->
+                </p>
+                </div>
+
+                <div class="footer">
+                    <button type="submit" class="button confirm" tabindex="1"> 
+                        Confirm
+                    </button>
+                    <div class="button cancel" tabindex="1">
+                        Close
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+
+<t t-extend="Chrome">
+    <t t-jquery=".pos-logo" t-operation="replace">
+
+      <img class="pos-logo" src="/pos_magnify_image/static/description/logo.jpeg" />  
+    </t>
+  </t>
+
+</template>
+
+
+
+
+

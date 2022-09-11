@@ -1,0 +1,30 @@
+
+.fx_form {
+    background: rgba($color: #000000, $alpha: 0.1);
+    align-items: flex-end;
+
+    .content_area {
+        width: 100%;
+        height: 100%;
+        max-width: 1120px;
+        display: flex;
+        flex-direction: column;
+        
+        .o_form_view {
+            overflow-y: auto;
+            .o_form_sheet_bg {
+                display: flex;
+                &> .o_form_sheet {
+                    margin: none;
+                    width: 100%;
+                    max-width: 1140px;
+                    flex: 1 1 auto;
+                }
+            }
+        }
+
+        .form_view_footer {
+            height: 60px;
+        }
+    }
+}

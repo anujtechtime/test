@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <div t-name='fx_toggle' class="custom-control custom-toggle my-2">
+        <input type="checkbox" id="customToggle1" name="customToggle1" class="custom-control-input" checked/>
+        <label class="custom-control-label" for="customToggle1">I'm already toggled!</label>
+    </div>
+
+    <div t-name='fx_check_box' class="custom-control custom-checkbox mb-3">
+        <input type="checkbox" class="custom-control-input" id="customCheck1" checked/>
+        <label class="custom-control-label" for="customCheck1">Checkboxes are cool</label>
+    </div>
+    
+</templates>

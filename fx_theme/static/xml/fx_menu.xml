@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="fx_theme.menu">
+        <div class="navigation" style="
+            ">
+            <div class="navigation-menu-tab side_bar" style="display: none;">
+                <!-- user info -->
+                <div>
+                    <div class="navigation-logo">
+                        <!-- company logo here  -->
+                        <img class="img-responsive d-block mx-auto" t-attf-src="/web/binary/company_logo" alt="Logo" style="    width: 100%;
+    padding: 20px 0px;"/>
+                    </div>
+                </div>
+<!--                 <div class="navigation-menu-tab-header" 
+                    data-toggle="tooltip" 
+                    title="fx theme" 
+                    data-placement="right"/> -->
+                <!-- fist level menu -->
+                <div class="flex-fill navigation-menu-tab-body">
+                    <t t-foreach="widget.getApps()" t-as="app">
+                        <a href="#" 
+                            class="fx_nav_bar_app_item"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            t-att-title="app.name"
+                            t-attf-data-nav-target="##{app.menuID}"
+                            t-att-data-menu-id="app.menuID"
+                            t-att-data-menu-xmlid="app.xmlID"
+                            t-att-data-action-id="app.actionID">
+                            <img class="o-app-icon " t-attf-src="data:image/png;base64,#{app.web_icon_data}"/>
+                        </a>
+                        <div t-attrf-class="o_caption fx_side_bar_app_name fx_app_name">
+                            <t t-esc="app.name" />
+                        </div>
+                    </t>
+                </div>
+                <div class="fx-nav-footer" style="display : none;"></div>
+            </div>
+            <!-- begin::navigation menu -->
+            <div class="navigation-menu-body secondary_nav">
+                <!-- begin::navigation-logo -->
+                <div>
+                    <div class="navigation-logo">
+                        <!-- company logo here  -->
+                        <img class="img-responsive d-block mx-auto" t-attf-src="/web/binary/company_logo" alt="Logo" style="display : none !important;"/>
+                    </div>
+                </div>
+                <!-- secondary menu -->
+                <div class="navigation-menu-group" style="
+                    background-color: #fff;
+                    bottom: 0;
+                    left: 0;
+                    margin-top: 12px;
+                    top: 90px;
+                    transition : 5s !important;
+                    width: 240px;
+                    z-index: 1001;
+                    border-top-right-radius: 20px;
+                    box-shadow: 0 0 13px 0 rgb(82 63 105 / 50%);
+                    ">
+                    <t t-foreach="widget.menu_data.children || []" t-as="first_level_menu">
+                        <t t-foreach="widget.getApps()" t-as="app">
+                        
+                        <t t-if="first_level_menu.id == app.menuID"> 
+                        <a href="#" 
+                            class="fx_nav_bar_app_item fx_theme_menu_entry_lvl_1"
+                            id="fx_theme_menu_entry_lvl_1"
+                            style="align-items: center;
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    padding: 8px 15px;
+                                    color: #555a64;
+                                    font-size: 15px;
+                                    height: auto;
+                                    transition: all 0.2s ease-in-out 0s;"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            t-att-title="app.name"
+                            t-attf-data-nav-target="##{app.menuID}"
+                            t-att-data-menu-id="app.menuID"
+                            t-att-data-menu-xmlid="app.xmlID"
+                            t-att-data-action-id="app.actionID">
+                            <img class="o-app-icon " t-attf-src="data:image/png;base64,#{app.web_icon_data}" style="
+                                opacity: .5; width: 48px;
+                                height: 48px"/>
+                            <div t-attrf-class="submenu o_caption fx_side_bar_app_name fx_app_name" style="color: #555a64;">
+                            <t t-esc="app.name" />
+                        </div>    
+                        <i t-if="first_level_menu.children &amp;&amp; first_level_menu.children.length"  class="sub-menu-arrow fa fa-angle-right" style="margin-left: auto;"></i>
+                        </a>
+
+                        <div t-if="first_level_menu.children &amp;&amp; first_level_menu.children.length" t-att-id="first_level_menu.id" class="group_visiblz">
+                        
+
+                        <ul>
+                                <t t-foreach="first_level_menu.children || []" t-as="scondary_level_menu">
+                                    <t t-call="fx_theme.menu.link">
+                                        <t t-set="depth" t-value="0"/>
+                                        <t t-set="menu" t-value="scondary_level_menu" style=""/></t>
+                                </t>
+                            </ul>
+                        </div>
+                        </t>
+                    </t>
+
+
+                        <div t-if="first_level_menu.children &amp;&amp; first_level_menu.children.length" t-att-id="first_level_menu.id">
+                            <!-- <ul>
+                                <t t-foreach="first_level_menu.children || []" t-as="scondary_level_menu">
+                                    <t t-call="fx_theme.menu.link">
+                                        <t t-set="depth" t-value="0"/>
+                                        <t t-set="menu" t-value="scondary_level_menu"/></t>
+                                </t>
+                            </ul> -->
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+    <!-- secondar menu_body -->
+    <t t-name="fx_theme.secondary_menu_body" >
+        <div t-if="first_level_menu.children &amp;&amp; first_level_menu.children.length" t-att-id="first_level_menu.id">
+            <ul>
+                <t t-foreach="first_level_menu.children || []" t-as="scondary_level_menu">
+                    <t t-call="fx_theme.menu.link">
+                        <t t-set="depth" t-value="0"/>
+                        <t t-set="menu" t-value="scondary_level_menu"/></t>
+                </t>
+            </ul>
+        </div>
+    </t>
+    <!-- second or more depth -->
+    <t t-name="fx_theme.menu.link">
+        <t t-set="depth" t-value="(depth || 0) + 1"/>
+        <t t-if="!menu.children.length">
+            <!-- has no submenu -->
+            <li>
+                <a t-attf-href="#menu_id=#{menu.id}&amp;action=#{menu.action ? menu.action.split(',')[1] : ''}"
+                    t-att-data-menu="menu.id"
+                    t-att-data-action-model="menu.action ? menu.action.split(',')[0] : ''"
+                    t-att-data-action-id="menu.action ? menu.action.split(',')[1] : ''"
+                    t-att-data-menu-xmlid="menu.xmlid">
+                    <span>
+                        <t t-esc="menu.name"/>
+                    </span>
+                </a>
+            </li>
+        </t>
+        <!-- have sub menu -->
+        <t t-else="">
+            <li>
+                <a t-attf-class="fx_theme_menu_entry_lvl_#{depth}" href="#">
+                    <t t-esc="menu.name"/>
+                </a>
+                <ul>
+                    <t t-foreach="menu.children" t-as="menu">
+                        <t t-call="fx_theme.menu.link" /></t>
+                </ul>
+            </li>
+        </t>
+    </t>
+
+    <div t-name="fx_theme.app_menu" 
+        class="hz_app_menu flex-fill alig-items-cetner justify-content-cetner">
+        <a href="#" 
+            t-foreach="widget.getApps()" 
+            t-as="app"
+            class="app_item"
+            t-att-title="app.name"
+            t-attf-data-nav-target="##{app.menuID}"
+            t-att-data-menu-id="app.menuID"
+            t-att-data-menu-xmlid="app.xmlID"
+            t-att-data-action-id="app.actionID">
+            <img class="o-app-icon" t-attf-src="data:image/png;base64,#{app.web_icon_data}"/>
+            <span class="app_name">
+                <t t-esc="app.name" />
+            </span>
+        </a>
+        <!-- drop down -->
+        <a class="view_more_app align-items-center" data-toggle="dropdown" href="#" aria-haspopup="true"  aria-expanded="false">
+            <span class="fa fa-caret-down"></span>
+        </a>
+        <div class="dropdown-menu" role="menu">
+            <div class="d-flex flex-wrap flex-space-between more_app_container">
+            </div>
+        </div>
+    </div>
+
+    <t t-name="fx_theme.app_item">
+        <a href="#" 
+            class="app_item"
+            t-att-title="app.name"
+            t-attf-data-nav-target="##{app.menuID}"
+            t-att-data-menu-id="app.menuID"
+            t-att-data-menu-xmlid="app.xmlID"
+            t-att-data-action-id="app.actionID">
+            <img class="o-app-icon" t-attf-src="data:image/png;base64,#{app.web_icon_data}"/>
+            <span class="app_name">
+                <t t-esc="app.name" />
+            </span>
+        </a>
+    </t>
+
+</templates>

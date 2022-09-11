@@ -1,0 +1,13 @@
+{
+  "name": "compress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {},
+  "author": "",
+  "devDependencies": {},
+  "dependencies": {
+    "uglify-js": "^3.9"
+  }
+}
