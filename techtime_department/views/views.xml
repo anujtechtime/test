@@ -254,6 +254,27 @@
     </record>
 
 
+        <report
+            id="report_payment_receipt_student"
+            model="account.payment"
+            string="Student Template"
+            report_type="qweb-pdf"
+            name="techtime_department.report_payment_receipt_student"
+            file="techtime_department.report_payment_receipt_student"
+            menu="True"
+        />
+
+
+        <report
+            id="report_payment_receipt_general"
+            model="account.payment"
+            string="General Template"
+            report_type="qweb-pdf"
+            name="techtime_department.report_payment_receipt_general"
+            file="techtime_department.report_payment_receipt_general"
+            menu="True"
+        />
+
     
 
 

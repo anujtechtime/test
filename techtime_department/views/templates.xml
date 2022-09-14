@@ -1,24 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
+    <template id="report_payment_receipt_document_student">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page"> 
+            <t t-set="my_name" t-value="o.name.split('/')"/>
+            
+  
+  
+              <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
+                
+                
+                <div t-if="o.name" class="col-4  ">
+                   <!--<span class="m-0" t-field="o.name"/>-->
+                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong>: رقم الوصل </strong>
+                    
+                </div>
+                
+                <div t-if="o.name" class="col-4">
+                    <strong>وصل قبض</strong>
+                    
+                </div>
+                
+                <div t-if="o.payment_date" class="col-4 text-right">
+                    <span class="m-0" t-field="o.payment_date"/><strong> :  التاريخ</strong>
+                    
+                </div>
+                <!--<div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto mw-100 mb-2" name="expiration_date">-->
+                <!--    <strong>Expiration:</strong>-->
+                <!--    <p class="m-0" t-field="doc.validity_date"/>-->
+                <!--</div>-->
+                <!--<div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">-->
+                <!--    <strong>Salesperson:</strong>-->
+                <!--    <p class="m-0" t-field="doc.user_id"/>-->
+                <!--</div>-->
+            </div>
+            
+            
+            
+              <div class="col-12" style="margin-top: 10px;">
+                  <div class="" style="float : right;"  t-if="o.partner_type" >
+                    
+                      <t t-if="o.partner_type == 'customer'">
+                          <strong>  اسم الطالب  : </strong>
+                      </t>
+                      <t t-if="o.partner_type == 'supplier'">
+                          <strong>  اسم الطالب  : </strong>
+                      </t>
+                      <u><span t-field="o.partner_id"/></u>
+                      
+                  </div>
+              </div>
+              
+              <br/>
+              
+              <div class=" " id="informations" style="margin-top : 10px;">
+                
+            <div class="col-12 text-right" t-if="o.amount">
+                       <u> <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></u><strong>:  المبلغ </strong>
+                     </div>
+            </div>
+              
+              
+              
+                <div class="">
+                  <div class="col-12 text-right">
+                    <span class="m-0">______________</span><strong>  :  المبلغ كتابتا</strong>
+                  </div>
+                </div>
+                  
+                  
+                  <div class="">
+                
+                <div class=" text-right" id="informations">
+                  <div t-if="o" class="col-12" style="">
+                    </div>
+                
+                <div t-if="o" class="col-12" style="">
+                    <span class="m-0">______________</span><strong>: المرحلة </strong>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <span class="m-0">______________</span><strong>: الكلية</strong>
+                    
+                </div>
+            </div>
+            </div>
+            
+            <br/>
+            
+            
+            
+            
+            
+            <div class="row " style="float: right; margin-right : 3px;">
+                <div class="" t-if="o.communication">
+                       <span t-field="o.communication"/> <strong>: التفاصيل  </strong>
+                     </div>
+                </div>
+                
+                <div class="col-12" style="margin-right: 40px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            
+            
+                <!--<table class="table table-sm" style="margin:10px 0px">-->
+                <!--    <thead style="border:#e5a853 2px solid; ">-->
+                <!--        <tr>-->
+                            <!--<th><span>Invoice Date</span></th>-->
+                            <!--<th><span>Invoice Number</span></th>-->
+                <!--            <th><span>التفاصيل </span></th>-->
+                            <!--<th class="text-right"><span>Original Amount</span></th>-->
+                <!--            <th class="text-right"><span>المبلغ</span></th>-->
+                            <!--<th class="text-right"><span>Balance</span></th>-->
+                <!--        </tr>-->
+                <!--    </thead>-->
+                <!--    <tbody style="border:#e5a853 2px solid; ">-->
+                <!--        <tr t-foreach="o.reconciled_invoice_ids" t-as="inv">-->
+                            <!--<td><span t-field="inv.invoice_date"/></td>-->
+                            <!--<td><span t-field="inv.name"/></td>-->
+                <!--            <td><span t-field="inv.ref"/></td>-->
+                            <!--<td class="text-right"><span t-field="inv.amount_total"/></td>-->
+                <!--            <td class="text-right"><span t-esc="o._get_invoice_payment_amount(inv)" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>-->
+                            <!--<td class="text-right"><span t-field="inv.amount_residual"/></td>-->
+                <!--        </tr>-->
+                <!--    </tbody>-->
+                <!--</table>-->
+                <br/>
+
+              
+            <div class="" style="float: right; position : fixed; right : 0; margin-top : 160px;">
+                <div class="col-12" style="text-align : right;">
+                       <strong>   اسم وتوقيع امين الصندوق
+ </strong>
+                     </div>
+                </div>  
+                <div class="col-11">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+        </t>
+            
+    </template>
+
+    <template id="report_payment_receipt_student">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="techtime_department.report_payment_receipt_document_student" t-lang="lang"/>
             </t>
-          </dl>
-        </template>
--->
-    </data>
+        </t>
+    </template>
+
+
+
+
+    <template id="report_payment_receipt_document_general">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page"> 
+            <t t-set="my_name" t-value="o.name.split('/')"/>
+            
+  
+  
+              <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
+                
+                
+                <div t-if="o.name" class="col-4  ">
+                   <!--<span class="m-0" t-field="o.name"/>-->
+                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong>: رقم الوصل </strong>
+                    
+                </div>
+                
+                <div t-if="o.name" class="col-4">
+                    <strong>وصل قبض</strong>
+                    
+                </div>
+                
+                <div t-if="o.payment_date" class="col-4 text-right">
+                    <span class="m-0" t-field="o.payment_date"/><strong> :  التاريخ</strong>
+                    
+                </div>
+                <!--<div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto mw-100 mb-2" name="expiration_date">-->
+                <!--    <strong>Expiration:</strong>-->
+                <!--    <p class="m-0" t-field="doc.validity_date"/>-->
+                <!--</div>-->
+                <!--<div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">-->
+                <!--    <strong>Salesperson:</strong>-->
+                <!--    <p class="m-0" t-field="doc.user_id"/>-->
+                <!--</div>-->
+            </div>
+            
+            
+            
+              <div class="col-12" style="margin-top: 10px;">
+                  <div class="" style="float : right;"  t-if="o.partner_type" >
+                    
+                      <t t-if="o.partner_type == 'customer'">
+                          <strong>  اسم الطالب  : </strong>
+                      </t>
+                      <t t-if="o.partner_type == 'supplier'">
+                          <strong>  اسم الطالب  : </strong>
+                      </t>
+                      <span>_______________</span>
+                      
+                  </div>
+              </div>
+              
+              <br/>
+              
+              <div class=" " id="informations" style="margin-top : 10px;">
+                
+            <div class="col-12 text-right" t-if="o.amount">
+                       <u> <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></u><strong>:  المبلغ </strong>
+                     </div>
+            </div>
+              
+              
+              
+                <div class="">
+                  <div class="col-12 text-right">
+                    <span class="m-0">______________</span><strong>  :  المبلغ كتابتا</strong>
+                  </div>
+                </div>
+                  
+                  
+                  <div class="">
+                
+                <div class=" text-right" id="informations">
+                  <div t-if="o" class="col-12" style="">
+                    </div>
+                
+                <div t-if="o" class="col-12" style="">
+                    <span class="m-0">______________</span><strong>: المرحلة </strong>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <span class="m-0">______________</span><strong>: الكلية</strong>
+                    
+                </div>
+            </div>
+            </div>
+            
+            <br/>
+            
+            
+            
+            
+            
+            <div class="row " style="float: right; margin-right : 3px;">
+                <div class="" t-if="o.communication">
+                       <span t-field="o.communication"/> <strong>: التفاصيل  </strong>
+                     </div>
+                </div>
+                
+                <div class="col-12" style="margin-right: 40px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            
+            
+                <!--<table class="table table-sm" style="margin:10px 0px">-->
+                <!--    <thead style="border:#e5a853 2px solid; ">-->
+                <!--        <tr>-->
+                            <!--<th><span>Invoice Date</span></th>-->
+                            <!--<th><span>Invoice Number</span></th>-->
+                <!--            <th><span>التفاصيل </span></th>-->
+                            <!--<th class="text-right"><span>Original Amount</span></th>-->
+                <!--            <th class="text-right"><span>المبلغ</span></th>-->
+                            <!--<th class="text-right"><span>Balance</span></th>-->
+                <!--        </tr>-->
+                <!--    </thead>-->
+                <!--    <tbody style="border:#e5a853 2px solid; ">-->
+                <!--        <tr t-foreach="o.reconciled_invoice_ids" t-as="inv">-->
+                            <!--<td><span t-field="inv.invoice_date"/></td>-->
+                            <!--<td><span t-field="inv.name"/></td>-->
+                <!--            <td><span t-field="inv.ref"/></td>-->
+                            <!--<td class="text-right"><span t-field="inv.amount_total"/></td>-->
+                <!--            <td class="text-right"><span t-esc="o._get_invoice_payment_amount(inv)" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>-->
+                            <!--<td class="text-right"><span t-field="inv.amount_residual"/></td>-->
+                <!--        </tr>-->
+                <!--    </tbody>-->
+                <!--</table>-->
+                <br/>
+
+              
+            <div class="" style="float: right; position : fixed; right : 0; margin-top : 160px;">
+                <div class="col-12" style="text-align : right;">
+                       <strong>   اسم وتوقيع امين الصندوق
+ </strong>
+                     </div>
+                </div>  
+                <div class="col-11">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+                
+                <div class="col-11" style="margin-top : 20px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+        </t>
+            
+    </template>
+
+    <template id="report_payment_receipt_general">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="techtime_department.report_payment_receipt_document_general" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
 </odoo>
+
+
