@@ -41,7 +41,7 @@ class SaleOrderField_user(models.Model):
         result = super(SaleOrderField_user, self).create(vals)
         print("result##############",result)    
         print("result.college###########",result.college,result.department,result.student, result.year)
-        installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)])
+        installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)])
         print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
@@ -99,7 +99,7 @@ class SaleOrderField_user(models.Model):
     @api.onchange('year')
     def _compute_level(self):
         print("self.college###########",self.college,self.department,self.student, self.year, self._origin)
-        installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
+        installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),("Subject","=",self.Subject),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
         print("self.id#$$$$$$$$$$$$$$$",installmet_dat)
         self.sale_installment_line_ids.unlink()
         invoice_past = self.env["account.move"].search([('invoice_origin', '=', self.name)])

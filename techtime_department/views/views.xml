@@ -208,6 +208,7 @@
                         <field name="college"/>
                         <field name="department"/>
                 <field name="Student"/>
+                <field name="Subject"/>
                 <field name="installment"/>
                 <field name="installment_number"/>
                 <field name="sale_installment_line_ids">

@@ -30,9 +30,10 @@
                     <field name="department" domain="[('college', '=', college)]" context="{'default_college': college}"/>
 
                     <field name="student"/>
+                    <field name="Subject"/>
                     <field name="year"/>
 <!--                     <field name="installment_no" widget="monetary"/>
- -->                    <field name="Subject"/>
+ -->                    
                 </xpath>
               </field>
             </record>
