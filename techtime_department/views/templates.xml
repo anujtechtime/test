@@ -215,14 +215,14 @@
             
               <div class="col-12" style="margin-top: 10px;">
                   <div class="" style="float : right;"  t-if="o.partner_type" >
-                    
+                    <span>_______________</span>
                       <t t-if="o.partner_type == 'customer'">
-                          <strong>  اسم الطالب  : </strong>
+                          <strong> : استلمت من  </strong>
                       </t>
                       <t t-if="o.partner_type == 'supplier'">
-                          <strong>  اسم الطالب  : </strong>
+                          <strong>:  استلمت من </strong>
                       </t>
-                      <span>_______________</span>
+                      
                       
                   </div>
               </div>
