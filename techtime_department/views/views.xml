@@ -206,11 +206,11 @@
                     <group>
                         <field name="year"/>
                         <field name="college"/>
-                        <field name="department"/>
+                        <field name="department" domain="[('college', '=', college)]" context="{'default_college' : college}"/>
                 <field name="Student"/>
                 <field name="Subject"/>
                 <field name="installment"/>
-                <field name="installment_number"/>
+                <field name="installment_number" invisible="1"/>
                 <field name="sale_installment_line_ids">
                         <tree string="Installment Lines" editable="bottom">
                             <field name="number"/>

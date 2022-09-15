@@ -66,7 +66,7 @@ class InstallmentDetails(models.Model):
     college = fields.Many2one("faculty.faculty", string="college")
     Student = fields.Many2one("level.level", string="Student Type")
     department = fields.Many2one("department.department", string="Department")
-    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Subject") 
+    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift") 
     installment = fields.Float("Installment")
     installment_number = fields.Integer("Installment No.")
     sale_installment_line_ids = fields.One2many('sale.installment', 'college_installment_id', string='Installment Lines', copy=True)

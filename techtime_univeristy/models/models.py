@@ -28,7 +28,7 @@ class SaleOrderField_user(models.Model):
         required=True, change_default=True, index=True, tracking=1,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
     student_no = fields.Char("Student No.", related="partner_id.number_exam")
-    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Subject")
+    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
 
     college = fields.Many2one("faculty.faculty", string="College")
     department = fields.Many2one("department.department", string="Department")
@@ -96,7 +96,7 @@ class SaleOrderField_user(models.Model):
         return result
 
 
-    @api.onchange('year')
+    @api.onchange('year',"college","Subject","department","student","year")
     def _compute_level(self):
         print("self.college###########",self.college,self.department,self.student, self.year, self._origin)
         installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),("Subject","=",self.Subject),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
