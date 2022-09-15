@@ -108,7 +108,7 @@ class SaleOrderField_user(models.Model):
         if installmet_dat and self._origin:
             for order in self.order_line:
                 if order:
-                    order.unlink()
+                    order.price_unit = self.installment_amount
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
             # for datts in installmet_dat.sale_installment_line_ids:
             # self.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
@@ -116,14 +116,15 @@ class SaleOrderField_user(models.Model):
             # self.payable_amount = installmet_dat.installment / installmet_dat.installment_number
             self.tenure_month = installmet_dat.installment_number
             self.second_payment_date = datetime.today().date()
-            order_line = self.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': self.installment_amount,
-                'product_uom': self.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': self._origin.id,
-                'name': 'sales order line',
-            })
+            if not self.order_line:
+                order_line = self.env['sale.order.line'].create({
+                    'product_id': 1,
+                    'price_unit': self.installment_amount,
+                    'product_uom': self.env.ref('uom.product_uom_unit').id,
+                    'product_uom_qty': 1,
+                    'order_id': self._origin.id,
+                    'name': 'sales order line',
+                })
             # journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             count = 0
             for i in installmet_dat.sale_installment_line_ids:
