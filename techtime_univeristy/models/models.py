@@ -26,8 +26,9 @@ class SaleOrderField_user(models.Model):
         'res.partner', string='Student Name', readonly=True,
         states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
         required=True, change_default=True, index=True, tracking=1,
-        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
-    student_no = fields.Char("Student No.", related="partner_id.number_exam")
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+    college_number = fields.Char("College Number", related="partner_id.college_number")
+    student_no = fields.Char("Exam No.", related="partner_id.number_exam")
     Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
 
     college = fields.Many2one("faculty.faculty", string="College")

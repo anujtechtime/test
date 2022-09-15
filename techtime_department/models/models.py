@@ -98,6 +98,7 @@ class StudentFields(models.Model):
 
     number_exam = fields.Char("Exam No.")
     university_no = fields.Char("University No.")
+    college_number = fields.Char("College Number")
     notes = fields.Text("Notes")
          
 

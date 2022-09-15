@@ -248,6 +248,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
                         <field name="number_exam"/>
+                        <field name="college_number"/>
                         <field name="university_no"/>
                         <field name="notes"/>
             </xpath>
