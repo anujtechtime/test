@@ -78,11 +78,17 @@
                     </div>
                 
                 <div t-if="o" class="col-12" style="">
-                    <span class="m-0">______________</span><strong>: المرحلة </strong>
+
+
+                    <span t-field="o.level" class="m-0">level</span><strong>: المرحلة </strong>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span class="m-0">______________</span><strong>: الكلية</strong>
+                    <span t-field="o.college" class="m-0">college</span><strong>: الكلية</strong>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <span t-field="o.student" class="m-0">student type</span><strong>: دعم الطالب</strong>
                     
                 </div>
             </div>
