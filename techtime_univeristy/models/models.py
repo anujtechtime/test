@@ -30,7 +30,7 @@ class SaleOrderField_user(models.Model):
     college_number = fields.Char("College Number", related="partner_id.college_number")
     student_no = fields.Char("Exam No.", related="partner_id.number_exam")
     Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
-
+    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     department = fields.Many2one("department.department", string="Department")
     student = fields.Many2one("level.level", string="Student Type")
@@ -42,7 +42,7 @@ class SaleOrderField_user(models.Model):
         result = super(SaleOrderField_user, self).create(vals)
         print("result##############",result)    
         print("result.college###########",result.college,result.department,result.student, result.year)
-        installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)])
+        installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)])
         print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
@@ -100,7 +100,7 @@ class SaleOrderField_user(models.Model):
     @api.onchange('year',"college","Subject","department","student","year")
     def _compute_level(self):
         print("self.college###########",self.college,self.department,self.student, self.year, self._origin)
-        installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),("Subject","=",self.Subject),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
+        installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),("level","=",self.level),("Subject","=",self.Subject),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
         print("self.id#$$$$$$$$$$$$$$$",installmet_dat)
         self.sale_installment_line_ids.unlink()
         invoice_past = self.env["account.move"].search([('invoice_origin', '=', self.name)])
@@ -193,4 +193,14 @@ class SaleOrderField_user(models.Model):
                 #     order.order_line.update({
                 #         'invoice_lines' : [(4, account_invoice_line.id)]
                 #         })
+
+
+class Payment_Data(models.Model):
+    _inherit = 'account.payment'
+
+
+    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
+    college = fields.Many2one("faculty.faculty", string="College")
+    student = fields.Many2one("level.level", string="Student Type")
+
 

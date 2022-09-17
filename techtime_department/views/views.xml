@@ -209,6 +209,7 @@
                         <field name="department" domain="[('college', '=', college)]" context="{'default_college' : college}"/>
                 <field name="Student"/>
                 <field name="Subject"/>
+                <field name="level"/>
                 <field name="installment"/>
                 <field name="installment_number" invisible="1"/>
                 <field name="sale_installment_line_ids">
