@@ -270,7 +270,7 @@
 
         <report
             id="report_payment_receipt_general"
-            model="account.payment"
+            model="account.move"
             string="General Template"
             report_type="qweb-pdf"
             name="techtime_department.report_payment_receipt_general"
