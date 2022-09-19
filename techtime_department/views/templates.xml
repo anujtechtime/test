@@ -237,13 +237,9 @@
               <div class="col-12" style="margin-top: 10px;">
                   <div class="" style="float : right;"  t-if="o.partner_type" >
                     
-                      <t t-if="o.partner_type == 'customer'">
+                      <t t-if="o">
                           <strong> : استلمت من  </strong>
                       </t>
-                      <t t-if="o.partner_type == 'supplier'">
-                          <strong>:  استلمت من </strong>
-                      </t>
-
                       <u><span t-field="o.partner_id"/></u>
                       
                       
