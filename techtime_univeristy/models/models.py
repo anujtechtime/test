@@ -205,3 +205,14 @@ class Payment_Data(models.Model):
     Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
 
 
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+
+    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
+    college = fields.Many2one("faculty.faculty", string="College")
+    student = fields.Many2one("level.level", string="Student Type")
+    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
+
+
+
