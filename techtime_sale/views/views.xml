@@ -11,7 +11,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="sponsor"/>
+                    <field name="sponsor" invisible="1"/>
                 </xpath>
 
                 <xpath expr="//page[@name='order_lines']" position="before">
@@ -19,13 +19,13 @@
                 <page string="Installment">
                   <group>
                     <group>
-                      <field name="downpayment" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="downpayment" invisible="1" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                       <field name="installment_amount" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                      <field name="second_payment_date" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
+                      <field name="second_payment_date" invisible="1" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
                     </group>
                     <group>
-                      <field name="payable_amount" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                      <field name="tenure_month" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
+                      <field name="payable_amount" invisible="1" attrs="{'readonly': [('state', 'in', ('sale'))]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="tenure_month" invisible="1" attrs="{'readonly': [('state', 'in', ('sale'))]}"/>
                     </group>
                     <field name="sale_installment_line_ids" attrs="{'readonly': [('state', 'in', ('sale'))]}">
                         <tree string="Installment Lines" editable="bottom">
