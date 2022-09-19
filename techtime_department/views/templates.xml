@@ -95,7 +95,7 @@
               
                 <div class="">
                   <div class="col-12 text-right">
-                    <strong>المبلغ كتابتا  :</strong>دينار عراقي<t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount).split('Dinar')"/>
+                    <strong style="color : #a17231;">المبلغ كتابتا  :</strong>دينار عراقي<t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount).split('Dinar')"/>
                     <span t-esc="in_words[0]"/>
                   </div>
                 </div>
@@ -115,7 +115,7 @@
                 <table class="table table-sm" style="margin:5px 0px">
                     <thead style="border:#000000 2px solid; ">
                         <tr>
-                            <th style="border:#000000 2px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span>التفاصيل </span></th>
+                            <th style="border:#000000 2px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span>الحساب </span></th>
 
                             <th style="border:#000000 2px solid;  height : 15px; width : 70%;" class="text-right"><span>المبلغ</span></th>
 
