@@ -235,7 +235,7 @@
             
             
               <div class="col-12" style="margin-top: 10px;">
-                  <div class="" style="float : right;"  t-if="o.partner_type" >
+                  <div class="" style="float : right;"  t-if="o" >
                     
                       <t t-if="o">
                           <strong> : استلمت من  </strong>
