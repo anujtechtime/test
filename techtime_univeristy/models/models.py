@@ -199,10 +199,10 @@ class Payment_Data(models.Model):
     _inherit = 'account.payment'
 
 
-    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
-    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
+    Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
 
 
 class AccountMove(models.Model):

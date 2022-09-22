@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_payment_receipt_document_student">
-        <t t-call="web.external_layout">
+         <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
+            <t t-if="o.name">
             <t t-set="my_name" t-value="o.name.split('/')"/>
+            </t>
             
   
   
               <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
                 
                 
-                <div t-if="o.name" class="col-4  ">
+                <div  class="col-4  ">
                    <!--<span class="m-0" t-field="o.name"/>-->
-                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong>: رقم الوصل </strong>
+                   <t t-if="o.name">
+                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/></t> <strong>: رقم الوصل </strong>
                     
                 </div>
                 
-                <div t-if="o.name" class="col-4">
+                <div class="col-4">
                     <strong>وصل قبض</strong>
                     
                 </div>
@@ -39,7 +42,7 @@
             
             
               <div class="col-12" style="margin-top: 10px;">
-                  <div class="" style="float : right;"  t-if="o.partner_type" >
+                  <div class="" style="float : right;" t-if="o.partner_type">
                     
                       <t t-if="o.partner_type == 'customer'">
                           <strong style="color : #a17231;">  اسم الطالب  : </strong>
@@ -66,19 +69,19 @@
                 <div t-if="o" class="col-12" style="">
 
 
-                    <span t-field="o.level" class="m-0"/><strong>: المرحلة </strong>
+                    <strong> المرحلة  : </strong><span t-field="o.level" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.college" class="m-0"/><strong>: الكلية</strong>
+                    <strong>الكلية  : </strong><span t-field="o.college" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.student" class="m-0"/><strong>: دعم الطالب</strong>
+                    <strong>دعم الطالب  : </strong><span t-field="o.student" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.Subject" class="m-0"/><strong>: نوع الدراسة</strong>
+                    <strong>نوع الدراسة :</strong> <span t-field="o.Subject" class="m-0"/>
                     
                 </div>
             </div>
@@ -95,8 +98,8 @@
               
                 <div class="">
                   <div class="col-12 text-right">
-                    <strong style="color : #a17231;">المبلغ كتابتا  :</strong>دينار عراقي<t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount).split('Dinar')"/>
-                    <span t-esc="in_words[0]"/>
+                    <strong style="color : #a17231;">المبلغ كتابتا  :</strong>    <t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount).split('Dinar')"/>
+                    <span t-esc="in_words[0]"/> دينار عراقي
                   </div>
                 </div>
             
@@ -113,36 +116,42 @@
             
             
                 <table class="table table-sm" style="margin:5px 0px">
-                    <thead style="border:#000000 2px solid; ">
+                    <thead >
                         <tr>
-                            <th style="border:#000000 2px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span>الحساب </span></th>
+                            <th style="border:#000000 1px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span>الحساب </span></th>
 
-                            <th style="border:#000000 2px solid;  height : 15px; width : 70%;" class="text-right"><span>المبلغ</span></th>
+                            <th style="border:#000000 1px solid;  height : 15px; width : 70%;" class="text-right"><span>التفاصيل</span></th>
 
                         </tr>
                     </thead>
-                    <tbody style="border:#000000 2px solid; ">
+                    <tbody>
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;" class="text-right"><span t-esc="o.communication"/></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%; color : #a17231;" class="text-center">4351</td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%; color : #a17231;" class="text-center">435</td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 70%;"></td>
                         </tr>
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 70%;"/>
+                        </tr>
+
+                        <tr>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 1px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                     </tbody>
@@ -150,7 +159,7 @@
                 <br/>
 
               
-            <div class="" style="float: left; position : fixed; left : 0; margin-top : -15px;">
+            <div class="" style="float: left; position : fixed; left : 0; margin-top : 15px;">
                 <div class="col-12" style="text-align : right;">
                        <strong>   اسم وتوقيع امين الصندوق
  </strong>
@@ -181,6 +190,7 @@
                 </div> -->
             </div>
         </t>
+       
             
     </template>
 
@@ -235,7 +245,7 @@
             
             
               <div class="col-12" style="margin-top: 10px;">
-                  <div class="" style="float : right;"  t-if="o" >
+                  <div class="" style="float : right;" t-if="o">
                     
                       <t t-if="o">
                           <strong> : استلمت من  </strong>
@@ -257,19 +267,19 @@
                 <div t-if="o" class="col-12" style="">
 
 
-                    <span t-field="o.level" class="m-0"/><strong>: المرحلة </strong>
+                    <strong>المرحلة :</strong><span t-field="o.level" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.college" class="m-0"/><strong>: الكلية</strong>
+                    <strong>الكلية :</strong><span t-field="o.college" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.student" class="m-0"/><strong>: دعم الطالب</strong>
+                    <strong>دعم الطالب :</strong><span t-field="o.student" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.Subject" class="m-0"/><strong>: نوع الدراسة</strong>
+                    <strong>نوع الدراسة :</strong><span t-field="o.Subject" class="m-0"/>
                     
                 </div>
             </div>
@@ -286,8 +296,8 @@
               
                 <div class="">
                   <div class="col-12 text-right">
-                    <strong>المبلغ كتابتا  :</strong>دينار عراقي<t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount_total).split('Dinar')"/>
-                    <span t-esc="in_words[0]"/>
+                    <strong>المبلغ كتابتا  :</strong><t t-set="in_words" t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount_total).split('Dinar')"/>
+                    <span t-esc="in_words[0]"/>دينار عراقي
                   </div>
                 </div>
             
@@ -314,26 +324,26 @@
                     </thead>
                     <tbody style="border:#000000 2px solid; ">
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
                         </tr>
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
                         </tr>
 
                     </tbody>
