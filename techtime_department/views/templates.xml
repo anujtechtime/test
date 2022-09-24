@@ -77,6 +77,10 @@
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
+                    <strong>القسم :</strong> <span t-field="o.department" class="m-0"/>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
                     <strong>دعم الطالب  : </strong><span t-field="o.student" class="m-0"/>
                     
                 </div>
@@ -503,13 +507,13 @@
             
             
               <div class="col-12" style="margin-top: 10px;">
-                  <div class="" style="float : right;" >
+                  <div class="" style="float : right;">
                     
                       <t t-if="o.partner_id">
-                          <strong>:  استلمت من </strong>
+                          <strong style="color : #a17231;">  اسم الطالب :  </strong>
                       </t>
 
-                      <u><span t-field="o.partner_id"/></u>
+                      <span t-field="o.partner_id"/>
                       
                       
                   </div>
@@ -517,43 +521,43 @@
               
               <br/>
               
-              <div class="">
+              <div class="" style="margin-top: 10px;">
                 
                 <div class=" text-right" id="informations">
                   <div t-if="o" class="col-12" style="">
                     </div>
 
-                     <div t-if="o" class="col-12" style="">
+                     <div t-if="o" class="col-12" style="margin-top: 10px;">
 
 
-                    <span t-field="o.year" class="m-0"/><strong>: السنة الدراسية </strong>
+                    <strong>السنة الدراسية :  </strong><span t-field="o.year" class="m-0"/>
                     
                 </div>
                 
-                <div t-if="o" class="col-12" style="">
+                <div t-if="o" class="col-12" style="margin-top: 10px;">
 
 
-                    <span t-field="o.level" class="m-0"/><strong>: المرحلة </strong>
+                    <strong> المرحلة :  </strong><span t-field="o.level" class="m-0"/>
                     
                 </div>
-                <div t-if="o" class="col-12" style="">
-                    <span t-field="o.college" class="m-0"/><strong>: الكلية</strong>
-                    
-                </div>
-
-
-                 <div t-if="o" class="col-12" style="">
-                    <span t-field="o.department" class="m-0"/><strong>: القسم</strong>
+                <div t-if="o" class="col-12" style="margin-top: 10px;">
+                    <strong> الكلية  :  </strong><span t-field="o.college" class="m-0"/>
                     
                 </div>
 
 
-                <div t-if="o" class="col-12" style="">
-                    <span t-field="o.student" class="m-0"/><strong>: دعم الطالب</strong>
+                 <div t-if="o" class="col-12" style="margin-top: 10px;">
+                    <strong> القسم  :  </strong><span t-field="o.department" class="m-0"/>
                     
                 </div>
-                <div t-if="o" class="col-12" style="">
-                    <span t-field="o.Subject" class="m-0"/><strong>: نوع الدراسة</strong>
+
+
+                <div t-if="o" class="col-12" style="margin-top: 10px;">
+                    <strong> دعم الطالب :  </strong><span t-field="o.student" class="m-0"/>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="margin-top: 10px;">
+                    <strong> نوع الدراسة  :  </strong><span t-field="o.Subject" class="m-0"/>
                     
                 </div>
             </div>

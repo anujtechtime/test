@@ -203,6 +203,7 @@ class Payment_Data(models.Model):
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
+    department = fields.Many2one("department.department", string="Department")
 
 
     def post(self):
@@ -276,6 +277,7 @@ class AccountMove(models.Model):
     student = fields.Many2one("level.level", string="Student Type")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     payment_id = fields.Many2one("account.payment", string="payment")
+
 
 
 
