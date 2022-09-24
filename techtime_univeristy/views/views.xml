@@ -67,6 +67,7 @@
                     <field name="college"/>
                     <field name="student"/>
                     <field name="Subject"/>
+                    <field name="payment_id"/>
                 </xpath>
               </field>
             </record>
