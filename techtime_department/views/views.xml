@@ -278,6 +278,19 @@
             menu="True"
         />
 
+
+        <report
+            id="report_payment_receipt_general_sale_order_data"
+            model="sale.order"
+            string="General Template"
+            report_type="qweb-pdf"
+            name="techtime_department.report_payment_receipt_general_sale_order"
+            file="techtime_department.report_payment_receipt_general_sale_order"
+            menu="True"
+        />
+
+    
+
     
 
 

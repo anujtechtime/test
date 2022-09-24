@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_payment_receipt_document_student">
-         <t t-call="web.external_layout">
+        <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
             <t t-if="o.name">
@@ -191,7 +191,6 @@
             </div>
         </t>
        
-       
             
     </template>
 
@@ -211,14 +210,16 @@
         <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
-            <t t-set="my_name" t-value="o.name.split('/')"/>
+            <t t-if="o.payment_id">
+            <t t-set="my_name" t-value="o.payment_id.name.split('/')"/>
+            </t>
             
   
   
               <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
                 
                 
-                <div t-if="o.name" class="col-4  ">
+                <div t-if="o.payment_id" class="col-4  ">
                    <!--<span class="m-0" t-field="o.name"/>-->
                    <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong>: رقم الوصل </strong>
                     
@@ -460,6 +461,7 @@
                 </div>  
             </div>
         </t>
+        
     </template>
 
     <template id="report_payment_receipt_general">
@@ -467,6 +469,154 @@
             <t t-foreach="docs" t-as="o">
                 <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
                 <t t-call="techtime_department.report_payment_receipt_document_general" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+
+        <template id="report_payment_receipt_general_sale">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page"> 
+            
+  
+  
+<!--               <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
+                
+                
+                <div t-if="o.name" class="col-4  ">
+                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong>: رقم الوصل </strong>
+                    
+                </div>
+                
+                <div t-if="o.name" class="col-4">
+                    <strong>وصل قبض</strong>
+                    
+                </div>
+                
+                <div t-if="o.invoice_date_due" class="col-4 text-right">
+                    <span class="m-0" t-field="o.invoice_date_due"/><strong> :  التاريخ</strong>
+                    
+                </div>
+            </div> -->
+            
+            
+            
+              <div class="col-12" style="margin-top: 10px;">
+                  <div class="" style="float : right;" >
+                    
+                      <t t-if="o.partner_id">
+                          <strong>:  استلمت من </strong>
+                      </t>
+
+                      <u><span t-field="o.partner_id"/></u>
+                      
+                      
+                  </div>
+              </div>
+              
+              <br/>
+              
+              <div class="">
+                
+                <div class=" text-right" id="informations">
+                  <div t-if="o" class="col-12" style="">
+                    </div>
+
+                     <div t-if="o" class="col-12" style="">
+
+
+                    <span t-field="o.year" class="m-0"/><strong>: السنة الدراسية </strong>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="">
+
+
+                    <span t-field="o.level" class="m-0"/><strong>: المرحلة </strong>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <span t-field="o.college" class="m-0"/><strong>: الكلية</strong>
+                    
+                </div>
+
+
+                 <div t-if="o" class="col-12" style="">
+                    <span t-field="o.department" class="m-0"/><strong>: القسم</strong>
+                    
+                </div>
+
+
+                <div t-if="o" class="col-12" style="">
+                    <span t-field="o.student" class="m-0"/><strong>: دعم الطالب</strong>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <span t-field="o.Subject" class="m-0"/><strong>: نوع الدراسة</strong>
+                    
+                </div>
+            </div>
+            </div>
+
+            
+            
+<!--             <div class="row " style="float: right; margin-right : 3px;">
+                <div class="" t-if="o">
+                       <span t-field="o.communication"/> <strong>: التفاصيل  </strong>
+                     </div>
+                </div>
+                 -->
+<!--                 <div class="col-12" style="margin-right: 40px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div> -->
+            
+            
+<!--                 <table class="table table-sm" style="margin:5px 0px">
+                    <thead style="border:#000000 2px solid; ">
+                        <tr>
+                            <th style="border:#000000 2px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span>التفاصيل </span></th>
+
+                            <th style="border:#000000 2px solid;  height : 15px; width : 70%;" class="text-right"><span>المبلغ</span></th>
+
+                        </tr>
+                    </thead>
+                    <tbody style="border:#000000 2px solid; ">
+                        <tr>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                        </tr>
+
+                                                <tr>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                        </tr>
+
+                                                <tr>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"></td>
+                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"></td>
+                        </tr>
+
+                    </tbody>
+                </table> --> 
+            </div>
+        </t>
+            
+    </template>
+
+    <template id="report_payment_receipt_general_sale_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="techtime_department.report_payment_receipt_general_sale" t-lang="lang"/>
             </t>
         </t>
     </template>
