@@ -29,8 +29,8 @@ class SaleOrderField_user(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     college_number = fields.Char("College Number", related="partner_id.college_number")
     student_no = fields.Char("Exam No.", related="partner_id.number_exam")
-    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
-    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
+    Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     department = fields.Many2one("department.department", string="Department")
     student = fields.Many2one("level.level", string="Student Type")
@@ -97,7 +97,7 @@ class SaleOrderField_user(models.Model):
         return result
 
 
-    @api.onchange('year',"college","Subject","department","student","year")
+    @api.onchange('year',"college","Subject","department","student","level")
     def _compute_level(self):
         print("self.college###########",self.college,self.department,self.student, self.year, self._origin)
         installmet_dat = self.env["installment.details"].search([('college' , '=', self.college.id),("level","=",self.level),("Subject","=",self.Subject),('department','=',self.department.id),('Student','=',self.student.id),('year','=', self.year.id)])
@@ -271,10 +271,10 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
 
-    level = fields.Selection([('leve1','Level 1'),('level2','Level 2'),('level3','Level 3'),('level4','Level 4'),('level5','Level 5')], string="Level")
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
-    Subject = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Shift")
+    Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     payment_id = fields.Many2one("account.payment", string="payment")
 
 
