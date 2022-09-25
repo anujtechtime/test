@@ -97,10 +97,24 @@ class StudentFields(models.Model):
     """
     _inherit = "res.partner"    
 
+        @api.depends('is_company')
+    def _compute_company_type(self):
+        for partner in self:
+            partner.company_type = 'person'
+
+
     number_exam = fields.Char("Exam No.")
     university_no = fields.Char("University No.")
     college_number = fields.Char("College Number")
     notes = fields.Text("Notes")
+
+
+    @api.model
+    def create(self, vals):
+        result = super(StudentFields, self).create(vals)
+        result.property_account_receivable_id = 832
+        result.property_account_payable_id = 883
+        return result
          
 
     # faculty = fields.Many2one("hr.employee", string="Faculty")
