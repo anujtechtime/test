@@ -97,7 +97,7 @@ class StudentFields(models.Model):
     """
     _inherit = "res.partner"    
 
-        @api.depends('is_company')
+    @api.depends('is_company')
     def _compute_company_type(self):
         for partner in self:
             partner.company_type = 'person'
