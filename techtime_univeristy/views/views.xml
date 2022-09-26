@@ -38,6 +38,11 @@
 <!--                     <field name="installment_no" widget="monetary"/>
  -->                    
                 </xpath>
+
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="amount"/>
+                </xpath>
+                
               </field>
             </record>
 

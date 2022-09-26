@@ -35,6 +35,7 @@ class SaleOrderField_user(models.Model):
     department = fields.Many2one("department.department", string="Department")
     student = fields.Many2one("level.level", string="Student Type")
     year = fields.Many2one("year.year", string="Year")
+    amount = fields.Char("مبلغ الدفع")
     # installment_no = fields.Float("Installment" ,related="level.installment") 
 
     @api.model
