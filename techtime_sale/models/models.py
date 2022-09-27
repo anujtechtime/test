@@ -37,7 +37,7 @@ class SaleOrderField_user(models.Model):
                     'type': 'out_invoice',
                     'narration': self.note,
                     'invoice_date': self.second_payment_date,
-                    'invoice_date_due' : self.second_payment_date,
+                    'invoice_date_due' : ddtss.payment_date,
                     'currency_id': self.pricelist_id.currency_id.id,
                     'campaign_id': self.campaign_id.id,
                     'medium_id': self.medium_id.id,
@@ -92,7 +92,7 @@ class SaleOrderField_user(models.Model):
 
                 account_install_line = self.env['account.installment'].create({
                     'number' : ddtss.number,
-                    'payment_date' : datetime.today().date(),
+                    'payment_date' : ddtss.payment_date,
                     'amount_installment' : ddtss.amount_installment,
                     'description': 'Down Payment',
                     'sale_order_id' : ddtss.id,

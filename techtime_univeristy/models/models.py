@@ -67,7 +67,7 @@ class SaleOrderField_user(models.Model):
                 # invoice_id = result.env['account.move'].create(invoice_vals)
                 sale_installment = result.sale_installment_line_ids.create({
                     'number' : i.number,
-                    'payment_date' : result.second_payment_date,
+                    'payment_date' : i.payment_date,
                     'amount_installment' : i.amount_installment,
                     'description': 'Installment Payment',
                     'sale_installment_id' : result.id,
@@ -167,7 +167,7 @@ class SaleOrderField_user(models.Model):
 
                 sale_installment = self.sale_installment_line_ids.create({
                     'number' : count,
-                    'payment_date' : self.second_payment_date,
+                    'payment_date' : i.payment_date,
                     'amount_installment' : i.amount_installment,
                     'description': 'Installment Payment',
                     'sale_installment_id' : self.id,
