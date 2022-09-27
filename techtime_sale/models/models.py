@@ -70,6 +70,7 @@ class SaleOrderField_user(models.Model):
                 count = count + 1
 
                 invoice_id = self.env['account.move'].create(invoice_vals)
+                invoice_id.action_post()
                 # i.invoice_id = invoice_id.id
                 # print("invoice_id##############",invoice_id)
 
