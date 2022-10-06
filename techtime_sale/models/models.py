@@ -145,10 +145,10 @@ class AccountInvoiceField_user(models.Model):
             del context['default_type']
             self = self.with_context(check_move_validity=False)
         self.account_installment_line_ids.sale_order_id.update({
-            'status' : 'open',
+            'status' : 'posted',
             })
         self.account_installment_line_ids.update({
-            'status' : 'open',
+            'status' : 'posted',
             })
         return self.post()
         
@@ -287,7 +287,7 @@ class SaleMembership(models.Model):
     description = fields.Char("Description")
     status = fields.Selection([
         ('draft', 'DRAFT'),
-        ('open', 'Open'),
+        ('posted', 'Posted'),
         ('paid', 'Paid'),
         ('cancel', 'Cancel'),
         ], string='Status', readonly=True, copy=False, default='draft')
