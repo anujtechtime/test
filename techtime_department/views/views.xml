@@ -252,7 +252,7 @@
                         <field name="college_number"/>
                         <field name="university_no"/>
                         <field name="notes"/>
-                        <field name="contact_type"/>
+                        <!-- <field name="contact_type"/> -->
             </xpath>
         </field>
     </record>

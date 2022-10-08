@@ -107,7 +107,7 @@ class StudentFields(models.Model):
     university_no = fields.Char("University No.")
     college_number = fields.Char("College Number")
     notes = fields.Text("Notes")
-    contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")
+    # contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")
 
 
     @api.model
