@@ -280,8 +280,8 @@ class AccountMove(models.Model):
     payment_id = fields.Many2one("account.payment", string="payment")
 
 
-class AccountMoveInstallment(models.Model):
-    _inherit = 'sale.installment'
+# class AccountMoveInstallment(models.Model):
+#     _inherit = 'sale.installment'
 
-    invoice_status = fields.Selection([("draft","Draft"),("posted","Posted"),("cancel","Cancel")] , related="invoice_id.state") 
+#     invoice_status = fields.Selection([("draft","Draft"),("posted","Posted"),("cancel","Cancel")] , related="invoice_id.state") 
 
