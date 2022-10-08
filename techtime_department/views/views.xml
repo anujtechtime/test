@@ -260,7 +260,7 @@
         <report
             id="report_payment_receipt_student"
             model="account.payment"
-            string="Student Template"
+            string="وصل الطالب"
             report_type="qweb-pdf"
             name="techtime_department.report_payment_receipt_student"
             file="techtime_department.report_payment_receipt_student"
@@ -271,7 +271,7 @@
         <report
             id="report_payment_receipt_general"
             model="account.move"
-            string="General Template"
+            string="وصل عام"
             report_type="qweb-pdf"
             name="techtime_department.report_payment_receipt_general"
             file="techtime_department.report_payment_receipt_general"
@@ -282,7 +282,7 @@
         <report
             id="report_payment_receipt_general_sale_order_data"
             model="sale.order"
-            string="General Template"
+            string="وصل عام"
             report_type="qweb-pdf"
             name="techtime_department.report_payment_receipt_general_sale_order"
             file="techtime_department.report_payment_receipt_general_sale_order"

@@ -283,5 +283,6 @@ class AccountMove(models.Model):
 class AccountMoveInstallment(models.Model):
     _inherit = 'sale.installment'
 
+    college_installment_id = fields.Many2one("installment.details", string="Installment")
     invoice_status = fields.Selection([("draft","Draft"),("posted","Posted"),("cancel","Cancel")] , related="invoice_id.state") 
 
