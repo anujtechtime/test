@@ -91,12 +91,16 @@ class TechtimeStudentexcel(models.Model):
             worksheet.write(row, 0, material_line_id.partner_id.name or '')
             worksheet.write(row, 1, material_line_id.name or '')
             for iit in material_line_id.sale_installment_line_ids:
-                worksheet.write(row, 2, iit.number or '')
-                worksheet.write(row, 3, iit.invoice_id.name or '')
-                worksheet.write(row, 4, iit.invoice_id.state or '')
-                worksheet.write(row, 5, iit.amount_installment or '')
-                worksheet.write(row, 6, iit.payment_status or '')
-                worksheet.write(row, 7, iit.payment_date.strftime("%m/%d/%Y") or '')
+                if iit.invoice_id.state != "cancel" and iit.amount_installment > 0:
+                    worksheet.write(row, 2, iit.number or '')
+                    worksheet.write(row, 3, iit.invoice_id.name or '')
+                    worksheet.write(row, 4, iit.invoice_id.state or '')
+                    worksheet.write(row, 5, iit.amount_installment or '')
+                    worksheet.write(row, 6, iit.payment_status or '')
+                    if iit.payment_date:
+                        worksheet.write(row, 7, iit.payment_date.strftime("%m/%d/%Y") or '')
+                    if not iit.payment_date:
+                        worksheet.write(row, 7, '')    
                 row += 1
             if not material_line_id.sale_installment_line_ids:    
                 row += 1    
