@@ -38,6 +38,8 @@
             <filter string="Year" name="year" domain="[ ]" context="{'group_by': 'create_date:year'}" />
             <filter string="Department" name="department" domain="[]" context="{'group_by': 'department'}"/>
             <filter string="College" name="college" domain="[]" context="{'group_by': 'college'}"/>
+            <filter string="Day" name="day" domain="[ ]" context="{'group_by': 'create_date:day'}" />
+            
           <!-- This field will show up on the default filters
                &lt; is the XML encoding for < and &gt; is the XML encoding for > -->
 <!--           <filter string="Total &lt; 1000" name="total_under_1000" domain="[('amount_total', '&lt;', 1000)]"/>
@@ -102,6 +104,34 @@
 
 
         <menuitem action="action_account_payments_year_report" id="menu_action_account_payments_year" parent="account.menu_finance_receivables" sequence="15" name="Year Reports"/>
+
+
+
+
+        <record id="action_account_payments_daily_report" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,kanban,form,graph</field>
+            <field name="context">{
+                'default_payment_type': 'inbound',
+                'default_partner_type': 'customer',
+                'search_default_inbound_filter': 1,
+                'res_partner_search_mode': 'customer',
+                'search_default_day' : 1
+
+            }</field>
+            <field name="view_id" ref="account.view_account_payment_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Register a payment
+                </p><p>
+                  Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem action="action_account_payments_daily_report" id="menu_action_account_payments_daily" parent="account.menu_finance_receivables" sequence="15" name="Daily Reports"/>
 
     <!-- actions opening views on models -->
 <!--
