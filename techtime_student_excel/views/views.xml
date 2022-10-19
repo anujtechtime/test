@@ -28,6 +28,31 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+        <record id="action_account_payments_college_report" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,kanban,form,graph</field>
+            <field name="context">{
+                'default_payment_type': 'inbound',
+                'default_partner_type': 'customer',
+                'search_default_inbound_filter': 1,
+                'res_partner_search_mode': 'customer',
+                'default_department': 1,
+                'search_default_college': 1,
+                'search_default_department': 1
+            }</field>
+            <field name="view_id" ref="account.view_account_payment_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Register a payment
+                </p><p>
+                  Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem action="action_account_payments_college_report" id="menu_action_account_payments_college" parent="account.menu_finance_receivables" sequence="15" name="College Reports"/>
 
 
     <!-- actions opening views on models -->
