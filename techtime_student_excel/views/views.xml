@@ -49,6 +49,17 @@
     </record>
 
 
+        <record id="view_sales_order_filter_sale_exam_number" model="ir.ui.view">
+            <field name="name">sale.order.list.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sale_order_inherit_search_payment"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="student_number" string="Exam No"/>
+                </xpath>
+            </field>
+        </record>
+
 
 
         <record id="action_account_payments_college_report" model="ir.actions.act_window">

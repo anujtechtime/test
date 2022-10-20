@@ -68,39 +68,44 @@ class TechtimeStudentexcel(models.Model):
         # Membership Lines/Payment Date
 
         worksheet.write(0, 0, 'Student Name', border_color_2)
-        worksheet.write(0, 1, 'Sale Order', border_color_2)
-        worksheet.write(0, 2, 'S. No.', border_color_2)
-        worksheet.write(0, 3, 'Invoice Number', header_bold)
-        worksheet.write(0, 4, 'Invoice Status', header_bold)
-        worksheet.write(0, 5, 'Amount', header_bold)
-        worksheet.write(0, 6, 'Payment Status', header_bold)
-        worksheet.write(0, 7, 'Payment Date', header_bold)
+        worksheet.write(0, 1, 'College Number', border_color_2)
+        worksheet.write(0, 2, 'Exam No', border_color_2)
+        worksheet.write(0, 3, 'Year', border_color_2)
+        worksheet.write(0, 4, 'College', border_color_2)
+        worksheet.write(0, 5, 'Department', border_color_2)
+        worksheet.write(0, 6, 'Student Type', border_color_2)
+        worksheet.write(0, 7, 'Shift', border_color_2)
+        worksheet.write(0, 8, 'Level', border_color_2)
+
+
+        worksheet.write(0, 9, 'Sale Order', border_color_2)
+        worksheet.write(0, 10, 'Invoice Number', header_bold)
+        worksheet.write(0, 11, 'Amount', header_bold)
+        worksheet.write(0, 12, 'Payment Status', header_bold)
+        worksheet.write(0, 13, 'Payment Date', header_bold)
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############",self)
         for material_line_id in self:
             print("material_line_id##########",material_line_id.college)
-            print("year.year###############",material_line_id.year.year)
-            print("college.college###############",material_line_id.college.college)
-            print("department.department###############",material_line_id.department.department)
-            print("student.Student###############",material_line_id.student.Student)
-            print("Subject.Subject###############",material_line_id.Subject)
-            print("level.level###############",material_line_id.level)
-
-
-
             worksheet.write(row, 0, material_line_id.partner_id.name or '')
-            worksheet.write(row, 1, material_line_id.name or '')
+            worksheet.write(row, 1, material_line_id.college_number or '')
+            worksheet.write(row, 2, material_line_id.student_no or '')
+            worksheet.write(row, 3, material_line_id.year.year or '')
+            worksheet.write(row, 4, material_line_id.college.college or '')
+            worksheet.write(row, 5, material_line_id.department.department or '')
+            worksheet.write(row, 6, material_line_id.student.Student or '')
+            worksheet.write(row, 7, material_line_id.Subject or '')
+            worksheet.write(row, 8, material_line_id.level or '')
+            worksheet.write(row, 9, material_line_id.name or '')
             for iit in material_line_id.sale_installment_line_ids:
                 if iit.invoice_id.state != "cancel" and iit.amount_installment > 0:
-                    worksheet.write(row, 2, iit.number or '')
-                    worksheet.write(row, 3, iit.invoice_id.name or '')
-                    worksheet.write(row, 4, iit.invoice_id.state or '')
-                    worksheet.write(row, 5, iit.amount_installment or '')
-                    worksheet.write(row, 6, iit.payment_status or '')
+                    worksheet.write(row, 10, iit.invoice_id.name or '')
+                    worksheet.write(row, 11, iit.amount_installment or '')
+                    worksheet.write(row, 12, iit.payment_status or '')
                     if iit.payment_date:
-                        worksheet.write(row, 7, iit.payment_date.strftime("%m/%d/%Y") or '')
+                        worksheet.write(row, 13, iit.payment_date.strftime("%m/%d/%Y") or '')
                     if not iit.payment_date:
-                        worksheet.write(row, 7, '')    
+                        worksheet.write(row, 13, '')    
                 row += 1
             if not material_line_id.sale_installment_line_ids:    
                 row += 1    
