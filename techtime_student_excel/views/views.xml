@@ -55,7 +55,9 @@
             <field name="inherit_id" ref="sale.view_sale_order_inherit_search_payment"/>
             <field name="arch" type="xml">
                 <xpath expr="//search" position="inside">
-                    <field name="student_number" string="Exam No"/>
+                    <field name="student_no" string="Exam No"/>
+                    <field name="college_number" string="College No"/>
+                    
                 </xpath>
             </field>
         </record>
