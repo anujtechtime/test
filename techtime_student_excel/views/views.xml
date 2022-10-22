@@ -50,18 +50,17 @@
 
 
         <record id="view_sales_order_filter_sale_exam_number" model="ir.ui.view">
-            <field name="name">sale.order.list.select</field>
+            <field name="name">sale.order</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_sales_order_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//search" position="inside">
-                    <field name="student_no" string="Exam No"/>
-                    <field name="college_number" string="College No"/>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="student_no"/>
+                    <field name="college_number"/>
                     
                 </xpath>
             </field>
         </record>
-
 
 
         <record id="action_account_payments_college_report" model="ir.actions.act_window">
