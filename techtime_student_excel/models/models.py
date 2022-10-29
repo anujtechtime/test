@@ -46,12 +46,12 @@ class TechtimeStudentexcel(models.Model):
         print("result@@@@@@@@@@@@@@@@!!!!!!!!!!!!!",result)
         if self.partner_id:
             self.partner_id.update({
-                "year" : self.year.id
-                "college" : self.college.id
-                "department" : self.department.id
-                "student_type" : self.student.id
-                "shift" : self.Subject
-                "level" : self.level
+                "year" : self.year.id,
+                "college" : self.college.id,
+                "department" : self.department.id,
+                "student_type" : self.student.id,
+                "shift" : self.Subject,
+                "level" : self.level,
                 })
         return result
 
