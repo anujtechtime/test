@@ -41,6 +41,22 @@ class TechtimeStudentexcel(models.Model):
 #             record.value2 = float(record.value) / 100
 
 
+    def action_confirm(self):
+        result = super(TechtimeStudentexcel, self).action_confirm()
+        print("result@@@@@@@@@@@@@@@@!!!!!!!!!!!!!",result)
+        if self.partner_id:
+            self.partner_id.update({
+                "year" : self.year.id
+                "college" : self.college.id
+                "department" : self.department.id
+                "student_type" : self.student.id
+                "shift" : self.Subject
+                "level" : self.level
+                })
+        return result
+
+
+
     def send_mis_report_sale(self):
         filename = 'Student.xls'
         string = 'Student_report.xls'
@@ -137,3 +153,27 @@ class TechtimeStudentexcel(models.Model):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }    
+
+
+
+class ResData(models.Model):
+    _inherit = 'res.partner'
+
+    year = fields.Many2one("year.year", string="Year")
+    college = fields.Many2one("faculty.faculty", string="College")
+    department = fields.Many2one("department.department", string="Department")
+    student_type = fields.Many2one("level.level", string="Student Type")
+    shift = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
+    number_of_years = fields.Char("Number Of Years")
+
+    gender = fields.Selection([('male','ذكر'),('female','انثى')], string="Gender")
+    nationalty = fields.Char("Nationalty")
+    year_born = fields.Integer("Year Born")
+    Academic_Branch = fields.Integer("Academic Branch")
+    year_of_graduation = fields.Integer("Year Of Graduation")
+    final_result = fields.Char("Final Result")
+    year_of_acceptance   = fields.Integer("Year Of Acceptance")          
+
+
+    

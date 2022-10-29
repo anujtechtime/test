@@ -145,6 +145,48 @@
 
         <menuitem action="action_account_payments_daily_report" id="menu_action_account_payments_daily" parent="account.menu_finance_receivables" sequence="15" name="Daily Reports"/>
 
+
+                <record id="view_sales_order_filter_sale_res_partner" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <group string="College Information">
+
+                    <field name="year"/> 
+                    <field name="college"/>
+                    <field name="department"/>
+                    <field name="student_type"/> 
+                    <field name="shift"/>
+                    <field name="level"/>
+                    <field name="number_of_years"/>
+                </group>
+                <group string="Private Information">
+
+
+                    <field name="gender"/>
+                    <field name="nationalty"/>
+                    <field name="year_born"/>
+
+                </group>
+                <group string="High School Information">
+
+                    <field name="Academic_Branch"/>
+                    <field name="year_of_graduation"/>
+                    <field name="final_result"/> 
+                    <field name="year_of_acceptance"/> 
+                </group>
+
+                    
+                </xpath>
+
+                <xpath expr="//field[@name='vat']" position="after">
+                </xpath>
+            </field>
+        </record>
+
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="techtime_student_excel.action_window">
