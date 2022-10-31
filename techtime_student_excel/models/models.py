@@ -28,6 +28,12 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 
 class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
+
+
+    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    transferred_to_us = fields.Boolean("Transferred To Us ") 
+ 
+ 
 #     _description = 'techtime_payroll_excel.techtime_payroll_excel'
 
 #     name = fields.Char()
@@ -173,7 +179,46 @@ class ResData(models.Model):
     Academic_Branch = fields.Integer("Academic Branch")
     year_of_graduation = fields.Integer("Year Of Graduation")
     final_result = fields.Char("Final Result")
-    year_of_acceptance   = fields.Integer("Year Of Acceptance")          
+    year_of_acceptance   = fields.Integer("Year Of Acceptance")    
+
+
+
+
+    Round_of_Passing = fields.Char("Round of Passing")
+    subject_that_has_been_resit = fields.Char("Subject that has been_resit")
+    name_of_school_graduated_from = fields.Char("Name of school graduated from")
+    State_of_school_graduated_from = fields.Char("State of school graduated from")
+
+
+
+    State_of_birth = fields.Char("State of birth")
+    ID_number = fields.Integer("ID number")
+    ID_issue_Date = fields.Date("ID issue Date")
+    place_of_issuance = fields.Char("Place of issuance")
+    Marital_status = fields.Selection([('married','Married'),('unmarried','Unmarried')], string="Marital status") 
+
+
+    parent_name = fields.Char("Parent name")
+    address = fields.Char("Address")
+    Father_Job = fields.Char("Father Job")
+    work_address_father = fields.Char("Work address")
+    Mother_Job = fields.Char("Mother Job")
+    work_address_mother = fields.Char("Work address")
+    Phone_number_1_mother = fields.Integer("Phone number 1")
+    Phone_number_2_mother = fields.Integer("Phone number 2")
+    sibling_name = fields.Char("sibling name")
+    relative_relation = fields.Char("Relative relation")
+    address_mother = fields.Char("Address")
+    phone_number_1 = fields.Integer("phone number 1")
+    phone_number_2 = fields.Integer("phone_number 2")
+
+
+    guarantor_name_gurantor  = fields.Char("Guarantor name")
+    relative_relation_gurantor = fields.Char("Relative relation")
+    address_gurantor = fields.Char("Address")
+    phone_number_1_gurantor = fields.Char("phone number 1")
+    phone_number_2_gurantor = fields.Char("phone number 1")
+
 
 
     

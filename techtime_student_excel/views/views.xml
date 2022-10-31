@@ -57,6 +57,8 @@
                 <xpath expr="//field[@name='user_id']" position="after">
                     <field name="student_no"/>
                     <field name="college_number"/>
+                    <field name="Status"/>
+                    <field name="transferred_to_us"/>
                     
                 </xpath>
             </field>
@@ -146,13 +148,14 @@
         <menuitem action="action_account_payments_daily_report" id="menu_action_account_payments_daily" parent="account.menu_finance_receivables" sequence="15" name="Daily Reports"/>
 
 
-                <record id="view_sales_order_filter_sale_res_partner" model="ir.ui.view">
+        <record id="view_sales_order_filter_sale_res_partner" model="ir.ui.view">
             <field name="name">res.partner</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='vat']" position="after">
-                    <group string="College Information">
+                <xpath expr="//page" position="before">
+                    <page string="College Information" autofocus="autofocus">
+                        <group>
 
                     <field name="year"/> 
                     <field name="college"/>
@@ -161,28 +164,174 @@
                     <field name="shift"/>
                     <field name="level"/>
                     <field name="number_of_years"/>
+                    <field name="number_exam"/>
+                    <field name="college_number"/>
+                    <field name="university_no"/>
+                    <field name="notes" invisible="1"/>
+                    <field name="contact_type"/>
                 </group>
-                <group string="Private Information">
+                </page>
+                <page string="Private Information">
 
-
+                    <group>
                     <field name="gender"/>
                     <field name="nationalty"/>
                     <field name="year_born"/>
+                    <field name="phone" widget="phone"/>
+                    <field name="mobile" widget="phone"/>
+                    <field name="user_ids" invisible="1"/>
+                    <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])]}"/>
+                    <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="active_lang_count" invisible="1"/>
+                    <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}"/>
+                    <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
+                        <field name="lang"/>
+                        <button type="action" name="55" class="btn-sm btn-link mb4 fa fa-globe" aria-label="More languages" groups="base.group_system" title="More languages"/>
+                    </div>
+                    <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
 
                 </group>
-                <group string="High School Information">
 
+                </page>
+                <page string="High School Information">
+                    <group>
                     <field name="Academic_Branch"/>
                     <field name="year_of_graduation"/>
                     <field name="final_result"/> 
                     <field name="year_of_acceptance"/> 
                 </group>
+                </page>
+
+                <page string="High School Information">
+
+                    <group>
+
+
+                        <field name="Round_of_Passing"/>
+                        <field name="subject_that_has_been_resit"/>
+                        <field name="name_of_school_graduated_from"/>
+                        <field name="State_of_school_graduated_from"/>
+                    </group>
+
+                    </page>
+
+                    <page string="Private Information">
+
+                    <group>
+
+                    <field name="State_of_birth"/>
+                    <field name="ID_number"/>
+                    <field name="ID_issue_Date"/>
+                    <field name="place_of_issuance"/>
+                    <field name="Marital_status"/>
+                    </group>
+                    </page>
+
+                    <page string="Student Parents and Relatives ">
+                    <group>
+
+
+                    <field name="parent_name"/>
+                    <field name="address"/>
+                    <field name="Father_Job"/>
+                    <field name="work_address_father"/>
+                    <field name="Mother_Job"/>
+                    <field name="work_address_mother"/>
+                    <field name="Phone_number_1_mother"/>
+                    <field name="Phone_number_2_mother"/>
+                    <field name="sibling_name"/>
+                    <field name="relative_relation"/>
+                    <field name="address_mother"/>
+                    <field name="phone_number_1"/>
+                    <field name="phone_number_2"/>
+                    </group>
+                    </page>
+
+                    <page string="Guarantor Details">
+                    <group>
+
+                     <field name="guarantor_name_gurantor"/>
+                    <field name="relative_relation_gurantor"/>
+                    <field name="address_gurantor"/>
+                    <field name="phone_number_1_gurantor"/>
+                    <field name="phone_number_2_gurantor"/>
+                    </group>
+                    </page>
+
 
                     
                 </xpath>
 
-                <xpath expr="//field[@name='vat']" position="after">
+                <xpath expr="//field[@name='vat']" position="replace">
+                    <field name="vat" invisible="1"/>
                 </xpath>
+
+
+            <xpath expr="//field[@name='number_exam']" position="replace">
+
+                <field name="number_exam" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='college_number']" position="replace">
+                <field name="college_number" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='university_no']" position="replace">
+                <field name="university_no" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='notes']" position="replace">
+                <field name="notes" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='contact_type']" position="replace">    
+                <field name="contact_type" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[hasclass('o_address_format')]" position="replace">
+
+                <div class="o_address_format" invisible="1">
+                                <field name="street" placeholder="Street..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                            </div>
+            </xpath>
+
+
+            <xpath expr="//label[@name='address_name']" position="replace"> 
+
+            <label for="" name="address_name" invisible="1">
+            </label>
+        </xpath>
+
+
+        <xpath expr="//group[1]/group[2]" position="replace"> 
+
+
+
+       <group invisible="1">
+                            <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': [('is_company','=', True)]}"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="user_ids" invisible="1"/>
+                            <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])]}"/>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                            <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                            <field name="active_lang_count" invisible="1"/>
+                            <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}"/>
+                            <div class="o_row" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}">
+                                <field name="lang"/>
+                                <button type="action" name="55" class="btn-sm btn-link mb4 fa fa-globe" aria-label="More languages" groups="base.group_system" title="More languages"/>
+                            </div>
+                            <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                        </group>
+    </xpath>
+
+
+
+            
             </field>
         </record>
 
