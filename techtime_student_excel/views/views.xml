@@ -191,6 +191,14 @@
                     <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
 
                 </group>
+                    <group>
+
+                    <field name="State_of_birth"/>
+                    <field name="ID_number"/>
+                    <field name="ID_issue_Date"/>
+                    <field name="place_of_issuance"/>
+                    <field name="Marital_status"/>
+                    </group>
 
                 </page>
                 <page string="High School Information">
@@ -200,11 +208,7 @@
                     <field name="final_result"/> 
                     <field name="year_of_acceptance"/> 
                 </group>
-                </page>
-
-                <page string="High School Information">
-
-                    <group>
+                <group>
 
 
                         <field name="Round_of_Passing"/>
@@ -212,20 +216,9 @@
                         <field name="name_of_school_graduated_from"/>
                         <field name="State_of_school_graduated_from"/>
                     </group>
+                </page>
 
-                    </page>
 
-                    <page string="Private Information">
-
-                    <group>
-
-                    <field name="State_of_birth"/>
-                    <field name="ID_number"/>
-                    <field name="ID_issue_Date"/>
-                    <field name="place_of_issuance"/>
-                    <field name="Marital_status"/>
-                    </group>
-                    </page>
 
                     <page string="Student Parents and Relatives ">
                     <group>
