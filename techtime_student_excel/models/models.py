@@ -67,7 +67,7 @@ class TechtimeStudentexcel(models.Model):
 
     def action_confirm_change_contact(self):
         for ddts in self:
-            if ddts.partner_id:
+            if ddts.partner_id and ddts.state == "sale":
                 data = ddts.partner_id.update({
                     "year" : ddts.year.id,
                     "college" : ddts.college.id,
