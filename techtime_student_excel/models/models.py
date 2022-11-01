@@ -25,6 +25,8 @@ import requests
 import json
 from odoo import api, fields, models, tools, SUPERUSER_ID
 
+_logger = logging.getLogger(__name__)
+
 
 class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
@@ -50,6 +52,7 @@ class TechtimeStudentexcel(models.Model):
     def action_confirm(self):
         result = super(TechtimeStudentexcel, self).action_confirm()
         print("result@@@@@@@@@@@@@@@@!!!!!!!!!!!!!",result)
+
         if self.partner_id:
             self.partner_id.update({
                 "year" : self.year.id,
@@ -63,6 +66,11 @@ class TechtimeStudentexcel(models.Model):
         return result
 
     def action_confirm_change_contact(self):
+        _logger.info("pincodeconFFFFFFFFFFFFFFFFF##################**%s" %self)
+        _logger.info("pincodeconFFFFFFFFFFFFFFFFF##################**%s" %self.year.id)
+        _logger.info("self.college.id##################**%s" %self.college.id)
+        _logger.info("self.department.id##################**%s" %self.department.id)
+        _logger.info("self.student.id##################**%s" %self.student.id)
         if self.partner_id:
             print("selfnnbbbbbbbbbbbb",self)
             print("self.year.id$$$$$$$$",self.year.id)
