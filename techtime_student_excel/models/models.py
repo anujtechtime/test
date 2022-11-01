@@ -66,27 +66,18 @@ class TechtimeStudentexcel(models.Model):
         return result
 
     def action_confirm_change_contact(self):
-        _logger.info("pincodeconFFFFFFFFFFFFFFFFF##################**%s" %self)
-        _logger.info("pincodeconFFFFFFFFFFFFFFFFF##################**%s" %self.year.id)
-        _logger.info("self.college.id##################**%s" %self.college.id)
-        _logger.info("self.department.id##################**%s" %self.department.id)
-        _logger.info("self.student.id##################**%s" %self.student.id)
-        if self.partner_id:
-            print("selfnnbbbbbbbbbbbb",self)
-            print("self.year.id$$$$$$$$",self.year.id)
-            print("self.college.id##########",self.college.id)
-            print("self.department.id**********",self.department.id)
-            print("self.student.id###########",self.student.id)
-            data = self.partner_id.update({
-                "year" : self.year.id,
-                "college" : self.college.id,
-                "department" : self.department.id,
-                "student_type" : self.student.id,
-                "shift" : self.Subject,
-                "level" : self.level,
-                "transferred_to_us" : self.transferred_to_us,
-                })
-            print("data##########",data)
+        for ddts in self:
+            if ddts.partner_id:
+                data = ddts.partner_id.update({
+                    "year" : ddts.year.id,
+                    "college" : ddts.college.id,
+                    "department" : ddts.department.id,
+                    "student_type" : ddts.student.id,
+                    "shift" : ddts.Subject,
+                    "level" : ddts.level,
+                    "transferred_to_us" : ddts.transferred_to_us,
+                    })
+                print("data##########",data)
 
 
 
