@@ -64,7 +64,7 @@ class TechtimeStudentexcel(models.Model):
 
     def action_confirm_change_contact(self):
         if self.partner_id:
-            self.partner_id.update({
+            data = self.partner_id.update({
                 "year" : self.year.id,
                 "college" : self.college.id,
                 "department" : self.department.id,
@@ -73,6 +73,7 @@ class TechtimeStudentexcel(models.Model):
                 "level" : self.level,
                 "transferred_to_us" : self.transferred_to_us,
                 })
+            print("data##########",data)
 
 
 
