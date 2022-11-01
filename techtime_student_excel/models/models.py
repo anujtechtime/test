@@ -58,6 +58,7 @@ class TechtimeStudentexcel(models.Model):
                 "student_type" : self.student.id,
                 "shift" : self.Subject,
                 "level" : self.level,
+                "transferred_to_us" : self.transferred_to_us,
                 })
         return result
 
@@ -165,6 +166,8 @@ class TechtimeStudentexcel(models.Model):
 class ResData(models.Model):
     _inherit = 'res.partner'
 
+    transferred_to_us = fields.Boolean("Transferred To Us ")
+
     year = fields.Many2one("year.year", string="Year")
     college = fields.Many2one("faculty.faculty", string="College")
     department = fields.Many2one("department.department", string="Department")
@@ -185,7 +188,7 @@ class ResData(models.Model):
 
 
     Round_of_Passing = fields.Char("Round of Passing")
-    subject_that_has_been_resit = fields.Char("Subject that has been_resit")
+    subject_that_has_been_resit = fields.Char("Subject that has been resit")
     name_of_school_graduated_from = fields.Char("Name of school graduated from")
     State_of_school_graduated_from = fields.Char("State of school graduated from")
 
@@ -217,7 +220,7 @@ class ResData(models.Model):
     relative_relation_gurantor = fields.Char("Relative relation")
     address_gurantor = fields.Char("Address")
     phone_number_1_gurantor = fields.Char("phone number 1")
-    phone_number_2_gurantor = fields.Char("phone number 1")
+    phone_number_2_gurantor = fields.Char("phone number 2")
 
 
 

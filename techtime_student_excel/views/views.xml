@@ -156,6 +156,7 @@
                 <xpath expr="//page" position="before">
                     <page string="College Information" autofocus="autofocus">
                         <group>
+                            <field name="transferred_to_us"/>
 
                     <field name="year"/> 
                     <field name="college"/>
