@@ -62,6 +62,18 @@ class TechtimeStudentexcel(models.Model):
                 })
         return result
 
+    def action_confirm_change_contact(self):
+        if self.partner_id:
+            self.partner_id.update({
+                "year" : self.year.id,
+                "college" : self.college.id,
+                "department" : self.department.id,
+                "student_type" : self.student.id,
+                "shift" : self.Subject,
+                "level" : self.level,
+                "transferred_to_us" : self.transferred_to_us,
+                })
+
 
 
     def send_mis_report_sale(self):

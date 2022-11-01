@@ -29,6 +29,20 @@
     </record>
 
 
+    <record id="ir_actions_server_sale_cart_student_data_change" model="ir.actions.server">
+        <field name="name">Contact Deatils Change</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_confirm_change_contact()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
 <record id="view_sale_order_inherit_search_payment" model="ir.ui.view">
       <field name="name">account.payment.search.expand.filter</field>
       <field name="model">account.payment</field>
