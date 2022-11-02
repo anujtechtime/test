@@ -288,10 +288,10 @@
 
                 <xpath expr="//field[@name='vat']" position="replace">
                     <field name="vat" invisible="1"/>
-                    <field name="relation" attrs="{'invisible': [('type', '!=', 'other')]"/>
-                    <field name="type_of_relative" attrs="{'invisible': [('relation', '!=', 'relative')]"/>
-                    <field name="Father_Job" attrs="{'invisible': [('relation', '!=', 'father')]"/>
-                    <field name="work_address_father" attrs="{'invisible': [('relation', '!=', 'father')]"/>
+                    <field name="relation" attrs="{'invisible': [('type', '!=', 'other')]}"/>
+                    <field name="type_of_relative" attrs="{'invisible': [('relation', '!=', 'relative')]}"/>
+                    <field name="Father_Job" attrs="{'invisible': [('relation', '!=', 'father')]}"/>
+                    <field name="work_address_father" attrs="{'invisible': [('relation', '!=', 'father')]}"/>
                 </xpath>
 
 
