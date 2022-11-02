@@ -186,7 +186,7 @@
                     <page string="College Information" autofocus="autofocus">
                         <group>
                             <field name="transferred_to_us"/>
-                            <field name="transfer_shift"/>
+                            <!-- <field name="transfer_shift"/> -->
 
                     <field name="year"/> 
                     <field name="college"/>
