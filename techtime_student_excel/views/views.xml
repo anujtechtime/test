@@ -79,6 +79,20 @@
         </record>
 
 
+        <record id="sale_orderform_view_oppor_revenue_tensfare_fields" model="ir.ui.view">
+            <field name="name">sale.order.data</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="Status"/>
+                    <field name="transferred_to_us"/>
+                    <field name="transfer_shift"/>
+                </xpath>
+                
+              </field>
+            </record>
+
         <record id="action_account_payments_college_report" model="ir.actions.act_window">
             <field name="name">Payments</field>
             <field name="res_model">account.payment</field>
@@ -171,6 +185,7 @@
                     <page string="College Information" autofocus="autofocus">
                         <group>
                             <field name="transferred_to_us"/>
+                            <field name="transfer_shift"/>
 
                     <field name="year"/> 
                     <field name="college"/>
@@ -272,6 +287,10 @@
 
                 <xpath expr="//field[@name='vat']" position="replace">
                     <field name="vat" invisible="1"/>
+                    <field name="relation" attrs="{'invisible': [('type', '!=', 'other')"/>
+                    <field name="type_of_relative" attrs="{'invisible': [('relation', '!=', 'relative')"/>
+                    <field name="Father_Job" attrs="{'invisible': [('relation', '!=', 'father')"/>
+                    <field name="work_address_father" attrs="{'invisible': [('relation', '!=', 'father')"/>
                 </xpath>
 
 
@@ -342,6 +361,10 @@
             
             </field>
         </record>
+
+
+
+
 
 
     <!-- actions opening views on models -->

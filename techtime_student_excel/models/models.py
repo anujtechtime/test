@@ -34,6 +34,7 @@ class TechtimeStudentexcel(models.Model):
 
     Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
     transferred_to_us = fields.Boolean("Transferred To Us ") 
+    transfer_shift = fields.Boolean("Transferred Shift ")
  
  
 #     _description = 'techtime_payroll_excel.techtime_payroll_excel'
@@ -184,6 +185,7 @@ class ResData(models.Model):
     _inherit = 'res.partner'
 
     transferred_to_us = fields.Boolean("Transferred To Us ")
+    transfer_shift = fields.Boolean("Transferred Shift ")
 
     year = fields.Many2one("year.year", string="Year")
     college = fields.Many2one("faculty.faculty", string="College")
@@ -240,5 +242,9 @@ class ResData(models.Model):
     phone_number_2_gurantor = fields.Char("phone number 2")
 
 
+    relation = fields.Selection([('father','Father'),('mother','Mother'),('relative','Relative'),('guarantor','Guarantor')], string="Relation")
+    type_of_relative = fields.Char("Type Of Relative")
+    Father_Job = fields.Char("Father Job")
+    work_address_father = fields.Char("Work address")
 
     
