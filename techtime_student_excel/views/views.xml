@@ -73,6 +73,7 @@
                     <field name="college_number"/>
                     <field name="Status"/>
                     <field name="transferred_to_us"/>
+                    <field name="transfer_shift"/>
                     
                 </xpath>
             </field>
@@ -87,7 +88,7 @@
                 <xpath expr="//field[@name='date_order']" position="after">
                     <field name="Status"/>
                     <field name="transferred_to_us"/>
-                    <field name="transfer_shift"/>
+                    
                 </xpath>
                 
               </field>
