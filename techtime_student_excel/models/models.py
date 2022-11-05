@@ -28,6 +28,30 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 _logger = logging.getLogger(__name__)
 
 
+class DataStatusValue(models.TransientModel):
+    _name = 'status.value'
+   
+
+    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+
+    def action_confirm_change_status(self):
+        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
+        for idds in self._context.get("active_id"):
+            print("idds@@@@@@@@@@@@@@@@@",idds)
+            levels_sale_order = self.env["sale.order"].browse(int(idds))
+            levels_sale_order.level = self.Status
+        # for ddts in self:
+        #     ddts.level =  self.level
+
+    @api.model
+    def default_get(self, field_list):
+        res = super(DataStatusValue, self).default_get(field_list)
+        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@2",self._context.get("active_id"))
+        for idds in self._context.get("active_id"):
+            print("idds@@@@@@@@@@@@@@@@@",idds)
+        return res        
+
+
 
 class DataLevelValue(models.TransientModel):
     _name = 'level.value'
@@ -161,6 +185,18 @@ class TechtimeStudentexcel(models.Model):
                     "transferred_to_us" : ddts.transferred_to_us,
                     })
                 print("data##########",data)
+
+    def action_done_show_wizard_status(self):
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Level Value'),
+        'res_model': 'status.value',
+        'target': 'new',
+        'view_id': self.env.ref('techtime_student_excel.view_any_name_form_status').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }
+            
 
 
 

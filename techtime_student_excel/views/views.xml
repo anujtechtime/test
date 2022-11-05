@@ -55,6 +55,29 @@
 
 
 
+    <record model="ir.ui.view" id="view_any_name_form_status_value">
+        <field name="name">status.value.form</field>
+        <field name="model">status.value</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="My Form">
+                <sheet>                         
+                    <group> 
+                        <field name="level"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_change_status" type="object" string="Change the Status value" class="oe_highlight"/>
+                        or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+
+
 
     <record id="ir_actions_server_sale_cart_student_value_level" model="ir.actions.server">
         <field name="name">Level Details Change</field>
@@ -66,6 +89,21 @@
                 action = records.action_done_show_wizard_level()
         </field>
         <field name="binding_model_id" ref="sale.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+
+    <record id="ir_actions_server_sale_cart_student_status" model="ir.actions.server">
+        <field name="name">Level Details Change</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_done_show_wizard_status()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_view_types">list,form</field>
     </record>
 
