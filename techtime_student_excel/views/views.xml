@@ -148,7 +148,7 @@
 
 
 
-    <record id="view_sale_order_inherit_search_payment_level" model="ir.ui.view">
+<!--     <record id="view_sale_order_inherit_search_payment_level" model="ir.ui.view">
       <field name="name">res.partner.search.expand.filter</field>
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="account.view_account_payment_search"/>
@@ -158,7 +158,7 @@
             
         </xpath>
       </field>
-    </record>
+    </record> -->
 
 
         <record id="view_sales_order_filter_sale_exam_number" model="ir.ui.view">
