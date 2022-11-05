@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 import logging
 import pytz
 import threading
@@ -28,6 +28,45 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 _logger = logging.getLogger(__name__)
 
 
+
+class DataLevelValue(models.TransientModel):
+    _name = 'level.value'
+   
+
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
+
+    def action_confirm_change_level(self):
+        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
+        for idds in self._context.get("active_id"):
+            print("idds@@@@@@@@@@@@@@@@@",idds)
+            levels_sale_order = self.env["res.partner"].browse(int(idds))
+            print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
+            levels_sale_order.level = self.level
+        # for ddts in self:
+        #     ddts.level =  self.level
+
+    @api.model
+    def default_get(self, field_list):
+        res = super(DataLevelValue, self).default_get(field_list)
+        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@2",self._context.get("active_id"))
+        for idds in self._context.get("active_id"):
+            print("idds@@@@@@@@@@@@@@@@@",idds)
+            # levels_sale_order = self.env["sale.order"].browse(int(idds))
+            # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
+            # levels_sale_order.level = self.level
+            # levels_sale_order.update({
+            #     'level': self.level,
+            # })
+        # company = self.env.company
+        # res.update({
+        #     'company_id': company.id,
+        #     'period_lock_date': company.period_lock_date,
+        #     'fiscalyear_lock_date': company.fiscalyear_lock_date,
+        # })
+        return res        
+
+
+
 class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
 
@@ -36,6 +75,22 @@ class TechtimeStudentexcel(models.Model):
     transferred_to_us = fields.Boolean("Transferred To Us ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
  
+
+    @api.onchange('partner_id')
+    def onchange_partner_id_warning(self):
+        result = super(TechtimeStudentexcel, self).onchange_partner_id_warning()
+        self.update({
+            "year" : self.partner_id.year.id,
+            "college" : self.partner_id.college.id,
+            "department" : self.partner_id.department.id,
+            "student_type" : self.partner_id.student.id,
+            "shift" : self.partner_id.Subject,
+            "level" : self.partner_id.level,
+            "transferred_to_us" : self.partner_id.transferred_to_us,
+            })
+
+
+        return result
  
 #     _description = 'techtime_payroll_excel.techtime_payroll_excel'
 
@@ -52,7 +107,6 @@ class TechtimeStudentexcel(models.Model):
 
     def action_confirm(self):
         result = super(TechtimeStudentexcel, self).action_confirm()
-        print("result@@@@@@@@@@@@@@@@!!!!!!!!!!!!!",result)
 
         if self.partner_id:
             self.partner_id.update({
@@ -248,3 +302,13 @@ class ResData(models.Model):
     work_address_father = fields.Char("Work address")
 
     
+    def action_done_show_wizard_level(self):
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Level Value'),
+        'res_model': 'level.value',
+        'target': 'new',
+        'view_id': self.env.ref('techtime_student_excel.view_any_name_form_level_value').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }
