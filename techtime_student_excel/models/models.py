@@ -58,6 +58,8 @@ class DataLevelValue(models.TransientModel):
    
 
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
+    year = fields.Many2one("year.year", string="Year")
+
 
     def action_confirm_change_level(self):
         print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
@@ -66,6 +68,7 @@ class DataLevelValue(models.TransientModel):
             levels_sale_order = self.env["res.partner"].browse(int(idds))
             print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             levels_sale_order.level = self.level
+            levels_sale_order.year = self.year
         # for ddts in self:
         #     ddts.level =  self.level
 
@@ -106,6 +109,8 @@ class TechtimeStudentData(models.Model):
 
 class TechtimeStudentPayment(models.Model):
     _inherit = 'account.payment'
+
+    department = fields.Many2one("department.department", string="Department")
 
     @api.onchange('partner_id')
     def onchange_partner_id(self):

@@ -41,6 +41,7 @@
                 <sheet>                         
                     <group> 
                         <field name="level"/>
+                        <field name="year"/>
                     </group>
                 </sheet>
                 <footer>
