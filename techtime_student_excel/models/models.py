@@ -66,6 +66,35 @@ class DataLevelValue(models.TransientModel):
         return res        
 
 
+class TechtimeStudentData(models.Model):
+    _inherit = 'account.move'
+
+
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        if self.partner_id:
+            self.update({
+                "college" : self.partner_id.college.id if self.partner_id.college else False,
+                "student" : self.partner_id.student_type.id if self.partner_id.student_type else False,
+                "Subject" : self.partner_id.shift if self.partner_id.shift else False,
+                "level" : self.partner_id.level if self.partner_id.level else False,
+                })
+
+
+class TechtimeStudentPayment(models.Model):
+    _inherit = 'account.payment'
+
+
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        if self.partner_id:
+            self.update({
+                "college" : self.partner_id.college.id if self.partner_id.college else False,
+                "student" : self.partner_id.student_type.id if self.partner_id.student_type else False,
+                "Subject" : self.partner_id.shift if self.partner_id.shift else False,
+                "level" : self.partner_id.level if self.partner_id.level else False,
+                })   
+
 
 class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
