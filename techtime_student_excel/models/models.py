@@ -83,10 +83,9 @@ class TechtimeStudentexcel(models.Model):
             "year" : self.partner_id.year.id,
             "college" : self.partner_id.college.id,
             "department" : self.partner_id.department.id,
-            "student_type" : self.partner_id.student.id,
+            "student_type" : self.partner_id.student_type.id,
             "shift" : self.partner_id.Subject,
             "level" : self.partner_id.level,
-            "transferred_to_us" : self.partner_id.transferred_to_us,
             })
 
 
