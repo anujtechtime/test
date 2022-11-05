@@ -81,12 +81,12 @@ class TechtimeStudentexcel(models.Model):
         result = super(TechtimeStudentexcel, self).onchange_partner_id_warning()
         if self.partner_id:
             self.update({
-                "year" : self.partner_id.year.id,
-                "college" : self.partner_id.college.id,
-                "department" : self.partner_id.department.id,
-                "student_type" : self.partner_id.student_type.id,
-                "Subject" : self.partner_id.shift,
-                "level" : self.partner_id.level,
+                "year" : self.partner_id.year.id if self.partner_id.year else False, 
+                "college" : self.partner_id.college.id if self.partner_id.college else False,
+                "department" : self.partner_id.department.id if self.partner_id.department else False,
+                "student" : self.partner_id.student_type.id if self.partner_id.student_type else False,
+                "Subject" : self.partner_id.shift if self.partner_id.shift else False,
+                "level" : self.partner_id.level if self.partner_id.level else False,
                 })
 
 
