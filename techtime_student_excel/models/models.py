@@ -79,14 +79,15 @@ class TechtimeStudentexcel(models.Model):
     @api.onchange('partner_id')
     def onchange_partner_id_warning(self):
         result = super(TechtimeStudentexcel, self).onchange_partner_id_warning()
-        self.update({
-            "year" : self.partner_id.year.id,
-            "college" : self.partner_id.college.id,
-            "department" : self.partner_id.department.id,
-            "student_type" : self.partner_id.student_type.id,
-            "shift" : self.partner_id.Subject,
-            "level" : self.partner_id.level,
-            })
+        if self.partner_id:
+            self.update({
+                "year" : self.partner_id.year.id,
+                "college" : self.partner_id.college.id,
+                "department" : self.partner_id.department.id,
+                "student_type" : self.partner_id.student_type.id,
+                "Subject" : self.partner_id.Subject,
+                "level" : self.partner_id.level,
+                })
 
 
         return result

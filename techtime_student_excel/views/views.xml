@@ -111,8 +111,8 @@
 
 
     <record id="view_sale_order_inherit_search_payment" model="ir.ui.view">
-      <field name="name">account.payment.search.expand.filter</field>
-      <field name="model">account.payment</field>
+      <field name="name">res.partner.search.expand.filter</field>
+      <field name="model">res.partner</field>
       <field name="inherit_id" ref="account.view_account_payment_search"/>
       <field name="arch" type="xml">
         <xpath expr="//search" position="inside">
