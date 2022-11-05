@@ -63,7 +63,7 @@
             <form string="My Form">
                 <sheet>                         
                     <group> 
-                        <field name="level"/>
+                        <field name="Status"/>
                     </group>
                 </sheet>
                 <footer>

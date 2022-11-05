@@ -39,7 +39,7 @@ class DataStatusValue(models.TransientModel):
         for idds in self._context.get("active_id"):
             print("idds@@@@@@@@@@@@@@@@@",idds)
             levels_sale_order = self.env["sale.order"].browse(int(idds))
-            levels_sale_order.level = self.Status
+            levels_sale_order.Status = self.Status
         # for ddts in self:
         #     ddts.level =  self.level
 
