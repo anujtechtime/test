@@ -102,6 +102,7 @@ class TechtimeStudentData(models.Model):
             self.update({
                 "college" : self.partner_id.college.id if self.partner_id.college else False,
                 "student" : self.partner_id.student_type.id if self.partner_id.student_type else False,
+                "department" : self.partner_id.department.id if self.partner_id.department else False,
                 "Subject" : self.partner_id.shift if self.partner_id.shift else False,
                 "level" : self.partner_id.level if self.partner_id.level else False,
                 })

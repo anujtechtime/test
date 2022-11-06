@@ -148,19 +148,25 @@
     </record>
 
 
-
-<!--     <record id="view_sale_order_inherit_search_payment_level" model="ir.ui.view">
+    <record id="view_res_partner_filter_search_payment" model="ir.ui.view">
       <field name="name">res.partner.search.expand.filter</field>
       <field name="model">res.partner</field>
-      <field name="inherit_id" ref="account.view_account_payment_search"/>
+      <field name="inherit_id" ref="base.view_res_partner_filter"/>
       <field name="arch" type="xml">
         <xpath expr="//search" position="inside">
-            <filter string="Level" name="level" domain="[ ]" context="{'group_by': 'level'}" />
+            <filter string="Level 1" name="level" domain="[('level','=','leve1')]"/>
+            <filter string="Level 2" name="level" domain="[('level','=','level2')]"/>
+            <filter string="Level 3" name="level" domain="[('level','=','level3')]"/>
+            <filter string="Level 4" name="level" domain="[('level','=','level4')]"/>
+            <filter string="Level 5" name="level" domain="[('level','=','level5')]"/>
             
+          <!-- This field will show up on the default filters
+               &lt; is the XML encoding for < and &gt; is the XML encoding for > -->
+<!--           <filter string="Total &lt; 1000" name="total_under_1000" domain="[('amount_total', '&lt;', 1000)]"/>
+          <filter string="Total &gt;= 1000" name="total_above_1000" domain="[('amount_total', '&gt;=', 1000)]"/> -->
         </xpath>
       </field>
-    </record> -->
-
+    </record>
 
         <record id="view_sales_order_filter_sale_exam_number" model="ir.ui.view">
             <field name="name">sale.order</field>
@@ -407,11 +413,12 @@
             </xpath>
 
             <xpath expr="//field[@name='notes']" position="replace">
+                <field name="number_exam"/>
                 <field name="notes" invisible="1"/>
             </xpath>
 
             <xpath expr="//field[@name='contact_type']" position="replace">    
-                <field name="contact_type" invisible="1"/>
+                <field name="contact_type"/>
             </xpath>
 
             <xpath expr="//div[hasclass('o_address_format')]" position="replace">
