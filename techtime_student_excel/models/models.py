@@ -96,6 +96,8 @@ class DataLevelValue(models.TransientModel):
 class TechtimeStudentData(models.Model):
     _inherit = 'account.move'
 
+    department = fields.Many2one("department.department", string="Department")
+
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         if self.partner_id:
