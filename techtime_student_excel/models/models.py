@@ -177,6 +177,8 @@ class TechtimeStudentexcel(models.Model):
                 "shift" : self.Subject,
                 "level" : self.level,
                 "transferred_to_us" : self.transferred_to_us,
+                "transfer_shift" : self.transfer_shift,
+                "Status" : self.Status
                 })
         return result
 
@@ -191,6 +193,8 @@ class TechtimeStudentexcel(models.Model):
                     "shift" : ddts.Subject,
                     "level" : ddts.level,
                     "transferred_to_us" : ddts.transferred_to_us,
+                    "transfer_shift" : ddts.transfer_shift,
+                    "Status" : ddts.Status
                     })
                 print("data##########",data)
 
@@ -312,6 +316,7 @@ class ResData(models.Model):
 
     transferred_to_us = fields.Boolean("Transferred To Us ")
     transfer_shift = fields.Boolean("Transferred Shift ")
+    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
 
     year = fields.Many2one("year.year", string="Year")
     college = fields.Many2one("faculty.faculty", string="College")
