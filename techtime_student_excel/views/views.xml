@@ -30,7 +30,7 @@
 
 
     <record id="ir_actions_server_sale_cart_student_testing" model="ir.actions.server">
-        <field name="name">New excel</field>
+        <field name="name">not paid student</field>
         <field name="type">ir.actions.server</field>
         <field name="model_id" ref="model_sale_order"/>
         <field name="state">code</field>
