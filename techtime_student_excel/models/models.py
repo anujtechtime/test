@@ -268,7 +268,7 @@ class TechtimeStudentexcel(models.Model):
                 worksheet.write(row, 8, material_line_id.level or '')
 
                 worksheet.write(row, 9, material_line_id.transfer_shift or '') 
-                worksheet.write(row, 9, material_line_id.transferred_to_us or '') 
+                worksheet.write(row, 10, material_line_id.transferred_to_us or '') 
                 row += 1    
 
 
