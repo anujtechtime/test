@@ -291,26 +291,26 @@ class TechtimeStudentexcel(models.Model):
                     print("yrs$$$$$$$$$$$$$$$$$$$$$$$",yrs.year)
                     _logger.info("pincode************222222222222#####**%s" %yrs.year)
                 print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
-                sale_ord_level1 = self.env["sale.order"].search([("year","=",yrs),('level','=','leve1'),('college','=',coll)])
+                sale_ord_level1 = self.env["sale.order"].search([("year","=",yrs.id),('level','=','leve1'),('college','=',coll.id)])
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level1)
                 
 
-                sale_ord_level2 = self.env["sale.order"].search([("year","=",yrs),('level','=','level2'),('college','=',coll)])
+                sale_ord_level2 = self.env["sale.order"].search([("year","=",yrs.id),('level','=','level2'),('college','=',coll.id)])
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level2)
                 
                     
 
-                sale_ord_level3 = self.env["sale.order"].search([("year","=",yrs),('level','=','level3'),('college','=',coll)],limit=1)
+                sale_ord_level3 = self.env["sale.order"].search([("year","=",yrs.id),('level','=','level3'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level3)
             
                     
 
-                sale_ord_level4 = self.env["sale.order"].search([("year","=",yrs),('level','=','level4'),('college','=',coll)],limit=1)
+                sale_ord_level4 = self.env["sale.order"].search([("year","=",yrs.id),('level','=','level4'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level4)
             
                     
 
-                sale_ord_level5 = self.env["sale.order"].search([("year","=",yrs),('level','=','level5'),('college','=',coll)],limit=1)
+                sale_ord_level5 = self.env["sale.order"].search([("year","=",yrs.id),('level','=','level5'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level5)
                                 
  
