@@ -275,11 +275,7 @@ class TechtimeStudentexcel(models.Model):
 
         worksheet.write(0, 16, 'College', border_color_2)
         worksheet.write(0, 17, 'Level', border_color_2)
-        worksheet.write(0 + 1, 17, 'Level1', border_color_2)
-        worksheet.write(0 + 2, 17, 'Level2', border_color_2)
-        worksheet.write(0 + 3, 17, 'Level3', border_color_2)
-        worksheet.write(0 + 4, 17, 'Level4', border_color_2)
-        worksheet.write(0 + 5, 17, 'Level5', border_color_2)
+        
 
         worksheet.write(0, 18, 'Number Of Student Registered', border_color_2)
         worksheet.write(0, 19, 'Number Of Student Not Registered', border_color_2)
@@ -336,10 +332,25 @@ class TechtimeStudentexcel(models.Model):
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level5)
                 if sale_ord_level5:
                     registered_level5 = registered_level5 + 1
+
+
+            
+            Registered_total  = registered_level1 + registered_level2 + registered_level3 + registered_level4 + registered_level5        
                                 
  
             
             worksheet.write(row_paid, 16, coll.college or '')
+            worksheet.write(row_paid + 1, 16, coll.college or '')
+            worksheet.write(row_paid + 2, 16, coll.college or '')
+            worksheet.write(row_paid + 3, 16, coll.college or '')
+            worksheet.write(row_paid + 4, 16, coll.college or '')
+
+            worksheet.write(row_paid, 17, 'Level1', border_color_2)
+            worksheet.write(row_paid + 1, 17, 'Level2', border_color_2)
+            worksheet.write(row_paid + 2, 17, 'Level3', border_color_2)
+            worksheet.write(row_paid + 3, 17, 'Level4', border_color_2)
+            worksheet.write(row_paid + 4, 17, 'Level5', border_color_2)
+
             worksheet.write(row_paid, 18, registered_level1 or '')
             worksheet.write(row_paid + 1, 18, registered_level2 or '')
             worksheet.write(row_paid + 2, 18, registered_level3 or '')
@@ -348,9 +359,14 @@ class TechtimeStudentexcel(models.Model):
 
             worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
 
+
+            # Registered_total
+
             row_paid = row_paid + 6
 
 
+        _logger.info("row_paid************row_paid#####**%s" %row_paid)
+            
         
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
