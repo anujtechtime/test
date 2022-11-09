@@ -282,6 +282,7 @@ class TechtimeStudentexcel(models.Model):
 
         row_paid = 1
         college_data = self.env["faculty.faculty"].search([])
+        Registered_total = 0
         for coll in college_data:
             not_registered_level1 = 0
             not_registered_level2 = 0
