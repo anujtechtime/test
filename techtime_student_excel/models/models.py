@@ -211,7 +211,7 @@ class TechtimeStudentexcel(models.Model):
             
 
 
-    def send_mis_report_sale_new(self):
+    def send_mis_report_sale_new(self):       
         filename = 'Student.xls'
         string = 'Student_report.xls'
         wb = xlwt.Workbook(encoding='utf-8')
@@ -246,11 +246,18 @@ class TechtimeStudentexcel(models.Model):
         worksheet.write(0, 6, 'Student Type', border_color_2)
         worksheet.write(0, 7, 'Shift', border_color_2)
         worksheet.write(0, 8, 'Level', border_color_2)
+
+
+        worksheet.write(0, 9, 'Sale Order', border_color_2)
+        worksheet.write(0, 10, 'Invoice Number', header_bold)
+        worksheet.write(0, 11, 'Amount', header_bold)
+        worksheet.write(0, 12, 'Payment Status', header_bold)
+        worksheet.write(0, 13, 'Payment Date', header_bold)
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############uuuuuuuuuuuuuuuuuuuu",self)
         for material_line_id in self:
             print("lllllllllllllllllllll",material_line_id)
-            if material_line_id.Status == 'succeeded' or material_line_id.Status == 'failed' and material_line_id.year.year == '2022-2023' and material_line_id.partner_id.year.year == '2022-2023' or material_line_id.transfer_shift == True or material_line_id.transferred_to_us == True:
+            if material_line_id.Status == 'succeeded' or material_line_id.Status == 'failed' and material_line_id.year.year == '2022-2023' or material_line_id.transfer_shift == True or material_line_id.transferred_to_us == True:
                 print("material_line_id##########",material_line_id.college)
                 worksheet.write(row, 0, material_line_id.partner_id.name or '')
                 worksheet.write(row, 1, material_line_id.college_number or '')
@@ -261,7 +268,60 @@ class TechtimeStudentexcel(models.Model):
                 worksheet.write(row, 6, material_line_id.student.Student or '')
                 worksheet.write(row, 7, material_line_id.Subject or '')
                 worksheet.write(row, 8, material_line_id.level or '')
+                worksheet.write(row, 9, material_line_id.name or '') 
                 row += 1    
+
+
+
+        worksheet.write(0, 16, 'College', border_color_2)
+        worksheet.write(0, 17, 'Level', border_color_2)
+        worksheet.write(0, 18, 'Number Of Student Registered', border_color_2)
+        worksheet.write(0, 19, 'Number Of Student Not Registered', border_color_2)
+
+        row_paid = 1
+        college_data = self.env["faculty.faculty"].search([])
+        for coll in college_data:
+            not_registered = 0
+            registered = 0
+            for material_line in self:
+                print("lllllllllllllllllllll",material_line.partner_id)
+                year_all = self.env["year.year"].search([])
+                _logger.info("pincode************11111111111111#####**%s" %year_all)
+                for yrs in year_all:
+                    print("yrs$$$$$$$$$$$$$$$$$$$$$$$",yrs.year)
+                    _logger.info("pincode************222222222222#####**%s" %yrs.year)
+                print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
+                sale_ord_level1 = self.env["sale.order"].search([("year","=",yrs),('level','=','leve1'),('college','=',coll)])
+                _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level1)
+                
+
+                sale_ord_level2 = self.env["sale.order"].search([("year","=",yrs),('level','=','level2'),('college','=',coll)])
+                _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level2)
+                
+                    
+
+                sale_ord_level3 = self.env["sale.order"].search([("year","=",yrs),('level','=','level3'),('college','=',coll)],limit=1)
+                _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level3)
+            
+                    
+
+                sale_ord_level4 = self.env["sale.order"].search([("year","=",yrs),('level','=','level4'),('college','=',coll)],limit=1)
+                _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level4)
+            
+                    
+
+                sale_ord_level5 = self.env["sale.order"].search([("year","=",yrs),('level','=','level5'),('college','=',coll)],limit=1)
+                _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level5)
+                                
+ 
+            
+                # worksheet.write(row_paid, 16, material_line.college or '')
+                # worksheet.write(row_paid, 17, material_line.level or '')
+                # worksheet.write(row_paid, 18, material_line.transfer_shift or '')
+                # worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
+
+
+        
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)

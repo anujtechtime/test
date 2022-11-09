@@ -3,6 +3,12 @@ body {
     font-family: 'Poppins', sans-serif !important;
     background-color: #f8f8fb;
 }
+
+.o_data_row:has(.custom-control-input:checked){
+    background : #ffffff !important;
+}
+
+
 a {
     color: $primary_accent;
 }
