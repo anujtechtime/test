@@ -333,16 +333,16 @@ class TechtimeStudentexcel(models.Model):
                                 
  
             
-                worksheet.write(row_paid, 16, material_line.college or '')
-                worksheet.write(row_paid, 17, material_line.registered_level1 or '')
-                worksheet.write(row_paid + 1, 17, material_line.registered_level2 or '')
-                worksheet.write(row_paid + 2, 17, material_line.registered_level3 or '')
-                worksheet.write(row_paid + 3, 17, material_line.registered_level4 or '')
-                worksheet.write(row_paid + 4, 17, material_line.registered_level5 or '')
+            worksheet.write(row_paid, 16, coll.college or '')
+            worksheet.write(row_paid, 17, registered_level1 or '')
+            worksheet.write(row_paid + 1, 17, registered_level2 or '')
+            worksheet.write(row_paid + 2, 17, registered_level3 or '')
+            worksheet.write(row_paid + 3, 17, registered_level4 or '')
+            worksheet.write(row_paid + 4, 17, registered_level5 or '')
 
 
-                worksheet.write(row_paid, 18, material_line.transfer_shift or '')
-                worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
+            worksheet.write(row_paid, 18, material_line.transfer_shift or '')
+            worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
 
 
         
