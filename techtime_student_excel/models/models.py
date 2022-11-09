@@ -335,10 +335,8 @@ class TechtimeStudentexcel(models.Model):
 
 
             
-            Registered_total  = registered_level1 + registered_level2 + registered_level3 + registered_level4 + registered_level5        
-                                
- 
-            
+            Registered_total  = Registered_total + registered_level1 + registered_level2 + registered_level3 + registered_level4 + registered_level5        
+
             worksheet.write(row_paid, 16, coll.college or '')
             worksheet.write(row_paid + 1, 16, coll.college or '')
             worksheet.write(row_paid + 2, 16, coll.college or '')
