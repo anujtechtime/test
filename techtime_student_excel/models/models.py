@@ -307,36 +307,42 @@ class TechtimeStudentexcel(models.Model):
 
                 sale_ord_level2 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level2'),('college','=',coll.id)])
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level2)
-                if sale_ord_level1:
-                    registered_level1 = registered_level2 + 1
+                if sale_ord_level2:
+                    registered_level2 = registered_level2 + 1
                 
                     
 
                 sale_ord_level3 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level3'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level3)
-                if sale_ord_level1:
-                    registered_level1 = registered_level3 + 1
+                if sale_ord_level3:
+                    registered_level3 = registered_level3 + 1
             
                     
 
                 sale_ord_level4 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level4'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level4)
-                if sale_ord_level1:
-                    registered_level1 = registered_level4 + 1
+                if sale_ord_level4:
+                    registered_level4 = registered_level4 + 1
             
                     
 
                 sale_ord_level5 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level5'),('college','=',coll.id)],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level5)
-                if sale_ord_level1:
-                    registered_level1 = registered_level5 + 1
+                if sale_ord_level5:
+                    registered_level5 = registered_level5 + 1
                                 
  
             
-                # worksheet.write(row_paid, 16, material_line.college or '')
-                # worksheet.write(row_paid, 17, material_line.level or '')
-                # worksheet.write(row_paid, 18, material_line.transfer_shift or '')
-                # worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
+                worksheet.write(row_paid, 16, material_line.college or '')
+                worksheet.write(row_paid, 17, material_line.registered_level1 or '')
+                worksheet.write(row_paid + 1, 17, material_line.registered_level2 or '')
+                worksheet.write(row_paid + 2, 17, material_line.registered_level3 or '')
+                worksheet.write(row_paid + 3, 17, material_line.registered_level4 or '')
+                worksheet.write(row_paid + 4, 17, material_line.registered_level5 or '')
+
+
+                worksheet.write(row_paid, 18, material_line.transfer_shift or '')
+                worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
 
 
         
