@@ -302,34 +302,34 @@ class TechtimeStudentexcel(models.Model):
                     print("yrs$$$$$$$$$$$$$$$$$$$$$$$",yrs.year)
                     _logger.info("pincode************222222222222#####**%s" %yrs.year)
                 print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
-                sale_ord_level1 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','leve1'),('college','=',coll.id)])
+                sale_ord_level1 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','leve1'),('college','=',coll.id),('state','=','sale')])
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level1)
                 if sale_ord_level1:
                     registered_level1 = registered_level1 + 1
                 
 
-                sale_ord_level2 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level2'),('college','=',coll.id)])
+                sale_ord_level2 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level2'),('college','=',coll.id),('state','=','sale')])
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level2)
                 if sale_ord_level2:
                     registered_level2 = registered_level2 + 1
                 
                     
 
-                sale_ord_level3 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level3'),('college','=',coll.id)],limit=1)
+                sale_ord_level3 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level3'),('college','=',coll.id),('state','=','sale')],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level3)
                 if sale_ord_level3:
                     registered_level3 = registered_level3 + 1
             
                     
 
-                sale_ord_level4 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level4'),('college','=',coll.id)],limit=1)
+                sale_ord_level4 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level4'),('college','=',coll.id),('state','=','sale')],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level4)
                 if sale_ord_level4:
                     registered_level4 = registered_level4 + 1
             
                     
 
-                sale_ord_level5 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level5'),('college','=',coll.id)],limit=1)
+                sale_ord_level5 = self.env["sale.order"].search([('partner_id','=',material_line.partner_id.id),("year","=",yrs.id),('level','=','level5'),('college','=',coll.id),('state','=','sale')],limit=1)
                 _logger.info("pincode************333333333333333333#####**%s" %sale_ord_level5)
                 if sale_ord_level5:
                     registered_level5 = registered_level5 + 1
