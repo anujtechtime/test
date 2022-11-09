@@ -285,7 +285,7 @@ class TechtimeStudentexcel(models.Model):
             registered = 0
             for material_line in self:
                 print("lllllllllllllllllllll",material_line.partner_id)
-                year_all = self.env["year.year"].search([])
+                year_all = self.env["year.year"].search([],order='year desc')
                 _logger.info("pincode************11111111111111#####**%s" %year_all)
                 for yrs in year_all:
                     print("yrs$$$$$$$$$$$$$$$$$$$$$$$",yrs.year)
