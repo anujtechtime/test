@@ -365,6 +365,7 @@ class TechtimeStudentexcel(models.Model):
             row_paid = row_paid + 6
 
 
+        worksheet.write(row_paid, 18, Registered_total or '')
         _logger.info("row_paid************row_paid#####**%s" %row_paid)
             
         
