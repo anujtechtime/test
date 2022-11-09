@@ -247,17 +247,15 @@ class TechtimeStudentexcel(models.Model):
         worksheet.write(0, 7, 'Shift', border_color_2)
         worksheet.write(0, 8, 'Level', border_color_2)
 
+        worksheet.write(0, 9, 'Transferred Shift', border_color_2)
+        worksheet.write(0, 10, 'Transferred To Us', border_color_2)
 
-        worksheet.write(0, 9, 'Sale Order', border_color_2)
-        worksheet.write(0, 10, 'Invoice Number', header_bold)
-        worksheet.write(0, 11, 'Amount', header_bold)
-        worksheet.write(0, 12, 'Payment Status', header_bold)
-        worksheet.write(0, 13, 'Payment Date', header_bold)
+
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############uuuuuuuuuuuuuuuuuuuu",self)
         for material_line_id in self:
             print("lllllllllllllllllllll",material_line_id)
-            if material_line_id.Status == 'succeeded' or material_line_id.Status == 'failed' and material_line_id.year.year == '2022-2023' or material_line_id.transfer_shift == True or material_line_id.transferred_to_us == True:
+            if material_line_id.Status == 'succeeded' or material_line_id.Status == 'failed' and material_line_id.year.year == '2022-2023':
                 print("material_line_id##########",material_line_id.college)
                 worksheet.write(row, 0, material_line_id.partner_id.name or '')
                 worksheet.write(row, 1, material_line_id.college_number or '')
@@ -268,13 +266,21 @@ class TechtimeStudentexcel(models.Model):
                 worksheet.write(row, 6, material_line_id.student.Student or '')
                 worksheet.write(row, 7, material_line_id.Subject or '')
                 worksheet.write(row, 8, material_line_id.level or '')
-                worksheet.write(row, 9, material_line_id.name or '') 
+
+                worksheet.write(row, 9, material_line_id.transfer_shift or '') 
+                worksheet.write(row, 9, material_line_id.transferred_to_us or '') 
                 row += 1    
 
 
 
         worksheet.write(0, 16, 'College', border_color_2)
         worksheet.write(0, 17, 'Level', border_color_2)
+        worksheet.write(0 + 1, 17, 'Level1', border_color_2)
+        worksheet.write(0 + 2, 17, 'Level2', border_color_2)
+        worksheet.write(0 + 3, 17, 'Level3', border_color_2)
+        worksheet.write(0 + 4, 17, 'Level4', border_color_2)
+        worksheet.write(0 + 5, 17, 'Level5', border_color_2)
+
         worksheet.write(0, 18, 'Number Of Student Registered', border_color_2)
         worksheet.write(0, 19, 'Number Of Student Not Registered', border_color_2)
 
@@ -334,14 +340,12 @@ class TechtimeStudentexcel(models.Model):
  
             
             worksheet.write(row_paid, 16, coll.college or '')
-            worksheet.write(row_paid, 17, registered_level1 or '')
-            worksheet.write(row_paid + 1, 17, registered_level2 or '')
-            worksheet.write(row_paid + 2, 17, registered_level3 or '')
-            worksheet.write(row_paid + 3, 17, registered_level4 or '')
-            worksheet.write(row_paid + 4, 17, registered_level5 or '')
+            worksheet.write(row_paid, 18, registered_level1 or '')
+            worksheet.write(row_paid + 1, 18, registered_level2 or '')
+            worksheet.write(row_paid + 2, 18, registered_level3 or '')
+            worksheet.write(row_paid + 3, 18, registered_level4 or '')
+            worksheet.write(row_paid + 4, 18, registered_level5 or '')
 
-
-            worksheet.write(row_paid, 18, material_line.transfer_shift or '')
             worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
 
             row_paid = row_paid + 6
