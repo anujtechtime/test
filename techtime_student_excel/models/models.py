@@ -344,6 +344,8 @@ class TechtimeStudentexcel(models.Model):
             worksheet.write(row_paid, 18, material_line.transfer_shift or '')
             worksheet.write(row_paid, 19, material_line.transferred_to_us or '')
 
+            row_paid = row_paid + 6
+
 
         
         fp = io.BytesIO()
