@@ -429,6 +429,7 @@ class TechtimeStudentexcel(models.Model):
                 print("data##################",sum(installment_amou))
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
+                _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
 
     def send_mis_report_sale(self):
         filename = 'Student.xls'
