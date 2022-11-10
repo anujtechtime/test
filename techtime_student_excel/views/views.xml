@@ -43,6 +43,18 @@
     </record>
 
 
+    <record id="ir_actions_server_sale_cart_student_testing_college" model="ir.actions.server">
+        <field name="name">College mustafa excel</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.send_mis_report_sale_college_report()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
 
 
 
