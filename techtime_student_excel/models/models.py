@@ -398,7 +398,7 @@ class TechtimeStudentexcel(models.Model):
 
     def send_mis_report_sale_college_report(self):  
         college_data = self.env["faculty.faculty"].search([])
-        print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
+        # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
         Registered_total = 0
         for coll in college_data:
             not_registered_level1 = 0
@@ -416,17 +416,18 @@ class TechtimeStudentexcel(models.Model):
             year_all = self.env["year.year"].search([],order='year asc')
 
             student_type = self.env["level.level"].search([])
-            print("student_type###################",student_type)
+            # print("student_type###################",student_type)
             # _logger.info("student_type************11111111111111#####**%s" %student_type)
             for yrs in year_all:
-                print("yrs$$$$$$$$$$$$$$$$$$$$$$$",yrs.year)
+                print("yrs$$$$$$$$$$$$$$$$$$$$$$$")
                 # _logger.info("pincode************222222222222#####**%s" %yrs.year)
-            print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
+            # print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
             for student in student_type:
                 sale_ord_level1 = self.env["sale.order"].search([('student','=',student.id),("year","=",yrs.id),('college','=',coll.id),('state','=','sale')])
-                print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
+                # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
                 installment_amou = sale_ord_level1.mapped("installment_amount")
-                # print("data##################",sum(installment_amou))
+                print("data##################",sum(installment_amou))
+                print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
 
     def send_mis_report_sale(self):
