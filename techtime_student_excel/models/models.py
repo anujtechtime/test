@@ -450,6 +450,9 @@ class TechtimeStudentexcel(models.Model):
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
                 _logger.info("pincode************55555555555555555555#####**%s" %coll.college)
+
+                if col == 1:
+                    worksheet.write(row, 0, student.Student or '')
                 worksheet.write(row, col, sum(installment_amou) or '')
                 row = row + 1
             worksheet.write(0, col, coll.college or '')
