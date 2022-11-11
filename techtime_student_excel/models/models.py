@@ -414,7 +414,8 @@ class TechtimeStudentexcel(models.Model):
         worksheet.col(1).width = 15000
         worksheet.col(2).width = 10000
         worksheet.row(0).height = 500
-
+        row = 1
+        col = 1
         college_data = self.env["faculty.faculty"].search([])
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
         Registered_total = 0
@@ -432,7 +433,6 @@ class TechtimeStudentexcel(models.Model):
             # for material_line in self:
             # print("lllllllllllllllllllll",material_line.partner_id)
             year_all = self.env["year.year"].search([],order='year asc')
-
             student_type = self.env["level.level"].search([])
             # print("student_type###################",student_type)
             # _logger.info("student_type************11111111111111#####**%s" %student_type)
@@ -449,6 +449,10 @@ class TechtimeStudentexcel(models.Model):
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
                 _logger.info("pincode************55555555555555555555#####**%s" %coll.college)
+                worksheet.write(row, col, sum(installment_amou) or '')
+                row = row + 1
+            worksheet.write(0, col, coll.college or '')
+            col = col + 1
 
 
 
