@@ -448,12 +448,13 @@ class TechtimeStudentexcel(models.Model):
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
+                _logger.info("pincode************55555555555555555555#####**%s" %sum(coll.college))
 
 
 
-            worksheet.write(row, 0, material_line_id.partner_id.name or '')
-            worksheet.write(row, 0, material_line_id.partner_id.name or '')
-            worksheet.write(row, 0, material_line_id.partner_id.name or '')
+            # worksheet.write(row, 0, material_line_id.partner_id.name or '')
+            # worksheet.write(row, 0, material_line_id.partner_id.name or '')
+            # worksheet.write(row, 0, material_line_id.partner_id.name or '')
 
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
