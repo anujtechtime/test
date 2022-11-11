@@ -397,6 +397,24 @@ class TechtimeStudentexcel(models.Model):
 
 
     def send_mis_report_sale_college_report(self):  
+        filename = 'Student.xls'
+        string = 'Student_report.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        worksheet.col(0).width = 10000
+        worksheet.col(1).width = 15000
+        worksheet.col(2).width = 10000
+        worksheet.row(0).height = 500
+
         college_data = self.env["faculty.faculty"].search([])
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
         Registered_total = 0
@@ -430,6 +448,40 @@ class TechtimeStudentexcel(models.Model):
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
+
+
+
+            worksheet.write(row, 0, material_line_id.partner_id.name or '')
+            worksheet.write(row, 0, material_line_id.partner_id.name or '')
+            worksheet.write(row, 0, material_line_id.partner_id.name or '')
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }        
+
 
     def send_mis_report_sale(self):
         filename = 'Student.xls'
