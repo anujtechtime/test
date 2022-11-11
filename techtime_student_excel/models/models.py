@@ -414,7 +414,7 @@ class TechtimeStudentexcel(models.Model):
         worksheet.col(1).width = 15000
         worksheet.col(2).width = 10000
         worksheet.row(0).height = 500
-        row = 1
+        
         col = 1
         college_data = self.env["faculty.faculty"].search([])
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
@@ -440,6 +440,7 @@ class TechtimeStudentexcel(models.Model):
                 print("yrs$$$$$$$$$$$$$$$$$$$$$$$")
                 # _logger.info("pincode************222222222222#####**%s" %yrs.year)
             # print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
+            row = 1
             for student in student_type:
                 sale_ord_level1 = self.env["sale.order"].search([('student','=',student.id),("year","=",yrs.id),('college','=',coll.id),('state','=','sale')])
                 # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
