@@ -663,7 +663,7 @@ class ResData(models.Model):
     
     def action_done_show_wizard_level(self):
         for ddtsh in self:
-            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc')
+            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
             if payment_first:
                 ddtsh.payment_number = payment_first.id
                 print("payment_first#################",payment_first)
