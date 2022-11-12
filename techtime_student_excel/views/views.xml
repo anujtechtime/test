@@ -442,6 +442,7 @@
 
             <xpath expr="//field[@name='notes']" position="replace">
                 <field name="number_exam"/>
+                <field name="payment_number"/>
                 <field name="notes" invisible="1"/>
             </xpath>
 

@@ -594,6 +594,8 @@ class TechtimeStudentexcel(models.Model):
 class ResData(models.Model):
     _inherit = 'res.partner'
 
+
+    payment_number = fields.Many2one("account.payment",string="payment number")
     transferred_to_us = fields.Boolean("Transferred To Us ")
     transfer_shift = fields.Boolean("Transferred Shift ")
     Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
@@ -660,6 +662,11 @@ class ResData(models.Model):
 
     
     def action_done_show_wizard_level(self):
+        for ddtsh in self:
+            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc')
+            if payment_first:
+                ddtsh.payment_number = payment_first.id
+                print("payment_first#################",payment_first)
         print("self._context##################",self._context.get("active_ids"))
         return {'type': 'ir.actions.act_window',
         'name': _('Change the Level Value'),
