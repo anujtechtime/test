@@ -446,10 +446,10 @@ class TechtimeStudentexcel(models.Model):
                 # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
                 installment_amou = sale_ord_level1.mapped("installment_amount")
 
-                installment_full_price = self.env["installment.details"].search([("year",'=',sale_ord_level1.year.id),('college','=',sale_ord_level1.college.id),('department','=',sale_ord_level1.department.id),('Student','=',8),('Subject','=',sale_ord_level1.Subject),('level','=',sale_ord_level1.level)])
-                _logger.info("installment_full_price.installment************333333333333333333#####**%s" %installment_full_price.installment)
-
-
+                for ddtsgs in sale_ord_level1:
+                    installment_full_price = self.env["installment.details"].search([("year",'=',ddtsgs.year.id),('college','=',ddtsgs.College.id),('department','=',ddtsgs.department.id),('Student','=',8),('Subject','=',ddtsgs.Subject),('level','=',ddtsgs.level)])
+                    _logger.info("installment_full_price.installment************333333333333333333#####**%s" %installment_full_price.installment)
+                    
                 print("data##################",sum(installment_amou))
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
