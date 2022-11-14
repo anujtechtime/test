@@ -464,7 +464,7 @@ class TechtimeStudentexcel(models.Model):
 
                 if col == 1:
                     worksheet.write(row, 0, student.Student or '')
-                    worksheet.write(row + 1, 0, 'مجموع المستلم')
+
                 worksheet.write(row, col, sum(installment_amou) or '')
                 row = row + 1
             worksheet.write(row + 1, col, student_total_data or '')    
@@ -477,6 +477,7 @@ class TechtimeStudentexcel(models.Model):
 
             col = col + 1
         worksheet.write(row + 2, 0, "الايراد التخميني بدون المنح والتخفيضات ")
+        worksheet.write(row + 1, 0, 'مجموع المستلم')
 
 
 
