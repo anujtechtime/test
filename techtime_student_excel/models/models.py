@@ -459,7 +459,7 @@ class TechtimeStudentexcel(models.Model):
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
 
-                student_total_data = student_total_data + installment_amou
+                student_total_data = student_total_data + sum(installment_amou)
                 _logger.info("pincode************55555555555555555555#####**%s" %coll.college)
 
                 if col == 1:
