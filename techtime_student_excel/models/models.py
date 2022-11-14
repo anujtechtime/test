@@ -442,6 +442,7 @@ class TechtimeStudentexcel(models.Model):
             # print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
             row = 1
             college_total_non_discount = 0
+            student_total_data = 0
             for student in student_type:
                 sale_ord_level1 = self.env["sale.order"].search([('student','=',student.id),("year","=",yrs.id),('college','=',coll.id),('state','=','sale')])
                 # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
@@ -453,14 +454,19 @@ class TechtimeStudentexcel(models.Model):
                     college_total_non_discount = college_total_non_discount + installment_full_price.installment
                 print("data##################",sum(installment_amou))
                 print("student##################",student.Student)
+
+
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
                 _logger.info("student.Student************44444444444444444444444#####**%s" %student.Student)
+
+                student_total_data = student_total_data + installment_amou
                 _logger.info("pincode************55555555555555555555#####**%s" %coll.college)
 
                 if col == 1:
                     worksheet.write(row, 0, student.Student or '')
                 worksheet.write(row, col, sum(installment_amou) or '')
                 row = row + 1
+            worksheet.write(row + 1, col, student_total_data or '')    
             worksheet.write(0, col, coll.college or '')
 
             
