@@ -441,15 +441,16 @@ class TechtimeStudentexcel(models.Model):
                 # _logger.info("pincode************222222222222#####**%s" %yrs.year)
             # print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
             row = 1
+            college_total_non_discount = 0
             for student in student_type:
                 sale_ord_level1 = self.env["sale.order"].search([('student','=',student.id),("year","=",yrs.id),('college','=',coll.id),('state','=','sale')])
                 # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
                 installment_amou = sale_ord_level1.mapped("installment_amount")
 
                 for ddtsgs in sale_ord_level1:
-                    installment_full_price = self.env["installment.details"].search([("year",'=',ddtsgs.year.id),('college','=',ddtsgs.college.id),('department','=',ddtsgs.department.id),('Student','=',8),('Subject','=',ddtsgs.Subject),('level','=',ddtsgs.level)])
+                    installment_full_price = self.env["installment.details"].search([("year",'=',ddtsgs.year.id),('college','=',ddtsgs.college.id),('department','=',ddtsgs.department.id),('Student','=',8),('Subject','=',ddtsgs.Subject),('level','=',ddtsgs.level)],limit=1)
                     _logger.info("installment_full_price.installment************333333333333333333#####**%s" %installment_full_price.installment)
-
+                    college_total_non_discount = college_total_non_discount + installment_full_price.installment
                 print("data##################",sum(installment_amou))
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
@@ -461,6 +462,8 @@ class TechtimeStudentexcel(models.Model):
                 worksheet.write(row, col, sum(installment_amou) or '')
                 row = row + 1
             worksheet.write(0, col, coll.college or '')
+            worksheet.write(row + 2, col, college_total_non_discount or '')
+
             col = col + 1
 
 
