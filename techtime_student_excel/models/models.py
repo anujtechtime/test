@@ -447,9 +447,9 @@ class TechtimeStudentexcel(models.Model):
                 installment_amou = sale_ord_level1.mapped("installment_amount")
 
                 for ddtsgs in sale_ord_level1:
-                    installment_full_price = self.env["installment.details"].search([("year",'=',ddtsgs.year.id),('college','=',ddtsgs.College.id),('department','=',ddtsgs.department.id),('Student','=',8),('Subject','=',ddtsgs.Subject),('level','=',ddtsgs.level)])
+                    installment_full_price = self.env["installment.details"].search([("year",'=',ddtsgs.year.id),('college','=',ddtsgs.college.id),('department','=',ddtsgs.department.id),('Student','=',8),('Subject','=',ddtsgs.Subject),('level','=',ddtsgs.level)])
                     _logger.info("installment_full_price.installment************333333333333333333#####**%s" %installment_full_price.installment)
-                    
+
                 print("data##################",sum(installment_amou))
                 print("student##################",student.Student)
                 _logger.info("pincode************333333333333333333#####**%s" %sum(installment_amou))
