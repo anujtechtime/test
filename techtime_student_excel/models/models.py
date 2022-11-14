@@ -446,7 +446,7 @@ class TechtimeStudentexcel(models.Model):
                 # print("sale_ord_level1###################444444444444444",sale_ord_level1.mapped("installment_amount"))
                 installment_amou = sale_ord_level1.mapped("installment_amount")
 
-                installment_full_price = self.env["installment.details"].search([("year",'=',sale_ord_level1.year.id),('college','=',sale_ord_level1.College.id),('department','=',sale_ord_level1.department.id),('Student','=',8),('Subject','=',sale_ord_level1.Subject),('level','=',sale_ord_level1.level)])
+                installment_full_price = self.env["installment.details"].search([("year",'=',sale_ord_level1.year.id),('college','=',sale_ord_level1.college.id),('department','=',sale_ord_level1.department.id),('Student','=',8),('Subject','=',sale_ord_level1.Subject),('level','=',sale_ord_level1.level)])
                 _logger.info("installment_full_price.installment************333333333333333333#####**%s" %installment_full_price.installment)
 
 
