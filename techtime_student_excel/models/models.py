@@ -469,7 +469,7 @@ class TechtimeStudentexcel(models.Model):
             worksheet.write(row + 2, col, college_total_non_discount or '')
 
             col = col + 1
-        worksheet.write(row + 2, 0, الايراد التخميني بدون المنح والتخفيضات or '')
+        worksheet.write(row + 2, 0, "الايراد التخميني بدون المنح والتخفيضات ")
 
 
 
