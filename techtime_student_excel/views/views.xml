@@ -317,6 +317,7 @@
                 <xpath expr="//page" position="before">
                     <page string="College Information" autofocus="autofocus">
                         <group>
+                        <group>
                             <field name="transferred_to_us"/>
                             <field name="transfer_shift"/>
                             <field name="Status"/>
@@ -334,6 +335,13 @@
                     <field name="notes" invisible="1"/>
                     <field name="contact_type" invisible="1"/>
                 </group>
+                <group>
+                    <field name="boolean_one"/>
+                    <field name="boolean_two"/>
+                    <field name="boolean_three"/>
+                    <field name="boolean_four"/>
+                </group>
+            </group>
                 </page>
                 <page string="Private Information">
 

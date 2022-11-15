@@ -473,10 +473,10 @@ class TechtimeStudentexcel(models.Model):
             
 
 
-            worksheet.write(row + 2, col, college_total_non_discount or '')
+            worksheet.write(row + 3, col, college_total_non_discount or '')
 
             col = col + 1
-        worksheet.write(row + 2, 0, "الايراد التخميني بدون المنح والتخفيضات ")
+        worksheet.write(row + 3, 0, "الايراد التخميني بدون المنح والتخفيضات ")
         worksheet.write(row + 1, 0, 'مجموع المستلم')
 
 
@@ -614,6 +614,12 @@ class TechtimeStudentexcel(models.Model):
 
 class ResData(models.Model):
     _inherit = 'res.partner'
+
+
+    boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية")
+    boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى")
+    boolean_three = fields.Boolean(string="الوافدين")
+    boolean_four = fields.Boolean(string="السجناء السياسيين")
 
 
     payment_number = fields.Many2one("account.payment",string="payment number")
