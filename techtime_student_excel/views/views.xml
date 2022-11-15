@@ -392,7 +392,7 @@
 
 
 
-                    <page string="Student Parents and Relatives ">
+                    <page string="Student Parents and Relatives " invisible="1">
                     <group>
 
 
@@ -412,7 +412,7 @@
                     </group>
                     </page>
 
-                    <page string="Guarantor Details">
+                    <page string="Guarantor Details" invisible="1">
                     <group>
 
                      <field name="guarantor_name_gurantor"/>
