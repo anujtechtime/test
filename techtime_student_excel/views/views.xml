@@ -320,8 +320,17 @@
                         <group>
                             <field name="transferred_to_us"/>
                             <field name="transfer_shift"/>
-                            <field name="Status"/>
-
+                            
+                        </group>
+                            <group>
+                        <field name="boolean_one" style="margin-bottom:20px;"/>
+                        <field name="boolean_two" style="margin-bottom:20px;"/>
+                        <field name="boolean_three" style="margin-bottom:20px;"/>
+                        <field name="boolean_four" style="margin-bottom:20px;"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="Status"/>
                     <field name="year"/> 
                     <field name="college"/>
                     <field name="department"/>
@@ -335,13 +344,7 @@
                     <field name="notes" invisible="1"/>
                     <field name="contact_type" invisible="1"/>
                 </group>
-                <group>
-                    <field name="boolean_one"/>
-                    <field name="boolean_two"/>
-                    <field name="boolean_three"/>
-                    <field name="boolean_four"/>
-                </group>
-            </group>
+                
                 </page>
                 <page string="Private Information">
 
