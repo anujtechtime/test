@@ -3,6 +3,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import models
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountMove(models.Model):
@@ -31,4 +34,5 @@ class AccountMove(models.Model):
             res = self.env.ref("account.view_account_payment_form", False)
             result["views"] = [(res and res.id or False, "form")]
             result["res_id"] = payment and payment[0] or False
+        _logger.info("resultresult************333333333333333333#####**%s" %result)    
         return result
