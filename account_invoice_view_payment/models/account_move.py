@@ -14,7 +14,7 @@ class AccountMove(models.Model):
         account moves.
         When only one found, show the payment immediately.
         """
-        if self.move_type in ("in_invoice", "in_refund"):
+        if self.type in ("in_invoice", "in_refund"):
             action = self.env.ref("account.action_account_payments_payable")
         else:
             action = self.env.ref("account.action_account_payments")
