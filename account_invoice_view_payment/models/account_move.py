@@ -30,6 +30,12 @@ class AccountMove(models.Model):
             
         _logger.info("payment************333333333333333333#####**%s" %payment) 
 
+        self.payment_number_temp = ""
+        payment_number_temp = ""
+        for dtfs in payment:
+            data_payment = self.env["account.payment"].search([("id",'=',dtfs)])
+            self.payment_number_temp = self.payment_number_temp + data_payment.name.split('/')[1] + "/" +data_payment.name.split('/')[2] + ","
+
         # choose the view_mode accordingly
         if len(reconciles) != 1:
             result["domain"] = "[('id', 'in', " + str(payment) + ")]"
@@ -37,5 +43,6 @@ class AccountMove(models.Model):
             res = self.env.ref("account.view_account_payment_form", False)
             result["views"] = [(res and res.id or False, "form")]
             result["res_id"] = payment and payment[0] or False
-        _logger.info("resultresult************333333333333333333#####**%s" %result)    
+        _logger.info("resultresult************333333333333333333#####**%s" %result)
+
         return result

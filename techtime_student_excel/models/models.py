@@ -97,6 +97,7 @@ class TechtimeStudentData(models.Model):
     _inherit = 'account.move'
 
     department = fields.Many2one("department.department", string="Department")
+    payment_number_temp = fields.Char("Payment Number")
 
     @api.onchange('partner_id')
     def onchange_partner_id(self):
