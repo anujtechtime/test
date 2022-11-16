@@ -248,7 +248,7 @@
 
 
         <menuitem name="Payments"
-
+            sequence="1"
             id="account.menu_action_account_payments_receivable"
 
             parent="account.menu_finance" />   
