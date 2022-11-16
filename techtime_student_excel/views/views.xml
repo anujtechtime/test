@@ -244,14 +244,14 @@
 
             id="account.menu_action_move_out_invoice_type"
 
-            parent="menu_finance" />
+            parent="account.menu_finance" />
 
 
         <menuitem name="Payments"
 
             id="account.menu_action_account_payments_receivable"
 
-            parent="menu_finance" />   
+            parent="account.menu_finance" />   
 
 
 
