@@ -240,6 +240,21 @@
 
 
 
+        <menuitem name="Invoice"
+
+            id="account.menu_action_move_out_invoice_type"
+
+            parent="menu_finance" />
+
+
+        <menuitem name="Payments"
+
+            id="account.menu_action_account_payments_receivable"
+
+            parent="menu_finance" />   
+
+
+
             
 
         <record id="action_account_payments_college_report" model="ir.actions.act_window">
