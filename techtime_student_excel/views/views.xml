@@ -324,8 +324,11 @@
                         </group>
                             <group>
                         <field name="boolean_one" style="margin-bottom:20px;"/>
+                        <hr/>
                         <field name="boolean_two" style="margin-bottom:20px;"/>
+                        <hr/>
                         <field name="boolean_three" style="margin-bottom:20px;"/>
+                        <hr/>
                         <field name="boolean_four" style="margin-bottom:20px;"/>
                     </group>
                 </group>
