@@ -27,6 +27,9 @@ class AccountMove(models.Model):
         for rec in reconciles:
             payment.append(rec["account_payment_id"])
 
+            
+        _logger.info("payment************333333333333333333#####**%s" %payment) 
+
         # choose the view_mode accordingly
         if len(reconciles) != 1:
             result["domain"] = "[('id', 'in', " + str(payment) + ")]"
