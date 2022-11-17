@@ -262,7 +262,10 @@ class Payment_Data(models.Model):
                     .filtered(lambda line: line.account_id == rec.company_id.transfer_account_id)\
                     .reconcile()
         print("AccountMove####################",rec.invoice_ids)
-        rec.invoice_ids.payment_id = self.id
+        # rec.invoice_ids.payment_id = self.id
+
+        if self.invoice_ids.invoice_payment_state == 'paid':
+            self.action_view_payments()
         # print("selfhhhhhhhhhhhhhhhhhhhhhhhhhh",self)            
 
         return True
