@@ -11,23 +11,14 @@ _logger = logging.getLogger(__name__)
 class AccountMoveDS(models.Model):
     _inherit = "account.move"
 
-    # @api.onchange('invoice_payment_state')
-    # def onchange_invoice_payment_state(self):
-    #     rslt = super(AccountMove, self).onchange_invoice_payment_state()
-    #     print("invoice_payment_state###############",self.invoice_payment_state)
-    #     _logger.info("invoice_payment_state************333333333333333333#####**%s" %self.invoice_payment_state) 
-    #     if self.invoice_payment_state == 'paid':
-    #         self.action_view_payments()
-    #     return rslt    
 
-
-
-    def write(self, vals):
-        rslt = super(AccountMoveDS, self).write(vals)
+    def js_assign_outstanding_line(self, line_id):
+        rslt = super(AccountMoveDS, self).js_assign_outstanding_line(line_id)
         _logger.info("invoice_payment_state************333333333333333333#####**%s" %self.invoice_payment_state) 
         if self.invoice_payment_state == 'paid':
             self.action_view_payments()
-        return rslt
+        return rslt    
+
 
 
 
