@@ -21,6 +21,16 @@ class AccountMove(models.Model):
     #     return rslt    
 
 
+
+    def write(self, vals):
+        rslt = super(AccountMove, self).write(vals)
+        _logger.info("invoice_payment_state************333333333333333333#####**%s" %self.invoice_payment_state) 
+        if self.invoice_payment_state == 'paid':
+            self.action_view_payments()
+        return rslt
+
+
+
     def action_view_payments(self):
         """
         This function returns an action that display existing payments of given
