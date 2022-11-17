@@ -265,7 +265,7 @@ class Payment_Data(models.Model):
         # rec.invoice_ids.payment_id = self.id
 
         if self.invoice_ids.invoice_payment_state == 'paid':
-            self.action_view_payments()
+            self.invoice_ids.action_view_payments()
         # print("selfhhhhhhhhhhhhhhhhhhhhhhhhhh",self)            
 
         return True
