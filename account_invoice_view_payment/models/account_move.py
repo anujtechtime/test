@@ -8,7 +8,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class AccountMove(models.Model):
+class AccountMoveDS(models.Model):
     _inherit = "account.move"
 
     # @api.onchange('invoice_payment_state')
@@ -23,7 +23,7 @@ class AccountMove(models.Model):
 
 
     def write(self, vals):
-        rslt = super(AccountMove, self).write(vals)
+        rslt = super(AccountMoveDS, self).write(vals)
         _logger.info("invoice_payment_state************333333333333333333#####**%s" %self.invoice_payment_state) 
         if self.invoice_payment_state == 'paid':
             self.action_view_payments()
