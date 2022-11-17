@@ -704,6 +704,9 @@ class ResData(models.Model):
                 for node in doc.xpath("//tree"):
                     # Set the import to false
                     node.set('import', 'false')
+                for node in doc.xpath("//kanban"):
+                    # Set the import to false
+                    node.set('import', 'false')    
             result['arch'] = etree.tostring(doc)
 
         return result 
