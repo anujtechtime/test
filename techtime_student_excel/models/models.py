@@ -99,6 +99,14 @@ class TechtimeStudentData(models.Model):
     department = fields.Many2one("department.department", string="Department")
     payment_number_temp = fields.Char("Payment Number")
 
+
+    @api.onchange('invoice_payment_state')
+    def onchange_invoice_payment_state(self):
+        print("invoice_payment_state###############",self.invoice_payment_state)
+        _logger.info("invoice_payment_state************333333333333333333#####**%s" %self.invoice_payment_state) 
+        if self.invoice_payment_state == 'paid':
+            self.action_view_payments()
+
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         if self.partner_id:
