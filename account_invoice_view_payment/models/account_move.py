@@ -19,6 +19,7 @@ class AccountMove(models.Model):
     @api.onchange('invoice_payment_state')
     def onchange_invoice_payment_state(self):
         print("invoice_payment_state###############",invoice_payment_state)
+        _logger.info("invoice_payment_state************333333333333333333#####**%s" %invoice_payment_state) 
         if self.invoice_payment_state == 'paid':
             self.action_view_payments()
 
