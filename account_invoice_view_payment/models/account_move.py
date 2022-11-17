@@ -11,6 +11,18 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+
+
+
+    
+
+    @api.onchange('invoice_payment_state')
+    def onchange_invoice_payment_state(self):
+        print("invoice_payment_state###############",invoice_payment_state)
+        if self.invoice_payment_state == 'paid'
+            self.action_view_payments()
+
+
     def action_view_payments(self):
         """
         This function returns an action that display existing payments of given
