@@ -697,7 +697,7 @@ class ResData(models.Model):
             toolbar=toolbar, submenu=submenu)
 
         # Disabling the import button for users who are not in import group
-        if view_type == 'tree':
+        if view_type == 'form':
             doc = etree.XML(result['arch'])
             # if not self.env.user.has_group('techtime_student_excel.group_manager_import_button'):
             #  # When the user is not part of the import group
