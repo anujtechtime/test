@@ -699,14 +699,14 @@ class ResData(models.Model):
         # Disabling the import button for users who are not in import group
         if view_type == 'tree':
             doc = etree.XML(result['arch'])
-            if not self.env.user.has_group('techtime_student_excel.group_manager_import_button'):
-             # When the user is not part of the import group
-                for node in doc.xpath("//tree"):
-                    # Set the import to false
-                    node.set('import', 'false')
-                for node in doc.xpath("//kanban"):
-                    # Set the import to false
-                    node.set('import', 'false')  
+            # if not self.env.user.has_group('techtime_student_excel.group_manager_import_button'):
+            #  # When the user is not part of the import group
+            #     for node in doc.xpath("//tree"):
+            #         # Set the import to false
+            #         node.set('import', 'false')
+            #     # for node in doc.xpath("//kanban"):
+            #     #     # Set the import to false
+            #     #     node.set('import', 'false')  
 
             if not self.env.user.has_group('techtime_student_excel.group_manager_edit_button'):
              # When the user is not part of the import group
