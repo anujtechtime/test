@@ -351,6 +351,7 @@
                         <group>
                             <field name="transferred_to_us"/>
                             <field name="transfer_shift"/>
+                            <hr/>
                             <field name="boolean_one" style="margin-bottom:20px;"/>
                         <hr/>
                         <field name="boolean_two" style="margin-bottom:20px;"/>
