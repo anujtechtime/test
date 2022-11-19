@@ -369,7 +369,7 @@
                     <field name="Status"/>
                     <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/> 
                     <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
-                    <field name="department" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
+                    <field name="department" domain="[('college', '=', college)]" context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
                     <field name="student_type" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/> 
                     <field name="shift"/>
                     <field name="level"/>
