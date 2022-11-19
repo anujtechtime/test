@@ -616,6 +616,8 @@ class TechtimeStudentexcel(models.Model):
 class ResData(models.Model):
     _inherit = 'res.partner'
 
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type")
+
 
     boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية")
     boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى")
