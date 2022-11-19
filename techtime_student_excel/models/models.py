@@ -715,6 +715,24 @@ class ResData(models.Model):
                     node.set('edit', 'false')            
             result['arch'] = etree.tostring(doc)
 
+        if view_type == 'kanban':
+            doc = etree.XML(result['arch'])
+            # if not self.env.user.has_group('techtime_student_excel.group_manager_import_button'):
+            #  # When the user is not part of the import group
+            #     for node in doc.xpath("//tree"):
+            #         # Set the import to false
+            #         node.set('import', 'false')
+            #     # for node in doc.xpath("//kanban"):
+            #     #     # Set the import to false
+            #     #     node.set('import', 'false')  
+
+            if not self.env.user.has_group('techtime_student_excel.group_manager_import_button'):
+             # When the user is not part of the import group
+                for node in doc.xpath("//kanban"):
+                    # Set the import to false
+                    node.set('import', 'false')            
+            result['arch'] = etree.tostring(doc)    
+
 
             
 
