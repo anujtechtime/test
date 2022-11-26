@@ -205,7 +205,7 @@ class TechtimeStudentexcel(models.Model):
         'name': _('Change the Level Value'),
         'res_model': 'status.value',
         'target': 'new',
-        'view_id': self.env.ref('techtime_student_excel.view_any_name_form_status').id,
+        'view_id': self.env.ref('techtime_student_excel.view_any_name_form_status_value').id,
         'view_mode': 'form',
         'context': {"active_id" : self._context.get("active_ids")}
         }
