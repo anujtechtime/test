@@ -40,6 +40,7 @@ class DataStatusValue(models.TransientModel):
             print("idds@@@@@@@@@@@@@@@@@",idds)
             levels_sale_order = self.env["sale.order"].browse(int(idds))
             levels_sale_order.Status = self.Status
+            levels_sale_order.partner_id.Status = self.Status
         # for ddts in self:
         #     ddts.level =  self.level
 
@@ -69,6 +70,11 @@ class DataLevelValue(models.TransientModel):
             print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             levels_sale_order.level = self.level
             levels_sale_order.year = self.year
+
+            levels_sale_order.partner_id.level = self.level
+            levels_sale_order.partner_id.year = self.year
+
+
         # for ddts in self:
         #     ddts.level =  self.level
 
