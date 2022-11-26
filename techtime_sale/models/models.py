@@ -148,7 +148,7 @@ class AccountInvoiceField_user(models.Model):
             'status' : 'posted',
             })
         self.account_installment_line_ids.update({
-            'status' : 'posted',
+            'status' : 'paid',
             })
         return self.post()
         
