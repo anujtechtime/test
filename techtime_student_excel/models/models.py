@@ -148,6 +148,7 @@ class TechtimeStudentexcel(models.Model):
                 "student" : self.partner_id.student_type.id if self.partner_id.student_type else False,
                 "Subject" : self.partner_id.shift if self.partner_id.shift else False,
                 "level" : self.partner_id.level if self.partner_id.level else False,
+                "Status" : self.partner_id.Status if self.partner_id.Status else False,
                 })
 
 
