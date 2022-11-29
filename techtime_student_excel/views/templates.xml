@@ -44,9 +44,9 @@
                 <div class=" text-right" id="informations">
                   
                   <div class="col-12" style="margin-top: 10px;">
-                  <div class=""  t-if="o.partner_type">
+                  <div class=""  t-if="o.partner_id">
                     
-                      <t t-if="o.partner_type">
+                      <t t-if="o.partner_id">
                           <strong style="color : #000000;">  اسم الطالب  : </strong>
                       </t>
                       <span t-field="o.partner_id"/>
