@@ -39,20 +39,23 @@
             </div>
             
             
-            
-              <div class="col-12" style="margin-top: 10px; margin-bottom: 10px;">
-                  <div class="" style="float : right;" t-if="o">
+            <div class="">
+                
+                <div class=" text-right" id="informations">
+                  
+                  <div class="col-12" style="margin-top: 10px;">
+                  <div class=""  t-if="o.partner_type">
                     
-                      <t t-if="o">
-                          <strong style="color : #000000;"> استلمت من  :</strong>
+                      <t t-if="o.partner_type">
+                          <strong style="color : #000000;">  اسم الطالب  : </strong>
                       </t>
                       <span t-field="o.partner_id"/>
                       
-                      
                   </div>
               </div>
-
-              <div t-if="o" class="col-12" style="text-align : right;">
+              
+                
+                <div t-if="o" class="col-12" style="text-align : right;">
                     <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
                     
                 </div>
@@ -77,7 +80,8 @@
                     <strong style="color : #000000;">نوع الدراسة :</strong> <span t-field="o.Subject" class="m-0"/>
                     
                 </div>
-                
+            </div>
+            </div>
               
               <br/>
               
