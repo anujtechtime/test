@@ -140,8 +140,8 @@
             model="account.move"
             string="Payments Report"
             report_type="qweb-pdf"
-            name="techtime_department.report_payment_receipt_general_payment_invoice"
-            file="techtime_department.report_payment_receipt_general_payment_invoice"
+            name="techtime_student_excel.report_payment_receipt_general_payment_invoice"
+            file="techtime_student_excel.report_payment_receipt_general_payment_invoice"
             menu="True"
         />
 
