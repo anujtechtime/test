@@ -135,6 +135,16 @@
     </record>
 
 
+    <report
+            id="report_payment_receipt_general_data_payment"
+            model="account.move"
+            string="Payments Report"
+            report_type="qweb-pdf"
+            name="techtime_department.report_payment_receipt_general_payment_invoice"
+            file="techtime_department.report_payment_receipt_general_payment_invoice"
+            menu="True"
+        />
+
 
 
 
