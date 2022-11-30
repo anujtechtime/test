@@ -186,11 +186,11 @@
 
 
     <record id="view_sale_order_inherit_search_filtwr" model="ir.ui.view">
-      <field name="name">account.move.search.expand.filter</field>
+      <field name="name">account.move.search.filter</field>
       <field name="model">account.move</field>
       <field name="inherit_id" ref="account.view_account_move_filter"/>
       <field name="arch" type="xml">
-        <xpath expr="//search" position="inside">
+        <xpath expr="//field[@name='name']" position="after">
             <field name="invoice_line_ids" string="Product" filter_domain="[('invoice_line_ids.product_id', 'ilike', self)]"/>
         </xpath>
       </field>
