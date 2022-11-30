@@ -15,8 +15,7 @@
                 
                 <div class="col-4  ">
                    <!--<span class="m-0" t-field="o.name"/>-->
-                   <t t-if="o.name" >
-                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/></t> <strong style="color : #000000;">: رقم الوصل </strong>
+                   <span class="m-0" t-field="o.payment_number_temp"/><strong style="color : #000000;">: رقم الوصل </strong>
                     
                 </div>
                 

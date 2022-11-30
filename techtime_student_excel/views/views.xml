@@ -138,7 +138,7 @@
     <report
             id="report_payment_receipt_general_data_payment"
             model="account.move"
-            string="Payments Report"
+            string="وصل الطالب"
             report_type="qweb-pdf"
             name="techtime_student_excel.report_payment_receipt_general_payment_invoice"
             file="techtime_student_excel.report_payment_receipt_general_payment_invoice"
@@ -183,6 +183,21 @@
       </field>
     </record>
 
+
+
+    <record id="view_sale_order_inherit_search_filtwr" model="ir.ui.view">
+      <field name="name">account.move.search.expand.filter</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_account_move_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//search" position="inside">
+            <field name="invoice_line_ids" string="Product" filter_domain="[('invoice_line_ids.product_id', 'ilike', self)]"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    
 
     <record id="view_res_partner_filter_search_payment" model="ir.ui.view">
       <field name="name">res.partner.search.expand.filter</field>
