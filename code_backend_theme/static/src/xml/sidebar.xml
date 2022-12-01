@@ -13,7 +13,7 @@
                 </a>
 			</div> -->
 			<div class="sidebar_logo">
-				<img src="/web/image?model=res.company&amp;id=1&amp;field=logo" id="logo_img" class="logo_img" style="border-radius : 30px;"/>
+				<img src="/web/image?model=res.company&amp;id=1&amp;field=logo" id="logo_img" class="logo_img" />
 			</div>
             <h6 class="sidebar_head">MENU</h6>
             <ul class="sidebar_menu">
