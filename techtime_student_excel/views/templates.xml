@@ -13,9 +13,9 @@
               <div class="row mt32 text-center" id="informations" style="margin-bottom:5px;">
                 
                 
-                <div t-if="o.payment_id" class="col-4  ">
+                <div t-if="o.payment_number_temp" class="col-4  ">
                    <!--<span class="m-0" t-field="o.name"/>-->
-                   <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/> <strong style="color : #000000;">: رقم الوصل </strong>
+                   <span class="m-0" t-field="o.payment_number_temp"/> <strong style="color : #000000;">: رقم الوصل </strong>
                     
                 </div>
                 
