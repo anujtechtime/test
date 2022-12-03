@@ -138,9 +138,10 @@ class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
 
 
-    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
     transferred_to_us = fields.Boolean("Transferred To Us ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
+    chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
  
 
     @api.onchange('partner_id')
@@ -155,6 +156,7 @@ class TechtimeStudentexcel(models.Model):
                 "Subject" : self.partner_id.shift if self.partner_id.shift else False,
                 "level" : self.partner_id.level if self.partner_id.level else False,
                 "Status" : self.partner_id.Status if self.partner_id.Status else False,
+                "chckbox_data" : self.partner_id.chckbox_data if self.partner_id.chckbox_data else False,
                 })
 
 
@@ -186,7 +188,8 @@ class TechtimeStudentexcel(models.Model):
                 "level" : self.level,
                 "transferred_to_us" : self.transferred_to_us,
                 "transfer_shift" : self.transfer_shift,
-                "Status" : self.Status
+                "Status" : self.Status,
+                "chckbox_data" : self.chckbox_data,
                 })
         return result
 
@@ -202,7 +205,8 @@ class TechtimeStudentexcel(models.Model):
                     "level" : ddts.level,
                     "transferred_to_us" : ddts.transferred_to_us,
                     "transfer_shift" : ddts.transfer_shift,
-                    "Status" : ddts.Status
+                    "Status" : ddts.Status,
+                    "chckbox_data" : ddts.chckbox_data,
                     })
                 print("data##########",data)
 
@@ -635,7 +639,9 @@ class ResData(models.Model):
     payment_number = fields.Many2one("account.payment",string="payment number")
     transferred_to_us = fields.Boolean("Transferred To Us ")
     transfer_shift = fields.Boolean("Transferred Shift ")
-    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
+
 
     year = fields.Many2one("year.year", string="Year")
     college = fields.Many2one("faculty.faculty", string="College")

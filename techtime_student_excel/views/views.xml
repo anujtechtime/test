@@ -228,6 +228,7 @@
                     <field name="student_no"/>
                     <field name="college_number"/>
                     <field name="Status"/>
+                    <field name="chckbox_data"/>
                     <field name="transferred_to_us"/>
                     <!-- <field name="transfer_shift"/> -->
                     
@@ -376,6 +377,7 @@
                         <group>
                             <field name="transferred_to_us"/>
                             <field name="transfer_shift"/>
+                            <field name="chckbox_data"/>
                             <hr/>
                             <field name="boolean_one" style="margin-bottom:20px;"/>
                         <hr/>
