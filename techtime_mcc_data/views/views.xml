@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="techtime_mcc_data.list">
+      <field name="name">techtime_mcc_data list</field>
+      <field name="model">techtime_mcc_data.techtime_mcc_data</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+
+        <report
+            id="report_payment_receipt_student"
+            model="account.payment"
+            string="وصل الطالب"
+            report_type="qweb-pdf"
+            name="techtime_mcc_data.report_payment_receipt_student"
+            file="techtime_mcc_data.report_payment_receipt_student"
+            menu="True"
+        />
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="techtime_mcc_data.action_window">
+      <field name="name">techtime_mcc_data window</field>
+      <field name="res_model">techtime_mcc_data.techtime_mcc_data</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="techtime_mcc_data.action_server">
+      <field name="name">techtime_mcc_data server</field>
+      <field name="model_id" ref="model_techtime_mcc_data_techtime_mcc_data"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="techtime_mcc_data" id="techtime_mcc_data.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="techtime_mcc_data.menu_1" parent="techtime_mcc_data.menu_root"/>
+    <menuitem name="Menu 2" id="techtime_mcc_data.menu_2" parent="techtime_mcc_data.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="techtime_mcc_data.menu_1_list" parent="techtime_mcc_data.menu_1"
+              action="techtime_mcc_data.action_window"/>
+    <menuitem name="Server to list" id="techtime_mcc_data" parent="techtime_mcc_data.menu_2"
+              action="techtime_mcc_data.action_server"/>
+-->
+  </data>
+</odoo>
