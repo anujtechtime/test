@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 # class techtime_mcc_data(models.Model):
@@ -16,3 +16,10 @@
 #     def _value_pc(self):
 #         for record in self:
 #             record.value2 = float(record.value) / 100
+class CrmTeamDateAccount(models.Model):
+
+    _inherit = "account.payment"
+
+    payment_method = fields.Account_Type = fields.Selection([('cash','Cash'),
+        ('bank','Bank'),
+        ('cheque','Cheque')],string="Payment Method")

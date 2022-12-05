@@ -15,6 +15,20 @@
     </record>
 -->
 
+    <record id="view_sale_order_inherit_search_payment_data" model="ir.ui.view">
+      <field name="name">account.payment.form</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='amount']" position="after">
+            <field name="payment_method"/>
+          <!-- This field will show up on the default filters
+               &lt; is the XML encoding for < and &gt; is the XML encoding for > -->
+<!--           <filter string="Total &lt; 1000" name="total_under_1000" domain="[('amount_total', '&lt;', 1000)]"/>
+          <filter string="Total &gt;= 1000" name="total_above_1000" domain="[('amount_total', '&gt;=', 1000)]"/> -->
+        </xpath>
+      </field>
+    </record>
 
         <report
             id="report_payment_receipt_student"
