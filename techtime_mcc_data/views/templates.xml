@@ -48,8 +48,8 @@
                   <div class="col-12" style="margin-top: 10px;">
                   <div class=""  t-if="o.partner_type">
                     
-                      <t t-if="o.partner_type">
-                          <strong style="color : #000000;">  اسم الطالب  : </strong>
+                      <t t-if="o.partner_id">
+                          <strong style="color : #000000;">  Payment method  : </strong>
                       </t>
                       <span t-field="o.partner_id"/>
                       
@@ -57,12 +57,12 @@
               </div>
               
                 
-                <!-- <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
+                 <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;"> partner name: </strong><span class="m-0"/>
                     
                 </div>
                 
-                
+                <!--
                 <div t-if="o" class="col-12" style="text-align : right;">
                     <strong style="color : #000000;">القسم :</strong> <span t-field="o.department" class="m-0"/>
                     
@@ -116,40 +116,30 @@
                 <table class="table table-sm" style="margin:5px 0px">
                     <thead>
                         <tr>
-                            <th style="border:#000000 2px solid;  height : 15px; width : 30%; " colspan="2" class="text-center"><span style="color : #000000;">الحساب </span></th>
 
-                            <th style="border:#000000 2px solid;     border-bottom: 0px solid transparent;  height : 15px; width : 70%;" class="text-center"><span style="color : #000000;">التفاصيل</span></th>
+                            <th style="border:#000000 2px solid;     border-bottom: 0px solid transparent;  height : 15px; width : 70%;" class="text-center"><span style="color : #000000;">memo</span></th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border:#000000 2px solid; height : 10px !important; width : 15%; padding: 0px;" class="text-center">4</td>
-                            <td style="border:#000000 2px solid; height : 10px !important; width : 15%; padding: 0px;" class="text-center">3</td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%; border-top: 0px solid transparent;"/>
+                            <td style="border:#000000 2px solid; height : 10px !important; padding: 0px;" class="text-center">4</td>
+                            
                         </tr>
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;" class="text-center">4351</td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;" class="text-center">435</td>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;" class="text-right"><span t-field="o.communication"/> </td>
+                            <td style="border:#000000 2px solid; height : 15px;" class="text-right"><span t-field="o.communication"/> </td>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
+                            <td style="border:#000000 2px solid; height : 15px;"/>
                         </tr>
 
                                                 <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
+                            <td style="border:#000000 2px solid; height : 15px;"/>
                         </tr>
 
                         <tr>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 15%;"/>
-                            <td style="border:#000000 2px solid; height : 15px; width : 70%;"/>
+                            <td style="border:#000000 2px solid; height : 15px;"/>
                         </tr>
 
                     </tbody>
@@ -160,7 +150,7 @@
             <div class="" style="float: left; position : fixed; left : 0; margin-top : -20px;">
             <!--<div class="" style="position : fixed; left : 0; margin-top : -20px;">-->
                 <div class="" style="text-align : right;">
-                       <strong>   اسم وتوقيع امين الصندوق</strong>
+                       <strong>   sender sign </strong>
                      </div>
                      
                      
@@ -173,7 +163,7 @@
                 <div class="" style="float: right; position : fixed; right : 0; margin-top : -20px;">
             <!--<div class="" style="position : fixed; left : 0; margin-top : -20px;">-->
                 <div class="" style="text-align : right;">
-                       <strong>   انشأت بواسطة :</strong>    <span t-field="o.create_uid"/>
+                       <strong>   receiver sign :</strong>    <span t-field="o.create_uid"/>
                      </div>
                      
                      
@@ -221,7 +211,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
-                <t t-call="techtime_department.report_payment_receipt_document_student" t-lang="lang"/>
+                <t t-call="techtime_mcc_data.report_payment_receipt_document_student" t-lang="lang"/>
             </t>
         </t>
     </template>

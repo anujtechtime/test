@@ -19,7 +19,7 @@
         <report
             id="report_payment_receipt_student"
             model="account.payment"
-            string="وصل الطالب"
+            string="الوصل"
             report_type="qweb-pdf"
             name="techtime_mcc_data.report_payment_receipt_student"
             file="techtime_mcc_data.report_payment_receipt_student"
