@@ -769,3 +769,214 @@ class ResData(models.Model):
         'view_mode': 'form',
         'context': {"active_id" : self._context.get("active_ids")}
         }
+
+
+    def send_mis_report_sale_college_report(self):  
+        filename = 'جدول الاحصاء الصباحي.xls'
+        string = 'جدول الاحصاء الصباحي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        worksheet.row(0).height = 500
+        
+        col = 2
+        college_data = self.env["faculty.faculty"].search([])
+        # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
+        Registered_total = 0
+        format2 = xlwt.easyxf('font:bold True;align: horiz center')
+        for coll in college_data:
+            not_registered_level1 = 0
+            not_registered_level2 = 0
+            not_registered_level3 = 0
+            not_registered_level4 = 0
+            not_registered_level5 = 0
+            registered_level1 = 0
+            registered_level2 = 0
+            registered_level3 = 0
+            registered_level4 = 0
+            registered_level5 = 0
+            # for material_line in self:
+            # print("lllllllllllllllllllll",material_line.partner_id)
+            year_all = self.env["year.year"].search([],order='year asc')
+            student_type = self.env["level.level"].search([])
+            # print("student_type###################",student_type)
+            # _logger.info("student_type************11111111111111#####**%s" %student_type)
+            for yrs in year_all:
+                print("yrs$$$$$$$$$$$$$$$$$$$$$$$")
+                # _logger.info("pincode************222222222222#####**%s" %yrs.year)
+            print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
+
+            department = self.env['department.department'].search([("college" ,"=", coll.id)]) 
+            for ddept in department:
+                row = 2
+                female_row = 3
+                for student in student_type: 
+                    sale_ord_level1_morning_male = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','male')])
+                   
+                    sale_ord_level1_morning_female = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','female')])
+
+                    if col == 2:
+                        worksheet.write_merge(0, 0, row, row + 2, student.Student or '', format2)
+                        # worksheet.write(0, row, student.Student or '')
+                        # worksheet.write(1, row - 2, "College" or '')
+                        # worksheet.write(1, row - 1, "Department" or '')
+                        worksheet.write(1, row, "Male" or '')
+                        worksheet.write(1, row + 1, "Female" or '')
+                        worksheet.write(1, row + 2, "Total" or '')
+
+                    worksheet.write(col, row, len(sale_ord_level1_morning_male.mapped("id")) or '')
+                    worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '')
+                    worksheet.write(col, row + 2, len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id")) or '')
+                    
+                    row = row + 3
+                
+                worksheet.write(col ,0, coll.college or '')
+                worksheet.write(col ,1, ddept.department or '')
+                col = col + 1
+
+
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
+    
+
+    def send_mis_report_sale_evening_shift(self):  
+        filename = 'جدول الاحصاء المسائي.xls'
+        string = 'جدول الاحصاء المسائي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        worksheet.row(0).height = 500
+        
+        col = 2
+        college_data = self.env["faculty.faculty"].search([])
+        # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
+        Registered_total = 0
+        format2 = xlwt.easyxf('font:bold True;align: horiz center')
+        for coll in college_data:
+            not_registered_level1 = 0
+            not_registered_level2 = 0
+            not_registered_level3 = 0
+            not_registered_level4 = 0
+            not_registered_level5 = 0
+            registered_level1 = 0
+            registered_level2 = 0
+            registered_level3 = 0
+            registered_level4 = 0
+            registered_level5 = 0
+            # for material_line in self:
+            # print("lllllllllllllllllllll",material_line.partner_id)
+            year_all = self.env["year.year"].search([],order='year asc')
+            student_type = self.env["level.level"].search([])
+            # print("student_type###################",student_type)
+            # _logger.info("student_type************11111111111111#####**%s" %student_type)
+            for yrs in year_all:
+                print("yrs$$$$$$$$$$$$$$$$$$$$$$$")
+                # _logger.info("pincode************222222222222#####**%s" %yrs.year)
+            print("yrs@@@@@@@@@@@@@@@@@@@@@@@@@@2$",yrs.year)
+
+            department = self.env['department.department'].search([("college" ,"=", coll.id)]) 
+            for ddept in department:
+                row = 2
+                female_row = 3
+                for student in student_type: 
+                    sale_ord_level1_afternoon_male = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','male')])
+                   
+                    sale_ord_level1_afternoon_female = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','female')])
+
+                    if col == 2:
+                        worksheet.write_merge(0, 0, row, row + 2, student.Student or '', format2)
+                        # worksheet.write(0, row, student.Student or '')
+                        # worksheet.write(1, row - 2, "College" or '')
+                        # worksheet.write(1, row - 1, "Department" or '')
+                        worksheet.write(1, row, "Male" or '')
+                        worksheet.write(1, row + 1, "Female" or '')
+                        worksheet.write(1, row + 2, "Total" or '')
+
+                    worksheet.write(col, row, len(sale_ord_level1_afternoon_male.mapped("id")) or '')
+                    worksheet.write(col, row + 1, len(sale_ord_level1_afternoon_female.mapped("id")) or '')
+                    worksheet.write(col, row + 2, len(sale_ord_level1_afternoon_male.mapped("id")) + len(sale_ord_level1_afternoon_female.mapped("id")) or '')
+                    
+                    row = row + 3
+                
+                worksheet.write(col ,0, coll.college or '')
+                worksheet.write(col ,1, ddept.department or '')
+                col = col + 1
+
+
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
+    
