@@ -771,6 +771,23 @@ class ResData(models.Model):
         }
 
 
+    def action_done_show_wizard_level(self):
+        for ddtsh in self:
+            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
+            if payment_first:
+                ddtsh.payment_number = payment_first.id
+                print("payment_first#################",payment_first)
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Level Value'),
+        'res_model': 'level.value',
+        'target': 'new',
+        'view_id': self.env.ref('techtime_student_excel.view_any_name_form_level_value').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }
+
+
     def send_mis_report_sale_college_report(self):  
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
@@ -809,7 +826,7 @@ class ResData(models.Model):
             # for material_line in self:
             # print("lllllllllllllllllllll",material_line.partner_id)
             year_all = self.env["year.year"].search([],order='year asc')
-            student_type = self.env["level.level"].search([])
+            student_type = ['leve1','level2','level3','level4','level5']
             # print("student_type###################",student_type)
             # _logger.info("student_type************11111111111111#####**%s" %student_type)
             for yrs in year_all:
@@ -822,18 +839,29 @@ class ResData(models.Model):
                 row = 2
                 female_row = 3
                 for student in student_type: 
-                    sale_ord_level1_morning_male = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','male')])
+                    sale_ord_level1_morning_male = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','male')])
                    
-                    sale_ord_level1_morning_female = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','female')])
+                    sale_ord_level1_morning_female = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','female')])
+
+                    if student == 'leve1':
+                        student = 'المرحلة الاولى'
+                    if student == 'level2':
+                        student = 'المرحلة الثانية'
+                    if student == 'level3':
+                        student = 'المرحلة الثالثة'
+                    if student == 'level4':
+                        student = 'المرحلة الرابعة'
+                    if student == 'level5':
+                        student = 'المرحلة الخامسة'
 
                     if col == 2:
-                        worksheet.write_merge(0, 0, row, row + 2, student.Student or '', format2)
+                        worksheet.write_merge(0, 0, row, row + 2, student or '', format2)
                         # worksheet.write(0, row, student.Student or '')
                         # worksheet.write(1, row - 2, "College" or '')
                         # worksheet.write(1, row - 1, "Department" or '')
-                        worksheet.write(1, row, "Male" or '')
-                        worksheet.write(1, row + 1, "Female" or '')
-                        worksheet.write(1, row + 2, "Total" or '')
+                        worksheet.write(1, row, "الذكور" or '')
+                        worksheet.write(1, row + 1, "الاناث" or '')
+                        worksheet.write(1, row + 2, "المجموع" or '')
 
                     worksheet.write(col, row, len(sale_ord_level1_morning_male.mapped("id")) or '')
                     worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '')
@@ -914,7 +942,7 @@ class ResData(models.Model):
             # for material_line in self:
             # print("lllllllllllllllllllll",material_line.partner_id)
             year_all = self.env["year.year"].search([],order='year asc')
-            student_type = self.env["level.level"].search([])
+            student_type = ['leve1','level2','level3','level4','level5']
             # print("student_type###################",student_type)
             # _logger.info("student_type************11111111111111#####**%s" %student_type)
             for yrs in year_all:
@@ -927,18 +955,29 @@ class ResData(models.Model):
                 row = 2
                 female_row = 3
                 for student in student_type: 
-                    sale_ord_level1_afternoon_male = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','male')])
+                    sale_ord_level1_afternoon_male = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','male')])
                    
-                    sale_ord_level1_afternoon_female = self.env["res.partner"].search([('student_type','=',student.id),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','female')])
+                    sale_ord_level1_afternoon_female = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','female')])
 
+
+                    if student == 'leve1':
+                        student = 'المرحلة الاولى'
+                    if student == 'level2':
+                        student = 'المرحلة الثانية'
+                    if student == 'level3':
+                        student = 'المرحلة الثالثة'
+                    if student == 'level4':
+                        student = 'المرحلة الرابعة'
+                    if student == 'level5':
+                        student = 'المرحلة الخامسة'
                     if col == 2:
-                        worksheet.write_merge(0, 0, row, row + 2, student.Student or '', format2)
+                        worksheet.write_merge(0, 0, row, row + 2, student or '', format2)
                         # worksheet.write(0, row, student.Student or '')
                         # worksheet.write(1, row - 2, "College" or '')
                         # worksheet.write(1, row - 1, "Department" or '')
-                        worksheet.write(1, row, "Male" or '')
-                        worksheet.write(1, row + 1, "Female" or '')
-                        worksheet.write(1, row + 2, "Total" or '')
+                        worksheet.write(1, row, "الذكور" or '')
+                        worksheet.write(1, row + 1, "الاناث" or '')
+                        worksheet.write(1, row + 2, "المجموع" or '')
 
                     worksheet.write(col, row, len(sale_ord_level1_afternoon_male.mapped("id")) or '')
                     worksheet.write(col, row + 1, len(sale_ord_level1_afternoon_female.mapped("id")) or '')
