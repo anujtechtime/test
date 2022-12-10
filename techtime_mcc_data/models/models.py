@@ -20,6 +20,6 @@ class CrmTeamDateAccount(models.Model):
 
     _inherit = "account.payment"
 
-    payment_method = fields.Account_Type = fields.Selection([('cash','Cash'),
-        ('bank','Bank'),
-        ('cheque','Cheque')],string="Payment Method")
+    payment_method = fields.Account_Type = fields.Selection([('cash','نقد'),
+        ('debit','دين'),
+        ('cheque','صك')],string="Payment Method")
