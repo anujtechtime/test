@@ -78,7 +78,6 @@
             
                   
                   
-                  <div class="">
                 
                 <div class=" text-right" id="informations">
                   
@@ -120,7 +119,6 @@
                     <strong style="color : #000000;">نوع الدراسة :</strong> <span t-field="o.Subject" class="m-0"/>
                     
                 </div> -->
-            </div>
             </div>
 
             <div class=" " id="informations" style="margin-bottom: 15px;">

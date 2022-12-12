@@ -787,10 +787,10 @@ class ResData(models.Model):
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
-        worksheet.col(0).width = 10000
+        # worksheet.col(0).width = 10000
         # worksheet.col(1).width = 15000
         # worksheet.col(2).width = 10000
-        worksheet.row(0).height = 500
+        # worksheet.row(0).height = 500
         
         col = 2
         college_data = self.env["faculty.faculty"].search([])
@@ -821,7 +821,7 @@ class ResData(models.Model):
 
             department = self.env['department.department'].search([("college" ,"=", coll.id)]) 
             for ddept in department:
-                row = 2
+                row = 0
                 female_row = 3
                 for student in student_type: 
                     sale_ord_level1_morning_male = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','male')])
@@ -854,8 +854,8 @@ class ResData(models.Model):
                     
                     row = row + 3
                 
-                worksheet.write(col ,0, coll.college or '')
-                worksheet.write(col ,1, ddept.department or '')
+                worksheet.write(col ,row, coll.college or '')
+                worksheet.write(col ,row + 1, ddept.department or '')
                 col = col + 1
 
 
@@ -903,10 +903,10 @@ class ResData(models.Model):
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
-        worksheet.col(0).width = 10000
+        # worksheet.col(0).width = 10000
         # worksheet.col(1).width = 15000
         # worksheet.col(2).width = 10000
-        worksheet.row(0).height = 500
+        # worksheet.row(0).height = 500
         
         col = 2
         college_data = self.env["faculty.faculty"].search([])
@@ -937,7 +937,7 @@ class ResData(models.Model):
 
             department = self.env['department.department'].search([("college" ,"=", coll.id)]) 
             for ddept in department:
-                row = 2
+                row = 0
                 female_row = 3
                 for student in student_type: 
                     sale_ord_level1_afternoon_male = self.env["res.partner"].search([('level','=',student),("year","=",yrs.id),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','male')])
@@ -970,8 +970,8 @@ class ResData(models.Model):
                     
                     row = row + 3
                 
-                worksheet.write(col ,0, coll.college or '')
-                worksheet.write(col ,1, ddept.department or '')
+                worksheet.write(col ,row, coll.college or '')
+                worksheet.write(col ,row + 1, ddept.department or '')
                 col = col + 1
 
 
