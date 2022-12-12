@@ -854,8 +854,8 @@ class ResData(models.Model):
                     
                     row = row + 3
                 
-                worksheet.write(col ,row, coll.college or '')
-                worksheet.write(col ,row + 1, ddept.department or '')
+                worksheet.write(col ,row + 1, coll.college or '')
+                worksheet.write(col ,row, ddept.department or '')
                 col = col + 1
 
 
@@ -970,8 +970,8 @@ class ResData(models.Model):
                     
                     row = row + 3
                 
-                worksheet.write(col ,row, coll.college or '')
-                worksheet.write(col ,row + 1, ddept.department or '')
+                worksheet.write(col ,row + 1, coll.college or '')
+                worksheet.write(col ,row, ddept.department or '')
                 col = col + 1
 
 
