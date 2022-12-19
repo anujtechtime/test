@@ -627,81 +627,81 @@ class TechtimeStudentexcel(models.Model):
 class ResData(models.Model):
     _inherit = 'res.partner'
 
-    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type")
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
 
 
-    boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية")
-    boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى")
-    boolean_three = fields.Boolean(string="الوافدين")
-    boolean_four = fields.Boolean(string="السجناء السياسيين")
+    boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية", tracking=True)
+    boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى", tracking=True)
+    boolean_three = fields.Boolean(string="الوافدين", tracking=True)
+    boolean_four = fields.Boolean(string="السجناء السياسيين", tracking=True)
 
 
-    payment_number = fields.Many2one("account.payment",string="payment number")
-    transferred_to_us = fields.Boolean("Transferred To Us ")
-    transfer_shift = fields.Boolean("Transferred Shift ")
-    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
-    chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
+    payment_number = fields.Many2one("account.payment",string="payment number", tracking=True)
+    transferred_to_us = fields.Boolean("Transferred To Us ", tracking=True)
+    transfer_shift = fields.Boolean("Transferred Shift ", tracking=True)
+    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", tracking=True)
+    chckbox_data = fields.Boolean("نقل من كلية الى أخرى", tracking=True)
 
 
-    year = fields.Many2one("year.year", string="Year")
-    college = fields.Many2one("faculty.faculty", string="College")
-    department = fields.Many2one("department.department", string="Department")
-    student_type = fields.Many2one("level.level", string="Student Type")
-    shift = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
-    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
-    number_of_years = fields.Char("Number Of Years")
+    year = fields.Many2one("year.year", string="Year", tracking=True)
+    college = fields.Many2one("faculty.faculty", string="College", tracking=True)
+    department = fields.Many2one("department.department", string="Department", tracking=True)
+    student_type = fields.Many2one("level.level", string="Student Type", tracking=True)
+    shift = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift", tracking=True)
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level", tracking=True)
+    number_of_years = fields.Char("Number Of Years", tracking=True)
 
-    gender = fields.Selection([('male','ذكر'),('female','انثى')], string="Gender")
-    nationalty = fields.Char("Nationalty")
-    year_born = fields.Integer("Year Born")
-    Academic_Branch = fields.Integer("Academic Branch")
-    year_of_graduation = fields.Integer("Year Of Graduation")
-    final_result = fields.Char("Final Result")
-    year_of_acceptance   = fields.Integer("Year Of Acceptance")    
-
-
-
-
-    Round_of_Passing = fields.Char("Round of Passing")
-    subject_that_has_been_resit = fields.Char("Subject that has been resit")
-    name_of_school_graduated_from = fields.Char("Name of school graduated from")
-    State_of_school_graduated_from = fields.Char("State of school graduated from")
+    gender = fields.Selection([('male','ذكر'),('female','انثى')], string="Gender", tracking=True)
+    nationalty = fields.Char("Nationalty", tracking=True)
+    year_born = fields.Integer("Year Born", tracking=True)
+    Academic_Branch = fields.Integer("Academic Branch", tracking=True)
+    year_of_graduation = fields.Integer("Year Of Graduation", tracking=True)
+    final_result = fields.Char("Final Result", tracking=True)
+    year_of_acceptance   = fields.Integer("Year Of Acceptance", tracking=True)    
 
 
 
-    State_of_birth = fields.Char("State of birth")
-    ID_number = fields.Integer("ID number")
-    ID_issue_Date = fields.Date("ID issue Date")
-    place_of_issuance = fields.Char("Place of issuance")
-    Marital_status = fields.Selection([('married','Married'),('unmarried','Unmarried')], string="Marital status") 
+
+    Round_of_Passing = fields.Char("Round of Passing", tracking=True)
+    subject_that_has_been_resit = fields.Char("Subject that has been resit", tracking=True)
+    name_of_school_graduated_from = fields.Char("Name of school graduated from", tracking=True)
+    State_of_school_graduated_from = fields.Char("State of school graduated from", tracking=True)
 
 
-    parent_name = fields.Char("Parent name")
-    address = fields.Char("Address")
-    Father_Job = fields.Char("Father Job")
-    work_address_father = fields.Char("Work address")
-    Mother_Job = fields.Char("Mother Job")
-    work_address_mother = fields.Char("Work address")
-    Phone_number_1_mother = fields.Integer("Phone number 1")
-    Phone_number_2_mother = fields.Integer("Phone number 2")
-    sibling_name = fields.Char("sibling name")
-    relative_relation = fields.Char("Relative relation")
-    address_mother = fields.Char("Address")
-    phone_number_1 = fields.Integer("phone number 1")
-    phone_number_2 = fields.Integer("phone_number 2")
+
+    State_of_birth = fields.Char("State of birth", tracking=True)
+    ID_number = fields.Integer("ID number", tracking=True)
+    ID_issue_Date = fields.Date("ID issue Date", tracking=True)
+    place_of_issuance = fields.Char("Place of issuance", tracking=True)
+    Marital_status = fields.Selection([('married','Married'),('unmarried','Unmarried')], string="Marital status", tracking=True) 
 
 
-    guarantor_name_gurantor  = fields.Char("Guarantor name")
-    relative_relation_gurantor = fields.Char("Relative relation")
-    address_gurantor = fields.Char("Address")
-    phone_number_1_gurantor = fields.Char("phone number 1")
-    phone_number_2_gurantor = fields.Char("phone number 2")
+    parent_name = fields.Char("Parent name", tracking=True)
+    address = fields.Char("Address", tracking=True)
+    Father_Job = fields.Char("Father Job", tracking=True)
+    work_address_father = fields.Char("Work address", tracking=True)
+    Mother_Job = fields.Char("Mother Job", tracking=True)
+    work_address_mother = fields.Char("Work address", tracking=True)
+    Phone_number_1_mother = fields.Integer("Phone number 1", tracking=True)
+    Phone_number_2_mother = fields.Integer("Phone number 2", tracking=True)
+    sibling_name = fields.Char("sibling name", tracking=True)
+    relative_relation = fields.Char("Relative relation", tracking=True)
+    address_mother = fields.Char("Address", tracking=True)
+    phone_number_1 = fields.Integer("phone number 1", tracking=True)
+    phone_number_2 = fields.Integer("phone_number 2", tracking=True)
 
 
-    relation = fields.Selection([('father','Father'),('mother','Mother'),('relative','Relative'),('guarantor','Guarantor')], string="Relation")
-    type_of_relative = fields.Char("Type Of Relative")
-    Father_Job = fields.Char("Father Job")
-    work_address_father = fields.Char("Work address")
+    guarantor_name_gurantor  = fields.Char("Guarantor name", tracking=True)
+    relative_relation_gurantor = fields.Char("Relative relation", tracking=True)
+    address_gurantor = fields.Char("Address", tracking=True)
+    phone_number_1_gurantor = fields.Char("phone number 1", tracking=True)
+    phone_number_2_gurantor = fields.Char("phone number 2", tracking=True)
+
+
+    relation = fields.Selection([('father','Father'),('mother','Mother'),('relative','Relative'),('guarantor','Guarantor')], string="Relation", tracking=True)
+    type_of_relative = fields.Char("Type Of Relative", tracking=True)
+    Father_Job = fields.Char("Father Job", tracking=True)
+    work_address_father = fields.Char("Work address", tracking=True)
 
 
     @api.model

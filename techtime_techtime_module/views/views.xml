@@ -1,0 +1,171 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="techtime_techtime_module.list">
+      <field name="name">techtime_techtime_module list</field>
+      <field name="model">techtime_techtime_module.techtime_techtime_module</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <record id="view_sale_order_inherit_data_contact" model="ir.ui.view">
+      <field name="name">res.partner.inherit.search</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='type']" position="after">
+            <field name="x_studio_sale_order_amount"/>
+            <field name="x_studio_quotation_amount"/>
+            <field name="x_studio_field_rtv0j"/>
+            <field name="x_studio_sale_order"/>
+            <field name="x_studio_field_JriwA"/>
+            <field name="x_studio_quotation_number"/>
+            <field name="x_studio_invoice_number"/>
+
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_sale_order_inherit_data_journal" model="ir.ui.view">
+      <field name="name">account.journal.inherit.search</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='type']" position="after">
+            <field name="x_studio_field_Cgnjn"/>
+            <field name="x_studio_user_data"/> 
+        </xpath>
+      </field>
+    </record>
+
+
+    <record id="view_sale_order_inherit_data_payment" model="ir.ui.view">
+      <field name="name">account.payment.inherit.search</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="x_studio_field_T8oud"/>
+            <field name="x_studio_field_L1fZY"/>
+        </xpath>
+      </field>
+    </record>
+
+
+
+<record id="view_sale_order_inherit_data_subscription" model="ir.ui.view">
+      <field name="name">sale.subscription.inherit.search</field>
+      <field name="model">sale.subscription</field>
+      <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='recurring_interval']" position="after">
+            <field name="x_studio_field_bqn71"/>
+            <field name="x_studio_service_end_date"/>
+            <field name="x_studio_field_date_invoice"/>
+            <field name="x_studio_domain"/>
+            <field name="x_studio_field_adzFP"/>
+            <field name="x_studio_type"/>
+
+        </xpath>
+      </field>
+    </record>
+
+
+
+
+    <record id="view_sale_order_inherit_data_user_data" model="ir.ui.view">
+      <field name="name">res.users.inherit.search</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="base.view_users_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='email']" position="after">
+            <field name="x_studio_quotation_number"/>
+            <field name="x_studio_invoice_number"/>
+            <field name="x_studio_sale_order_amount"/>
+            <field name="x_studio_sale_order"/>
+            <field name="x_studio_field_rtv0j"/>
+            <field name="x_studio_quotation_amount"/>
+            <field name="x_studio_field_JriwA"/>
+            <!-- <field name="x_studio_field_j0N6b"/> -->
+
+
+
+        </xpath>
+      </field>
+    </record>
+
+
+
+
+
+    <record id="view_sale_order_inherit_data_journal" model="ir.ui.view">
+      <field name="name">account.bank.statement.import.journal.creation.inherit.search</field>
+      <field name="model">account.bank.statement.import.journal.creation</field>
+      <field name="inherit_id" ref="account_bank_statement_import.account_bank_statement_import_journal_creation_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+
+            <field name="x_studio_user_data"/>
+
+            <field name="x_studio_field_Cgnjn"/>
+
+            <!-- <field name="x_studio_user_check"/> -->
+
+
+        </xpath>
+      </field>
+    </record>
+
+
+
+
+<!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="techtime_techtime_module.action_window">
+      <field name="name">techtime_techtime_module window</field>
+      <field name="res_model">techtime_techtime_module.techtime_techtime_module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="techtime_techtime_module.action_server">
+      <field name="name">techtime_techtime_module server</field>
+      <field name="model_id" ref="model_techtime_techtime_module_techtime_techtime_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="techtime_techtime_module" id="techtime_techtime_module.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="techtime_techtime_module.menu_1" parent="techtime_techtime_module.menu_root"/>
+    <menuitem name="Menu 2" id="techtime_techtime_module.menu_2" parent="techtime_techtime_module.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="techtime_techtime_module.menu_1_list" parent="techtime_techtime_module.menu_1"
+              action="techtime_techtime_module.action_window"/>
+    <menuitem name="Server to list" id="techtime_techtime_module" parent="techtime_techtime_module.menu_2"
+              action="techtime_techtime_module.action_server"/>
+-->
+  </data>
+</odoo>
