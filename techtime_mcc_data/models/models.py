@@ -23,3 +23,10 @@ class CrmTeamDateAccount(models.Model):
     payment_method = fields.Account_Type = fields.Selection([('cash','نقد'),
         ('debit','دين'),
         ('cheque','صك')],string="Payment Method")
+
+
+class CrmTeamDateAccount(models.Model):
+
+    _inherit = "purchase.order.line"
+
+    qty_received = fields.Float("Received Qty", related="product_qty", inverse='_inverse_qty_received', compute_sudo=True, store=True, digits='Product Unit of Measure')
