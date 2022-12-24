@@ -26,6 +26,36 @@
       </field>
     </record>
 
+
+    <record id="view_sale_order_inherit_search_hr_contract" model="ir.ui.view">
+      <field name="name">hr.contract.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='department_id']" position="after">
+            <field name="employ_type"/>
+            <field name="basic_salary"/>
+            <field name="social_security"/>
+            <field name="tax"/>
+            <field name="tax_other"/>
+            <field name="traning"/>
+            <field name="allowance"/>
+            <field name="day_deduction"/>
+        </xpath>
+      </field>
+    </record>
+
+        <record id="view_sale_order_inherit_search_hr_payslip" model="ir.ui.view">
+      <field name="name">hr.payslip.form</field>
+      <field name="model">hr.payslip</field>
+      <field name="inherit_id" ref="payroll.hr_payslip_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='credit_note']" position="after">
+            <field name="description"/>
+        </xpath>
+      </field>
+    </record>
+
         <report
             id="report_payment_receipt_student"
             model="account.payment"
