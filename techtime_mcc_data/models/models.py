@@ -48,6 +48,15 @@ class ContractmDateAccount(models.Model):
     allowance = fields.Float("Allowance")
     day_deduction = fields.Float("Day-Deduction")
 
+
+    @api.onchange('wage')
+    def _inverse_wage(self):
+        if self.wage:
+            self.basic_salary = float(self.wage)
+
+
+
+
 class ContraPayslipDateAccount(models.Model):
 
     _inherit="hr.payslip"
