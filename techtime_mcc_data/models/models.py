@@ -52,7 +52,7 @@ class ContractmDateAccount(models.Model):
     @api.onchange('wage')
     def _inverse_wage(self):
         if self.wage:
-            self.basic_salary = float(self.wage)
+            self.basic_salary = float(self.wage) * 0.7
 
 
 
