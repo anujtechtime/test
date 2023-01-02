@@ -110,13 +110,13 @@ class ContractmDateAccount(models.Model):
                 self.total_salary = self.social_security + self.compensation + 25000
 
             if self.total_salary > 1000000:
-                self.total_salary =  self.total_salary - 83333 * 0.15 + 5833
+                self.total_salary =  ((self.total_salary - 83333) * 0.15) + 5833
 
             if self.total_salary > 500000:
-                self.total_salary =  self.total_salary - 41666 * 0.1 + 1666
+                self.total_salary =  ((self.total_salary - 41666) * 0.1) + 1666
 
             if self.total_salary > 250000:
-                self.total_salary =  self.total_salary - 20833 * 0.05 + 625           
+                self.total_salary =  ((self.total_salary - 20833) * 0.05) + 625           
 
 
 
