@@ -83,8 +83,11 @@ class ContractmDateAccount(models.Model):
     @api.onchange('wage')
     def _inverse_wage(self):
         if self.wage:
-            self.compensation = float(self.wage) * 0.3
-            self.social_security = float(self.wage) * 0.05
+            self.basic_salary = float(self.wage) * 0.7
+            self.compensation = float(self.basic_salary) * 0.3
+            self.social_security = float(self.basic_salary) * 0.05
+
+
             if self.married_with_house_wife:
                 self.total_salary = self.social_security + self.compensation + 375000
             if self.married_with_working_wife:
