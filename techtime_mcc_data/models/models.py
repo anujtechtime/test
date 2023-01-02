@@ -112,15 +112,16 @@ class ContractmDateAccount(models.Model):
                 self.total_salary = self.social_security + self.compensation + 25000
 
 
+            value_data = self.wage - self.total_salary
 
-            if self.total_salary > 1000000:
-                self.tota_before =  ((self.total_salary - 83333) * 0.15) + 5833
+            if value_data > 1000000:
+                self.tota_before =  ((value_data - 83333) * 0.15) + 5833
 
-            if self.total_salary > 500000 and self.total_salary <= 1000000:
-                self.tota_before =  ((self.total_salary - 41666) * 0.10) + 1666
+            if value_data > 500000 and value_data <= 1000000:
+                self.tota_before =  ((value_data - 41666) * 0.10) + 1666
 
-            if self.total_salary > 250000 and self.total_salary <= 500000:
-                self.tota_before =  ((self.total_salary - 20833) * 0.05) + 625           
+            if value_data > 250000 and value_data <= 500000:
+                self.tota_before =  ((value_data - 20833) * 0.05) + 625           
 
 
 
