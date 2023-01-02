@@ -36,11 +36,20 @@
             <field name="employ_type"/>
             <field name="basic_salary"/>
             <field name="social_security"/>
-            <field name="tax"/>
-            <field name="tax_other"/>
-            <field name="traning"/>
-            <field name="allowance" invisible="1"/>
-            <field name="day_deduction"  invisible="1"/>
+
+
+            <field name="compensation"/>
+            <field name="married_with_house_wife"/>
+            <field name="married_with_working_wife"/>
+            <field name="married_with_non_working_husband"/>
+            <field name="married_with_working_husband"/>
+            <field name="single_male"/>
+            <field name="male_female_with_children"/>
+            <field name="divorced_male"/>
+            <field name="sinle_female"/>
+            <field name="divorced_female"/>
+            <field name="if_age_is_above_63"/>
+            <field name="total_salary"/>
         </xpath>
       </field>
     </record>
