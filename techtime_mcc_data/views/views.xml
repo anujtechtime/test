@@ -65,7 +65,7 @@
       </field>
     </record>
 
-        <report
+<!--         <report
             id="report_payment_receipt_student"
             model="account.payment"
             string="الوصل"
@@ -74,7 +74,7 @@
             file="techtime_mcc_data.report_payment_receipt_student"
             menu="True"
         />
-
+ -->
 
     <!-- actions opening views on models -->
 <!--
