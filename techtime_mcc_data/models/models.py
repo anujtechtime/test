@@ -99,7 +99,7 @@ class ContractmDateAccount(models.Model):
             if self.single_male:
                 self.total_salary = self.social_security + self.compensation + 208333
             if self.male_female_with_children:
-                self.total_salary = self.social_security + self.compensation + self.male_female_with_children * 16666
+                self.total_salary = self.total_salary + self.male_female_with_children * 16666
             if self.divorced_male:
                 self.total_salary = self.social_security + self.compensation + 208333
             if self.sinle_female:
@@ -108,6 +108,8 @@ class ContractmDateAccount(models.Model):
                 self.total_salary = self.social_security + self.compensation + 255555
             if self.if_age_is_above_63:
                 self.total_salary = self.social_security + self.compensation + 25000
+
+
 
             if self.total_salary > 1000000:
                 self.total_salary =  ((self.total_salary - 83333) * 0.15) + 5833
