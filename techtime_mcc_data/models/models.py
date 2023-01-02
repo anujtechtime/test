@@ -68,6 +68,8 @@ class ContractmDateAccount(models.Model):
 
     if_age_is_above_63 = fields.Boolean("Age is above 63")
 
+    tota_before = fields.Float("Total after")
+
     total_salary = fields.Float("Total Salary")
 
 
@@ -112,13 +114,13 @@ class ContractmDateAccount(models.Model):
 
 
             if self.total_salary > 1000000:
-                self.total_salary =  ((self.wage - 83333) * 0.15) + 5833
+                self.tota_before =  ((self.wage - 83333) * 0.15) + 5833
 
             if self.total_salary > 500000 and self.total_salary <= 1000000:
-                self.total_salary =  ((self.wage - 41666) * 0.10) + 1666
+                self.tota_before =  ((self.wage - 41666) * 0.10) + 1666
 
             if self.total_salary > 250000 and self.total_salary <= 500000:
-                self.total_salary =  ((self.wage - 20833) * 0.05) + 625           
+                self.tota_before =  ((self.wage - 20833) * 0.05) + 625           
 
 
 

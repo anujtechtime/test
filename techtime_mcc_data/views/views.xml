@@ -50,6 +50,7 @@
             <field name="divorced_female"/>
             <field name="if_age_is_above_63"/>
             <field name="total_salary"/>
+            <field name="tota_before"/>
         </xpath>
       </field>
     </record>
