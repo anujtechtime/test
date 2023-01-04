@@ -47,6 +47,8 @@ class ContractmDateAccount(models.Model):
 
     compensation = fields.Float("Compensation")
 
+    compensation1 = fields.Float("Compensation One")
+
 
     married_with_house_wife = fields.Boolean("Married Male with house wife")
     married_with_working_wife = fields.Boolean("Married Male with working wife")
@@ -88,6 +90,9 @@ class ContractmDateAccount(models.Model):
             self.basic_salary = float(self.wage) * 0.7
             self.compensation = float(self.basic_salary) * 0.3
             self.social_security = float(self.basic_salary) * 0.05
+
+
+            self.compensation1 = float(self.wage) * 0.3
 
 
             if self.married_with_house_wife:

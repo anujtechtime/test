@@ -37,7 +37,7 @@
             <field name="basic_salary"/>
             <field name="social_security"/>
 
-
+            <field name="compensation1"/>
             <field name="compensation"/>
             <field name="married_with_house_wife"/>
             <field name="married_with_working_wife"/>
