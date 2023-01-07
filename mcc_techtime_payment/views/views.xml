@@ -26,6 +26,18 @@
       </field>
     </record>
 
+
+            <report
+            id="report_payment_receipt_student_data"
+            model="account.payment"
+            string="الوصل"
+            report_type="qweb-pdf"
+            name="mcc_techtime_payment.report_payment_receipt_student"
+            file="mcc_techtime_payment.report_payment_receipt_student"
+            menu="True"
+        />
+
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="mcc_techtime_payment.action_window">
