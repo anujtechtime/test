@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="mcc_techtime_payment.list">
+      <field name="name">mcc_techtime_payment list</field>
+      <field name="model">mcc_techtime_payment.mcc_techtime_payment</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record id="view_sale_order_inherit_search_payment_data" model="ir.ui.view">
+      <field name="name">account.payment.form</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='amount']" position="after">
+            <field name="payment_method"/>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="mcc_techtime_payment.action_window">
+      <field name="name">mcc_techtime_payment window</field>
+      <field name="res_model">mcc_techtime_payment.mcc_techtime_payment</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="mcc_techtime_payment.action_server">
+      <field name="name">mcc_techtime_payment server</field>
+      <field name="model_id" ref="model_mcc_techtime_payment_mcc_techtime_payment"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="mcc_techtime_payment" id="mcc_techtime_payment.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="mcc_techtime_payment.menu_1" parent="mcc_techtime_payment.menu_root"/>
+    <menuitem name="Menu 2" id="mcc_techtime_payment.menu_2" parent="mcc_techtime_payment.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="mcc_techtime_payment.menu_1_list" parent="mcc_techtime_payment.menu_1"
+              action="mcc_techtime_payment.action_window"/>
+    <menuitem name="Server to list" id="mcc_techtime_payment" parent="mcc_techtime_payment.menu_2"
+              action="mcc_techtime_payment.action_server"/>
+-->
+  </data>
+</odoo>

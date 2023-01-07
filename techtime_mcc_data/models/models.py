@@ -16,14 +16,6 @@ from odoo import models, fields, api, _
 #     def _value_pc(self):
 #         for record in self:
 #             record.value2 = float(record.value) / 100
-class CrmTeamDateAccount(models.Model):
-
-    _inherit = "account.payment"
-
-    payment_method = fields.Account_Type = fields.Selection([('cash','نقد'),
-        ('debit','دين'),
-        ('cheque','صك')],string="Payment Method")
-
 
 class CrmTeamDateAccount(models.Model):
 

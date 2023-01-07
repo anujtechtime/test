@@ -15,17 +15,6 @@
     </record>
 -->
 
-    <record id="view_sale_order_inherit_search_payment_data" model="ir.ui.view">
-      <field name="name">account.payment.form</field>
-      <field name="model">account.payment</field>
-      <field name="inherit_id" ref="account.view_account_payment_form"/>
-      <field name="arch" type="xml">
-        <xpath expr="//field[@name='amount']" position="after">
-            <field name="payment_method"/>
-        </xpath>
-      </field>
-    </record>
-
 
     <record id="view_sale_order_inherit_search_hr_contract" model="ir.ui.view">
       <field name="name">hr.contract.form</field>
