@@ -56,7 +56,7 @@ class ContractmDateAccount(models.Model):
 
     divorced_male = fields.Boolean("Divorced Male")
 
-    sinle_female = fields.Boolean("Single Female")
+    # sinle_female = fields.Boolean("Single Female")
 
     divorced_female = fields.Boolean("Divorced Female")
 
@@ -101,10 +101,9 @@ class ContractmDateAccount(models.Model):
                 self.total_salary = self.total_salary + self.male_female_with_children * 16666
             if self.divorced_male:
                 self.total_salary = self.social_security + self.compensation + 208333
-            if self.sinle_female:
-                self.total_salary = self.social_security + self.compensation + 255555
+
             if self.divorced_female:
-                self.total_salary = self.social_security + self.compensation + 255555
+                self.total_salary = self.social_security + self.compensation + 266666
             if self.if_age_is_above_63:
                 self.total_salary = self.social_security + self.compensation + 25000
 
