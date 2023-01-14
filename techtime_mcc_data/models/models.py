@@ -132,19 +132,6 @@ class ContraPayslipDateAccount(models.Model):
 
 
 
-class StudentFieldsData(models.Model):
-    """ Model for case stages. This models the main stages of a document
-        management flow. Main CRM objects (leads, opportunities, project
-        issues, ...) will now use only stages, instead of state and stages.
-        Stages are for example used to display the kanban view of records.
-    """
-    _inherit = "res.partner"    
 
-    @api.model
-    def create(self, vals):
-        result = super(StudentFieldsData, self).create(vals)
-        result.property_account_receivable_id = 2340
-        result.property_account_payable_id = 2370
-        return result
 
 

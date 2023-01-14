@@ -29,6 +29,13 @@ class HrEmployeeTarget(models.Model):
     x_studio_field_JriwA = fields.One2many("sale.order","partner_id", string="Quotation number")
     x_studio_quotation_number = fields.Integer("Quotation number") 
     x_studio_invoice_number = fields.Integer("Invoicing Number")
+
+    @api.model
+    def create(self, vals):
+        result = super(HrEmployeeTarget, self).create(vals)
+        result.property_account_receivable_id = 2340
+        result.property_account_payable_id = 2370
+        return result
     
     @api.onchange('name', 'sale_order_count', 'x_studio_field_rtv0j')
     def _onchange_x_studio_field_rtv0j(self):
