@@ -23,6 +23,35 @@ class CrmTeamDateAccount(models.Model):
 
     qty_received = fields.Float("Received Qty", related="product_qty", inverse='_inverse_qty_received', compute_sudo=True, store=True, digits='Product Unit of Measure')
 
+
+class DataLevelValueData(models.TransientModel):
+    _inherit = 'level.value'
+   
+
+    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
+
+    def action_confirm_change_level(self):
+        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
+        for idds in self._context.get("active_id"):
+            print("idds@@@@@@@@@@@@@@@@@",idds)
+            levels_sale_order = self.env["res.partner"].browse(int(idds))
+            print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
+            if self.level:
+                levels_sale_order.level = self.level
+                # levels_sale_order.partner_id.level = self.level
+
+            if self.year:    
+                levels_sale_order.year = self.year
+                # levels_sale_order.partner_id.year = self.year
+
+            if self.Status:    
+                levels_sale_order.Status = self.Status
+                # levels_sale_order.partner_id.Status = self.Status
+                
+            if self.contact_type:
+                levels_sale_order.contact_type = self.contact_type
+
 class ContractmDateAccount(models.Model):
 
     _inherit = "hr.contract"

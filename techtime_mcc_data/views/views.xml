@@ -49,6 +49,23 @@
       </field>
     </record>
 
+
+
+
+        <record model="ir.ui.view" id="view_any_name_form_level_value_data_m">
+        <field name="name">level.value.form</field>
+        <field name="model">level.value</field>
+        <field name="inherit_id" ref="techtime_student_excel.view_any_name_form_level_value"/>
+        <!-- <field name="type">form</field> -->
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='year']" position="after">
+                <field name="Status"/>
+                <field name="contact_type"/>
+        </xpath>
+        </field>
+    </record>
+
+
         <record id="view_sale_order_inherit_search_hr_payslip" model="ir.ui.view">
       <field name="name">hr.payslip.form</field>
       <field name="model">hr.payslip</field>

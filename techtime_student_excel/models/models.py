@@ -60,8 +60,7 @@ class DataLevelValue(models.TransientModel):
 
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     year = fields.Many2one("year.year", string="Year")
-    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
-    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
+
 
     def action_confirm_change_level(self):
         print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
@@ -69,23 +68,12 @@ class DataLevelValue(models.TransientModel):
             print("idds@@@@@@@@@@@@@@@@@",idds)
             levels_sale_order = self.env["res.partner"].browse(int(idds))
             print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
-            if self.level:
-                levels_sale_order.level = self.level
-                # levels_sale_order.partner_id.level = self.level
+            levels_sale_order.level = self.level
+            levels_sale_order.year = self.year
 
-            if self.year:    
-                levels_sale_order.year = self.year
-                # levels_sale_order.partner_id.year = self.year
+            levels_sale_order.partner_id.level = self.level
+            levels_sale_order.partner_id.year = self.year
 
-            if self.Status:    
-                levels_sale_order.Status = self.Status
-                # levels_sale_order.partner_id.Status = self.Status
-                
-            if self.contact_type:
-                levels_sale_order.contact_type = self.contact_type
-                # levels_sale_order.partner_id.contact_type = self.contact_type   
-
-    
 
         # for ddts in self:
         #     ddts.level =  self.level
