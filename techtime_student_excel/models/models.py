@@ -71,19 +71,19 @@ class DataLevelValue(models.TransientModel):
             print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             if self.level:
                 levels_sale_order.level = self.level
-                levels_sale_order.partner_id.level = self.level
+                # levels_sale_order.partner_id.level = self.level
 
             if self.year:    
                 levels_sale_order.year = self.year
-                levels_sale_order.partner_id.year = self.year
+                # levels_sale_order.partner_id.year = self.year
 
             if self.Status:    
                 levels_sale_order.Status = self.Status
-                levels_sale_order.partner_id.Status = self.Status
+                # levels_sale_order.partner_id.Status = self.Status
                 
             if self.contact_type:
                 levels_sale_order.contact_type = self.contact_type
-                levels_sale_order.partner_id.contact_type = self.contact_type   
+                # levels_sale_order.partner_id.contact_type = self.contact_type   
 
     
 
