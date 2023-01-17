@@ -68,6 +68,9 @@
                     <group> 
                         <field name="level"/>
                         <field name="year"/>
+                        <field name="Status"/>
+                        <field name="contact_type"/>
+
                     </group>
                 </sheet>
                 <footer>
