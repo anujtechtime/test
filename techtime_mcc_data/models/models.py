@@ -70,6 +70,8 @@ class ContractmDateAccount(models.Model):
 
     compensation1 = fields.Float("Compensation One")
 
+    training_field = fields.Float("Training")
+
 
     married_with_house_wife = fields.Boolean("Married Male with house wife")
     married_with_working_wife = fields.Boolean("Married Male with working wife")
