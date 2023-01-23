@@ -109,40 +109,48 @@ class ContractmDateAccount(models.Model):
 
     @api.onchange('wage','compensation','social_security','married_with_house_wife','married_with_working_wife','married_with_non_working_husband','married_with_working_husband','single_male','male_female_with_children','divorced_male','sinle_female','divorced_female','if_age_is_above_63')
     def _inverse_wage(self):
-        if self.wage:
-            self.basic_salary = float(self.wage) * 0.77
-            self.compensation = float(self.wage) * 0.23
-            self.social_security = float(self.basic_salary) * 0.05
-
-
-            self.compensation1 = float(self.wage) * 0.23
-
-
-            if self.married_with_house_wife:
-                self.total_salary = self.social_security + self.compensation + 375000
-            if self.married_with_working_wife:
-                self.total_salary = self.social_security + self.compensation + 208333
-            if self.married_with_non_working_husband:
-                self.total_salary = self.social_security + self.compensation + 416666
-            if self.married_with_working_husband:
-                self.total_salary = self.social_security + self.compensation + 208333
-            if self.single_male:
-                self.total_salary = self.social_security + self.compensation + 208333
+        if self.wage:                                    # 2000000
+            self.basic_salary = float(self.wage) * 0.77  # 1540000
+            self.compensation = float(self.wage) * 0.23  # 460000
+            self.social_security = float(self.basic_salary) * 0.05 # 77000
+            self.compensation1 = float(self.wage) * 0.23 # 460000
+            if self.employ_type != 'option1':
+                if self.married_with_house_wife:
+                    self.total_salary = self.social_security + self.compensation + 375000  # 460000 + 375000 = 835000
+                if self.married_with_working_wife:
+                    self.total_salary = self.social_security + self.compensation + 208333
+                if self.married_with_non_working_husband:
+                    self.total_salary = self.social_security + self.compensation + 416666
+                if self.married_with_working_husband:
+                    self.total_salary = self.social_security + self.compensation + 208333
+                if self.single_male:
+                    self.total_salary = self.social_security + self.compensation + 208333
+            if self.employ_type == 'option1':
+                if self.married_with_house_wife:
+                    self.total_salary = self.compensation + 375000  # 460000 + 375000 = 835000
+                if self.married_with_working_wife:
+                    self.total_salary = self.compensation + 208333
+                if self.married_with_non_working_husband:
+                    self.total_salary = self.compensation + 416666
+                if self.married_with_working_husband:
+                    self.total_salary = self.compensation + 208333
+                if self.single_male:
+                    self.total_salary = self.compensation + 208333        
             if self.male_female_with_children:
-                self.total_salary = self.total_salary + self.male_female_with_children * 16666
+                self.total_salary = self.total_salary + self.male_female_with_children * 16666 # 835000 + 2 * 16666 = 868332
             if self.divorced_male:
-                self.total_salary = self.social_security + self.compensation + 208333
+                self.total_salary = self.total_salary + 208333 
 
             if self.divorced_female:
-                self.total_salary = self.social_security + self.compensation + 266666
+                self.total_salary = self.total_salary + 266666
             if self.if_age_is_above_63:
-                self.total_salary = self.social_security + self.compensation + 25000
+                self.total_salary = self.total_salary + 25000 # 868332 + 25000 = 893332
 
 
-            value_data = self.wage - self.total_salary
+            value_data = self.wage - self.total_salary # 2000000 - 893332 = 1106668
 
             if value_data > 1000000:
-                self.tota_before =  ((value_data - 83333) * 0.15) + 5833
+                self.tota_before =  ((value_data - 83333) * 0.15) + 5833  # ((1106668 - 83333) * 15% )+ 5833 = 159333.25
 
             if value_data > 500000 and value_data <= 1000000:
                 self.tota_before =  ((value_data - 41666) * 0.10) + 1666
