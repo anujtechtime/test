@@ -21,13 +21,13 @@
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='type']" position="after">
-            <field name="x_studio_sale_order_amount"/>
-            <field name="x_studio_quotation_amount"/>
-            <field name="x_studio_field_rtv0j"/>
-            <field name="x_studio_sale_order"/>
-            <field name="x_studio_field_JriwA"/>
-            <field name="x_studio_quotation_number"/>
-            <field name="x_studio_invoice_number"/>
+            <field name="x_studio_sale_order_amount" invisible="1"/>
+            <field name="x_studio_quotation_amount"  invisible="1"/>
+            <field name="x_studio_field_rtv0j"  invisible="1"/>
+            <field name="x_studio_sale_order"  invisible="1"/>
+            <field name="x_studio_field_JriwA"  invisible="1"/>
+            <field name="x_studio_quotation_number"  invisible="1"/>
+            <field name="x_studio_invoice_number"  invisible="1"/>
 
         </xpath>
       </field>
@@ -52,8 +52,8 @@
       <field name="inherit_id" ref="account.view_account_payment_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='partner_id']" position="after">
-            <field name="x_studio_field_T8oud"/>
-            <field name="x_studio_field_L1fZY"/>
+            <field name="x_studio_field_T8oud"  invisible="1"/>
+            <field name="x_studio_field_L1fZY"  invisible="1"/>
         </xpath>
       </field>
     </record>
@@ -66,12 +66,12 @@
       <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='recurring_interval']" position="after">
-            <field name="x_studio_field_bqn71"/>
-            <field name="x_studio_service_end_date"/>
-            <field name="x_studio_field_date_invoice"/>
-            <field name="x_studio_domain"/>
-            <field name="x_studio_field_adzFP"/>
-            <field name="x_studio_type"/>
+            <field name="x_studio_field_bqn71"  invisible="1"/>
+            <field name="x_studio_service_end_date" invisible="1"/>
+            <field name="x_studio_field_date_invoice" invisible="1"/>
+            <field name="x_studio_domain" invisible="1"/>
+            <field name="x_studio_field_adzFP" invisible="1"/>
+            <field name="x_studio_type" invisible="1"/>
 
         </xpath>
       </field>

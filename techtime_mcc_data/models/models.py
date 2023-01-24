@@ -147,7 +147,7 @@ class ContractmDateAccount(models.Model):
                 self.total_salary = self.total_salary + 25000 # 868332 + 25000 = 893332
 
 
-            value_data = self.wage - self.total_salary # 2000000 - 893332 = 1106668
+            value_data = self.wage - self.total_salary # 750000 - 593041 = 156959
 
             if value_data > 1000000:
                 self.tota_before =  ((value_data - 83333) * 0.15) + 5833  # ((1106668 - 83333) * 15% )+ 5833 = 159333.25
@@ -156,7 +156,10 @@ class ContractmDateAccount(models.Model):
                 self.tota_before =  ((value_data - 41666) * 0.10) + 1666
 
             if value_data > 250000 and value_data <= 500000:
-                self.tota_before =  ((value_data - 20833) * 0.05) + 625           
+                self.tota_before =  ((value_data - 20833) * 0.05) + 625   
+
+            if value_data > 0 and value_data <= 250000:
+                self.tota_before =  value_data * 0.03               
 
 
 
