@@ -113,9 +113,10 @@ class ContractmDateAccount(models.Model):
         if self.wage:                                    # 750000
             self.basic_salary = float(self.wage) * 0.77  # 577500
             self.compensation = float(self.wage) * 0.23  # 172500
-            self.social_security = float(self.basic_salary) * 0.05 # 37500
+            self.social_security = float(self.basic_salary) * 0.05 # 28875
             self.compensation1 = float(self.wage) * 0.23 # 172500
             if self.employ_type != 'option1':
+                self.total_salary = self.social_security + self.compensation
                 if self.married_with_house_wife:
                     self.total_salary = self.social_security + self.compensation + 375000  # 460000 + 375000 = 835000
                 if self.married_with_working_wife:
@@ -137,10 +138,11 @@ class ContractmDateAccount(models.Model):
                 
                 if self.if_age_is_above_63:
                     self.total_salary = self.total_salary + 25000 # 868332 + 25000 = 893332    
-                    
+
             if self.employ_type == 'option1':
+                self.total_salary = self.compensation
                 if self.married_with_house_wife:
-                    self.total_salary = self.compensation + 375000  # 172500 + 375000 = 547500
+                    self.total_salary = self.compensation + 375000
                 if self.married_with_working_wife:
                     self.total_salary = self.compensation + 208333
                 if self.married_with_non_working_husband:
@@ -150,16 +152,16 @@ class ContractmDateAccount(models.Model):
                 if self.single_male:
                     self.total_salary = self.compensation + 208333 
 
-                if self.male_female_with_children:
-                    self.total_salary = self.total_salary + self.male_female_with_children * 16666 # 835000 + 2 * 16666 = 868332    
+                if self.male_female_with_children: # 0 + 16666 = 16666
+                    self.total_salary = self.total_salary + self.male_female_with_children * 16666   
                 if self.divorced_male:
-                    self.total_salary = self.total_salary + 208333 # 
+                    self.total_salary = self.total_salary + 208333 # 16666 + 208333 = 224999
 
                 if self.divorced_female:
                     self.total_salary = self.total_salary + 266666
                 
                 if self.if_age_is_above_63:
-                    self.total_salary = self.total_salary + 25000 # 868332 + 25000 = 893332           
+                    self.total_salary = self.total_salary + 25000 # 224999 + 25000 = 249999           
             
             
             
