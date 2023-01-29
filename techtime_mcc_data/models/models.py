@@ -107,14 +107,14 @@ class ContractmDateAccount(models.Model):
 
 
 
-    @api.onchange('wage','compensation','social_security','married_with_house_wife','married_with_working_wife','married_with_non_working_husband','married_with_working_husband','single_male','male_female_with_children','divorced_male','sinle_female','divorced_female','if_age_is_above_63')
+    @api.onchange('wage','compensation','day_deduction','social_security','married_with_house_wife','married_with_working_wife','married_with_non_working_husband','married_with_working_husband','single_male','male_female_with_children','divorced_male','sinle_female','divorced_female','if_age_is_above_63')
     def _inverse_wage(self):
         self.total_salary = 0
         if self.wage:                                    # 750000
-            self.basic_salary = float(self.wage) * 0.77 - (((self.wage/30) * day_deduction) * 0.77)
-            self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * day_deduction) * 0.77)
+            self.basic_salary = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
+            self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             self.social_security = float(self.basic_salary) * 0.05 # 28875
-            self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * day_deduction) * 0.77)
+            self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             if self.employ_type != 'option1':
                 self.total_salary = self.social_security + self.compensation
                 if self.married_with_house_wife:
