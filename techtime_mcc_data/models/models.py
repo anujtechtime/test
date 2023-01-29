@@ -103,7 +103,7 @@ class ContractmDateAccount(models.Model):
     # tax_other = fields.Float("Tax Other")
     # traning = fields.Float("Traning")
     # allowance = fields.Float("Allowance")
-    # day_deduction = fields.Float("Day-Deduction")
+    day_deduction = fields.Float("Day-Deduction")
 
 
 
@@ -111,10 +111,10 @@ class ContractmDateAccount(models.Model):
     def _inverse_wage(self):
         self.total_salary = 0
         if self.wage:                                    # 750000
-            self.basic_salary = float(self.wage) * 0.77  # 577500
-            self.compensation = float(self.wage) * 0.23  # 172500
+            self.basic_salary = float(self.wage) * 0.77 - (((self.wage/30) * day_deduction) * 0.77)
+            self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * day_deduction) * 0.77)
             self.social_security = float(self.basic_salary) * 0.05 # 28875
-            self.compensation1 = float(self.wage) * 0.23 # 172500
+            self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * day_deduction) * 0.77)
             if self.employ_type != 'option1':
                 self.total_salary = self.social_security + self.compensation
                 if self.married_with_house_wife:

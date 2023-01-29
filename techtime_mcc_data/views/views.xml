@@ -47,6 +47,12 @@
             <field name="total_salary"/>
             <field name="tota_before"/>
         </xpath>
+
+        <xpath expr="//group[@name='salary_and_advantages']" position="after">
+            <group>
+            <field name="day_deduction"/>
+        </group>
+        </xpath>
       </field>
     </record>
 
