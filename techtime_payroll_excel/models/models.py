@@ -93,16 +93,17 @@ class techtime_payroll_excel(models.Model):
         worksheet.write(0, 8, 'Social Security', header_bold)
         worksheet.write(0, 9, 'TAX', header_bold)
         worksheet.write(0, 10, 'Day Deduction', header_bold)
+        worksheet.write(0, 11, 'Day Deduction (Amount)', header_bold)
 
 
-        worksheet.write(0, 11, 'Allowance', header_bold)
-        worksheet.write(0, 12, 'REDED', header_bold)
-        worksheet.write(0, 13, 'BASEDED', header_bold)
-        worksheet.write(0, 14, 'Total Deduction', header_bold)
+        worksheet.write(0, 12, 'Allowance', header_bold)
+        worksheet.write(0, 13, 'REDED', header_bold)
+        worksheet.write(0, 14, 'BASEDED', header_bold)
+        worksheet.write(0, 15, 'Total Deduction', header_bold)
 
 
 
-        worksheet.write(0, 15, 'Net Salary', header_bold)
+        worksheet.write(0, 16, 'Net Salary', header_bold)
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         for material_line_id in self:
             worksheet.write(row, 0, material_line_id.number or '')
@@ -127,20 +128,25 @@ class techtime_payroll_excel(models.Model):
                     worksheet.write(row, 9, iit.total or '')
                 if iit.code == "day2":    
                     worksheet.write(row, 10, iit.total or '')
+
+                if iit.code == "DDTA":    
+                    worksheet.write(row, 11, iit.total or '')    
+
+                    
                 if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
-                    worksheet.write(row, 11, iit.total or '')
+                    worksheet.write(row, 12, iit.total or '')
 
                 if iit.code == "REDED":    
-                    worksheet.write(row, 12, iit.total or '')
-                    
-                if iit.code == "BASEDED":    
                     worksheet.write(row, 13, iit.total or '')
                     
-                if iit.code == "TTD":    
+                if iit.code == "BASEDED":    
                     worksheet.write(row, 14, iit.total or '')
                     
-                if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
+                if iit.code == "TTD":    
                     worksheet.write(row, 15, iit.total or '')
+                    
+                if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
+                    worksheet.write(row, 16, iit.total or '')
             row += 1
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
