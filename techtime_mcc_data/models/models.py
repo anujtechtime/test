@@ -197,6 +197,8 @@ class ContraPayslipDateAccount(models.Model):
 
     description = fields.Html("Description")
 
+    department = fields.Many2one("hr.department", related="employee_id.department_id", store=True)
+
 
 
 

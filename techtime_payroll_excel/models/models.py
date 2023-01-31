@@ -42,7 +42,6 @@ class techtime_payroll_excel(models.Model):
 
 
     def send_mis_report(self):
-        print("self@@@@@@@@@@@@@@",self)
         filename = 'Payslip.xls'
         string = 'Payslip_report.xls'
         wb = xlwt.Workbook(encoding='utf-8')
@@ -62,7 +61,6 @@ class techtime_payroll_excel(models.Model):
         worksheet.row(0).height = 500
         worksheet.write(0, 0, 'Reference', border_color_2)
         worksheet.write(0, 1, 'Payslip Name', border_color_2)
-
         worksheet.write(0, 2, 'Employe Name-اسم     الموظف', border_color_2)
         worksheet.write(0, 3, 'Jop ID-الوظيفة', header_bold)
         worksheet.write(0, 4, 'Basic -الراتب الاسميUSD', header_bold)
@@ -79,7 +77,6 @@ class techtime_payroll_excel(models.Model):
         for material_line_id in self:
             worksheet.write(row, 0, material_line_id.number or '')
             worksheet.write(row, 1, material_line_id.name or '')
-
             worksheet.write(row, 2, material_line_id.employee_id.name or '')
             worksheet.write(row, 3, material_line_id.employee_id.job_id.name or '')
             if material_line_id.contract_id.currency_id.id == 2:
@@ -125,7 +122,7 @@ class techtime_payroll_excel(models.Model):
         # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
         # with open(file_added, "wb") as binary_file:
         #     binary_file.write(xlDecoded)
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         download_url = '/web/content/' + str(ir_id.id) + '?download=true'
         return {
             "type": "ir.actions.act_url",
@@ -135,6 +132,7 @@ class techtime_payroll_excel(models.Model):
 
         # df = pd.export_excel (r'/home/anuj/Desktop/workspace13/payslip_report.xlsx')
         # print (df)              
+
 
 class PayrollExcel(models.Model):
     _inherit = 'hr.payslip.run'
@@ -224,7 +222,7 @@ class PayrollExcel(models.Model):
         # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
         # with open(file_added, "wb") as binary_file:
         #     binary_file.write(xlDecoded)
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         download_url = '/web/content/' + str(ir_id.id) + '?download=true'
         return {
             "type": "ir.actions.act_url",
@@ -232,3 +230,4 @@ class PayrollExcel(models.Model):
             "target": "new",
         }    
 
+        

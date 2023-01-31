@@ -79,9 +79,31 @@
       <field name="inherit_id" ref="payroll.hr_payslip_view_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='credit_note']" position="after">
+            <field name="department"/>
             <field name="description"/>
         </xpath>
       </field>
+    </record>
+
+
+
+    <record id="hr_payslip_view_search_inherit_data" model="ir.ui.view">
+        <field name="name">hr.payslip.select</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="payroll.hr_payslip_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="department" />
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter
+                        string="Department"
+                        name="department"
+                        context="{'group_by':'department'}"
+                    />
+            </xpath>
+        </field>
     </record>
 
 <!--         <report

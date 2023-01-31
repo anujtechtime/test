@@ -1,16 +1,15 @@
 <odoo>
   <data>
        <record id="act_hr_employee_holiday_request_payrool" model="ir.actions.server">
-        <field name="name">Time off Analysis</field>
+        <field name="name">Payroll Excel sheet</field>
         <field name="model_id" ref="payroll.model_hr_payslip"/>
         <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
         <field name="state">code</field>
         <field name="code">
-            if records:
-                action = records.send_mis_report()
+        if records:
+          action = records.send_mis_report()
         </field>
     </record>
-
 
     <record id="ir_actions_server_sale_cart_recovery_email_payroll" model="ir.actions.server">
         <field name="name">Payslip excel</field>
@@ -24,6 +23,8 @@
         <field name="binding_model_id" ref="payroll.model_hr_payslip_run"/>
         <field name="binding_view_types">list,form</field>
     </record>
+
+
 
   </data>
 </odoo>
