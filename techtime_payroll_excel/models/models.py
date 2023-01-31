@@ -89,7 +89,7 @@ class techtime_payroll_excel(models.Model):
             worksheet.write(row, 1, material_line_id.name or '')
 
             worksheet.write(row, 2, material_line_id.employee_id.name or '')
-            worksheet.write(row, 3, material_line_id.employee_id.job_id.name or '')
+            worksheet.write(row, 3, material_line_id.description or '')
             if material_line_id.contract_id.currency_id.id == 2:
                 worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
 
