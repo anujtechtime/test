@@ -117,6 +117,18 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(call, 14, 'صافي الراتب', header_bold) # Net Salary
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
+            total_basic = 0 
+            total_wage_data = 0
+            compensation_data = 0
+            tax_data = 0
+            day_deduction_data = 0
+            day_deduction_amount_data = 0
+            socailsecurity_data = 0
+            allowance_data = 0
+            reded = 0
+            basded = 0
+            total_ded_data = 0
+            net_saled_data = 0
             for material_line_id in rested:
                 worksheet.write(row, 0, material_line_id.number or '')
                 # worksheet.write(row, 1, material_line_id.name or '')
@@ -128,15 +140,7 @@ class techtime_payroll_excel(models.Model):
 
                 # if material_line_id.contract_id.currency_id.id == 90:
                 worksheet.write(row, 3, "{:,.2f}".format(float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field)) + "ع.د" or '')
-                total_basic = 0 
-                compensation_data = 0
-                tax_data = 0
-                day_deduction_data = 0
-                day_deduction_amount_data = 0
-                allowance_data = 0
-                reded = 0
-                basded = 0
-                total_ded_data = 0
+                total_wage_data = total_wage_data + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
                 for iit in material_line_id.line_ids:
                     if iit.code == "BSCC":
                         worksheet.write(row, 4, "{:,.2f}".format(float(iit.total)) or '')
@@ -181,6 +185,28 @@ class techtime_payroll_excel(models.Model):
                         worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '')
                         net_saled_data = net_saled_data + iit.total
                 row += 1
+                
+            worksheet.write(row, 3, total_wage_data) # wage
+
+            worksheet.write(row, 4, total_basic) #basic salary
+
+
+            # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+            worksheet.write(row, 5, compensation_data) #compensation
+
+            # worksheet.write(call, 7, 'Basic', header_bold)
+            worksheet.write(row, 6, socailsecurity_data) #socaial security
+            worksheet.write(row, 7, tax_data) #tax
+            worksheet.write(row, 8, day_deduction_data) #day deduction
+            worksheet.write(row, 9, day_deduction_amount_data) #day deduction amount
+
+
+            worksheet.write(row, 10, allowance_data) #allowance
+            worksheet.write(row, 11, reded) #REDED
+            worksheet.write(row, 12, basded) #BASDED
+            worksheet.write(row, 13, total_ded_data) #total deduction
+
+            worksheet.write(row, 14, net_saled_data) # Net Salary
             call = row + 2 
             row += 3   
         fp = io.BytesIO()
