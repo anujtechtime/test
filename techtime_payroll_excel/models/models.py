@@ -87,7 +87,7 @@ class techtime_payroll_excel(models.Model):
         call = 1
         for dep in  department_data:
             rested = self.env['hr.payslip'].search([('department','=',dep.id)])
-            worksheet.write(call - 1, 0, 'Department', dep.name)
+            worksheet.write(call - 1, 0, dep.name, border_color_2)
 
             worksheet.write(call, 0, 'Reference', border_color_2)
             # worksheet.write(call, 1, 'Payslip Name', border_color_2)
