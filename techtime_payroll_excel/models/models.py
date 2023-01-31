@@ -124,38 +124,38 @@ class techtime_payroll_excel(models.Model):
                 #     worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
 
                 # if material_line_id.contract_id.currency_id.id == 90:
-                worksheet.write(row, 3, str(material_line_id.contract_id.wage) + "ع.د" or '')
+                worksheet.write(row, 3, "{:,.2f}".format(float(material_line_id.contract_id.wage)) + "ع.د" or '')
 
                 for iit in material_line_id.line_ids:
                     if iit.code == "CMPS":
-                        worksheet.write(row, 4, iit.total or '')
+                        worksheet.write(row, 4, "{:,.2f}".format(float(iit.total)) or '')
                     # if iit.code == "WAG":    
                     #     worksheet.write(row, 7, iit.total or '')
                     if iit.code == "SST":    
-                        worksheet.write(row, 5, iit.total or '')
+                        worksheet.write(row, 5, "{:,.2f}".format(float(iit.total)) or '')
                     if iit.code == "TAX":
-                        worksheet.write(row, 6, iit.total or '')
+                        worksheet.write(row, 6, "{:,.2f}".format(float(iit.total)) or '')
                     if iit.code == "day2":    
-                        worksheet.write(row, 7, iit.total or '')
+                        worksheet.write(row, 7, "{:,.2f}".format(float(iit.total)) or '')
 
                     if iit.code == "DDTA":    
-                        worksheet.write(row, 8, iit.total or '')    
+                        worksheet.write(row, 8, "{:,.2f}".format(float(iit.total)) or '')    
 
                         
                     if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
-                        worksheet.write(row, 9, iit.total or '')
+                        worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '')
 
                     if iit.code == "REDED":    
-                        worksheet.write(row, 10, iit.total or '')
+                        worksheet.write(row, 10, "{:,.2f}".format(float(iit.total)) or '')
                         
                     if iit.code == "BASDED":    
-                        worksheet.write(row, 11, iit.total or '')
+                        worksheet.write(row, 11, "{:,.2f}".format(float(iit.total)) or '')
                         
                     if iit.code == "TTD":    
-                        worksheet.write(row, 12, iit.total or '')
+                        worksheet.write(row, 12, "{:,.2f}".format(float(iit.total)) or '')
                         
                     if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
-                        worksheet.write(row, 13, iit.total or '')
+                        worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '')
                 row += 1
             call = row + 2 
             row += 3   
