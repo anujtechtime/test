@@ -86,7 +86,8 @@ class techtime_payroll_excel(models.Model):
         department_data = self.env["hr.department"].search([])
         call = 1
         for dep in  department_data:
-            worksheet.write(call - 1, 0, 'Department', border_color_2)
+            rested = self.env['hr.payslip'].search([('department','=',dep.id)])
+            worksheet.write(call - 1, 0, 'Department', dep.name)
 
             worksheet.write(call, 0, 'Reference', border_color_2)
             # worksheet.write(call, 1, 'Payslip Name', border_color_2)
@@ -113,7 +114,7 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(call, 13, 'Net Salary', header_bold)
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
-            for material_line_id in self:
+            for material_line_id in rested:
                 worksheet.write(row, 0, material_line_id.number or '')
                 # worksheet.write(row, 1, material_line_id.name or '')
 
