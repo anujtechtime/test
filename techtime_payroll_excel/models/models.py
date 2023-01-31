@@ -83,7 +83,7 @@ class techtime_payroll_excel(models.Model):
                 worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
 
             if material_line_id.contract_id.currency_id.id == 90:
-                worksheet.write(row, 5, str(material_line_id.phone1) + "ع.د" or '')
+                worksheet.write(row, 5, str(material_line_id.contract_id.wage) + "ع.د" or '')
 
             for iit in material_line_id.line_ids:
                 if iit.code == "INC":
@@ -183,7 +183,7 @@ class PayrollExcel(models.Model):
                 worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
 
             if material_line_id.contract_id.currency_id.id == 90:
-                worksheet.write(row, 5, str(material_line_id.phone1) + "ع.د" or '')
+                worksheet.write(row, 5, str(material_line_id.contract_id.wage) + "ع.د" or '')
 
             for iit in material_line_id.line_ids:
                 if iit.code == "INC":
