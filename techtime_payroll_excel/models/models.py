@@ -89,30 +89,30 @@ class techtime_payroll_excel(models.Model):
             rested = self.env['hr.payslip'].search([('department','=',dep.id)])
             worksheet.write(call - 1, 0, dep.name, border_color_2)
 
-            worksheet.write(call, 0, 'Reference', border_color_2)
+            worksheet.write(call, 0, 'رقم القصاصة', border_color_2)
             # worksheet.write(call, 1, 'Payslip Name', border_color_2)
 
-            worksheet.write(call, 1, 'Employe Name-اسم     الموظف', border_color_2)
-            worksheet.write(call, 2, 'Description', header_bold)
+            worksheet.write(call, 1, 'اسم الموظف', border_color_2)
+            worksheet.write(call, 2, 'التفاصيل', header_bold)
             # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(call, 3, 'Wage -الراتب الاسميIQD', header_bold)
+            worksheet.write(call, 3, 'الراتب الاسمي', header_bold)
 
-            worksheet.write(call, 4, 'Compensation', header_bold)
+            worksheet.write(call, 4, 'التعويضية', header_bold)
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(call, 5, 'Social Security', header_bold)
-            worksheet.write(call, 6, 'TAX', header_bold)
-            worksheet.write(call, 7, 'Day Deduction', header_bold)
-            worksheet.write(call, 8, 'Day Deduction (Amount)', header_bold)
+            worksheet.write(call, 5, 'الضمان الاجتماعي', header_bold)
+            worksheet.write(call, 6, 'الضريبة', header_bold)
+            worksheet.write(call, 7, 'عدد الايام المستقطعة', header_bold)
+            worksheet.write(call, 8, 'مبلغ الايام المستقطعة', header_bold)
 
 
-            worksheet.write(call, 9, 'Allowance', header_bold)
-            worksheet.write(call, 10, 'REDED', header_bold)
-            worksheet.write(call, 11, 'BASEDED', header_bold)
-            worksheet.write(call, 12, 'Total Deduction', header_bold)
+            worksheet.write(call, 9, 'التدريب والتأهيل', header_bold)
+            worksheet.write(call, 10, 'استقطاع التقاعد', header_bold)
+            worksheet.write(call, 11, 'استقطاعات جامعة البصرة ل I2', header_bold)
+            worksheet.write(call, 12, 'مجموع الاستقطاعات', header_bold)
 
 
 
-            worksheet.write(call, 13, 'Net Salary', header_bold)
+            worksheet.write(call, 13, 'صافي الراتب', header_bold)
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
             for material_line_id in rested:
                 worksheet.write(row, 0, material_line_id.number or '')
