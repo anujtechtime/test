@@ -185,28 +185,28 @@ class techtime_payroll_excel(models.Model):
                         worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '')
                         net_saled_data = net_saled_data + iit.total
                 row += 1
-                
-            worksheet.write(row, 3, total_wage_data) # wage
 
-            worksheet.write(row, 4, total_basic) #basic salary
+            worksheet.write(row, 3, "{:,.2f}".format(total_wage_data)) # wage
+
+            worksheet.write(row, 4, "{:,.2f}".format(total_basic)) #basic salary
 
 
             # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(row, 5, compensation_data) #compensation
+            worksheet.write(row, 5, "{:,.2f}".format(compensation_data)) #compensation
 
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(row, 6, socailsecurity_data) #socaial security
-            worksheet.write(row, 7, tax_data) #tax
-            worksheet.write(row, 8, day_deduction_data) #day deduction
-            worksheet.write(row, 9, day_deduction_amount_data) #day deduction amount
+            worksheet.write(row, 6, "{:,.2f}".format(socailsecurity_data)) #socaial security
+            worksheet.write(row, 7, "{:,.2f}".format(tax_data)) #tax
+            worksheet.write(row, 8, "{:,.2f}".format(day_deduction_data)) #day deduction
+            worksheet.write(row, 9, "{:,.2f}".format(day_deduction_amount_data)) #day deduction amount
 
 
-            worksheet.write(row, 10, allowance_data) #allowance
-            worksheet.write(row, 11, reded) #REDED
-            worksheet.write(row, 12, basded) #BASDED
-            worksheet.write(row, 13, total_ded_data) #total deduction
+            worksheet.write(row, 10, "{:,.2f}".format(allowance_data)) #allowance
+            worksheet.write(row, 11, "{:,.2f}".format(reded)) #REDED
+            worksheet.write(row, 12, "{:,.2f}".format(basded)) #BASDED
+            worksheet.write(row, 13, "{:,.2f}".format(total_ded_data)) #total deduction
 
-            worksheet.write(row, 14, net_saled_data) # Net Salary
+            worksheet.write(row, 14, "{:,.2f}".format(net_saled_data)) # Net Salary
             call = row + 2 
             row += 3   
         fp = io.BytesIO()
