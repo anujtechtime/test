@@ -148,13 +148,13 @@ class techtime_payroll_excel(models.Model):
                     if iit.code == "REDED":    
                         worksheet.write(row, 10, iit.total or '')
                         
-                    if iit.code == "BASEDED":    
+                    if iit.code == "BASDED":    
                         worksheet.write(row, 11, iit.total or '')
                         
                     if iit.code == "TTD":    
                         worksheet.write(row, 12, iit.total or '')
                         
-                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
+                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA" or  or iit.code == "NTTS":    
                         worksheet.write(row, 13, iit.total or '')
                 row += 1
             call = row + 2 
