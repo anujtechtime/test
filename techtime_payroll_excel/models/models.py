@@ -154,7 +154,7 @@ class techtime_payroll_excel(models.Model):
                     if iit.code == "TTD":    
                         worksheet.write(row, 12, iit.total or '')
                         
-                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA" or  or iit.code == "NTTS":    
+                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA" or iit.code == "NTTS":    
                         worksheet.write(row, 13, iit.total or '')
                 row += 1
             call = row + 2 
