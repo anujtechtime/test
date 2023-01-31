@@ -89,30 +89,33 @@ class techtime_payroll_excel(models.Model):
             rested = self.env['hr.payslip'].search([('department','=',dep.id)])
             worksheet.write(call - 1, 0, dep.name, border_color_2)
 
-            worksheet.write(call, 0, 'رقم القصاصة', border_color_2)
+            worksheet.write(call, 0, 'رقم القصاصة', border_color_2)  # refernce 
             # worksheet.write(call, 1, 'Payslip Name', border_color_2)
 
-            worksheet.write(call, 1, 'اسم الموظف', border_color_2)
-            worksheet.write(call, 2, 'التفاصيل', header_bold)
+            worksheet.write(call, 1, 'اسم الموظف', border_color_2) # employee
+            worksheet.write(call, 2, 'التفاصيل', header_bold) # description
+
+            worksheet.write(call, 3, 'الراتب الكلي', header_bold) # wage
+
+            worksheet.write(call, 4, 'الراتب الاسمي', header_bold) #basic salary
+
+
             # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(call, 3, 'الراتب الاسمي', header_bold)
+            worksheet.write(call, 5, 'التعويضية', header_bold) #compensation
 
-            worksheet.write(call, 4, 'التعويضية', header_bold)
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(call, 5, 'الضمان الاجتماعي', header_bold)
-            worksheet.write(call, 6, 'الضريبة', header_bold)
-            worksheet.write(call, 7, 'عدد الايام المستقطعة', header_bold)
-            worksheet.write(call, 8, 'مبلغ الايام المستقطعة', header_bold)
+            worksheet.write(call, 6, 'الضمان الاجتماعي', header_bold) #socaial security
+            worksheet.write(call, 7, 'الضريبة', header_bold) #tax
+            worksheet.write(call, 8, 'عدد الايام المستقطعة', header_bold) #day deduction
+            worksheet.write(call, 9, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
 
 
-            worksheet.write(call, 9, 'التدريب والتأهيل', header_bold)
-            worksheet.write(call, 10, 'استقطاع التقاعد', header_bold)
-            worksheet.write(call, 11, 'استقطاعات جامعة البصرة ل I2', header_bold)
-            worksheet.write(call, 12, 'مجموع الاستقطاعات', header_bold)
+            worksheet.write(call, 10, 'التدريب والتأهيل', header_bold) #allowance
+            worksheet.write(call, 11, 'استقطاع التقاعد', header_bold) #REDED
+            worksheet.write(call, 12, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
+            worksheet.write(call, 13, 'مجموع الاستقطاعات', header_bold) #total deduction
 
-
-
-            worksheet.write(call, 13, 'صافي الراتب', header_bold)
+            worksheet.write(call, 14, 'صافي الراتب', header_bold) # Net Salary
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
             for material_line_id in rested:
                 worksheet.write(row, 0, material_line_id.number or '')
@@ -127,35 +130,37 @@ class techtime_payroll_excel(models.Model):
                 worksheet.write(row, 3, "{:,.2f}".format(float(material_line_id.contract_id.wage)) + "ع.د" or '')
 
                 for iit in material_line_id.line_ids:
-                    if iit.code == "CMPS":
+                    if iit.code == "BSCC":
                         worksheet.write(row, 4, "{:,.2f}".format(float(iit.total)) or '')
+                    if iit.code == "CMPS":
+                        worksheet.write(row, 5, "{:,.2f}".format(float(iit.total)) or '')
                     # if iit.code == "WAG":    
                     #     worksheet.write(row, 7, iit.total or '')
                     if iit.code == "SST":    
-                        worksheet.write(row, 5, "{:,.2f}".format(float(iit.total)) or '')
-                    if iit.code == "TAX":
                         worksheet.write(row, 6, "{:,.2f}".format(float(iit.total)) or '')
-                    if iit.code == "day2":    
+                    if iit.code == "TAX":
                         worksheet.write(row, 7, "{:,.2f}".format(float(iit.total)) or '')
+                    if iit.code == "day2":    
+                        worksheet.write(row, 8, "{:,.2f}".format(float(iit.total)) or '')
 
                     if iit.code == "DDTA":    
-                        worksheet.write(row, 8, "{:,.2f}".format(float(iit.total)) or '')    
+                        worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '')    
 
                         
                     if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
-                        worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 10, "{:,.2f}".format(float(iit.total)) or '')
 
                     if iit.code == "REDED":    
-                        worksheet.write(row, 10, "{:,.2f}".format(float(iit.total)) or '')
-                        
-                    if iit.code == "BASDED":    
                         worksheet.write(row, 11, "{:,.2f}".format(float(iit.total)) or '')
                         
-                    if iit.code == "TTD":    
+                    if iit.code == "BASDED":    
                         worksheet.write(row, 12, "{:,.2f}".format(float(iit.total)) or '')
                         
-                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
+                    if iit.code == "TTD":    
                         worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '')
+                        
+                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
+                        worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '')
                 row += 1
             call = row + 2 
             row += 3   

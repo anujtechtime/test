@@ -86,13 +86,13 @@
       <field name="inherit_id" ref="base.view_users_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='email']" position="after">
-            <field name="x_studio_quotation_number"/>
-            <field name="x_studio_invoice_number"/>
-            <field name="x_studio_sale_order_amount"/>
-            <field name="x_studio_sale_order"/>
-            <field name="x_studio_field_rtv0j"/>
-            <field name="x_studio_quotation_amount"/>
-            <field name="x_studio_field_JriwA"/>
+            <field name="x_studio_quotation_number"  invisible="1"/>
+            <field name="x_studio_invoice_number" invisible="1"/>
+            <field name="x_studio_sale_order_amount" invisible="1"/>
+            <field name="x_studio_sale_order" invisible="1"/>
+            <field name="x_studio_field_rtv0j" invisible="1"/>
+            <field name="x_studio_quotation_amount" invisible="1"/>
+            <field name="x_studio_field_JriwA" invisible="1"/>
             <!-- <field name="x_studio_field_j0N6b"/> -->
 
 
