@@ -161,17 +161,26 @@ class PayrollExcel(models.Model):
         worksheet.write(0, 1, 'Payslip Name', border_color_2)
 
         worksheet.write(0, 2, 'Employe Name-اسم     الموظف', border_color_2)
-        worksheet.write(0, 3, 'Jop ID-الوظيفة', header_bold)
-        worksheet.write(0, 4, 'Basic -الراتب الاسميUSD', header_bold)
-        worksheet.write(0, 5, 'Basic -الراتب الاسميIQD', header_bold)
-        worksheet.write(0, 6, 'Incentives-الحوافز', header_bold)
-        worksheet.write(0, 7, 'bonus-المكافات', header_bold)
-        worksheet.write(0, 8, 'DEDUCTION-العقوبات', header_bold)
+        worksheet.write(0, 3, 'Description', header_bold)
+        worksheet.write(0, 4, 'Wage -الراتب الاسميUSD', header_bold)
+        worksheet.write(0, 5, 'Wage -الراتب الاسميIQD', header_bold)
+
+        worksheet.write(0, 6, 'Basic Salary', header_bold)
+        worksheet.write(0, 7, 'Compensation', header_bold)
+        worksheet.write(0, 8, 'Basic', header_bold)
         worksheet.write(0, 9, 'Social Security', header_bold)
-        worksheet.write(0, 10, 'Deduction Amount', header_bold)
-        worksheet.write(0, 11, 'over time', header_bold)
-        worksheet.write(0, 12, 'Net IQD', header_bold)
-        worksheet.write(0, 13, 'Net USD', header_bold)
+        worksheet.write(0, 10, 'TAX', header_bold)
+        worksheet.write(0, 11, 'Day Deduction', header_bold)
+
+
+        worksheet.write(0, 12, 'Allowance', header_bold)
+        worksheet.write(0, 13, 'REDED', header_bold)
+        worksheet.write(0, 14, 'BASEDED', header_bold)
+        worksheet.write(0, 15, 'Total Deduction', header_bold)
+
+
+
+        worksheet.write(0, 16, 'Net Salary', header_bold)
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         for material_line_id in self.slip_ids:
             worksheet.write(row, 0, material_line_id.number or '')
@@ -186,22 +195,31 @@ class PayrollExcel(models.Model):
                 worksheet.write(row, 5, str(material_line_id.contract_id.wage) + "ع.د" or '')
 
             for iit in material_line_id.line_ids:
-                if iit.code == "INC":
+                if iit.code == "CMPS":
                     worksheet.write(row, 6, iit.total or '')
-                if iit.code == "BONUS":
+                if iit.code == "WAG":    
                     worksheet.write(row, 7, iit.total or '')
-                if iit.code == "DEDUCTION":    
+                if iit.code == "SST":    
                     worksheet.write(row, 8, iit.total or '')
-                if iit.code == "SOCIAL":    
+                if iit.code == "TAX":
                     worksheet.write(row, 9, iit.total or '')
-                if iit.code == "DEDUCTIONAMOUNT":
+                if iit.code == "day2":    
                     worksheet.write(row, 10, iit.total or '')
-                if iit.code == "OVERTIME":    
+                if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
                     worksheet.write(row, 11, iit.total or '')
-                if iit.code == "NET":    
+
+                if iit.code == "REDED":    
                     worksheet.write(row, 12, iit.total or '')
-                if iit.code == "NETUSD":    
+                    
+                if iit.code == "BASEDED":    
                     worksheet.write(row, 13, iit.total or '')
+                    
+                if iit.code == "TTD":    
+                    worksheet.write(row, 14, iit.total or '')
+                    
+
+                if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
+                    worksheet.write(row, 15, iit.total or '')
             row += 1
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
