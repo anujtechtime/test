@@ -111,7 +111,7 @@ class techtime_payroll_excel(models.Model):
 
 
 
-            worksheet.write(0, 13, 'Net Salary', header_bold)
+            worksheet.write(call, 13, 'Net Salary', header_bold)
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
             for material_line_id in self:
                 worksheet.write(row, 0, material_line_id.number or '')
