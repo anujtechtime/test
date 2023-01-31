@@ -73,7 +73,7 @@ class techtime_payroll_excel(models.Model):
         cell_format = xlwt.easyxf()
         filename = 'Payslip_Report_%s.xls' % date.today()
         rested = self.env['hr.payslip'].search([])
-        row = 1
+        row = 2
         border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
@@ -82,74 +82,82 @@ class techtime_payroll_excel(models.Model):
         worksheet.col(1).width = 15000
         worksheet.col(2).width = 10000
         worksheet.row(0).height = 500
-        worksheet.write(0, 0, 'Reference', border_color_2)
-        worksheet.write(0, 1, 'Payslip Name', border_color_2)
 
-        worksheet.write(0, 2, 'Employe Name-اسم     الموظف', border_color_2)
-        worksheet.write(0, 3, 'Description', header_bold)
-        worksheet.write(0, 4, 'Wage -الراتب الاسميUSD', header_bold)
-        worksheet.write(0, 5, 'Wage -الراتب الاسميIQD', header_bold)
+        department_data = self.env["hr.department"].search([])
+        call = 1
+        for dep in  department_data:
+            worksheet.write(call - 1, 0, 'Department', border_color_2)
 
-        worksheet.write(0, 6, 'Compensation', header_bold)
-        worksheet.write(0, 7, 'Basic', header_bold)
-        worksheet.write(0, 8, 'Social Security', header_bold)
-        worksheet.write(0, 9, 'TAX', header_bold)
-        worksheet.write(0, 10, 'Day Deduction', header_bold)
-        worksheet.write(0, 11, 'Day Deduction (Amount)', header_bold)
+            worksheet.write(call, 0, 'Reference', border_color_2)
+            # worksheet.write(call, 1, 'Payslip Name', border_color_2)
+
+            worksheet.write(call, 1, 'Employe Name-اسم     الموظف', border_color_2)
+            worksheet.write(call, 2, 'Description', header_bold)
+            # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+            worksheet.write(call, 3, 'Wage -الراتب الاسميIQD', header_bold)
+
+            worksheet.write(call, 4, 'Compensation', header_bold)
+            # worksheet.write(call, 7, 'Basic', header_bold)
+            worksheet.write(call, 5, 'Social Security', header_bold)
+            worksheet.write(call, 6, 'TAX', header_bold)
+            worksheet.write(call, 7, 'Day Deduction', header_bold)
+            worksheet.write(call, 8, 'Day Deduction (Amount)', header_bold)
 
 
-        worksheet.write(0, 12, 'Allowance', header_bold)
-        worksheet.write(0, 13, 'REDED', header_bold)
-        worksheet.write(0, 14, 'BASEDED', header_bold)
-        worksheet.write(0, 15, 'Total Deduction', header_bold)
+            worksheet.write(call, 9, 'Allowance', header_bold)
+            worksheet.write(call, 10, 'REDED', header_bold)
+            worksheet.write(call, 11, 'BASEDED', header_bold)
+            worksheet.write(call, 12, 'Total Deduction', header_bold)
 
 
 
-        worksheet.write(0, 16, 'Net Salary', header_bold)
-        # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
-        for material_line_id in self:
-            worksheet.write(row, 0, material_line_id.number or '')
-            worksheet.write(row, 1, material_line_id.name or '')
+            worksheet.write(0, 13, 'Net Salary', header_bold)
+            # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
+            for material_line_id in self:
+                worksheet.write(row, 0, material_line_id.number or '')
+                # worksheet.write(row, 1, material_line_id.name or '')
 
-            worksheet.write(row, 2, material_line_id.employee_id.name or '')
-            worksheet.write(row, 3, re.sub('<[^>]*>', '', material_line_id.description) or '')
-            if material_line_id.contract_id.currency_id.id == 2:
-                worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
+                worksheet.write(row, 1, material_line_id.employee_id.name or '')
+                worksheet.write(row, 2, re.sub('<[^>]*>', '', material_line_id.description) or '')
+                # if material_line_id.contract_id.currency_id.id == 2:
+                #     worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '')
 
-            if material_line_id.contract_id.currency_id.id == 90:
-                worksheet.write(row, 5, str(material_line_id.contract_id.wage) + "ع.د" or '')
+                # if material_line_id.contract_id.currency_id.id == 90:
+                worksheet.write(row, 3, str(material_line_id.contract_id.wage) + "ع.د" or '')
 
-            for iit in material_line_id.line_ids:
-                if iit.code == "CMPS":
-                    worksheet.write(row, 6, iit.total or '')
-                if iit.code == "WAG":    
-                    worksheet.write(row, 7, iit.total or '')
-                if iit.code == "SST":    
-                    worksheet.write(row, 8, iit.total or '')
-                if iit.code == "TAX":
-                    worksheet.write(row, 9, iit.total or '')
-                if iit.code == "day2":    
-                    worksheet.write(row, 10, iit.total or '')
+                for iit in material_line_id.line_ids:
+                    if iit.code == "CMPS":
+                        worksheet.write(row, 4, iit.total or '')
+                    # if iit.code == "WAG":    
+                    #     worksheet.write(row, 7, iit.total or '')
+                    if iit.code == "SST":    
+                        worksheet.write(row, 5, iit.total or '')
+                    if iit.code == "TAX":
+                        worksheet.write(row, 6, iit.total or '')
+                    if iit.code == "day2":    
+                        worksheet.write(row, 7, iit.total or '')
 
-                if iit.code == "DDTA":    
-                    worksheet.write(row, 11, iit.total or '')    
+                    if iit.code == "DDTA":    
+                        worksheet.write(row, 8, iit.total or '')    
 
-                    
-                if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
-                    worksheet.write(row, 12, iit.total or '')
+                        
+                    if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA":    
+                        worksheet.write(row, 9, iit.total or '')
 
-                if iit.code == "REDED":    
-                    worksheet.write(row, 13, iit.total or '')
-                    
-                if iit.code == "BASEDED":    
-                    worksheet.write(row, 14, iit.total or '')
-                    
-                if iit.code == "TTD":    
-                    worksheet.write(row, 15, iit.total or '')
-                    
-                if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
-                    worksheet.write(row, 16, iit.total or '')
-            row += 1
+                    if iit.code == "REDED":    
+                        worksheet.write(row, 10, iit.total or '')
+                        
+                    if iit.code == "BASEDED":    
+                        worksheet.write(row, 11, iit.total or '')
+                        
+                    if iit.code == "TTD":    
+                        worksheet.write(row, 12, iit.total or '')
+                        
+                    if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "AEAA":    
+                        worksheet.write(row, 13, iit.total or '')
+                row += 1
+            call = row + 2 
+            row += 3   
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
