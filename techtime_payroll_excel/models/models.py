@@ -184,9 +184,10 @@ class techtime_payroll_excel(models.Model):
                         allowance_data = allowance_data + iit.total
                         total_all_ent = iit.total
 
-                    total_entitlements =  total_ent + total_comp_ent + total_all_ent
-                    worksheet.write(row, 9, "{:,.2f}".format(float(total_entitlements)) or '')
-                    total_entitlements_data = total_entitlements_data + total_entitlements
+                    if total_ent > 0 and total_comp_ent > 0:
+                        total_entitlements =  total_ent + total_comp_ent + total_all_ent
+                        worksheet.write(row, 9, "{:,.2f}".format(float(total_entitlements)) or '')
+                        total_entitlements_data = total_entitlements_data + total_entitlements
                             
                     # if iit.code == "WAG":    
                     #     worksheet.write(row, 7, iit.total or '')
