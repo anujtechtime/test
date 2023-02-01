@@ -108,22 +108,25 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(call, 8, 'التدريب والتأهيل', header_bold) #allowance
 
-            worksheet.write(call, 9, 'مجموع الاستحقاقات', header_bold) #allowance
+            worksheet.write(call, 9, 'مكافأت غير العاملين', header_bold) #allowance
+            worksheet.write(call, 10, 'الاعانات', header_bold) #allowance
+
+            worksheet.write(call, 11, 'مجموع الاستحقاقات', header_bold) #allowance
 
             
 
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(call, 10, 'الضمان الاجتماعي', header_bold) #socaial security
-            worksheet.write(call, 11, 'الضريبة', header_bold) #tax
+            worksheet.write(call, 12, 'الضمان الاجتماعي', header_bold) #socaial security
+            worksheet.write(call, 13, 'الضريبة', header_bold) #tax
             
 
 
             
-            worksheet.write(call, 12, 'استقطاع التقاعد', header_bold) #REDED
-            worksheet.write(call, 13, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
-            worksheet.write(call, 14, 'مجموع الاستقطاعات', header_bold) #total deduction
+            worksheet.write(call, 14, 'استقطاع التقاعد', header_bold) #REDED
+            worksheet.write(call, 15, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
+            worksheet.write(call, 16, 'مجموع الاستقطاعات', header_bold) #total deduction
 
-            worksheet.write(call, 15, 'صافي الراتب', header_bold) # Net Salary
+            worksheet.write(call, 17, 'صافي الراتب', header_bold) # Net Salary
             # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
             total_basic = 0 
             total_wage_data = 0
@@ -137,6 +140,8 @@ class techtime_payroll_excel(models.Model):
             basded = 0
             total_ded_data = 0
             net_saled_data = 0
+            total_day_all_data = 0
+            total_aeaa_data = 0
             total_entitlements_data = 0
             for material_line_id in rested:
                 worksheet.write(row, 0, material_line_id.number or '')
@@ -179,23 +184,31 @@ class techtime_payroll_excel(models.Model):
                         compensation_data = compensation_data + iit.total
                         total_comp_ent = iit.total
 
-                    if iit.code == "TRA"  or iit.code == "DAYALL"  or iit.code == "AEAA" or iit.code == "TRAMU":    
+                    if iit.code == "TRA" or iit.code == "TRAMU":    
                         worksheet.write(row, 8, "{:,.2f}".format(float(iit.total)) or '')
                         allowance_data = allowance_data + iit.total
                         total_all_ent = iit.total
 
+                    if iit.code == "DAYALL":
+                        worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '')
+                        total_day_all_data = total_day_all_data + iit.total
+
+                    if iit.code == "AEAA":
+                        worksheet.write(row, 10, "{:,.2f}".format(float(iit.total)) or '')
+                        total_aeaa_data = total_aeaa_data + iit.total     
+
                     if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":
                         total_entitlements =  total_ent + total_comp_ent + total_all_ent
-                        worksheet.write(row, 9, "{:,.2f}".format(float(total_entitlements)) or '')
+                        worksheet.write(row, 11, "{:,.2f}".format(float(total_entitlements)) or '')
                         total_entitlements_data = total_entitlements_data + total_entitlements
                             
                     # if iit.code == "WAG":    
                     #     worksheet.write(row, 7, iit.total or '')
                     if iit.code == "SST":    
-                        worksheet.write(row, 10, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 12, "{:,.2f}".format(float(iit.total)) or '')
                         socailsecurity_data = socailsecurity_data + iit.total
                     if iit.code == "TAX":
-                        worksheet.write(row, 11, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '')
                         tax_data = tax_data + iit.total
                     
 
@@ -203,19 +216,19 @@ class techtime_payroll_excel(models.Model):
                     
 
                     if iit.code == "REDED":    
-                        worksheet.write(row, 12, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '')
                         reded = reded + iit.total
                         
                     if iit.code == "BASDED":    
-                        worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 15, "{:,.2f}".format(float(iit.total)) or '')
                         basded = basded + iit.total
                         
                     if iit.code == "TTD":    
-                        worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 16, "{:,.2f}".format(float(iit.total)) or '')
                         total_ded_data = total_ded_data + iit.total
                         
                     if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
-                        worksheet.write(row, 15, "{:,.2f}".format(float(iit.total)) or '')
+                        worksheet.write(row, 17, "{:,.2f}".format(float(iit.total)) or '')
                         net_saled_data = net_saled_data + iit.total
                 row += 1
 
@@ -233,21 +246,32 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(row, 8, "{:,.2f}".format(allowance_data)) #allowance
 
-            worksheet.write(row, 9, "{:,.2f}".format(total_entitlements_data)) #total of above 3
+
+            worksheet.write(row, 9, "{:,.2f}".format(total_day_all_data)) #allowance
+            worksheet.write(row, 10, "{:,.2f}".format(total_aeaa_data)) #allowance
+
+
+
+
+
+            
+            
+
+            worksheet.write(row, 11, "{:,.2f}".format(total_entitlements_data)) #total of above 3
 
             
 
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(row, 10, "{:,.2f}".format(socailsecurity_data)) #socaial security
-            worksheet.write(row, 11, "{:,.2f}".format(tax_data)) #tax
+            worksheet.write(row, 12, "{:,.2f}".format(socailsecurity_data)) #socaial security
+            worksheet.write(row, 13, "{:,.2f}".format(tax_data)) #tax
             
 
 
-            worksheet.write(row, 12, "{:,.2f}".format(reded)) #REDED
-            worksheet.write(row, 13, "{:,.2f}".format(basded)) #BASDED
-            worksheet.write(row, 14, "{:,.2f}".format(total_ded_data)) #total deduction
+            worksheet.write(row, 14, "{:,.2f}".format(reded)) #REDED
+            worksheet.write(row, 15, "{:,.2f}".format(basded)) #BASDED
+            worksheet.write(row, 16, "{:,.2f}".format(total_ded_data)) #total deduction
 
-            worksheet.write(row, 15, "{:,.2f}".format(net_saled_data)) # Net Salary
+            worksheet.write(row, 17, "{:,.2f}".format(net_saled_data)) # Net Salary
             call = row + 2 
             row += 3   
         fp = io.BytesIO()
