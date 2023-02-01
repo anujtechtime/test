@@ -233,6 +233,7 @@ class techtime_payroll_excel(models.Model):
                         worksheet.write(row, 18, "{:,.2f}".format(float(iit.total)) or '')
                         net_saled_data = net_saled_data + iit.total
                 row += 1
+                sequence = sequence + 1 
 
 
             worksheet.write(row, 4, "{:,.2f}".format(day_deduction_data)) #day deduction
@@ -276,7 +277,7 @@ class techtime_payroll_excel(models.Model):
             worksheet.write(row, 18, "{:,.2f}".format(net_saled_data)) # Net Salary
             call = row + 2 
             row += 3
-            sequence = sequence + 1   
+              
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
