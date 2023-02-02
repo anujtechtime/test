@@ -27,6 +27,17 @@ import requests
 import json
 from odoo import api, fields, models, tools, SUPERUSER_ID
 
+class techtime_payrollEmployee(models.Model):
+    _inherit = 'hr.employee'
+
+    certificate = fields.Selection([
+        ('certificate1', 'دكتوراه'),
+        ('certificate2', 'ماجستير'),
+        ('certificate3', 'دبلوم عالي'),
+        ('certificate4', 'بكالوريوس'),
+        ('certificate5', 'دبلوم معهد'),
+        ('certificate6', 'اعدادية'),
+        ('certificate7', 'دون الاعدادية')], string='Certificate')
 
 class techtime_payroll_excel(models.Model):
     _inherit = 'hr.payslip'
