@@ -30,7 +30,7 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 class techtime_payrollEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    certificate = fields.Selection([
+    certificate_first = fields.Selection([
         ('certificate1', 'دكتوراه'),
         ('certificate2', 'ماجستير'),
         ('certificate3', 'دبلوم عالي'),
