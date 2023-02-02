@@ -39,6 +39,13 @@ class techtime_payrollEmployee(models.Model):
         ('certificate6', 'اعدادية'),
         ('certificate7', 'دون الاعدادية')], string='Certificate')
 
+
+class techtime_payrollDepartment(models.Model):
+    _inherit = 'hr.department'
+    _order = 'sequence'
+
+    sequence = fields.Integer("Sequence")
+
 class techtime_payroll_excel(models.Model):
     _inherit = 'hr.payslip'
 #     _description = 'techtime_payroll_excel.techtime_payroll_excel'
