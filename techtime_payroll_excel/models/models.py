@@ -384,7 +384,7 @@ class techtime_payroll_excel(models.Model):
                 call = row + 2 
                 row += 3
 
-            worksheet.write(row, 0, "Total Department") #day deduction
+            worksheet.write(row, 0, "المجموع الكلي") #day deduction
 
             worksheet.write(row, 6, "{:,.2f}".format(day_deduction_total)) #day deduction
             worksheet.write(row, 7, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
