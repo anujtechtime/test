@@ -169,6 +169,7 @@ class techtime_payroll_excel(models.Model):
             total_day_all_data = 0
             total_aeaa_data = 0
             total_entitlements_data = 0
+            certificate_data = 0
             sequence = 1
             for material_line_id in rested:
                 worksheet.write(row, 0, sequence or '')
@@ -177,10 +178,36 @@ class techtime_payroll_excel(models.Model):
 
                 worksheet.write(row, 2, material_line_id.employee_id.name or '')
 
+                if material_line_id.contract_id.employ_type == 'option1':
+                    employe_data = 'تعيين - متقاعد'
+                if material_line_id.contract_id.employ_type == 'option2':
+                    employe_data = 'تعيين - غير متقاعد مشمول بالضمان'
+                if material_line_id.contract_id.employ_type == 'option3':
+                    employe_data = 'اعارة'
+                if material_line_id.contract_id.employ_type == 'option4':
+                    employe_data = 'محاضر خارجي'
+                if material_line_id.contract_id.employ_type == 'option5':
+                    employe_data = 'اجر يومي'
 
-                worksheet.write(row, 3, material_line_id.contract_id.employ_type or '')
+                worksheet.write(row, 3, employe_data or '')
 
-                worksheet.write(row, 4, material_line_id.employee_id.certificate_first or '')
+
+                if material_line_id.employee_id.certificate_first == 'certificate1': 
+                    certificate_data  = 'دكتوراه'
+                if material_line_id.employee_id.certificate_first == 'certificate2': 
+                    certificate_data  = 'ماجستير'
+                if material_line_id.employee_id.certificate_first == 'certificate3': 
+                    certificate_data  = 'دبلوم عالي'
+                if material_line_id.employee_id.certificate_first == 'certificate4': 
+                    certificate_data  = 'بكالوريوس'
+                if material_line_id.employee_id.certificate_first == 'certificate5': 
+                    certificate_data  = 'دبلوم معهد'
+                if material_line_id.employee_id.certificate_first == 'certificate6': 
+                    certificate_data  = 'اعدادية'
+                if material_line_id.employee_id.certificate_first == 'certificate7': 
+                    certificate_data  = 'دون الاعدادية'
+
+                worksheet.write(row, 4, certificate_data or '')
 
                 
 
