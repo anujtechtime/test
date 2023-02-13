@@ -111,6 +111,10 @@ class ContractmDateAccount(models.Model):
     # if result < 0:
     #  result = contract.basic_salary - (contract.wage / 30 * inputs.deductiondays.amount)
 
+    def change_the_day_deduction(self):
+        for ddt in self:
+            ddt.day_deduction = 0
+            ddt._inverse_wage()
 
 
     @api.onchange('wage','compensation','day_deduction','social_security','married_with_house_wife','married_with_working_wife','married_with_non_working_husband','married_with_working_husband','single_male','male_female_with_children','divorced_male','sinle_female','divorced_female','if_age_is_above_63')
