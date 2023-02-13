@@ -66,7 +66,7 @@
             if records:
                 action = records.change_the_day_deduction()
         </field>
-        <field name="binding_model_id" ref="hr.model_hr_contract"/>
+        <field name="binding_model_id" ref="hr_contract.model_hr_contract"/>
         <field name="binding_view_types">list,form</field>
     </record>
 
