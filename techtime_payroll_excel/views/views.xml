@@ -11,6 +11,19 @@
         </field>
     </record>
 
+    <record id="act_hr_employee_holiday_department_data" model="ir.actions.server">
+        <field name="name">Department Excel</field>
+        <field name="model_id" ref="payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+          action = records.send_mis_report_for_department()
+        </field>
+    </record>
+
+    
+
     <record id="ir_actions_server_sale_action_confirm" model="ir.actions.server">
         <field name="name">Compute Sheet</field>
         <field name="model_id" ref="payroll.model_hr_payslip"/>
