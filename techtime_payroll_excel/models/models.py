@@ -110,52 +110,52 @@ class techtime_payroll_excel(models.Model):
             # print("rested##########################",rested)
             worksheet.write(call, 0, depp.name, border_color_2)
 
-            worksheet.write(call, 1, 'رقم القصاصة', border_color_2)  # refernce 
-            # worksheet.write(call, 1, 'Payslip Name', border_color_2)
+            # worksheet.write(call, 1, 'رقم القصاصة', border_color_2)  # refernce 
+            # # worksheet.write(call, 1, 'Payslip Name', border_color_2)
 
-            worksheet.write(call, 2, 'اسم الموظف', border_color_2) # employee
-
-
-            worksheet.write(call, 3, 'نوع الخدمة', border_color_2) # employee type
-
-            worksheet.write(call, 4, 'نوع الشهادة', border_color_2) # certifiactae
+            # worksheet.write(call, 2, 'اسم الموظف', border_color_2) # employee
 
 
+            # worksheet.write(call, 3, 'نوع الخدمة', border_color_2) # employee type
 
-            worksheet.write(call, 5, 'التفاصيل', header_bold) # description
+            # worksheet.write(call, 4, 'نوع الشهادة', border_color_2) # certifiactae
 
-            worksheet.write(call, 6, 'عدد الايام المستقطعة', header_bold) #day deduction
-            worksheet.write(call, 7, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
 
-            worksheet.write(call, 8, 'الراتب الكلي', header_bold) # wage
 
-            worksheet.write(call, 9, 'الراتب الاسمي', header_bold) #basic salary
+            # worksheet.write(call, 5, 'التفاصيل', header_bold) # description
+
+            worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
+            worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
+
+            worksheet.write(call, 3, 'الراتب الكلي', header_bold) # wage
+
+            worksheet.write(call, 4, 'الراتب الاسمي', header_bold) #basic salary
 
 
             # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(call, 10, 'التعويضية', header_bold) #compensation
+            worksheet.write(call, 5, 'التعويضية', header_bold) #compensation
 
-            worksheet.write(call, 11, 'التدريب والتأهيل', header_bold) #allowance
+            worksheet.write(call, 6, 'التدريب والتأهيل', header_bold) #allowance
 
-            worksheet.write(call, 12, 'مكافأت غير العاملين', header_bold) #allowance
-            worksheet.write(call, 13, 'الاعانات', header_bold) #allowance
+            worksheet.write(call, 7, 'مكافأت غير العاملين', header_bold) #allowance
+            worksheet.write(call, 8, 'الاعانات', header_bold) #allowance
 
-            worksheet.write(call, 14, 'مجموع الاستحقاقات', header_bold) #allowance
+            worksheet.write(call, 9, 'مجموع الاستحقاقات', header_bold) #allowance
 
             
 
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(call, 15, 'الضمان الاجتماعي', header_bold) #socaial security
-            worksheet.write(call, 16, 'الضريبة', header_bold) #tax
+            worksheet.write(call, 10, 'الضمان الاجتماعي', header_bold) #socaial security
+            worksheet.write(call, 11, 'الضريبة', header_bold) #tax
             
 
 
             
-            worksheet.write(call, 17, 'استقطاع التقاعد', header_bold) #REDED
-            worksheet.write(call, 18, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
-            worksheet.write(call, 19, 'مجموع الاستقطاعات', header_bold) #total deduction
+            worksheet.write(call, 12, 'استقطاع التقاعد', header_bold) #REDED
+            worksheet.write(call, 13, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
+            worksheet.write(call, 14, 'مجموع الاستقطاعات', header_bold) #total deduction
 
-            worksheet.write(call, 20, 'صافي الراتب', header_bold) # Net Salary
+            worksheet.write(call, 15, 'صافي الراتب', header_bold) # Net Salary
             print("department_data#############",depp.id)
             print("parent_id$$$$$$$$$$$$$$$$$",depp.parent_id)
 
@@ -390,22 +390,22 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(row, 0, "المجموع الكلي") #day deduction
 
-            worksheet.write(row, 6, "{:,.2f}".format(day_deduction_total)) #day deduction
-            worksheet.write(row, 7, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
+            worksheet.write(row, 1, "{:,.2f}".format(day_deduction_total)) #day deduction
+            worksheet.write(row, 2, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
 
-            worksheet.write(row, 8, "{:,.2f}".format(total_wage_total)) # wage
+            worksheet.write(row, 3, "{:,.2f}".format(total_wage_total)) # wage
 
-            worksheet.write(row, 9, "{:,.2f}".format(total_basic_total)) #basic salary
+            worksheet.write(row, 4, "{:,.2f}".format(total_basic_total)) #basic salary
 
 
             # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(row, 10, "{:,.2f}".format(compensation_total)) #compensation
+            worksheet.write(row, 5, "{:,.2f}".format(compensation_total)) #compensation
 
-            worksheet.write(row, 11, "{:,.2f}".format(allowance_total)) #allowance
+            worksheet.write(row, 6, "{:,.2f}".format(allowance_total)) #allowance
 
 
-            worksheet.write(row, 12, "{:,.2f}".format(total_day_all_total)) #allowance
-            worksheet.write(row, 13, "{:,.2f}".format(total_aeaa_total)) #allowance
+            worksheet.write(row, 7, "{:,.2f}".format(total_day_all_total)) #allowance
+            worksheet.write(row, 8, "{:,.2f}".format(total_aeaa_total)) #allowance
 
 
 
@@ -414,21 +414,21 @@ class techtime_payroll_excel(models.Model):
             
             
 
-            worksheet.write(row, 14, "{:,.2f}".format(total_entitlements_total)) #total of above 3
+            worksheet.write(row, 9, "{:,.2f}".format(total_entitlements_total)) #total of above 3
 
             
 
             # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(row, 15, "{:,.2f}".format(socailsecurity_total)) #socaial security
-            worksheet.write(row, 16, "{:,.2f}".format(tax_total)) #tax
+            worksheet.write(row, 10, "{:,.2f}".format(socailsecurity_total)) #socaial security
+            worksheet.write(row, 11, "{:,.2f}".format(tax_total)) #tax
             
 
 
-            worksheet.write(row, 17, "{:,.2f}".format(reded_total)) #REDED
-            worksheet.write(row, 18, "{:,.2f}".format(basded_total)) #BASDED
-            worksheet.write(row, 19, "{:,.2f}".format(total_ded_total)) #total deduction
+            worksheet.write(row, 12, "{:,.2f}".format(reded_total)) #REDED
+            worksheet.write(row, 13, "{:,.2f}".format(basded_total)) #BASDED
+            worksheet.write(row, 14, "{:,.2f}".format(total_ded_total)) #total deduction
 
-            worksheet.write(row, 20, "{:,.2f}".format(net_saled_total)) # Net Salary
+            worksheet.write(row, 15, "{:,.2f}".format(net_saled_total)) # Net Salary
 
 
 
