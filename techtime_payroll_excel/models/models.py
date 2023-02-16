@@ -46,6 +46,18 @@ class techtime_payrollDepartment(models.Model):
 
     sequence = fields.Integer("Sequence")
 
+
+class TechAccount(models.Model):
+    _inherit = 'account.move.line'
+
+    balanace = fields.float("Balance")    
+
+    @api.onchange('balanace')
+    def _inverse_balanace(self):
+        self.balanace = self.credit - self.debit
+
+
+
 class techtime_payroll_excel(models.Model):
     _inherit = 'hr.payslip'
 #     _description = 'techtime_payroll_excel.techtime_payroll_excel'
@@ -83,13 +95,13 @@ class techtime_payroll_excel(models.Model):
 
 
     def send_mis_report_for_department(self):
-        filename = 'Payslip.xls'
-        string = 'Payslip_report.xls'
+        filename = 'Department.xls'
+        string = 'Department_report.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string)
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
-        filename = 'Payslip_Report_%s.xls' % date.today()
+        filename = 'Department_Report_%s.xls' % date.today()
         rested = self.env['hr.payslip'].search([])
         row = 2
         border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
