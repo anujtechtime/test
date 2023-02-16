@@ -50,7 +50,7 @@ class techtime_payrollDepartment(models.Model):
 class TechAccount(models.Model):
     _inherit = 'account.move.line'
 
-    balanace = fields.float("Balance")    
+    balanace = fields.Float("Balance")    
 
     @api.onchange('balanace')
     def _inverse_balanace(self):
