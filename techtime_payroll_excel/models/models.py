@@ -52,9 +52,11 @@ class TechAccount(models.Model):
 
     balanace = fields.Float("Balance")    
 
-    @api.depends('balanace')
+    @api.onchange('credit','debit')
     def _inverse_balanace(self):
         self.balanace = self.credit - self.debit
+
+
 
 
 

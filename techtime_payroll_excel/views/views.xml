@@ -51,6 +51,21 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+
+    <record id="ir_actions_server_data" model="ir.actions.server">
+        <field name="name">Balanace Change</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_move_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._inverse_balanace()
+        </field>
+        <field name="binding_model_id" ref="payroll.model_account_move_line"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
     <record id="product_product_view_department" model="ir.ui.view">
             <field name="name">hr.department.extended</field>
             <field name="model">hr.department</field>
