@@ -54,7 +54,8 @@ class TechAccount(models.Model):
 
     @api.onchange('credit','debit')
     def _inverse_balanace(self):
-        self.balanace = self.credit - self.debit
+        for ffts in self:
+            ffts.balanace = ffts.credit - ffts.debit
 
 
 
