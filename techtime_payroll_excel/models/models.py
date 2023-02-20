@@ -46,6 +46,11 @@ class techtime_payrollDepartment(models.Model):
 
     sequence = fields.Integer("Sequence")
 
+class techtime_payrollDepartment(models.Model):
+    _inherit = 'account.move'
+
+    year = fields.Many2one("year.year", string="Year", related="partner_id.year")
+
 
 class TechAccount(models.Model):
     _inherit = 'account.move.line'
