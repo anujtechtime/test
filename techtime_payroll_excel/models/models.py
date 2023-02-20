@@ -49,7 +49,7 @@ class techtime_payrollDepartment(models.Model):
 class techtime_payrollDepartment(models.Model):
     _inherit = 'account.move'
 
-    year = fields.Many2one("year.year", string="Year", related="partner_id.year")
+    year = fields.Many2one("year.year", string="Year")
 
 
 class TechAccount(models.Model):
