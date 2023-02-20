@@ -102,22 +102,6 @@
         </record>
 
 
-        <record id="sale_orderform_view_account_move_data_miss" model="ir.ui.view">
-            <field name="name">account.move.data</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="techtime_univeristy.sale_orderform_view_account_move"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='level']" position="before">
-                    <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-                </xpath>
-              </field>
-            </record>
-    
-
-    
-
-    
-
 
   </data>
 </odoo>
