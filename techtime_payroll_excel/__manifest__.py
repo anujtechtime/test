@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base',"payroll"],
+    'depends': ['base',"payroll","techtime_univeristy"],
 
     # always loaded
     'data': [
