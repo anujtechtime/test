@@ -195,8 +195,23 @@ class ContractmDateAccount(models.Model):
 
 
 
-class ContraPayslipDateAccount(models.Model):
+class ContraDataDept(models.Model):
+    _inherit="account.move"
 
+    def change_the_value_department(self):
+        for ddtt in self:
+            if ddtt.partner_id:
+                ddtt.update({
+                    "college" : ddtt.partner_id.college.id if ddtt.partner_id.college else False,
+                    "student" : ddtt.partner_id.student_type.id if ddtt.partner_id.student_type else False,
+                    "department" : ddtt.partner_id.department.id if ddtt.partner_id.department else False,
+                    "Subject" : ddtt.partner_id.shift if ddtt.partner_id.shift else False,
+                    "level" : ddtt.partner_id.level if ddtt.partner_id.level else False,
+                    "year" : ddtt.partner_id.year if ddtt.partner_id.year else False,
+                    })
+
+
+class ContraPayslipDateAccount(models.Model):
     _inherit="hr.payslip"
 
     description = fields.Html("Description")
