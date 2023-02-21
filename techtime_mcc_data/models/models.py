@@ -17,6 +17,11 @@ from odoo import models, fields, api, _
 #         for record in self:
 #             record.value2 = float(record.value) / 100
 
+class DataMphine(models.Model):
+    _inherit = "res.partner"
+    
+    file_upload = fields.Binary(string='File', attachment=True)
+
 class CrmTeamDateAccount(models.Model):
 
     _inherit = "purchase.order.line"
