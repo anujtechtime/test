@@ -160,7 +160,7 @@
     </record>
 
 
-    <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
+<!--     <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
         <field name="name">res.partner.kanban</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.res_partner_kanban_view"/>
@@ -176,7 +176,7 @@
             </xpath>
         </data>
     </field>
-</record>
+</record> -->
 
 
 <!--         <report
