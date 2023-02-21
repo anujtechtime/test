@@ -173,7 +173,7 @@
                 <div class="float-right" t-if="record.file_upload.raw_value">
                     <span class="fa fa-circle text-success" role="img" aria-label="File" title="File" name="file_upload"/>
                 </div>
-                <div class="float-right" t-if="not record.file_upload.raw_value">
+                <div class="float-right" t-if="record.file_upload.raw_value == False">
                     <span class="fa fa-circle text-danger" role="img" aria-label="nofile" title="nofile" name="file_upload_2"/>
                 </div>
             </xpath>
