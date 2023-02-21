@@ -160,12 +160,18 @@
     </record>
 
 
-<!--     <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
+    <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
         <field name="name">res.partner.kanban</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.res_partner_kanban_view"/>
         <field name="arch" type="xml">
         <data>
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="file_upload" />
+            </xpath>
+            <xpath>
+                
+            </xpath>
             <xpath expr="//strong[hasclass('oe_partner_heading')]" position="before">
                 <div class="float-right" t-if="record.file_upload.raw_value">
                     <span class="fa fa-circle text-success" role="img" aria-label="File" title="File" name="file_upload"/>
@@ -176,7 +182,7 @@
             </xpath>
         </data>
     </field>
-</record> -->
+</record>
 
 
 <!--         <report
