@@ -43,6 +43,15 @@ color: #ffffff !important;
   background-color: lighten($primary_accent, 10%) !important;
 }
 
+.o_mail_systray_item > a  > .o_notification_counter{
+  background: red !important;
+}
+
+.o_main_navbar > .o_menu_systray > li > a > .o_notification_counter:hover {
+  background: red !important;
+}
+
+
 .o_main_navbar > .o_menu_sections > li > a:hover, .o_main_navbar > .o_menu_systray > li > a:hover, .o_main_navbar > .o_menu_sections > li.show > a, .o_main_navbar > .o_menu_systray > li.show > a {
   background-color: lighten($primary_accent, 10%) !important;
 }
