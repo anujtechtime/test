@@ -148,7 +148,7 @@
 
 
                             </t>
-                            <t t-if="">
+                            <t>
                                     <tr class="is-subtotal text-right">
                                         <td colspan="99">
                                             
