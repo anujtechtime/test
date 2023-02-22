@@ -159,6 +159,15 @@
         </field>
     </record>
 
+        <report
+            id="report_account_move_line_pending"
+            model="account.move.line"
+            string="Pending Amount"
+            report_type="qweb-pdf"
+            name="techtime_mcc_data.report_payment_receipt_unpaid"
+            file="techtime_mcc_data.report_payment_receipt_unpaid"
+            menu="True"
+        />
 
     <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
         <field name="name">res.partner.kanban</field>
