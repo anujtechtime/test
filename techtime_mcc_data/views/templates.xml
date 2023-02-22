@@ -20,7 +20,7 @@
                 </div>
                 
                 <div class="col-4">
-                    <strong style="color : #000000;">وصل قبض</strong>
+                    <!-- <strong style="color : #000000;">وصل قبض</strong> -->
                     
                 </div>
                 
@@ -84,7 +84,7 @@
             </div>
             </div>
 
-            <!-- <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/> -->
+            <t t-set="balance_data" t-value="0"/>
 
                     <table class="table table-sm o_main_table" name="invoice_line_table">
                         <thead>
@@ -95,12 +95,11 @@
                                 <!-- TODO: remove in master -->
                                 <th name="th_source" class=" text-right"><span>Journal Entry</span></th>
                                 <th name="th_quantity" class="text-right"><span>Label</span></th>
-                                <th name="th_priceunit" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Debit</span></th>
+                                <!-- <th name="th_priceunit" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Debit</span></th>
                                 <th name="th_price_unit" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span>Credit</span>
-                                </th>
+                                </th> -->
                                 <th name="th_taxes" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Balance</span></th>
-                                
                             </tr>
                         </thead>
                         <tbody class="invoice_tbody">
@@ -108,7 +107,7 @@
                             <t t-set="lines" t-value="request.env['account.move.line'].sudo().search([('partner_id','=',o.partner_id.id),('move_id.state', '=', 'posted'),'|',('account_id.internal_type', '=', 'payable'),('account_id.internal_type', '=', 'receivable'),('full_reconcile_id', '=', False), ('balance', '!=', 0), ('account_id.reconcile', '=', True)])"/>
 
                             <t t-foreach="lines" t-as="line">
-                                <t t-esc="line"/>
+                                <!-- <t t-esc="line"/> -->
                                 <!-- <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                 <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
  -->
@@ -121,15 +120,17 @@
                                         <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span class="text-nowrap" t-field="line.name"/>
                                         </td>
-                                        <td  t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+<!--                                         <td  t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span class="text-nowrap" t-field="line.debit"/>
                                         </td>
                                         <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span t-esc="line.credit" id="line_tax_ids"/>
-                                        </td>
+                                        </td> -->
                                         <td class="text-right o_price_total">
                                             <span class="text-nowrap" t-field="line.balance"/>
                                         </td>
+                                        <t t-set="balance_data" t-value="balance_data + line.balance"/>
+
                                     </t>
                                     <!-- <t t-if="line.display_type == 'line_section'">
                                         <td colspan="99">
@@ -145,18 +146,19 @@
                                     </t> -->
                                 </tr>
 
-                                <!-- <t t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
+
+                            </t>
+                            <t t-if="">
                                     <tr class="is-subtotal text-right">
                                         <td colspan="99">
-                                            <strong class="mr16">Subtotal</strong>
+                                            
                                             <span
-                                                t-esc="current_subtotal"
-                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                                t-esc="balance_data"
                                             />
+                                            <strong class="mr16">المجموع</strong>
                                         </td>
                                     </tr>
-                                </t> -->
-                            </t>
+                                </t>
                         </tbody>
                     </table>
 
@@ -167,18 +169,18 @@
               
             <div class="" style="float: left; position : fixed; left : 0; margin-top : 0px;">
                 <div class="" style="text-align : right;">
-                       <strong>   اسم وتوقيع امين الصندوق</strong>
+                       <!-- <strong>   اسم وتوقيع امين الصندوق</strong> -->
                      </div>
                      
                 </div>  
                 
                 
-                <div class="" style="float: right; position : fixed; right : 0; margin-top : 0px;">
+                <!-- <div class="" style="float: right; position : fixed; right : 0; margin-top : 0px;">
                 <div class="" style="text-align : right;">
                        <strong>   انشأت بواسطة :</strong>    <span t-field="o.create_uid"/>
                      </div>
                      
-                </div>  
+                </div>   -->
                 
                 
             </div>
