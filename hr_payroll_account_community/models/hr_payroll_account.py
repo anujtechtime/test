@@ -80,7 +80,7 @@ class HrPayslip(models.Model):
                 if debit_account_id:
                     debit_line = (0, 0, {
                         'name': line.name,
-                        'partner_id': self.env["res.partner"].search([('name','=','salary')]).id,
+                        'partner_id': line._get_partner_id(credit_account=True),
                         'account_id': debit_account_id,
                         'journal_id': slip.journal_id.id,
                         'date': date,
@@ -129,7 +129,7 @@ class HrPayslip(models.Model):
                         slip.journal_id.name))
                 adjust_debit = (0, 0, {
                     'name': _('Adjustment Entry'),
-                    'partner_id': self.env["res.partner"].search([('name','=','salary')]).id,
+                    'partner_id': line._get_partner_id(credit_account=True),
                     'account_id': acc_id,
                     'journal_id': slip.journal_id.id,
                     'date': date,
