@@ -110,6 +110,9 @@ class ContractmDateAccount(models.Model):
     # allowance = fields.Float("Allowance")
     day_deduction = fields.Float("Day-Deduction")
 
+    basic_salary_one = fields.Float("Basic Salary")
+    compensation_one = fields.Float("Compensation")
+
     # result = 0
     # if inputs.deductiondays and inputs.deductiondays.amount:
     #  result = contract.compensation1 - (contract.wage / 30 * inputs.deductiondays.amount)
@@ -128,6 +131,8 @@ class ContractmDateAccount(models.Model):
         if self.wage:
             self.basic_salary = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
             self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23) 
+            self.basic_salary_one = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
+            self.compensation_one = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             self.social_security = float(self.basic_salary) * 0.05 
             self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             if self.employ_type != 'option1':

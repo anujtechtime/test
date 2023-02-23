@@ -51,6 +51,8 @@
         <xpath expr="//group[@name='salary_and_advantages']" position="after">
             <group>
             <field name="day_deduction"/>
+            <field name="basic_salary_one"/>
+            <field name="compensation_one"/>
         </group>
         </xpath>
       </field>
