@@ -38,14 +38,14 @@ class HrPayslip(models.Model):
     @api.model
     def create(self, vals):
         if 'journal_id' in self.env.context:
-            vals['journal_id'] = self.env.context.get('journal_id')
+            vals['journal_id'] = self.env['account.journal'].search([('name', '=', 'عمليات متنوعة')], limit=1)
         return super(HrPayslip, self).create(vals)
 
-    @api.onchange('contract_id')
-    def onchange_contract(self):
-        super(HrPayslip, self).onchange_contract()
-        self.journal_id = self.contract_id.journal_id.id or (
-                    not self.contract_id and self.default_get(['journal_id'])['journal_id'])
+    # @api.onchange('contract_id')
+    # def onchange_contract(self):
+    #     super(HrPayslip, self).onchange_contract()
+    #     self.journal_id = self.contract_id.journal_id.id or (
+    #                 not self.contract_id and self.default_get(['journal_id'])['journal_id'])
 
     def action_payslip_cancel(self):
         moves = self.mapped('move_id')
