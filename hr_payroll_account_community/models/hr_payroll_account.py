@@ -31,7 +31,7 @@ class HrPayslip(models.Model):
                        help="Keep empty to use the period of the validation(Payslip) date.")
     journal_id = fields.Many2one('account.journal', 'Salary Journal', readonly=True, required=True,
                                  states={'draft': [('readonly', False)]},
-                                 default=lambda self: self.env['account.journal'].search([('type', '=', 'general')],
+                                 default=lambda self: self.env['account.journal'].search([('name', '=', 'عمليات متنوعة')],
                                                                                          limit=1))
     move_id = fields.Many2one('account.move', 'Accounting Entry', readonly=True, copy=False)
 
