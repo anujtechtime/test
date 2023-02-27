@@ -38,7 +38,7 @@ class HrPayslip(models.Model):
     @api.model
     def create(self, vals):
         if 'journal_id' in self.env.context:
-            vals['journal_id'] = self.env['account.journal'].search([('name', '=', 'عمليات متنوعة')], limit=1)
+            vals['journal_id'] = self.env['account.journal'].search([('name', '=', 'عمليات متنوعة')], limit=1).id
         return super(HrPayslip, self).create(vals)
 
     # @api.onchange('contract_id')
