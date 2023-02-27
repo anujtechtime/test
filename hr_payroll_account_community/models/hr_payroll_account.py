@@ -173,5 +173,5 @@ class HrPayslipRun(models.Model):
     journal_id = fields.Many2one('account.journal', 'Salary Journal', states={'draft': [('readonly', False)]},
                                  readonly=True,
                                  required=True, help="journal",
-                                 default=lambda self: self.env['account.journal'].search([('type', '=', 'general')],
+                                 default=lambda self: self.env['account.journal'].search([('name', '=', 'عمليات متنوعة')],
                                                                                          limit=1))
