@@ -120,6 +120,21 @@ class techtime_payroll_excel(models.Model):
         worksheet.col(1).width = 15000
         worksheet.col(2).width = 10000
         worksheet.row(0).height = 500
+        day_deduction_every_thing_total = 0
+        day_deduction_amount_every_thing_total = 0
+        total_wage_every_thing_total = 0
+        total_basic_every_thing_total = 0
+        compensation_every_thing_total = 0
+        allowance_every_thing_total = 0
+        total_day_all_every_thing_total = 0
+        total_aeaa_every_thing_total = 0
+        total_entitlements_every_thing_total = 0
+        socailsecurity_every_thing_total = 0
+        tax_every_thing_total = 0
+        reded_every_thing_total = 0
+        basded_every_thing_total = 0
+        total_ded_every_thing_total = 0
+        net_saled_every_thing_total = 0
 
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
@@ -450,10 +465,70 @@ class techtime_payroll_excel(models.Model):
 
             worksheet.write(row, 15, "{:,.2f}".format(net_saled_total)) # Net Salary
 
+            day_deduction_every_thing_total = day_deduction_every_thing_total + day_deduction_total
+            day_deduction_amount_every_thing_total = day_deduction_amount_every_thing_total + day_deduction_amount_total
+            total_wage_every_thing_total = total_wage_every_thing_total + total_wage_total
+            total_basic_every_thing_total = total_basic_every_thing_total + total_basic_total
+            compensation_every_thing_total = compensation_every_thing_total + compensation_total
+            allowance_every_thing_total = allowance_every_thing_total + allowance_total
+            total_day_all_every_thing_total = total_day_all_every_thing_total + total_day_all_total
+            total_aeaa_every_thing_total = total_aeaa_every_thing_total + total_aeaa_total
+            total_entitlements_every_thing_total = total_entitlements_every_thing_total + total_entitlements_total
+            socailsecurity_every_thing_total = socailsecurity_every_thing_total + socailsecurity_total
+            tax_every_thing_total = tax_every_thing_total + tax_total
+            reded_every_thing_total = reded_every_thing_total + reded_total
+            basded_every_thing_total = basded_every_thing_total + basded_total
+            total_ded_every_thing_total = total_ded_every_thing_total + total_ded_total
+            net_saled_every_thing_total = net_saled_every_thing_total + net_saled_total
+
 
 
             call = row + 2 + 1
             row += 3 + 1
+
+        worksheet.write(row, 0, "المجموع الكلي") #day deduction
+
+        worksheet.write(row, 1, "{:,.2f}".format(day_deduction_every_thing_total)) #day deduction
+        worksheet.write(row, 2, "{:,.2f}".format(day_deduction_amount_every_thing_total)) #day deduction amount
+
+        worksheet.write(row, 3, "{:,.2f}".format(total_wage_every_thing_total)) # wage
+
+        worksheet.write(row, 4, "{:,.2f}".format(total_basic_every_thing_total)) #basic salary
+
+
+        # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+        worksheet.write(row, 5, "{:,.2f}".format(compensation_every_thing_total)) #compensation
+
+        worksheet.write(row, 6, "{:,.2f}".format(allowance_every_thing_total)) #allowance
+
+
+        worksheet.write(row, 7, "{:,.2f}".format(total_day_all_every_thing_total)) #allowance
+        worksheet.write(row, 8, "{:,.2f}".format(total_aeaa_every_thing_total)) #allowance
+
+
+
+
+
+        
+        
+
+        worksheet.write(row, 9, "{:,.2f}".format(total_entitlements_every_thing_total)) #total of above 3
+
+        
+
+        # worksheet.write(call, 7, 'Basic', header_bold)
+        worksheet.write(row, 10, "{:,.2f}".format(socailsecurity_every_thing_total)) #socaial security
+        worksheet.write(row, 11, "{:,.2f}".format(tax_every_thing_total)) #tax
+        
+
+
+        worksheet.write(row, 12, "{:,.2f}".format(reded_every_thing_total)) #REDED
+        worksheet.write(row, 13, "{:,.2f}".format(basded_every_thing_total)) #BASDED
+        worksheet.write(row, 14, "{:,.2f}".format(total_ded_every_thing_total)) #total deduction
+
+        worksheet.write(row, 15, "{:,.2f}".format(net_saled_every_thing_total)) # Net Salary
+
+
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
