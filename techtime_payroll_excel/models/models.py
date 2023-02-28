@@ -488,6 +488,10 @@ class techtime_payroll_excel(models.Model):
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string)
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green;")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red;")
         cell_format = xlwt.easyxf()
         filename = 'Payslip_Report_%s.xls' % date.today()
         rested = self.env['hr.payslip'].search([])
@@ -541,6 +545,9 @@ class techtime_payroll_excel(models.Model):
                 # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
                 worksheet.write(call - 1, 0, dep.name, border_color_2)
+
+                worksheet.write_merge(call - 1, call - 1, 8, 14, 'مجموع الاستحقاقات', header_bold_extra_tag)
+                worksheet.write_merge(call - 1, call - 1, 15, 19, 'مجموع الاستقطاعات', header_bold_extra)
 
                 worksheet.write(call, 1, 'رقم القصاصة', border_color_2)  # refernce 
                 # worksheet.write(call, 1, 'Payslip Name', border_color_2)
