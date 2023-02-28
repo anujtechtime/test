@@ -653,8 +653,11 @@ class techtime_payroll_excel(models.Model):
 
                     
 
+                    if material_line_id.description:
+                        worksheet.write(row, 5, re.sub('<[^>]*>', '', material_line_id.description) or '')
 
-                    worksheet.write(row, 5, re.sub('<[^>]*>', '', material_line_id.description) or '')
+                    if not material_line_id.description:
+                        worksheet.write(row, 5, material_line_id.description or '')
 
                     worksheet.write(row, 6, "{:,.2f}".format(float(material_line_id.contract_id.day_deduction)) or '')
 
