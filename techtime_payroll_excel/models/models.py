@@ -122,7 +122,7 @@ class techtime_payroll_excel(models.Model):
         worksheet.row(0).height = 500
 
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
-
+        employe_data = 0
         call = 0
         for depp in  department_data:
             # print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
