@@ -209,8 +209,8 @@ class techtime_payroll_excel(models.Model):
             for values_data in all_ids:
                 dep = self.env["hr.department"].search([('id','=',values_data)])
                 print("prixxxxxxxxxxxxxxxxxxxxxxx",self)
-                rested = self.env['hr.payslip'].search([('department','=',dep.id)])
-                # rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
+                # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
+                rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
                 # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
                 total_basic = 0 
                 total_wage_data = 0
