@@ -868,7 +868,7 @@ class techtime_payroll_excel(models.Model):
 
                 worksheet.write(row, 20, "{:,.2f}".format(net_saled_data)) # Net Salary
                 call = row + 2 
-                row += 3
+                row += 4
 
             # worksheet.write(row, 0, "المجموع الكلي") #day deduction
 
