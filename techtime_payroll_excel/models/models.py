@@ -139,11 +139,44 @@ class techtime_payroll_excel(models.Model):
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
         call = 0
+        
+        worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
+        worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
+
+        worksheet.write(call, 3, 'الراتب الكلي', header_bold) # wage
+
+        worksheet.write(call, 4, 'الراتب الاسمي', header_bold) #basic salary
+
+
+        # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+        worksheet.write(call, 5, 'التعويضية', header_bold) #compensation
+
+        worksheet.write(call, 6, 'التدريب والتأهيل', header_bold) #allowance
+
+        worksheet.write(call, 7, 'مكافأت غير العاملين', header_bold) #allowance
+        worksheet.write(call, 8, 'الاعانات', header_bold) #allowance
+
+        worksheet.write(call, 9, 'مجموع الاستحقاقات', header_bold) #allowance
+
+        
+
+        # worksheet.write(call, 7, 'Basic', header_bold)
+        worksheet.write(call, 10, 'الضمان الاجتماعي', header_bold) #socaial security
+        worksheet.write(call, 11, 'الضريبة', header_bold) #tax
+        
+
+
+        
+        worksheet.write(call, 12, 'استقطاع التقاعد', header_bold) #REDED
+        worksheet.write(call, 13, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
+        worksheet.write(call, 14, 'مجموع الاستقطاعات', header_bold) #total deduction
+
+        worksheet.write(call, 15, 'صافي الراتب', header_bold) # Net Salary
         for depp in  department_data:
             # print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
             
             # print("rested##########################",rested)
-            worksheet.write(call, 0, depp.name, border_color_2)
+            # worksheet.write(call, 0, depp.name, border_color_2)
 
             # worksheet.write(call, 1, 'رقم القصاصة', border_color_2)  # refernce 
             # # worksheet.write(call, 1, 'Payslip Name', border_color_2)
@@ -159,38 +192,7 @@ class techtime_payroll_excel(models.Model):
 
             # worksheet.write(call, 5, 'التفاصيل', header_bold) # description
 
-            worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
-            worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
 
-            worksheet.write(call, 3, 'الراتب الكلي', header_bold) # wage
-
-            worksheet.write(call, 4, 'الراتب الاسمي', header_bold) #basic salary
-
-
-            # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            worksheet.write(call, 5, 'التعويضية', header_bold) #compensation
-
-            worksheet.write(call, 6, 'التدريب والتأهيل', header_bold) #allowance
-
-            worksheet.write(call, 7, 'مكافأت غير العاملين', header_bold) #allowance
-            worksheet.write(call, 8, 'الاعانات', header_bold) #allowance
-
-            worksheet.write(call, 9, 'مجموع الاستحقاقات', header_bold) #allowance
-
-            
-
-            # worksheet.write(call, 7, 'Basic', header_bold)
-            worksheet.write(call, 10, 'الضمان الاجتماعي', header_bold) #socaial security
-            worksheet.write(call, 11, 'الضريبة', header_bold) #tax
-            
-
-
-            
-            worksheet.write(call, 12, 'استقطاع التقاعد', header_bold) #REDED
-            worksheet.write(call, 13, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
-            worksheet.write(call, 14, 'مجموع الاستقطاعات', header_bold) #total deduction
-
-            worksheet.write(call, 15, 'صافي الراتب', header_bold) # Net Salary
             print("department_data#############",depp.id)
             print("parent_id$$$$$$$$$$$$$$$$$",depp.parent_id)
 
@@ -438,7 +440,8 @@ class techtime_payroll_excel(models.Model):
                 total_ded_total = total_ded_total + total_ded_data
                 net_saled_total = net_saled_total + net_saled_data
 
-            worksheet.write(row, 0, "المجموع الكلي") #day deduction
+            # worksheet.write(row, 0, "المجموع الكلي") #day deduction
+            worksheet.write(row, 0, depp.name, border_color_2)
 
             worksheet.write(row, 1, "{:,.2f}".format(day_deduction_total)) #day deduction
             worksheet.write(row, 2, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
