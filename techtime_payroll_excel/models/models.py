@@ -621,7 +621,7 @@ class techtime_payroll_excel(models.Model):
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
                 worksheet.write(call - 1, 0, dep.name, border_color_2)
 
-                worksheet.write_merge(call - 1, call - 1, 8, 14, 'مجموع الاستحقاقات', header_bold_extra_tag)
+                worksheet.write_merge(call - 1, call - 1, 9, 14, 'مجموع الاستحقاقات', header_bold_extra_tag)
                 worksheet.write_merge(call - 1, call - 1, 15, 19, 'مجموع الاستقطاعات', header_bold_extra)
 
                 worksheet.write(call, 1, 'رقم القصاصة', border_color_2)  # refernce 
@@ -827,7 +827,7 @@ class techtime_payroll_excel(models.Model):
                     row += 1
                     sequence = sequence + 1 
 
-
+                row = row + 2
                 worksheet.write(row, 6, "{:,.2f}".format(day_deduction_data)) #day deduction
                 worksheet.write(row, 7, "{:,.2f}".format(day_deduction_amount_data)) #day deduction amount
 
