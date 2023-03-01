@@ -139,7 +139,7 @@ class techtime_payroll_excel(models.Model):
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
         call = 0
-
+        
         worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
         worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
 
@@ -801,7 +801,7 @@ class techtime_payroll_excel(models.Model):
                             total_aeaa_data = total_aeaa_data + iit.total
                             # total_aeaa_total = total_aeaa_total + iit.total  
 
-                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS" or iit.code == "DAYALL":
+                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":
                             total_entitlements =  total_ent + total_comp_ent + total_all_ent
                             worksheet.write(row, 14, "{:,.2f}".format(float(total_entitlements)) or '')
                             total_entitlements_data = total_entitlements_data + total_entitlements
