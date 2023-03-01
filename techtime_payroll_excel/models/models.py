@@ -139,7 +139,7 @@ class techtime_payroll_excel(models.Model):
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
         call = 0
-        
+
         worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
         worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
 
@@ -773,6 +773,8 @@ class techtime_payroll_excel(models.Model):
                     total_ent = 0
                     total_comp_ent = 0
                     total_all_ent = 0
+                    total_all_day_all = 0
+                    total_all_aeaa = 0
                     for iit in material_line_id.line_ids:
                         if iit.code == "BSCC":
                             worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '')
@@ -794,15 +796,20 @@ class techtime_payroll_excel(models.Model):
                         if iit.code == "DAYALL":
                             worksheet.write(row, 12, "{:,.2f}".format(float(iit.total) - float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '')
                             total_day_all_data = total_day_all_data + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+                            total_all_day_all = (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
                             # total_day_all_total = total_day_all_total + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
 
                         if iit.code == "AEAA":
                             worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '')
                             total_aeaa_data = total_aeaa_data + iit.total
+                            total_all_aeaa = iit.total
                             # total_aeaa_total = total_aeaa_total + iit.total  
 
-                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":
-                            total_entitlements =  total_ent + total_comp_ent + total_all_ent
+
+                        total_entitlements =  total_ent + total_comp_ent + total_all_ent + total_all_day_all + total_all_aeaa    
+
+                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS" and total_entitlements > 0:
+                            # total_entitlements =  total_ent + total_comp_ent + total_all_ent
                             worksheet.write(row, 14, "{:,.2f}".format(float(total_entitlements)) or '')
                             total_entitlements_data = total_entitlements_data + total_entitlements
                             # total_entitlements_total = total_entitlements_total + iit.total
