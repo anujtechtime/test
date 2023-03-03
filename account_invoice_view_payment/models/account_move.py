@@ -45,7 +45,8 @@ class AccountMoveDS(models.Model):
         payment_number_temp = ""
         for dtfs in payment:
             data_payment = self.env["account.payment"].search([("id",'=',dtfs)])
-            self.payment_number_temp = self.payment_number_temp + data_payment.name.split('/')[1] + "/" +data_payment.name.split('/')[2] + ","
+            if data_payment.name:
+                self.payment_number_temp = self.payment_number_temp + data_payment.name.split('/')[1] + "/" +data_payment.name.split('/')[2] + ","
 
         # choose the view_mode accordingly
         if len(reconciles) != 1:
