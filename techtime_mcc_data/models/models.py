@@ -22,6 +22,71 @@ class DataMphine(models.Model):
     
     file_upload = fields.Binary(string='File', attachment=True)
 
+    def get_college_data(self):
+        print("self################",self)
+        print("request@@@@@@@@@@@@@@@",request)
+        dct = {}
+
+        college_value = request.env["faculty.faculty"].sudo().search([])
+        print("college_value@@@@@@@@@@",college_value)
+        dicts = []
+        for coll in college_value:
+            dct = {
+            'college_name' : coll.college,
+            'college_id' : coll.id
+            }
+            dicts.append(dct)
+        return dicts
+
+    def get_student_type_data(self):
+        print("self################",self)
+        print("request@@@@@@@@@@@@@@@",request)
+        dct = {}
+
+        college_value = request.env["level.level"].sudo().search([])
+        print("college_value@@@@@@@@@@",college_value)
+        dicts = []
+        for coll in college_value:
+            dct = {
+            'student_name' : coll.Student,
+            'student_id' : coll.id
+            }
+            dicts.append(dct)
+        return dicts    
+
+
+    def get_department_data(self):
+        print("self################",self)
+        print("request@@@@@@@@@@@@@@@",request)
+        dct = {}
+
+        college_value = request.env["department.department"].sudo().search([])
+        print("college_value@@@@@@@@@@",college_value)
+        dicts = []
+        for coll in college_value:
+            dct = {
+            'department_name' : coll.department,
+            'department_id' : coll.id
+            }
+            dicts.append(dct)
+        return dicts 
+
+    def get_year_data(self):
+        print("self################",self)
+        print("request@@@@@@@@@@@@@@@",request)
+        dct = {}
+
+        college_value = request.env["year.year"].sudo().search([])
+        print("college_value@@@@@@@@@@",college_value)
+        dicts = []
+        for coll in college_value:
+            dct = {
+            'year_name' : coll.year,
+            'year_id' : coll.id
+            }
+            dicts.append(dct)
+        return dicts        
+
 class CrmTeamDateAccount(models.Model):
 
     _inherit = "purchase.order.line"

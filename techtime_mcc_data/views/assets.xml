@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_backend_data" inherit_id="web.assets_backend" name="Open Mobile Assets">
+
+	    <xpath expr="//script[contains(@src, '/web/static/src/js/views/kanban/kanban_controller.js')]" position="replace">	        
+	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/kanban_controller.js"></script>
+	    </xpath>
+
+	    <xpath expr="//script[contains(@src, '/web/static/src/js/views/control_panel/search/search_filters.js')]"  position="replace">	  
+	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/search_filters.js"></script>
+	    </xpath>
+	</template>
+</odoo>
