@@ -65,7 +65,6 @@ var KanbanController = BasicController.extend({
 
     willStart: function () {
         var self = this;
-        console.log("session.user_context.allowed_company_ids###########",session.user_context.allowed_company_ids)
         // this.allowed_company_ids = String(session.user_context.allowed_company_ids)
         //                             .split(',')
         //                             .map(function (id) {return parseInt(id);});
@@ -74,10 +73,8 @@ var KanbanController = BasicController.extend({
         // this.current_company = this.allowed_company_ids[0];
 
         var self = this;
-        console.log("self.fetch_data();@@@@@@@@@@@@",self.fetch_data())
         return self.fetch_data();
 
-        // console.log("this####################",this) 
         // let record;
         // var data = self._rpc({
         //         model: "res.partner",
@@ -88,11 +85,8 @@ var KanbanController = BasicController.extend({
         //             self.record = result;
         //     });
 
-        //     console.log("self@@@@@@@@@@@@@@@",self.record);
-        //     console.log("data@@@@@@@@@@@@@@@",data);
 
         // this.current_company_name = _.find(session.user_companies.allowed_companies, function (company) {
-        //     console.log("current_company_name@@@@@@@@@@@@@",company)
         //     return company[0] === self.current_company;
         // })[1];
 
@@ -132,7 +126,6 @@ var KanbanController = BasicController.extend({
             .then(function(result) {
                     self.record = result;
             });
-            console.log("$.when(def2)################",$.when(def2))
 
         var def0 = self._rpc({
                 model: "res.partner",
@@ -142,7 +135,6 @@ var KanbanController = BasicController.extend({
             .then(function(result) {
                     self.record_student_type = result;
             });
-            console.log("$.when(def2)################",$.when(def0))
 
 
         var def1 = self._rpc({
@@ -153,7 +145,6 @@ var KanbanController = BasicController.extend({
             .then(function(result) {
                     self.record_department = result;
             });
-            console.log("$.when(def2)################",$.when(def0))
 
 
         var def3 = self._rpc({
@@ -164,7 +155,6 @@ var KanbanController = BasicController.extend({
             .then(function(result) {
                     self.record_year = result;
             });
-            console.log("$.when(def2)################",$.when(def0))
 
 
         return $.when(def2, def0, def1, def3);
@@ -386,7 +376,6 @@ var KanbanController = BasicController.extend({
         var self = this;
         ev.stopPropagation();
         ev.currentTarget.childNodes[1].value = true
-        console.log("ev@@@@@@@@@@@@@@@@@@@@",ev.currentTarget.childNodes[3].innerHTML);
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
         // var filters = _.invoke(this, 'get_filter').map(function (preFilter) {
@@ -415,7 +404,6 @@ var KanbanController = BasicController.extend({
         $('.o_add_custom_filter')[0].click();
         var qjj = $('.o_searchview_extended_prop_field').val('college'); 
         // var sss = $(".o_searchview_extended_prop_field").prevObject[0].getElementsByClassName('o_input o_searchview_extended_prop_field')[0].value;
-        // console.log("sssssssss#################",sss)
 
 
         
@@ -429,7 +417,6 @@ var KanbanController = BasicController.extend({
             var qqjj = $('.o_filter_condition')[0].id = "college";
 
             var options_d = $('option')[17].id = "college";
-            console.log("options_qqjjqqjjqqjjd@@@@@@@@@@@@",qqjj);
             // this.datam = 'college';
 
         // value="college"
@@ -446,7 +433,6 @@ var KanbanController = BasicController.extend({
             // document.getElementsByClassName('o_searchview_extended_prop_field')[0].value = 'college';
             // var ssss = document.getElementsByClassName('o_input o_searchview_extended_prop_op')[0].selectedIndex = 3;
             var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
-            console.log("ddtsgs@@@@@@@@@@@@",ddtsgs);
             
 
             }, 500);        
@@ -456,7 +442,6 @@ var KanbanController = BasicController.extend({
             // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
 
               var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
-                console.log("ssssssssssssssss@@@@@@@@@@@@",document.getElementsByClassName('btn-primary o_apply_filter')[0].value)
             }, 1000);
 
         
@@ -510,7 +495,6 @@ var KanbanController = BasicController.extend({
         var self = this;
         ev.stopPropagation();
         ev.currentTarget.childNodes[1].value = true
-        console.log("ev@@@@@@@@@@@@@@@@@@@@",ev.currentTarget.childNodes[3].innerHTML);
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
 
@@ -526,10 +510,8 @@ var KanbanController = BasicController.extend({
             var qqjj = $('.o_filter_condition')[0].id = "college";
 
             var options_d = $('option')[17].id = "college";
-            console.log("document.getElementsByClassName('o_searchview_extended_prop_value')@@@@@@@@@@@@",document.getElementsByClassName('o_searchview_extended_prop_value'));
             // this.datam = 'college';
             var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
-            console.log("ddtsgs@@@@@@@@@@@@",ddtsgs);
             
 
             }, 500);        
@@ -539,7 +521,6 @@ var KanbanController = BasicController.extend({
             // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
 
               var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
-                console.log("ssssssssssssssss@@@@@@@@@@@@",document.getElementsByClassName('btn-primary o_apply_filter')[0].value)
             }, 1000);
     },
 
@@ -552,7 +533,6 @@ var KanbanController = BasicController.extend({
         var self = this;
         ev.stopPropagation();
         ev.currentTarget.childNodes[1].value = true
-        console.log("ev@@@@@@@@@@@@@@@@@@@@",ev.currentTarget.childNodes[3].innerHTML);
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
 
@@ -568,10 +548,8 @@ var KanbanController = BasicController.extend({
             var qqjj = $('.o_filter_condition')[0].id = "college";
 
             var options_d = $('option')[17].id = "college";
-            console.log("options_qqjjqqjjqqjjd@@@@@@@@@@@@",qqjj);
             // this.datam = 'college';
             var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
-            console.log("ddtsgs@@@@@@@@@@@@",ddtsgs);
             
 
             }, 500);        
@@ -581,7 +559,6 @@ var KanbanController = BasicController.extend({
             // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
 
               var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
-                console.log("ssssssssssssssss@@@@@@@@@@@@",document.getElementsByClassName('btn-primary o_apply_filter')[0].value)
             }, 1000);
     },
 
@@ -596,7 +573,6 @@ var KanbanController = BasicController.extend({
         var self = this;
         ev.stopPropagation();
         ev.currentTarget.childNodes[1].value = true
-        console.log("ev@@@@@@@@@@@@@@@@@@@@",ev.currentTarget.childNodes[3].innerHTML);
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
 
@@ -612,10 +588,8 @@ var KanbanController = BasicController.extend({
             // var qqjj = $('.o_filter_condition')[0].id = "college";
 
             // var options_d = $('option')[17].id = "college";
-            console.log("document.getElementsByClassName('o_searchview_extended_prop_value')@@@@@@@@@@@@",document.getElementsByClassName('o_searchview_extended_prop_value'));
             // this.datam = 'college';
             var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
-            console.log("ddtsgs@@@@@@@@@@@@",ddtsgs);
             
 
             }, 500);        
@@ -625,7 +599,6 @@ var KanbanController = BasicController.extend({
             // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
 
               var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
-                console.log("ssssssssssssssss@@@@@@@@@@@@",document.getElementsByClassName('btn-primary o_apply_filter')[0].value)
             }, 1000);
     },
 
@@ -646,7 +619,6 @@ var KanbanController = BasicController.extend({
         var attrs = ev.data.attrs;
         var record = ev.data.record;
         var def = Promise.resolve();
-        console.log("sssssssssssssssss",record);
         if (attrs.context) {
             attrs.context = new Context(attrs.context)
                 .set_eval_context({
