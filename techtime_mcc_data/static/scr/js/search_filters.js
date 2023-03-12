@@ -47,7 +47,7 @@ var ExtendedSearchProposition = Widget.extend({
     changed: function () {
         var nval = this.$(".o_searchview_extended_prop_field").val();
         var ddgst = document.getElementsByClassName('data_filter_data');
-        console.log("o_filters_menu_button@@@@@@@@@@@@@@@@@@@@@",ddgst[0].childNodes[3])
+        // console.log("o_filters_menu_button@@@@@@@@@@@@@@@@@@@@@",ddgst[0].childNodes[3])
 
         var ddgst_student = document.getElementsByClassName('data_filter_data_student_type');
         var ddgst_department = document.getElementsByClassName('data_filter_data_department');
@@ -59,6 +59,8 @@ var ExtendedSearchProposition = Widget.extend({
         var j = 1;
         var k = 1;
         var l = 1;
+
+        if (ddgst[0] ||  ddgst_student[0] ||  ddgst_department[0] ||  ddgst_year[0]){
 
         for (i = 1; i < ddgst[0].childNodes.length; i++) {
         
@@ -103,6 +105,8 @@ var ExtendedSearchProposition = Widget.extend({
                 ddgst_year[0].childNodes[l].childNodes[1].value = '';
             }
             l = l + 1
+        }
+
         }
 
         console.log("nval@@@@@@@@@@",nval)
