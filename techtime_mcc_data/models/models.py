@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.http import request
 
 
 # class techtime_mcc_data(models.Model):
