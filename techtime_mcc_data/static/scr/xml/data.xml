@@ -38,30 +38,30 @@
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="currecnt_student">
                             <input type="checkbox" class="form-check-input" value="" id="currecnt_student"/>
-                            <label class="form-check-label" for="exampleCheck1">Current student</label>
+                            <label class="form-check-label" for="exampleCheck1">طالب حالي</label>
                           </div>
 
 
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="succeeded">
                             <input type="checkbox" class="form-check-input" value="" id="succeeded"/>
-                            <label class="form-check-label" for="exampleCheck1">Succeeded</label>
+                            <label class="form-check-label" for="exampleCheck1">ناجح</label>
                           </div>
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="failed">
                             <input type="checkbox" class="form-check-input" value="" id="failed"/>
-                            <label class="form-check-label" for="exampleCheck1">Falied</label>
+                            <label class="form-check-label" for="exampleCheck1">راسب</label>
                           </div>
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="transferred_from_us">
                             <input type="checkbox" class="form-check-input" value="" id="transferred_from_us"/>
-                            <label class="form-check-label" for="exampleCheck1">Transferred From Us</label>
+                            <label class="form-check-label" for="exampleCheck1">نقل من جامعة المعقل</label>
                           </div>
 
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="graduated">
                             <input type="checkbox" class="form-check-input" value="" id="graduated"/>
-                            <label class="form-check-label" for="exampleCheck1">Graduated</label>
+                            <label class="form-check-label" for="exampleCheck1">متخرج</label>
                           </div>
 
                         <!-- </t> -->
