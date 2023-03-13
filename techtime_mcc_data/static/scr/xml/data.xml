@@ -8,7 +8,10 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
-                          <button class="btn btn-secondary dropdown-toggle o_filters_menu_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             College
                           </button>
 
@@ -30,7 +33,10 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
-                          <button class="btn btn-secondary dropdown-toggle o_filters_menu_button_student_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_student_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Student Type
                           </button>
 
@@ -53,7 +59,10 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
-                          <button class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Department
                           </button>
 
@@ -74,7 +83,10 @@
                         </div>
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
-                          <button class="btn btn-secondary dropdown-toggle o_filters_menu_button_year" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_year" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Year
                           </button>
 
