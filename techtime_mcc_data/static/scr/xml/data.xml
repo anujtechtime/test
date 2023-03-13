@@ -8,8 +8,8 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,8 +34,8 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_student_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,8 +61,8 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,8 +86,8 @@
                         </div>
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_year" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,8 +114,8 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -177,8 +177,8 @@
 
 
                          <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_shift" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -208,8 +208,8 @@
 
 
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #75758d !important;">
-                          <button style="margin-top: -10px;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_level" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
