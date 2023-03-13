@@ -52,6 +52,9 @@ var ExtendedSearchProposition = Widget.extend({
         var ddgst_student = document.getElementsByClassName('data_filter_data_student_type');
         var ddgst_department = document.getElementsByClassName('data_filter_data_department');
         var ddgst_year = document.getElementsByClassName('data_filter_data_year');
+        var ddgst_status = document.getElementsByClassName('data_filter_data_status');
+        var ddgst_shift = document.getElementsByClassName('data_filter_data_shift');
+        var ddgst_level = document.getElementsByClassName('data_filter_data_level');
 
         
         
@@ -59,6 +62,9 @@ var ExtendedSearchProposition = Widget.extend({
         var j = 1;
         var k = 1;
         var l = 1;
+        var m = 1;
+        var n = 1;
+        var o = 1;
 
         if (ddgst[0] ||  ddgst_student[0] ||  ddgst_department[0] ||  ddgst_year[0]){
 
@@ -73,6 +79,37 @@ var ExtendedSearchProposition = Widget.extend({
 
             i = i + 1
         }
+
+        for (m = 1; m < ddgst_status[0].childNodes.length; m++) {
+        
+            if (ddgst_status[0].childNodes[m].childNodes[1].value == 'true') {
+                nval = 'Status';
+                ddgst_status[0].childNodes[m].childNodes[1].value = '';
+            }
+
+            m = m + 1
+        }
+
+        for (n = 1; n < ddgst_shift[0].childNodes.length; n++) {
+        
+            if (ddgst_shift[0].childNodes[n].childNodes[1].value == 'true') {
+                nval = 'shift';
+                ddgst_shift[0].childNodes[n].childNodes[1].value = '';
+            }
+
+            n = n + 1
+        }
+
+        for (o = 1; o < ddgst_level[0].childNodes.length; o++) {
+        
+            if (ddgst_level[0].childNodes[o].childNodes[1].value == 'true') {
+                nval = 'level';
+                ddgst_level[0].childNodes[o].childNodes[1].value = '';
+            }
+
+            o = o + 1
+        }
+
 
         console.log("ddgst_student[0]@@@@@@@@@@@@@@@@@",ddgst_student[0].childNodes[j].childNodes[1].value)
 

@@ -106,6 +106,144 @@
                           </div>
                         </div>
 
+
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Status
+                          </button>
+
+                          <div class="dropdown-menu data_filter_data_status" aria-labelledby="dropdownMenuButton">
+
+                            <!-- <t t-foreach="widget.record_status" t-as="reccd_status"> -->
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status1">
+                            <input type="checkbox" class="form-check-input" value="" id="status1"/>
+                            <label class="form-check-label" for="exampleCheck1">ترقين قيد</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status2">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="status2"/>
+                            <label class="form-check-label" for="exampleCheck1">طالب غير مباشر</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status3">
+                            <input type="checkbox" class="form-check-input" value="" id="status3"/>
+                            <label class="form-check-label" for="exampleCheck1">انسحاب</label>
+                          </div>
+
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="currecnt_student">
+                            <input type="checkbox" class="form-check-input" value="" id="currecnt_student"/>
+                            <label class="form-check-label" for="exampleCheck1">Current student</label>
+                          </div>
+
+
+
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="succeeded">
+                            <input type="checkbox" class="form-check-input" value="" id="succeeded"/>
+                            <label class="form-check-label" for="exampleCheck1">Succeeded</label>
+                          </div>
+
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="failed">
+                            <input type="checkbox" class="form-check-input" value="" id="failed"/>
+                            <label class="form-check-label" for="exampleCheck1">Falied</label>
+                          </div>
+
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="transferred_from_us">
+                            <input type="checkbox" class="form-check-input" value="" id="transferred_from_us"/>
+                            <label class="form-check-label" for="exampleCheck1">Transferred From Us</label>
+                          </div>
+
+
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="graduated">
+                            <input type="checkbox" class="form-check-input" value="" id="graduated"/>
+                            <label class="form-check-label" for="exampleCheck1">Graduated</label>
+                          </div>
+
+                        <!-- </t> -->
+                          </div>
+                        </div>
+
+
+                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_shift" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Shift
+                          </button>
+
+                          <div class="dropdown-menu data_filter_data_shift" aria-labelledby="dropdownMenuButton">
+
+                            <!-- <t t-foreach="widget.record_shift" t-as="reccd_shift"> -->
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_shift_type" value="" data-id="morning">
+                            <input type="checkbox" class="form-check-input" value="" id="morning"/>
+                            <label class="form-check-label" for="exampleCheck1">صباحي</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_shift_type" value="" data-id="afternoon">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="afternoon"/>
+                            <label class="form-check-label" for="exampleCheck1">مسائي</label>
+                          </div>
+
+                        <!-- </t> -->
+                          </div>
+                        </div>
+
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                          <button style="margin-top: -10px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_level" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Level
+                          </button>
+
+                          <div class="dropdown-menu data_filter_data_level" aria-labelledby="dropdownMenuButton">
+
+                            <!-- <t t-foreach="widget.record_level" t-as="reccd_level"> -->
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="leve1">
+                            <input type="checkbox" class="form-check-input" value="" id="leve1"/>
+                            <label class="form-check-label" for="exampleCheck1">المرحلة الاولى</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level2">
+                            <input type="checkbox" class="form-check-input" value="" id="level2"/>
+                            <label class="form-check-label" for="exampleCheck1">المرحلة الثانية</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level3">
+                            <input type="checkbox" class="form-check-input" value="" id="level3"/>
+                            <label class="form-check-label" for="exampleCheck1">المرحلة الثالثة</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level4">
+                            <input type="checkbox" class="form-check-input" value="" id="level4"/>
+                            <label class="form-check-label" for="exampleCheck1">المرحلة الرابعة</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level5">
+                            <input type="checkbox" class="form-check-input" value="" id="level5"/>
+                            <label class="form-check-label" for="exampleCheck1">المرحلة الخامسة</label>
+                          </div>
+
+                        <!-- </t> -->
+                          </div>
+                        </div>
+
                         <!-- <button
                         class="btn btn-primary oe_button oe_highlight o_button_lap"
                         type="button">Department</button>

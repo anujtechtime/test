@@ -45,6 +45,9 @@ var KanbanController = BasicController.extend({
         'click #form_click_data_student_type': '_onButtonClickedFormValueStudentType',
         'click #form_click_data_department': '_onButtonClickedFormValueDepartment',
         'click #form_click_data_year': '_onButtonClickedFormValueYear',
+        'click #form_click_data_status_type' : '_onButtonClickedFormValueLevel',
+        'click #form_click_data_shift_type' : '_onButtonClickedFormValueLevel',
+        'click #form_click_data_level_type' : '_onButtonClickedFormValueLevel',
     }),
     /**
      * @override
@@ -602,6 +605,46 @@ var KanbanController = BasicController.extend({
             }, 1000);
     },
 
+    /**
+     * @private
+     * @param {OdooEvent} ev
+     */
+    _onButtonClickedFormValueLevel: function (ev) {
+        var self = this;
+        ev.stopPropagation();
+        ev.currentTarget.childNodes[1].value = true
+        // console.log("ev@@@@@@@@@@@@@@@@@@@@",ev.currentTarget.dataset.id);
+        // var datadd = fropdownMenu._commitSearch();
+        var current_target = ev.currentTarget.dataset.id;
+
+        $('.o_add_custom_filter')[0].click();
+        // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
+
+        setTimeout(() => {
+            // var selection_d = document.getElementsByClassName('o_input o_searchview_extended_prop_field')[0].click();
+
+
+            // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
+
+            // var qqjj = $('.o_filter_condition')[0].id = "college";
+
+            // var options_d = $('option')[17].id = "college";
+            // console.log("document.getElementsByClassName('o_searchview_extended_prop_value')@@@@@@@@@@@@",document.getElementsByClassName('o_searchview_extended_prop_value'));
+            // this.datam = 'college';
+            var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
+            console.log("ddtsgs@@@@@@@@@@@@",ddtsgs);
+            
+
+            }, 500);        
+
+        setTimeout(() => {
+            // var ddgst = document.getElementsByClassName('o_searchview_extended_prop_field')[0].selectedIndex = 17;
+            // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
+
+              var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
+                // console.log("ssssssssssssssss@@@@@@@@@@@@",document.getElementsByClassName('btn-primary o_apply_filter')[0].value)
+            }, 1000);
+    },
 
 
     
