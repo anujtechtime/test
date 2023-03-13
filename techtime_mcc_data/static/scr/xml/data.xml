@@ -7,7 +7,8 @@
                         <!-- <t t-esc="widget.record"/> -->
 
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -32,7 +33,8 @@
                         </div>
 
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -58,7 +60,8 @@
 
 
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -82,7 +85,8 @@
                           </div>
                         </div>
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -109,7 +113,8 @@
 
 
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -171,7 +176,8 @@
                         </div>
 
 
-                         <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
@@ -201,7 +207,8 @@
 
 
 
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap">
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
                           <button style="margin-top: -10px;
     background-color: transparent !important;
     border-radius: 0px !important;
