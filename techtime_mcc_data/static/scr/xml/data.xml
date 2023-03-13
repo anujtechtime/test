@@ -6,120 +6,13 @@
                     
                         <!-- <t t-esc="widget.record"/> -->
 
-
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #636678 !important;">
-                          <button style="margin-top: -7px;
-    background-color: transparent !important;
-    border-radius: 0px !important;
-    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            College
-                          </button>
-
-
-                          <div class="dropdown-menu data_filter_data" aria-labelledby="dropdownMenuButton">
-
-                            <t t-foreach="widget.record" t-as="reccd">
-                            <!-- <t  t-esc="reccd.college_id"/> -->
-                            
-
-                             <div class="form-check ml-2" id="form_click_data" value="" t-att-data-id="reccd.college_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd.college_id"/>
-                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd.college_name"/></label>
-                          </div>
-
-                        </t>
-                          </div>
-                        </div>
-
-
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #636678 !important;">
-                          <button style="margin-top: -7px;
-    background-color: transparent !important;
-    border-radius: 0px !important;
-    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_student_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Student Type
-                          </button>
-
-
-                          <div class="dropdown-menu data_filter_data_student_type" aria-labelledby="dropdownMenuButton">
-
-                            <t t-foreach="widget.record_student_type" t-as="reccd_student_type">
-                            <!-- <t  t-esc="reccd.college_id"/> -->
-                            
-
-                             <div class="form-check ml-2" id="form_click_data_student_type" value="" t-att-data-id="reccd_student_type.student_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_student_type.student_id"/>
-                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_student_type.student_name"/></label>
-                          </div>
-
-                        </t>
-                          </div>
-                        </div>
-
-
-
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #636678 !important;">
-                          <button style="margin-top: -7px;
-    background-color: transparent !important;
-    border-radius: 0px !important;
-    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Department
-                          </button>
-
-
-                          <div class="dropdown-menu data_filter_data_department" aria-labelledby="dropdownMenuButton">
-
-                            <t t-foreach="widget.record_department" t-as="reccd_department">
-                            <!-- <t  t-esc="reccd.college_id"/> -->
-                            
-
-                             <div class="form-check ml-2" id="form_click_data_department" value="" t-att-data-id="reccd_department.department_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_department.department_id"/>
-                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_department.department_name"/></label>
-                          </div>
-
-                        </t>
-                          </div>
-                        </div>
-
-                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
-    background-color: #636678 !important;">
-                          <button style="margin-top: -7px;
-    background-color: transparent !important;
-    border-radius: 0px !important;
-    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_year" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Year
-                          </button>
-
-
-                          <div class="dropdown-menu data_filter_data_year" value="" aria-labelledby="dropdownMenuButton">
-
-                            <t t-foreach="widget.record_year" t-as="reccd_year">
-                            <!-- <t  t-esc="reccd.college_id"/> -->
-                            
-
-                             <div class="form-check ml-2" id="form_click_data_year" value="" t-att-data-id="reccd_year.year_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_year.year_id"/>
-                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_year.year_name"/></label>
-                          </div>
-
-                        </t>
-                          </div>
-                        </div>
-
-
-
-
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
     background-color: #636678 !important;">
                           <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Status
+                            الحالة
                           </button>
 
                           <div class="dropdown-menu data_filter_data_status" aria-labelledby="dropdownMenuButton">
@@ -176,13 +69,123 @@
                         </div>
 
 
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_year" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            السنة
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data_year" value="" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record_year" t-as="reccd_year">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_year" value="" t-att-data-id="reccd_year.year_id">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_year.year_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_year.year_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
+
+
+
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            الكلية
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record" t-as="reccd">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data" value="" t-att-data-id="reccd.college_id">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd.college_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd.college_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            القسم
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data_department" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record_department" t-as="reccd_department">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_department" value="" t-att-data-id="reccd_department.department_id">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_department.department_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_department.department_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
+
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_student_type" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            دعم الطالب
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data_student_type" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record_student_type" t-as="reccd_student_type">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_student_type" value="" t-att-data-id="reccd_student_type.student_id">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_student_type.student_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_student_type.student_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
+                        
+
+
                          <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
     background-color: #636678 !important;">
                           <button style="margin-top: -7px;
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_shift" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Shift
+                            نوع الدراسة
                           </button>
 
                           <div class="dropdown-menu data_filter_data_shift" aria-labelledby="dropdownMenuButton">
@@ -213,7 +216,7 @@
     background-color: transparent !important;
     border-radius: 0px !important;
     border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_level" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Level
+                            المرحلة
                           </button>
 
                           <div class="dropdown-menu data_filter_data_level" aria-labelledby="dropdownMenuButton">
