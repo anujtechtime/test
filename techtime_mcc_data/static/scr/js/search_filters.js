@@ -65,6 +65,7 @@ var ExtendedSearchProposition = Widget.extend({
         var m = 1;
         var n = 1;
         var o = 1;
+        var p = 1;
 
         if (ddgst[0] ||  ddgst_student[0] ||  ddgst_department[0] ||  ddgst_year[0]){
 
