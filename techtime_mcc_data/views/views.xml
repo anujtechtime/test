@@ -13,7 +13,56 @@
         </tree>
       </field>
     </record>
+
+
 -->
+
+
+    <record model="ir.ui.view" id="techtime_mcc_data.list">
+      <field name="name">techtime_mcc_data list</field>
+      <field name="model">techtime_mcc_data.techtime_mcc_data</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+    
+
+<!--         <report
+            id="report_payment_receipt_student"
+            model="account.payment"
+            string="الوصل"
+            report_type="qweb-pdf"
+            name="techtime_mcc_data.report_payment_receipt_student"
+            file="techtime_mcc_data.report_payment_receipt_student"
+            menu="True"
+        />
+ -->
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="techtime_mcc_data.action_window">
+      <field name="name">techtime_mcc_data window</field>
+      <field name="res_model">techtime_mcc_data.techtime_mcc_data</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_sales_order_filter_sale_res_partner_data" model="ir.ui.view">
+        <field name="name">res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="techtime_student_excel.view_sales_order_filter_sale_res_partner"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='year_of_acceptance']" position="replace">
+               <field name="year_of_acceptance_1"/>
+           </xpath>
+       </field>
+   </record>
 
 
     <record id="view_sale_order_inherit_search_hr_contract" model="ir.ui.view">

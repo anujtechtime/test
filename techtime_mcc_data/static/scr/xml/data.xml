@@ -254,6 +254,28 @@
                           </div>
                         </div>
 
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #75758d !important;">
+                          <button class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            سنة القبول
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data_year_acceptance" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record_year_acceptance" t-as="reccd_year_acceptance">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_year_acceptance" value="" t-att-data-id="reccd_year_acceptance.year_acceptance_id">
+                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_year_acceptance.year_acceptance_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_year_acceptance.year_acceptance_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
                         <!-- <button
                         class="btn btn-primary oe_button oe_highlight o_button_lap"
                         type="button">Department</button>

@@ -55,7 +55,7 @@ var ExtendedSearchProposition = Widget.extend({
         var ddgst_status = document.getElementsByClassName('data_filter_data_status');
         var ddgst_shift = document.getElementsByClassName('data_filter_data_shift');
         var ddgst_level = document.getElementsByClassName('data_filter_data_level');
-
+        var ddgst_year_acceptance = document.getElementsByClassName('data_filter_data_year_acceptance');
         
         
         var i = 1;
@@ -78,6 +78,15 @@ var ExtendedSearchProposition = Widget.extend({
             }
 
             i = i + 1
+        }
+
+        for (p = 1; p < ddgst_year_acceptance[0].childNodes.length; p++) {
+        
+            if (ddgst_year_acceptance[0].childNodes[p].childNodes[1].value == 'true') {
+                nval = 'year_of_acceptance_1';
+                ddgst_year_acceptance[0].childNodes[p].childNodes[1].value = '';
+            }
+            p = p + 1
         }
 
         for (m = 1; m < ddgst_status[0].childNodes.length; m++) {

@@ -48,6 +48,7 @@ var KanbanController = BasicController.extend({
         'click #form_click_data_status_type' : '_onButtonClickedFormValueLevel',
         'click #form_click_data_shift_type' : '_onButtonClickedFormValueLevel',
         'click #form_click_data_level_type' : '_onButtonClickedFormValueLevel',
+        'click #form_click_data_year_acceptance' : '_onButtonClickedFormValueYear',
     }),
     /**
      * @override
@@ -159,8 +160,18 @@ var KanbanController = BasicController.extend({
                     self.record_year = result;
             });
 
+        var def4 = self._rpc({
+                model: "res.partner",
+                method: 'get_year_acceptance_data',
+                args: [self.current_company]
+            })
+            .then(function(result) {
+                    self.record_year_acceptance = result;
+            });
+            console.log("$.when(def2)################",$.when(def0))    
 
-        return $.when(def2, def0, def1, def3);
+
+        return $.when(def2, def0, def1, def3, def4);
     },
 
 

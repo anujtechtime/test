@@ -18,9 +18,16 @@ from odoo.http import request
 #         for record in self:
 #             record.value2 = float(record.value) / 100
 
+class techtime_mcc_data(models.Model):
+    _name = 'techtime_mcc_data.techtime_mcc_data'
+    _description = 'techtime_mcc_data.techtime_mcc_data'
+
+    name = fields.Char("Year")
+
 class DataMphine(models.Model):
     _inherit = "res.partner"
-    
+
+    year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)
 
     def get_college_data(self):
