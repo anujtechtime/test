@@ -301,6 +301,7 @@ class ContraDataDept(models.Model):
     _inherit="account.move"
 
     def change_the_value_department(self):
+        _logger.info("self************11111111111111#####**%s" %self)
         for ddtt in self:
             if ddtt.partner_id:
                 _logger.info("ddtt.partner_id************11111111111111#####**%s" %ddtt.partner_id)
