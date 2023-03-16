@@ -3,6 +3,9 @@
 from odoo import models, fields, api, _
 from odoo.http import request
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 # class techtime_mcc_data(models.Model):
 #     _name = 'techtime_mcc_data.techtime_mcc_data'
@@ -300,6 +303,7 @@ class ContraDataDept(models.Model):
     def change_the_value_department(self):
         for ddtt in self:
             if ddtt.partner_id:
+                _logger.info("ddtt.partner_id************11111111111111#####**%s" %ddtt.partner_id)
                 ddtt.update({
                     "college" : ddtt.partner_id.college.id if ddtt.partner_id.college else False,
                     "student" : ddtt.partner_id.student_type.id if ddtt.partner_id.student_type else False,
