@@ -199,6 +199,20 @@
         </field>
     </record>
 
+
+               <record id="hr_payslip_view_search_inherit_data_sale_order" model="ir.ui.view">
+        <field name="name">sale.order.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_overdue']" position="after">
+                <filter string="No Invoice" domain="[('invoice_count', '>', 0)]" name="invoice_count"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
     <record id="res_partner_view_search_inherit_data" model="ir.ui.view">
         <field name="name">res.partner.select</field>
         <field name="model">res.partner</field>
