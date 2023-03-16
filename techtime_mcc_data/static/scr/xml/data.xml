@@ -22,45 +22,45 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status1">
-                            <input type="checkbox" class="form-check-input" value="" id="status1"/>
+                            <input type="checkbox" class="form-check-input" value="" id="status1" style="display : none;"/>
                             <label class="form-check-label" for="exampleCheck1">ترقين قيد</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status2">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="status2"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="status2"/>
                             <label class="form-check-label" for="exampleCheck1">طالب غير مباشر</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status3">
-                            <input type="checkbox" class="form-check-input" value="" id="status3"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="status3"/>
                             <label class="form-check-label" for="exampleCheck1">انسحاب</label>
                           </div>
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="currecnt_student">
-                            <input type="checkbox" class="form-check-input" value="" id="currecnt_student"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="currecnt_student"/>
                             <label class="form-check-label" for="exampleCheck1">طالب حالي</label>
                           </div>
 
 
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="succeeded">
-                            <input type="checkbox" class="form-check-input" value="" id="succeeded"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="succeeded"/>
                             <label class="form-check-label" for="exampleCheck1">ناجح</label>
                           </div>
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="failed">
-                            <input type="checkbox" class="form-check-input" value="" id="failed"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="failed"/>
                             <label class="form-check-label" for="exampleCheck1">راسب</label>
                           </div>
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="transferred_from_us">
-                            <input type="checkbox" class="form-check-input" value="" id="transferred_from_us"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="transferred_from_us"/>
                             <label class="form-check-label" for="exampleCheck1">نقل من جامعة المعقل</label>
                           </div>
 
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="graduated">
-                            <input type="checkbox" class="form-check-input" value="" id="graduated"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="graduated"/>
                             <label class="form-check-label" for="exampleCheck1">متخرج</label>
                           </div>
 
@@ -87,7 +87,7 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_year" value="" t-att-data-id="reccd_year.year_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_year.year_id"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd_year.year_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_year.year_name"/></label>
                           </div>
 
@@ -116,7 +116,7 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data" value="" t-att-data-id="reccd.college_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd.college_id"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd.college_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd.college_name"/></label>
                           </div>
 
@@ -142,7 +142,7 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_department" value="" t-att-data-id="reccd_department.department_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_department.department_id"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd_department.department_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_department.department_name"/></label>
                           </div>
 
@@ -169,7 +169,7 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_student_type" value="" t-att-data-id="reccd_student_type.student_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_student_type.student_id"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd_student_type.student_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_student_type.student_name"/></label>
                           </div>
 
@@ -195,12 +195,12 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_shift_type" value="" data-id="morning">
-                            <input type="checkbox" class="form-check-input" value="" id="morning"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="morning"/>
                             <label class="form-check-label" for="exampleCheck1">صباحي</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_shift_type" value="" data-id="afternoon">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="afternoon"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="afternoon"/>
                             <label class="form-check-label" for="exampleCheck1">مسائي</label>
                           </div>
 
@@ -226,27 +226,27 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="leve1">
-                            <input type="checkbox" class="form-check-input" value="" id="leve1"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="leve1"/>
                             <label class="form-check-label" for="exampleCheck1">المرحلة الاولى</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level2">
-                            <input type="checkbox" class="form-check-input" value="" id="level2"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="level2"/>
                             <label class="form-check-label" for="exampleCheck1">المرحلة الثانية</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level3">
-                            <input type="checkbox" class="form-check-input" value="" id="level3"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="level3"/>
                             <label class="form-check-label" for="exampleCheck1">المرحلة الثالثة</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level4">
-                            <input type="checkbox" class="form-check-input" value="" id="level4"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="level4"/>
                             <label class="form-check-label" for="exampleCheck1">المرحلة الرابعة</label>
                           </div>
 
                           <div class="form-check ml-2" id="form_click_data_level_type" value="" data-id="level5">
-                            <input type="checkbox" class="form-check-input" value="" id="level5"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="level5"/>
                             <label class="form-check-label" for="exampleCheck1">المرحلة الخامسة</label>
                           </div>
 
@@ -272,7 +272,7 @@
                             
 
                              <div class="form-check ml-2" id="form_click_data_year_acceptance" value="" t-att-data-id="reccd_year_acceptance.year_acceptance_id">
-                            <input type="checkbox" class="form-check-input" value="" t-att-id="reccd_year_acceptance.year_acceptance_id"/>
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd_year_acceptance.year_acceptance_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_year_acceptance.year_acceptance_name"/></label>
                           </div>
 

@@ -4,9 +4,6 @@ body {
     background-color: #f8f8fb;
 }
 
-input[type="radio"], input[type="checkbox"] {
-    display : none;
-}
 
 .o_data_row:has(.custom-control-input:checked){
     background : #ffffff !important;
