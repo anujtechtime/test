@@ -300,8 +300,9 @@ class CrmTeamSaleOrderccount(models.Model):
 
     invoice_count_new = fields.Integer("Invoice data New ", readonly=False)
 
-    @api.onchange('invoice_count_new')
+    @api.onchange('invoice_count_new','invoice_count')
     def _inverse_invoice_count_new(self):
+        _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self)
         for ddts in self:
             self.invoice_count_new = self.invoice_count
 
