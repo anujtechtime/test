@@ -304,7 +304,7 @@ class CrmTeamSaleOrderccount(models.Model):
     def _inverse_invoice_count_new(self):
         _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self)
         for ddts in self:
-            self.invoice_count_new = self.invoice_count
+            ddts.invoice_count_new = ddts.invoice_count
 
 
 
