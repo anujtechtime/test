@@ -294,6 +294,17 @@ class ContractmDateAccount(models.Model):
                 self.tota_before =  value_data * 0.03               
 
 
+class CrmTeamSaleOrderccount(models.Model):
+
+    _inherit = "sale.order"
+
+    invoice_count_new = fields.Integer("Invoice data New ", readonly=False)
+
+    @api.onchange('invoice_count_new')
+    def _inverse_invoice_count_new(self):
+        for ddts in self:
+            self.invoice_count_new = self.invoice_count
+
 
 
 
