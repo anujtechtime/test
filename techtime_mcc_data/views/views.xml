@@ -251,6 +251,20 @@
         </field>
     </record>
 
+
+    <record id="ir_actions_server_sale_cart_invoice_count_status" model="ir.actions.server">
+        <field name="name">Change the Invoice Count</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._inverse_invoice_count_new()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
         <report
             id="report_account_move_line_pending"
             model="account.move.line"
