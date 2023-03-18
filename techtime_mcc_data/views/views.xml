@@ -246,7 +246,7 @@
         <field name="inherit_id" ref="sale.view_sales_order_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='activities_overdue']" position="after">
-                <filter string="No Invoice" domain="[('invoice_count_new', '=', False)]" name="invoice_count_new"/>
+                <filter string="No Invoice" domain="['|',('invoice_count_new', '=', 0),('invoice_count_new', '=', False)]" name="invoice_count_new"/>
             </xpath>
         </field>
     </record>
