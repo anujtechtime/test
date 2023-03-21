@@ -1028,6 +1028,11 @@ class techtime_payroll_excel(models.Model):
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
         
 
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour light_blue;")
+
 
         # worksheet.col(1).width = 15000
         # worksheet.col(2).width = 10000
@@ -1355,37 +1360,37 @@ class techtime_payroll_excel(models.Model):
                     worksheet.write(row, x, '',main_cell)
                     worksheet.write(row + 1, x, '',main_cell)
                 row = row + 2
-                worksheet.write(row, 0, '',main_cell)
-                worksheet.write(row, 1, '',main_cell)
+                worksheet.write(row, 0, '',main_cell_total)
+                worksheet.write(row, 1, '',main_cell_total)
 
-                worksheet.write(row, 2, "{:,.2f}".format(day_deduction_data),main_cell) #day deduction
-                worksheet.write(row, 3, "{:,.2f}".format(day_deduction_amount_data),main_cell) #day deduction amount
+                worksheet.write(row, 2, "{:,.2f}".format(day_deduction_data),main_cell_total) #day deduction
+                worksheet.write(row, 3, "{:,.2f}".format(day_deduction_amount_data),main_cell_total) #day deduction amount
 
-                worksheet.write(row, 4, "{:,.2f}".format(total_wage_data),main_cell) # wage
+                worksheet.write(row, 4, "{:,.2f}".format(total_wage_data),main_cell_total) # wage
 
-                worksheet.write(row, 5, "{:,.2f}".format(total_basic),main_cell) #basic salary
+                worksheet.write(row, 5, "{:,.2f}".format(total_basic),main_cell_total) #basic salary
 
 
                 # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-                worksheet.write(row, 6, "{:,.2f}".format(compensation_data),main_cell) #compensation
+                worksheet.write(row, 6, "{:,.2f}".format(compensation_data),main_cell_total) #compensation
 
-                worksheet.write(row, 7, "{:,.2f}".format(allowance_data),main_cell) #allowance
+                worksheet.write(row, 7, "{:,.2f}".format(allowance_data),main_cell_total) #allowance
 
 
-                worksheet.write(row, 8, "{:,.2f}".format(total_day_all_data),main_cell) #allowance
-                worksheet.write(row, 9, "{:,.2f}".format(total_aeaa_data),main_cell) #allowance
+                worksheet.write(row, 8, "{:,.2f}".format(total_day_all_data),main_cell_total) #allowance
+                worksheet.write(row, 9, "{:,.2f}".format(total_aeaa_data),main_cell_total) #allowance
 
-                worksheet.write(row, 10, "{:,.2f}".format(total_entitlements_data),main_cell) #total of above 3
+                worksheet.write(row, 10, "{:,.2f}".format(total_entitlements_data),main_cell_total) #total of above 3
 
                 # worksheet.write(call, 7, 'Basic', header_bold)
-                worksheet.write(row, 11, "{:,.2f}".format(socailsecurity_data),main_cell) #socaial security
-                worksheet.write(row, 12, "{:,.2f}".format(tax_data),main_cell) #tax
+                worksheet.write(row, 11, "{:,.2f}".format(socailsecurity_data),main_cell_total) #socaial security
+                worksheet.write(row, 12, "{:,.2f}".format(tax_data),main_cell_total) #tax
 
-                worksheet.write(row, 13, "{:,.2f}".format(reded),main_cell) #REDED
-                worksheet.write(row, 14, "{:,.2f}".format(basded),main_cell) #BASDED
-                worksheet.write(row, 15, "{:,.2f}".format(total_ded_data),main_cell) #total deduction
+                worksheet.write(row, 13, "{:,.2f}".format(reded),main_cell_total) #REDED
+                worksheet.write(row, 14, "{:,.2f}".format(basded),main_cell_total) #BASDED
+                worksheet.write(row, 15, "{:,.2f}".format(total_ded_data),main_cell_total) #total deduction
 
-                worksheet.write(row, 16, "{:,.2f}".format(net_saled_data),main_cell) # Net Salary
+                worksheet.write(row, 16, "{:,.2f}".format(net_saled_data),main_cell_total) # Net Salary
                 call = row + 2 
                 row += 4
 
