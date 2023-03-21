@@ -122,6 +122,10 @@
                 <xpath expr="//field[@name='level']" position="before">
                     <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
                 </xpath>
+
+                <xpath expr="//field[@name='Subject']" position="after">
+                    <field name="department" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
+                </xpath>
               </field>
             </record>
     
