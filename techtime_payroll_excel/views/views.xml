@@ -22,6 +22,18 @@
         </field>
     </record>
 
+
+    <record id="holiday_department_data_new" model="ir.actions.server">
+        <field name="name">Department Excel New</field>
+        <field name="model_id" ref="payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+          action = records.send_mis_report_for_department_new()
+        </field>
+    </record>
+
     
 
     <record id="ir_actions_server_sale_action_confirm" model="ir.actions.server">

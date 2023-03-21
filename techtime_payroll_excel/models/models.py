@@ -1000,6 +1000,471 @@ class techtime_payroll_excel(models.Model):
         # print (df)              
 
 
+
+    def send_mis_report_for_department_new(self):
+        filename = 'Department.xls'
+        string = 'Department_report.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        # worksheet = wb.add_sheet(string)
+        # names = ['a', 'b', 'c', 'd']
+        # dataset = ['100', '200', '300', '400']
+        # for name in names:
+        # wb.add_sheet(name)
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25;")
+
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green;")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red;")
+        cell_format = xlwt.easyxf()
+        filename = 'Payslip_Report_%s.xls' % date.today()
+        rested = self.env['hr.payslip'].search([])
+        row = 2
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        
+
+
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        # worksheet.row(0).height = 500
+        main_cell = xlwt.easyxf('font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; ')
+
+        employe_data =0
+
+        department_data = self.env["hr.department"].search([("parent_id",'=',False)])
+
+        for depp in  department_data:
+            worksheet = wb.add_sheet(depp.name, cell_overwrite_ok=True)
+
+            worksheet.cols_right_to_left = True
+
+            worksheet.col(0).width = 4000
+            worksheet.col(2).width = 4000
+            worksheet.col(1).width = 7000
+            worksheet.col(3).width = 4000
+            worksheet.col(4).width = 4000
+            worksheet.col(5).width = 4000
+            worksheet.col(6).width = 4000
+            worksheet.col(7).width = 4000
+            worksheet.col(8).width = 4000
+            worksheet.col(9).width = 4000
+            worksheet.col(10).width = 4000
+            worksheet.col(11).width = 4000
+            worksheet.col(12).width = 4000
+            worksheet.col(13).width = 4000
+            worksheet.col(14).width = 4000
+            worksheet.col(15).width = 4000
+            worksheet.col(16).width = 4000
+            worksheet.col(17).width = 4000
+            worksheet.col(18).width = 4000
+            worksheet.col(19).width = 4000
+
+            row = 2
+            call = 1
+            # print("department_data#############",depp.id)
+            # print("parent_id$$$$$$$$$$$$$$$$$",depp.parent_id)
+
+            partner_data = self.env["hr.department"].search([("parent_id",'=',depp.id)])
+            # print("depp###############",partner_data.mapped('id') + [depp.id])
+
+            all_ids = [depp.id] + partner_data.mapped('id') 
+
+            # print("all_ids@@@@@@@@@@@@@@",all_ids)
+
+            
+            # partner_data = (4, depp.id)
+            # print("partner_data@@@@@@@@@@@@@",partner_data)
+            day_deduction_total = 0
+            total_basic_total = 0 
+            total_wage_total = 0
+            compensation_total = 0
+            tax_total = 0
+            day_deduction_total = 0
+            day_deduction_amount_total = 0
+            socailsecurity_total = 0
+            allowance_total = 0
+            reded_total = 0
+            basded_total = 0
+            total_ded_total = 0
+            net_saled_total = 0
+            total_day_all_total = 0
+            total_aeaa_total = 0
+            total_entitlements_total = 0
+            certificate_total = 0
+            for values_data in all_ids:
+                dep = self.env["hr.department"].search([('id','=',values_data)])
+                print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
+
+                # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
+                rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
+                worksheet.write(call - 1, 0, dep.name, header_bold)
+
+
+
+                
+
+                worksheet.write_merge(call - 1, call - 1, 4, 9, 'مجموع الاستحقاقات', header_bold_extra_tag)
+                worksheet.write_merge(call - 1, call - 1, 10, 14, 'مجموع الاستقطاعات', header_bold_extra)
+
+                # worksheet.write(call, 1, 'رقم القصاصة', header_bold)  # refernce 
+                # worksheet.write(call, 1, 'Payslip Name', border_color_2)
+
+                worksheet.write(call, 1, 'اسم الموظف', header_bold) # employee
+
+
+                # worksheet.write(call, 3, 'نوع الخدمة', header_bold) # employee type
+
+                # worksheet.write(call, 4, 'نوع الشهادة', header_bold) # certifiactae
+
+
+
+                # worksheet.write(call, 5, 'التفاصيل', header_bold) # description
+
+                worksheet.write(call, 2, 'الايام المستقطعة', header_bold) #day deduction
+                worksheet.write(call, 3, 'مبلغ ألايام', header_bold) #day deduction amount
+
+                worksheet.write(call, 4, 'الراتب الكلي', header_bold) # wage
+
+                worksheet.write(call, 5, 'الراتب الاسمي', header_bold) #basic salary
+
+
+                # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+                worksheet.write(call, 6, 'التعويضية', header_bold) #compensation
+
+                worksheet.write(call, 7, 'التدريب والتأهيل', header_bold) #allowance
+
+                worksheet.write(call, 8, 'م.غ العاملين', header_bold) #allowance
+                worksheet.write(call, 9, 'الاعانات', header_bold) #allowance
+
+                worksheet.write(call, 10, 'م.الاستحقاقات', header_bold) #allowance
+
+                
+
+                # worksheet.write(call, 7, 'Basic', header_bold)
+                worksheet.write(call, 11, 'الضمان', header_bold) #socaial security
+                worksheet.write(call, 12, 'الضريبة', header_bold) #tax
+                
+
+
+                
+                worksheet.write(call, 13, 'استقطاع التقاعد', header_bold) #REDED
+                worksheet.write(call, 14, 'جامعة البصرة', header_bold) #BASDED
+                worksheet.write(call, 15, 'م.الاستقطاعات', header_bold) #total deduction
+
+                worksheet.write(call, 16, 'صافي الراتب', header_bold) # Net Salary
+                # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
+                total_basic = 0 
+                total_wage_data = 0
+                compensation_data = 0
+                tax_data = 0
+                day_deduction_data = 0
+                day_deduction_amount_data = 0
+                socailsecurity_data = 0
+                allowance_data = 0
+                reded = 0
+                basded = 0
+                total_ded_data = 0
+                net_saled_data = 0
+                total_day_all_data = 0
+                total_aeaa_data = 0
+                total_entitlements_data = 0
+                certificate_data = 0
+                sequence = 1
+                for material_line_id in rested:
+                    worksheet.write(row, 0, sequence or '',main_cell)
+                    # worksheet.write(row, 1, material_line_id.number or '',main_cell)
+                    # worksheet.write(row, 1, material_line_id.name or '',main_cell)
+
+                    worksheet.write(row, 1, material_line_id.employee_id.name or '',main_cell)
+
+                    if material_line_id.contract_id.employ_type == 'option1':
+                        employe_data = 'تعيين - متقاعد'
+                    if material_line_id.contract_id.employ_type == 'option2':
+                        employe_data = 'تعيين - غير متقاعد مشمول بالضمان'
+                    if material_line_id.contract_id.employ_type == 'option3':
+                        employe_data = 'اعارة'
+                    if material_line_id.contract_id.employ_type == 'option4':
+                        employe_data = 'محاضر خارجي'
+                    if material_line_id.contract_id.employ_type == 'option5':
+                        employe_data = 'اجر يومي'
+
+                    # worksheet.write(row, 3, employe_data or '',main_cell)
+
+
+                    if material_line_id.employee_id.certificate_first == 'certificate1': 
+                        certificate_data  = 'دكتوراه'
+                    if material_line_id.employee_id.certificate_first == 'certificate2': 
+                        certificate_data  = 'ماجستير'
+                    if material_line_id.employee_id.certificate_first == 'certificate3': 
+                        certificate_data  = 'دبلوم عالي'
+                    if material_line_id.employee_id.certificate_first == 'certificate4': 
+                        certificate_data  = 'بكالوريوس'
+                    if material_line_id.employee_id.certificate_first == 'certificate5': 
+                        certificate_data  = 'دبلوم معهد'
+                    if material_line_id.employee_id.certificate_first == 'certificate6': 
+                        certificate_data  = 'اعدادية'
+                    if material_line_id.employee_id.certificate_first == 'certificate7': 
+                        certificate_data  = 'دون الاعدادية'
+
+                    # worksheet.write(row, 4, certificate_data or '',main_cell)
+
+                    
+
+                    # if material_line_id.description:
+                    #     worksheet.write(row, 5, re.sub('<[^>]*>', '', material_line_id.description) or '',main_cell)
+
+                    # if not material_line_id.description:
+                    #     worksheet.write(row, 5, material_line_id.description or '',main_cell)
+
+                    worksheet.write(row, 2, "{:,.2f}".format(float(material_line_id.contract_id.day_deduction)) or '',main_cell)
+
+                    day_deduction_data = day_deduction_data + material_line_id.contract_id.day_deduction
+                    day_deduction_total = day_deduction_total + material_line_id.contract_id.day_deduction
+
+                    worksheet.write(row, 3, "{:,.2f}".format(float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '',main_cell) 
+
+                    day_deduction_amount_data = day_deduction_amount_data + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
+                    day_deduction_amount_total = day_deduction_amount_total + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
+                          
+
+                    # if material_line_id.contract_id.currency_id.id == 2:
+                    #     worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '',main_cell)
+
+                    # if material_line_id.contract_id.currency_id.id == 90:
+                    worksheet.write(row, 4, "{:,.2f}".format(float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field)) + "ع.د" or '',main_cell)
+                    total_wage_data = total_wage_data + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
+                    total_wage_total = total_wage_total + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
+                    total_ent = 0
+                    total_comp_ent = 0
+                    total_all_ent = 0
+                    total_all_day_all = 0
+                    total_all_aeaa = 0
+                    for iit in material_line_id.line_ids:
+                        if iit.code == "BSCC":
+                            worksheet.write(row, 5, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            total_basic = total_basic + iit.total
+                            total_basic_total = total_basic_total + iit.total
+                            total_ent = iit.total
+                        if not total_basic:
+                            worksheet.write(row, 5, '',main_cell)  
+                        if iit.code == "CMPS":
+                            worksheet.write(row, 6, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            compensation_data = compensation_data + iit.total
+                            compensation_total = compensation_total + iit.total
+                            total_comp_ent = iit.total
+                        if not compensation_data:
+                            worksheet.write(row, 6, '',main_cell)  
+
+                        if iit.code == "TRA" or iit.code == "TRAMU":    
+                            worksheet.write(row, 7, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            allowance_data = allowance_data + iit.total
+                            allowance_total = allowance_total + iit.total
+                            total_all_ent = iit.total
+                        if not allowance_data:
+                            worksheet.write(row, 7, '',main_cell)    
+
+                        if iit.code == "DAYALL":
+                            worksheet.write(row, 8, "{:,.2f}".format(float(iit.total) - float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '',main_cell)
+                            total_day_all_data = total_day_all_data + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+                            total_day_all_total = total_day_all_total + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+                            total_all_day_all = (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+                        if not total_day_all_data:
+                            worksheet.write(row, 8, '',main_cell)
+                        if iit.code == "AEAA":
+                            worksheet.write(row, 9, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            total_aeaa_data = total_aeaa_data + iit.total
+                            total_aeaa_total = total_aeaa_total + iit.total  
+                            total_all_aeaa = iit.total
+                        if not total_aeaa_data:
+                            worksheet.write(row, 9, '',main_cell)
+
+
+                        total_entitlements =  total_ent + total_comp_ent + total_all_ent + total_all_day_all + total_all_aeaa
+                        print("total_entitlements@@@@@@@@@@@@@@@@@@",total_entitlements)
+                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS" and total_entitlements > 0:
+                            print("total_entitlements222222222222222222222222",total_entitlements)
+                            worksheet.write(row, 10, "{:,.2f}".format(float(total_entitlements)) or '',main_cell)
+                            total_entitlements_data = total_entitlements_data + total_entitlements
+                            total_entitlements_total = total_entitlements_total + iit.total
+                                
+                        if not total_entitlements_data:
+                            worksheet.write(row, 10, '',main_cell)        
+                        # if iit.code == "WAG":    
+                        #     worksheet.write(row, 7, iit.total or '',main_cell)
+                        if iit.code == "SST":    
+                            worksheet.write(row, 11, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            socailsecurity_data = socailsecurity_data + iit.total
+                            socailsecurity_total = socailsecurity_total + iit.total
+
+                        if not socailsecurity_data:
+                            worksheet.write(row, 11, '',main_cell) 
+
+                        if iit.code == "TAX":
+                            worksheet.write(row, 12, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            tax_data = tax_data + iit.total
+                            tax_total = tax_total + iit.total
+
+                        if not tax_data:
+                            worksheet.write(row, 12, '',main_cell) 
+
+                        if iit.code == "REDED":    
+                            worksheet.write(row, 13, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            reded = reded + iit.total
+                            reded_total = reded_total + iit.total
+                            
+                        if not reded:
+                            worksheet.write(row, 13, '',main_cell)
+
+
+                        if iit.code == "BASDED":    
+                            worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            basded = basded + iit.total
+                            basded_total = basded_total + iit.total
+
+                        if not basded:
+                            worksheet.write(row, 14, '',main_cell)
+
+                        if iit.code == "TTD":    
+                            worksheet.write(row, 15, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            total_ded_data = total_ded_data + iit.total
+                            total_ded_total = total_ded_total + iit.total
+                            
+                        if not total_ded_data:
+                            worksheet.write(row, 15, '',main_cell)
+
+                        if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
+                            worksheet.write(row, 16, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            net_saled_data = net_saled_data + iit.total
+                            net_saled_total = net_saled_total + iit.total
+
+                        if not net_saled_data:
+                            worksheet.write(row, 16, '',main_cell)    
+
+                    row += 1
+                    sequence = sequence + 1 
+
+                for x in range(16):
+                    worksheet.write(row, x, '',main_cell)
+                    worksheet.write(row + 1, x, '',main_cell)
+                row = row + 2
+                worksheet.write(row, 0, '',main_cell)
+                worksheet.write(row, 1, '',main_cell)
+
+                worksheet.write(row, 2, "{:,.2f}".format(day_deduction_data),main_cell) #day deduction
+                worksheet.write(row, 3, "{:,.2f}".format(day_deduction_amount_data),main_cell) #day deduction amount
+
+                worksheet.write(row, 4, "{:,.2f}".format(total_wage_data),main_cell) # wage
+
+                worksheet.write(row, 5, "{:,.2f}".format(total_basic),main_cell) #basic salary
+
+
+                # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+                worksheet.write(row, 6, "{:,.2f}".format(compensation_data),main_cell) #compensation
+
+                worksheet.write(row, 7, "{:,.2f}".format(allowance_data),main_cell) #allowance
+
+
+                worksheet.write(row, 8, "{:,.2f}".format(total_day_all_data),main_cell) #allowance
+                worksheet.write(row, 9, "{:,.2f}".format(total_aeaa_data),main_cell) #allowance
+
+                worksheet.write(row, 10, "{:,.2f}".format(total_entitlements_data),main_cell) #total of above 3
+
+                # worksheet.write(call, 7, 'Basic', header_bold)
+                worksheet.write(row, 11, "{:,.2f}".format(socailsecurity_data),main_cell) #socaial security
+                worksheet.write(row, 12, "{:,.2f}".format(tax_data),main_cell) #tax
+
+                worksheet.write(row, 13, "{:,.2f}".format(reded),main_cell) #REDED
+                worksheet.write(row, 14, "{:,.2f}".format(basded),main_cell) #BASDED
+                worksheet.write(row, 15, "{:,.2f}".format(total_ded_data),main_cell) #total deduction
+
+                worksheet.write(row, 16, "{:,.2f}".format(net_saled_data),main_cell) # Net Salary
+                call = row + 2 
+                row += 4
+
+            print("depp@@@@@@@@@@@@@@@@@@@@@@",depp)
+            # worksheet.write(row, 0, "المجموع الكلي") #day deduction
+
+            # worksheet.write(row, 6, "{:,.2f}".format(day_deduction_total)) #day deduction
+            # worksheet.write(row, 7, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
+
+            # worksheet.write(row, 8, "{:,.2f}".format(total_wage_total)) # wage
+
+            # worksheet.write(row, 9, "{:,.2f}".format(total_basic_total)) #basic salary
+
+
+            # # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+            # worksheet.write(row, 10, "{:,.2f}".format(compensation_total)) #compensation
+
+            # worksheet.write(row, 11, "{:,.2f}".format(allowance_total)) #allowance
+
+
+            # worksheet.write(row, 12, "{:,.2f}".format(total_day_all_total)) #allowance
+            # worksheet.write(row, 13, "{:,.2f}".format(total_aeaa_total)) #allowance
+
+
+
+
+
+            
+            
+
+            # worksheet.write(row, 14, "{:,.2f}".format(total_entitlements_total)) #total of above 3
+
+            
+
+            # # worksheet.write(call, 7, 'Basic', header_bold)
+            # worksheet.write(row, 15, "{:,.2f}".format(socailsecurity_total)) #socaial security
+            # worksheet.write(row, 16, "{:,.2f}".format(tax_total)) #tax
+            
+
+
+            # worksheet.write(row, 17, "{:,.2f}".format(reded_total)) #REDED
+            # worksheet.write(row, 18, "{:,.2f}".format(basded_total)) #BASDED
+            # worksheet.write(row, 19, "{:,.2f}".format(total_ded_total)) #total deduction
+
+            # worksheet.write(row, 20, "{:,.2f}".format(net_saled_total)) # Net Salary
+
+
+
+            call = row + 2 + 1
+            row += 3 + 1
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
+
+
+
 class PayrollExcel(models.Model):
     _inherit = 'hr.payslip.run'
 
