@@ -114,7 +114,7 @@
         </record>
 
 
-        <record id="sale_orderform_view_account_move_data_miss" model="ir.ui.view">
+<!--         <record id="sale_orderform_view_account_move_data_miss" model="ir.ui.view">
             <field name="name">account.move.data</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="techtime_univeristy.sale_orderform_view_account_move"/>
@@ -127,7 +127,7 @@
                     <field name="department" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
                 </xpath>
               </field>
-            </record>
+            </record> -->
     
 
     
