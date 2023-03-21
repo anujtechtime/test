@@ -1,6 +1,6 @@
 <odoo>
   <data>
-       <record id="act_hr_employee_holiday_request_payrool" model="ir.actions.server">
+<!--        <record id="act_hr_employee_holiday_request_payrool" model="ir.actions.server">
         <field name="name">Payroll Excel sheet</field>
         <field name="model_id" ref="payroll.model_hr_payslip"/>
         <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
@@ -9,7 +9,7 @@
         if records:
           action = records.send_mis_report()
         </field>
-    </record>
+    </record> -->
 
     <record id="act_hr_employee_holiday_department_data" model="ir.actions.server">
         <field name="name">Department Excel</field>
