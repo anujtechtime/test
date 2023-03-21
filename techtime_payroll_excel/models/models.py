@@ -1002,8 +1002,8 @@ class techtime_payroll_excel(models.Model):
 
 
     def send_mis_report_for_department_new(self):
-        filename = 'Department.xls'
-        string = 'Department_report.xls'
+        filename = 'Payslip.xls'
+        string = 'Payslip_report.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         # worksheet = wb.add_sheet(string)
         # names = ['a', 'b', 'c', 'd']
@@ -1014,6 +1014,20 @@ class techtime_payroll_excel(models.Model):
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
                      pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25;")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour sky_blue;")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime;")
+
 
         header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green;")
 
@@ -1027,11 +1041,6 @@ class techtime_payroll_excel(models.Model):
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
         
-
-        main_cell_total = xlwt.easyxf("font: bold off, color black;\
-                     borders: top_color black, bottom_color black, right_color black, left_color black,\
-                              left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour light_blue;")
 
 
         # worksheet.col(1).width = 15000
@@ -1395,49 +1404,34 @@ class techtime_payroll_excel(models.Model):
                 row += 4
 
             print("depp@@@@@@@@@@@@@@@@@@@@@@",depp)
-            # worksheet.write(row, 0, "المجموع الكلي") #day deduction
+            worksheet.write(row - 1, 0, "المجموع الكلي", main_cell_total_of_total) #day deduction
 
-            # worksheet.write(row, 6, "{:,.2f}".format(day_deduction_total)) #day deduction
-            # worksheet.write(row, 7, "{:,.2f}".format(day_deduction_amount_total)) #day deduction amount
+            worksheet.write(row - 1, 1, '',main_cell_total_of_total)
 
-            # worksheet.write(row, 8, "{:,.2f}".format(total_wage_total)) # wage
+            worksheet.write(row - 1, 2, "{:,.2f}".format(day_deduction_total),main_cell_total_of_total) #day deduction
+            worksheet.write(row - 1, 3, "{:,.2f}".format(day_deduction_amount_total),main_cell_total_of_total) #day deduction amount
 
-            # worksheet.write(row, 9, "{:,.2f}".format(total_basic_total)) #basic salary
+            worksheet.write(row - 1, 4, "{:,.2f}".format(total_wage_total),main_cell_total_of_total) # wage
 
+            worksheet.write(row - 1, 5, "{:,.2f}".format(total_basic_total),main_cell_total_of_total) #basic salary
 
-            # # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-            # worksheet.write(row, 10, "{:,.2f}".format(compensation_total)) #compensation
+            # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+            worksheet.write(row - 1, 6, "{:,.2f}".format(compensation_total),main_cell_total_of_total) #compensation
 
-            # worksheet.write(row, 11, "{:,.2f}".format(allowance_total)) #allowance
+            worksheet.write(row - 1, 7, "{:,.2f}".format(allowance_total),main_cell_total_of_total) #allowance
 
+            worksheet.write(row - 1, 8, "{:,.2f}".format(total_day_all_total),main_cell_total_of_total) #allowance
+            worksheet.write(row - 1, 9, "{:,.2f}".format(total_aeaa_total),main_cell_total_of_total) #allowance
 
-            # worksheet.write(row, 12, "{:,.2f}".format(total_day_all_total)) #allowance
-            # worksheet.write(row, 13, "{:,.2f}".format(total_aeaa_total)) #allowance
+            worksheet.write(row - 1, 10, "{:,.2f}".format(total_entitlements_total),main_cell_total_of_total) #total of above 3
 
-
-
-
-
-            
-            
-
-            # worksheet.write(row, 14, "{:,.2f}".format(total_entitlements_total)) #total of above 3
-
-            
-
-            # # worksheet.write(call, 7, 'Basic', header_bold)
-            # worksheet.write(row, 15, "{:,.2f}".format(socailsecurity_total)) #socaial security
-            # worksheet.write(row, 16, "{:,.2f}".format(tax_total)) #tax
-            
-
-
-            # worksheet.write(row, 17, "{:,.2f}".format(reded_total)) #REDED
-            # worksheet.write(row, 18, "{:,.2f}".format(basded_total)) #BASDED
-            # worksheet.write(row, 19, "{:,.2f}".format(total_ded_total)) #total deduction
-
-            # worksheet.write(row, 20, "{:,.2f}".format(net_saled_total)) # Net Salary
-
-
+            # worksheet.write(call, 7, 'Basic', header_bold)
+            worksheet.write(row - 1, 11, "{:,.2f}".format(socailsecurity_total),main_cell_total_of_total) #socaial security
+            worksheet.write(row - 1, 12, "{:,.2f}".format(tax_total),main_cell_total_of_total) #tax
+            worksheet.write(row - 1, 13, "{:,.2f}".format(reded_total),main_cell_total_of_total) #REDED
+            worksheet.write(row - 1, 14, "{:,.2f}".format(basded_total),main_cell_total_of_total) #BASDED
+            worksheet.write(row - 1, 15, "{:,.2f}".format(total_ded_total),main_cell_total_of_total) #total deduction
+            worksheet.write(row - 1, 16, "{:,.2f}".format(net_saled_total),main_cell_total_of_total) # Net Salary
 
             call = row + 2 + 1
             row += 3 + 1
@@ -1467,6 +1461,7 @@ class techtime_payroll_excel(models.Model):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }
+
 
 
 
