@@ -158,7 +158,7 @@
             if records:
                 action = records.change_the_value_payslip()
         </field>
-        <field name="binding_model_id" ref="account.model_hr_payslip"/>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
         <field name="binding_view_types">list,form</field>
     </record>
 
