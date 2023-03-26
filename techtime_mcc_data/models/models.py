@@ -334,8 +334,10 @@ class ContraPayslipDateAccount(models.Model):
 
     department = fields.Many2one("hr.department", related="employee_id.department_id", store=True)
 
-
-
+    def change_the_value_payslip(self):
+        _logger.info("self************11111111111111#####**%s" %self)
+        for ddtt in self:
+            ddtt.state = 'draft'
 
 
 

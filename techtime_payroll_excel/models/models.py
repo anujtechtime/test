@@ -1053,7 +1053,7 @@ class techtime_payroll_excel(models.Model):
         main_cell_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour sky_blue;")
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory;")
 
 
         main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
@@ -1433,7 +1433,7 @@ class techtime_payroll_excel(models.Model):
                 worksheet.write(row, 15, "{:,.2f}".format(total_ded_data),main_cell_total) #total deduction
 
                 worksheet.write(row, 16, "{:,.2f}".format(net_saled_data),main_cell_total) # Net Salary
-                call = row + 2 
+                call = row + 3
                 row += 4
 
             print("depp@@@@@@@@@@@@@@@@@@@@@@",depp)
