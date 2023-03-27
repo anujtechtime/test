@@ -94,7 +94,7 @@ class HrPayslip(models.Model):
                 if credit_account_id:
                     credit_line = (0, 0, {
                         'name': line.name,
-                        'partner_id': self.env["res.partner"].search([('name','=','salary')]).id,
+                        'partner_id': self.env["res.partner"].search([('name','=','الرواتب')]).id,
                         'account_id': credit_account_id,
                         'journal_id': slip.journal_id.id,
                         'date': date,
@@ -113,7 +113,7 @@ class HrPayslip(models.Model):
                         slip.journal_id.name))
                 adjust_credit = (0, 0, {
                     'name': _('Adjustment Entry'),
-                    'partner_id': self.env["res.partner"].search([('name','=','salary')]).id,
+                    'partner_id': self.env["res.partner"].search([('name','=','الرواتب')]).id,
                     'account_id': acc_id,
                     'journal_id': slip.journal_id.id,
                     'date': date,
@@ -138,7 +138,7 @@ class HrPayslip(models.Model):
                 })
                 line_ids.append(adjust_debit)
             move_dict['line_ids'] = line_ids
-            move_dict['partner_id'] = self.env["res.partner"].search([('name','=','salary')]).id
+            move_dict['partner_id'] = self.env["res.partner"].search([('name','=','الرواتب')]).id
             move = self.env['account.move'].create(move_dict)
             slip.write({'move_id': move.id, 'date': date})
             print(move)
