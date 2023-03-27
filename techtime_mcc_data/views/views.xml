@@ -163,7 +163,7 @@
     </record>
 
 
-<record id="ir_actions_server_add_the_hr_payslip" model="ir.actions.server">
+<record id="ir_actions_server_add_the_hr_paysli_loack" model="ir.actions.server">
         <field name="name">Set to Lock</field>
         <field name="type">ir.actions.server</field>
         <field name="model_id" ref="model_hr_payslip"/>
