@@ -1168,15 +1168,15 @@ class techtime_payroll_excel(models.Model):
                 # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
 
-                worksheet.write_merge(0, 2, 3, 13, (" رواتب " + dep.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
+                worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
                 worksheet.write(call - 1, 0, dep.name, header_bold)
 
 
 
                 
 
-                worksheet.write_merge(call - 1, call - 1, 4, 9, 'مجموع الاستحقاقات', header_bold_extra_tag)
-                worksheet.write_merge(call - 1, call - 1, 10, 14, 'مجموع الاستقطاعات', header_bold_extra)
+                worksheet.write_merge(call - 1, call - 1, 5, 10, 'المستحقات', header_bold_extra_tag)
+                worksheet.write_merge(call - 1, call - 1, 11, 15, 'الاستقطاعات', header_bold_extra)
 
                 # worksheet.write(call, 1, 'رقم القصاصة', header_bold)  # refernce 
                 # worksheet.write(call, 1, 'Payslip Name', border_color_2)
