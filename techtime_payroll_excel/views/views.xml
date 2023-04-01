@@ -50,6 +50,20 @@
         </field>
     </record>
 
+    <record id="res_partner_view_search_inherit_data_batch" model="ir.ui.view">
+        <field name="name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group/field[@name='partner_id']" position="after">
+                <group>
+                    <field name="batch"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
     <record id="ir_actions_server_sale_cart_recovery_email_payroll" model="ir.actions.server">
         <field name="name">Payslip excel</field>
         <field name="type">ir.actions.server</field>

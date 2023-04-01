@@ -1513,6 +1513,10 @@ class techtime_payroll_excel(models.Model):
         }
 
 
+class PayrollExcelBatch(models.Model):
+    _inherit = 'res.partner'
+    
+    batch = fields.Char("Batch")
 
 
 class PayrollExcel(models.Model):
