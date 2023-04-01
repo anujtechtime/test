@@ -11,6 +11,9 @@ from datetime import date, datetime, timedelta
 from psycopg2 import sql
 from geopy.geocoders import Nominatim
 import xml.dom.minidom
+import calendar
+from translate import Translator
+
 from bs4 import BeautifulSoup
 import re
 from prettytable import PrettyTable
@@ -1038,33 +1041,40 @@ class techtime_payroll_excel(models.Model):
         filename = 'Payslip.xls'
         string = 'Payslip_report.xls'
         wb = xlwt.Workbook(encoding='utf-8')
-        # worksheet = wb.add_sheet(string)
-        # names = ['a', 'b', 'c', 'd']
-        # dataset = ['100', '200', '300', '400']
-        # for name in names:
-        # wb.add_sheet(name)
+        
+        translator= Translator(to_lang="Arabic")
+        translation = translator.translate(calendar.month_name[date.today().month])
+
+
+
         header_bold = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25;")
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
 
 
         
         main_cell_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory;")
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre")
 
 
         main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime;")
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre")
 
 
-        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green;")
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
 
-        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red;")
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
         cell_format = xlwt.easyxf()
         filename = 'Payslip_Report_%s.xls' % date.today()
         rested = self.env['hr.payslip'].search([])
@@ -1082,7 +1092,7 @@ class techtime_payroll_excel(models.Model):
         main_cell = xlwt.easyxf('font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; ')
+                     pattern: pattern solid, fore_color white; align: horiz centre')
 
         employe_data =0
 
@@ -1091,31 +1101,33 @@ class techtime_payroll_excel(models.Model):
         for depp in  department_data:
             worksheet = wb.add_sheet(depp.name, cell_overwrite_ok=True)
 
+            worksheet.paper_size_code = 1
+
             worksheet.cols_right_to_left = True
 
-            worksheet.col(0).width = 4000
-            worksheet.col(2).width = 4000
-            worksheet.col(1).width = 7000
-            worksheet.col(3).width = 4000
-            worksheet.col(4).width = 4000
-            worksheet.col(5).width = 4000
-            worksheet.col(6).width = 4000
-            worksheet.col(7).width = 4000
-            worksheet.col(8).width = 4000
-            worksheet.col(9).width = 4000
-            worksheet.col(10).width = 4000
-            worksheet.col(11).width = 4000
-            worksheet.col(12).width = 4000
-            worksheet.col(13).width = 4000
-            worksheet.col(14).width = 4000
-            worksheet.col(15).width = 4000
-            worksheet.col(16).width = 4000
-            worksheet.col(17).width = 4000
-            worksheet.col(18).width = 4000
-            worksheet.col(19).width = 4000
+            worksheet.col(0).width = 2500
+            worksheet.col(2).width = 3000
+            worksheet.col(1).width = 4500
+            worksheet.col(3).width = 3000
+            worksheet.col(4).width = 3000
+            worksheet.col(5).width = 3000
+            worksheet.col(6).width = 3000
+            worksheet.col(7).width = 3000
+            worksheet.col(8).width = 3000
+            worksheet.col(9).width = 3000
+            worksheet.col(10).width = 3000
+            worksheet.col(11).width = 3000
+            worksheet.col(12).width = 3000
+            worksheet.col(13).width = 3000
+            worksheet.col(14).width = 3000
+            worksheet.col(15).width = 3000
+            worksheet.col(16).width = 3000
+            worksheet.col(17).width = 3000
+            worksheet.col(18).width = 3000
+            worksheet.col(19).width = 3000
 
-            row = 2
-            call = 1
+            row = 6
+            call = 4
             # print("department_data#############",depp.id)
             # print("parent_id$$$$$$$$$$$$$$$$$",depp.parent_id)
 
@@ -1146,12 +1158,17 @@ class techtime_payroll_excel(models.Model):
             total_aeaa_total = 0
             total_entitlements_total = 0
             certificate_total = 0
+            
+            worksheet.write_merge(call - 4, call - 2 , 0, 2, "جامعة المعقل الاهلية / قسم الشؤون المالية", header_bold_main_header)
+            
             for values_data in all_ids:
                 dep = self.env["hr.department"].search([('id','=',values_data)])
                 print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
 
                 # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id)
+
+                worksheet.write_merge(0, 2, 3, 13, (" رواتب " + dep.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
                 worksheet.write(call - 1, 0, dep.name, header_bold)
 
 
