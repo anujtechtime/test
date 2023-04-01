@@ -329,7 +329,7 @@ class techtime_payroll_excel(models.Model):
 
                     # worksheet.write(row, 7, "{:,.2f}".format(float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '') 
 
-                    day_deduction_amount_data = day_deduction_amount_data + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
+                    day_deduction_amount_data = day_deduction_amount_data + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
                     # day_deduction_amount_total = day_deduction_amount_total + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
                           
 
@@ -799,9 +799,9 @@ class techtime_payroll_excel(models.Model):
                     day_deduction_data = day_deduction_data + material_line_id.contract_id.day_deduction
                     # day_deduction_total = day_deduction_total + material_line_id.contract_id.day_deduction
 
-                    worksheet.write(row, 7, "{:,.2f}".format(float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '') 
+                    worksheet.write(row, 7, "{:,.2f}".format(float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))) or '') 
 
-                    day_deduction_amount_data = day_deduction_amount_data + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
+                    day_deduction_amount_data = day_deduction_amount_data + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
                     # day_deduction_amount_total = day_deduction_amount_total + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
                           
 
@@ -1293,10 +1293,10 @@ class techtime_payroll_excel(models.Model):
                     day_deduction_data = day_deduction_data + material_line_id.contract_id.day_deduction
                     day_deduction_total = day_deduction_total + material_line_id.contract_id.day_deduction
 
-                    worksheet.write(row, 3, "{:,.2f}".format(float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))) or '',main_cell) 
+                    worksheet.write(row, 3, "{:,.2f}".format(float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))) or '',main_cell) 
 
-                    day_deduction_amount_data = day_deduction_amount_data + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
-                    day_deduction_amount_total = day_deduction_amount_total + float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction))
+                    day_deduction_amount_data = day_deduction_amount_data + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
+                    day_deduction_amount_total = day_deduction_amount_total + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
                           
 
                     # if material_line_id.contract_id.currency_id.id == 2:
