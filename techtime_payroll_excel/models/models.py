@@ -13,7 +13,7 @@ from geopy.geocoders import Nominatim
 import xml.dom.minidom
 import calendar
 from translate import Translator
-
+import convert_numbers
 from bs4 import BeautifulSoup
 import re
 from prettytable import PrettyTable
