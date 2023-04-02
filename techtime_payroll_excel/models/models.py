@@ -1357,7 +1357,7 @@ class techtime_payroll_excel(models.Model):
                             print("total_entitlements222222222222222222222222",total_entitlements)
                             worksheet.write(row, 10, "{:,.2f}".format(float(total_entitlements)) or '',main_cell)
                             total_entitlements_data = total_entitlements_data + total_entitlements
-                            total_entitlements_total = total_entitlements_total + iit.total
+                            total_entitlements_total = total_entitlements_total + total_entitlements_data
                                 
                         if not total_entitlements_data:
                             worksheet.write(row, 10, '',main_cell)        
