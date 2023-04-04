@@ -175,7 +175,7 @@ class techtime_payroll_excel(models.Model):
 
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
-        call = 0
+        call = 1
 
         worksheet.write_merge(call - 1, call - 1, 4, 9, 'المستحقات', header_bold_extra_tag)
         worksheet.write_merge(call - 1, call - 1, 10, 14, 'الاستقطاعات', header_bold_extra)
