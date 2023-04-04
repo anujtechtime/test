@@ -119,6 +119,10 @@ class techtime_payroll_excel(models.Model):
         rested = self.env['hr.payslip'].search([])
         row = 2
 
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
+
         main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
@@ -172,6 +176,9 @@ class techtime_payroll_excel(models.Model):
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
         employe_data = 0
         call = 0
+
+        worksheet.write_merge(call - 1, call - 1, 4, 9, 'المستحقات', header_bold_extra_tag)
+        worksheet.write_merge(call - 1, call - 1, 10, 14, 'الاستقطاعات', header_bold_extra)
 
         worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
         worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
