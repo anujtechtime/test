@@ -57,6 +57,22 @@ class DataMphine(models.Model):
             dicts.append(dct)
         return dicts
 
+    def get_new_data(self):
+        print("self################",self)
+        print("request@@@@@@@@@@@@@@@",request)
+        dct = {}
+
+        college_value = request.env["new.work"].sudo().search([])
+        print("college_value@@@@@@@@@@",college_value)
+        dicts = []
+        for coll in college_value:
+            dct = {
+            'new_name' : coll.college,
+            'new_id' : coll.id
+            }
+            dicts.append(dct)
+        return dicts    
+
     def get_year_acceptance_data(self):
         print("self################",self)
         print("request@@@@@@@@@@@@@@@",request)

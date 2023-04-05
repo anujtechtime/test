@@ -56,6 +56,10 @@ var ExtendedSearchProposition = Widget.extend({
         var ddgst_shift = document.getElementsByClassName('data_filter_data_shift');
         var ddgst_level = document.getElementsByClassName('data_filter_data_level');
         var ddgst_year_acceptance = document.getElementsByClassName('data_filter_data_year_acceptance');
+
+        var ddgst_new_data = document.getElementsByClassName('data_filter_data_new_data');
+
+        
         
         
         var i = 1;
@@ -66,6 +70,7 @@ var ExtendedSearchProposition = Widget.extend({
         var n = 1;
         var o = 1;
         var p = 1;
+        var q = 1;
 
         if (ddgst[0] ||  ddgst_student[0] ||  ddgst_department[0] ||  ddgst_year[0]){
 
@@ -88,6 +93,15 @@ var ExtendedSearchProposition = Widget.extend({
                 ddgst_year_acceptance[0].childNodes[p].childNodes[1].value = '';
             }
             p = p + 1
+        }
+
+        for (q = 1; q < ddgst_new_data[0].childNodes.length; q++) {
+        
+            if (ddgst_new_data[0].childNodes[q].childNodes[1].value == 'true') {
+                nval = 'data_one';
+                ddgst_new_data[0].childNodes[q].childNodes[1].value = '';
+            }
+            q = q + 1
         }
 
         for (m = 1; m < ddgst_status[0].childNodes.length; m++) {

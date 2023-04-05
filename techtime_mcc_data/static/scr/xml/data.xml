@@ -279,6 +279,32 @@
                         </t>
                           </div>
                         </div>
+
+
+                        <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
+    background-color: #636678 !important;">
+                          <button style="margin-top: -7px;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    border-color: #684ae700 !important;"  class="btn btn-secondary dropdown-toggle o_filters_menu_button_department" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           نافذة القبول
+                          </button>
+
+
+                          <div class="dropdown-menu data_filter_data_new_data" aria-labelledby="dropdownMenuButton">
+
+                            <t t-foreach="widget.record_new_data" t-as="reccd_new_data">
+                            <!-- <t  t-esc="reccd.college_id"/> -->
+                            
+
+                             <div class="form-check ml-2" id="form_click_data_new_data" value="" t-att-data-id="reccd_new_data.new_id">
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd_new_data.new_id"/>
+                            <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd_new_data.new_name"/></label>
+                          </div>
+
+                        </t>
+                          </div>
+                        </div>
                         <!-- <button
                         class="btn btn-primary oe_button oe_highlight o_button_lap"
                         type="button">Department</button>
