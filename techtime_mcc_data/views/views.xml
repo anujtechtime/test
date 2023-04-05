@@ -53,6 +53,27 @@
     </record>
 
 
+    <record model="ir.ui.view" id="techtime_mcc_data_new_work">
+      <field name="name">New list</field>
+      <field name="model">new.work</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="techtime_mcc_data_action_windownew_work">
+      <field name="name">new work window</field>
+      <field name="res_model">new.work</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
     <record id="view_sales_order_filter_sale_res_partner_data" model="ir.ui.view">
         <field name="name">res.partner</field>
         <field name="model">res.partner</field>
@@ -249,6 +270,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[1]" position="before">
                 <group>
+                    <field name="data_one"/>
                     <field name="file_upload"/>
                 </group>
             </xpath>

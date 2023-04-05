@@ -27,8 +27,16 @@ class techtime_mcc_data(models.Model):
 
     name = fields.Char("Year")
 
+class techtime_new_data(models.Model):
+    _name = 'new.work'
+    _description = 'new.work'
+
+    name = fields.Char("نافذة القبول")        
+
 class DataMphine(models.Model):
     _inherit = "res.partner"
+
+    data_one = fields.Many2one("new.work", string="نافذة القبول")
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)

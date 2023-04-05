@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_techtime_mcc_data_techtime_mcc_data,techtime_mcc_data.techtime_mcc_data,model_techtime_mcc_data_techtime_mcc_data,base.group_user,1,1,1,1
+access_new_work,new.work,model_new_work,base.group_user,1,1,1,1
