@@ -55,6 +55,155 @@ class techtime_payrollDepartment(models.Model):
     year = fields.Many2one("year.year", string="Year")
 
 
+    def send_mis_report_for_department_new_sheet(self):
+        filename = 'Department.xls'
+        string = 'Department_report.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Department_Report_%s.xls' % date.today()
+        rested = self.env['account.move'].search([])
+        row = 2
+
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green;")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red;")
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime;")
+
+        main_cell = xlwt.easyxf('font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; ')
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        worksheet.col(0).width = 7000
+        worksheet.col(1).width = 4000
+        worksheet.col(2).width = 4000
+
+        worksheet.col(3).width = 4000
+        worksheet.col(4).width = 4000
+        worksheet.col(5).width = 4000
+        worksheet.col(6).width = 4000
+
+        department_data = self.env["department.department"].search([])
+        employe_data = 0
+        call = 1
+
+
+        worksheet.write(call, 0, 'القسم', header_bold) #day deduction
+        worksheet.write(call, 1, 'العدد الكلي ', header_bold) #day deduction amount
+
+        worksheet.write(call, 2, 'مسددي القسط الأول 50%', header_bold) # wage
+
+        worksheet.write(call, 3, 'مسددي القسط الثاني 25%', header_bold) #basic salary
+
+
+        # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+        worksheet.write(call, 4, 'مسددي القسط الثالث 25% ', header_bold) #compensation
+
+        worksheet.write(call, 5, 'الفرق بين العدد الكلي والمسجلين في القسط الأول ', header_bold) #allowance
+
+
+        call = 2
+        total_od_all = 0
+        total_of_first = 0
+        total_of_second = 0
+        total_of_third = 0
+        total_of_credit = 0
+        for depp in  department_data:
+            value_first_paid_invoice = 0
+            invoices_paid_1 = self.env['account.move'].search([("department","=",depp.id),("invoice_origin","!=",False),("invoice_payment_state","=","paid")]).filtered(lambda picking: picking.account_installment_line_ids.number == 1)
+            invoices_paid_2 = self.env['account.move'].search([("department","=",depp.id),("invoice_origin","!=",False),("invoice_payment_state","=","paid")]).filtered(lambda picking: picking.account_installment_line_ids.number == 2)
+            invoices_paid_3 = self.env['account.move'].search([("department","=",depp.id),("invoice_origin","!=",False),("invoice_payment_state","=","paid")]).filtered(lambda picking: picking.account_installment_line_ids.number == 3)
+
+
+            total_student = self.env["res.partner"].search([("department","=",depp.id)])
+
+            total_credit = self.env["sale.order"].search(['|',("Status","=","status1"),("Status","=","status3"),("department","=",depp.id)])
+
+
+            worksheet.write(call, 0, depp.department, main_cell)
+
+
+            worksheet.write(call, 1, len(total_student.mapped("id")), main_cell) # employee
+
+            total_od_all = total_od_all + len(total_student.mapped("id"))
+
+
+
+            worksheet.write(call, 2, len(invoices_paid_1.mapped("id")), main_cell) # employee type
+
+            total_of_first = total_of_first + len(invoices_paid_1.mapped("id"))
+
+
+            worksheet.write(call, 3, len(invoices_paid_2.mapped("id")), main_cell) # certifiactae
+
+            total_of_second = total_of_second + len(invoices_paid_2.mapped("id"))
+
+            worksheet.write(call, 4, len(invoices_paid_3.mapped("id")), main_cell) # description
+
+            total_of_third = total_of_third + len(invoices_paid_3.mapped("id"))
+
+
+            worksheet.write(call, 5, len(total_credit.mapped("id")), main_cell)
+
+            total_of_credit = total_of_credit + len(total_credit.mapped("id"))
+
+            call  = call + 1
+
+
+        worksheet.write(call + 1, 1, total_od_all, main_cell) # employee
+
+        worksheet.write(call + 1, 2, total_of_first, main_cell) # employee type
+
+        worksheet.write(call + 1, 3, total_of_second, main_cell) # certifiactae
+
+        worksheet.write(call + 1, 4, total_of_third, main_cell) # description
+
+
+        worksheet.write(call + 1, 5, total_of_credit, main_cell)    
+
+        worksheet.write_merge(call + 3, call + 3, 0, 5, 'ملاحظة: الاعداد الموجودة في الحقل الأخير (الفرق) السبب في هذا الفرق بالعدد بين العدد الكلي للطلاب وعدد المسددين للدفعة الأولى هو ان بعض الطلبة سدد قسط وانتقل او انسحب او تم ترقين قيده', main_cell)
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }    
+
+
 class TechAccount(models.Model):
     _inherit = 'account.move.line'
 
