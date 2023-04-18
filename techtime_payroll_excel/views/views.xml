@@ -62,7 +62,7 @@
         </field>
     </record>
 
-    <record id="res_partner_view_search_inherit_data_batch" model="ir.ui.view">
+<!--     <record id="res_partner_view_search_inherit_data_batch" model="ir.ui.view">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
@@ -73,7 +73,7 @@
                 </group>
             </xpath>
         </field>
-    </record>
+    </record> -->
 
 
     <record id="ir_actions_server_sale_cart_recovery_email_payroll" model="ir.actions.server">
