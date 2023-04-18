@@ -53,7 +53,7 @@
 
     <record id="holiday_department_data_new_new" model="ir.actions.server">
         <field name="name">Department Excel</field>
-        <field name="model_id" ref="payroll.model_hr_payslip"/>
+        <field name="model_id" ref="account.model_account_move"/>
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="state">code</field>
         <field name="code">
