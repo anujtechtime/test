@@ -130,7 +130,7 @@ class techtime_payrollDepartment(models.Model):
 
                 print("level@@@@@@@@@@@@@",level)
                 
-                invoice_data = self.search([("department","=",depp.id),("state","=","posted"),("amount_residual",">",50000),("level","=",level)],order='partner_id asc').filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل")
+                invoice_data = self.filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل" and picking.department == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level)
                 
                 sequence = 1
                 print("invoice_data#############",invoice_data)
