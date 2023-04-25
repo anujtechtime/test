@@ -73,7 +73,7 @@ class DataMphine(models.Model):
         dicts = []
         for coll in college_value:
             dct = {
-            'new_name' : coll.college,
+            'new_name' : coll.name,
             'new_id' : coll.id
             }
             dicts.append(dct)
