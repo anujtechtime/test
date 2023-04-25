@@ -100,29 +100,37 @@ class techtime_payrollDepartment(models.Model):
         call = 1
 
         department_data = self.env["department.department"].search([])
-
+        level_name = ""
         for depp in  department_data:
             row = 1
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
+            worksheet.write(row, 1, 'التسلسل', header_bold)
 
-            
-            worksheet.write(row, 1, 'sequence', header_bold)
+            worksheet.write(row, 2, 'رقم الفاتورة', header_bold)
 
-            worksheet.write(row, 2, 'Invoice Number', header_bold)
-
-            worksheet.write(row, 2, 'Student Name', header_bold)
+            worksheet.write(row, 3, 'أسم الطالب', header_bold)
 
             row = 2
             for level in level_data:
+
+                if level == "leve1":
+                    level_name = "المرحلة الاولى"
+                if level == "level2":
+                    level_name = "المرحلة الثانية"
+                if level == "level3": 
+                    level_name = "المرحلة الثالثة"
+                if level == "level4":
+                    level_name = "المرحلة الرابعة"
+                if level == "level5":
+                    level_name = "المرحلة الخامسة"
 
                 worksheet.write(row - 1, 0, level , header_bold)
 
                 print("level@@@@@@@@@@@@@",level)
                 
-                invoice_data = self.env["account.move"].search([("department","=",depp.id),("state","=","posted"),("amount_residual",">",50000),("level","=",level)],order='partner_id desc').filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل")
-
+                invoice_data = self.search([("department","=",depp.id),("state","=","posted"),("amount_residual",">",50000),("level","=",level)],order='partner_id asc').filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل")
                 
                 sequence = 1
                 print("invoice_data#############",invoice_data)
