@@ -395,7 +395,7 @@
 -->
     <!-- actions -->
 
-    <menuitem name="نافذة القبول" id="techtime_mcc_data.menu_1_list" parent="sale.sale_order_menu"
+    <menuitem name="نافذة القبول" id="techtime_mcc_data.menu_1_list" parent="contacts.res_partner_menu_contacts"
               action="techtime_mcc_data.techtime_mcc_data_action_windownew_work"/>
 
 <!--
