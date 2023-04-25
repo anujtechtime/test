@@ -33,6 +33,12 @@ class techtime_new_data(models.Model):
 
     name = fields.Char("نافذة القبول")        
 
+class DataHrEmployee(models.Model):
+    _inherit = "hr.job"
+
+    sequence = fields.Char("Sequence")
+
+
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
