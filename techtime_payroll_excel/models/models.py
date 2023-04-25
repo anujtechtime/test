@@ -126,12 +126,14 @@ class techtime_payrollDepartment(models.Model):
                 if level == "level5":
                     level_name = "المرحلة الخامسة"
 
-                worksheet.write(row - 1, 0, level , header_bold)
+                worksheet.write(row - 1, 0, level_name , header_bold)
 
                 print("level@@@@@@@@@@@@@",level)
+                print("self$$$$$$$$$$$$$",self)
                 
-                invoice_data = self.filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل" and picking.department == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level)
+                invoice_data = self.filtered(lambda picking: picking.invoice_line_ids.name == "تسجيل" and picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level)
                 
+                invoice_data.search([],order='partner_id asc')
                 sequence = 1
                 print("invoice_data#############",invoice_data)
                 for inv in invoice_data:
