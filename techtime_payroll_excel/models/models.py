@@ -108,7 +108,7 @@ class techtime_payrollDepartment(models.Model):
 
             # worksheet.write(row - 1, 0, depp.department, header_bold)
 
-            worksheet.write_merge(row - 1, row - 1 + 3, 0, 2, depp.department, header_bold)
+            worksheet.write_merge(row - 1, row - 1, 0, 2, depp.department, header_bold)
 
             worksheet.write(row, 1, 'التسلسل', header_bold)
 
