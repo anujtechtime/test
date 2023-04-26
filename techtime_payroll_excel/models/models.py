@@ -106,6 +106,8 @@ class techtime_payrollDepartment(models.Model):
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
+            worksheet.write(row - 1, 0, depp.department, header_bold)
+
             worksheet.write(row, 1, 'التسلسل', header_bold)
 
             worksheet.write(row, 2, 'رقم الفاتورة', header_bold)
@@ -137,18 +139,18 @@ class techtime_payrollDepartment(models.Model):
 
                 if invoice_data:
                     worksheet.write(row - 1, 0, level_name , header_bold)
-                for inv in invoice_data:
-                    print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
-                    print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
-                    worksheet.write(row, 1, sequence, main_cell)
+                    for inv in invoice_data:
+                        print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
+                        print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
+                        worksheet.write(row, 1, sequence, main_cell)
 
-                    worksheet.write(row, 2, inv.name, main_cell)
+                        worksheet.write(row, 2, inv.name, main_cell)
 
-                    worksheet.write(row, 3, inv.partner_id.name, main_cell)
-                    row = row + 1
-                    print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
-                    sequence = sequence + 1
-                row = row + 3    
+                        worksheet.write(row, 3, inv.partner_id.name, main_cell)
+                        row = row + 1
+                        print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
+                        sequence = sequence + 1
+                    row = row + 3    
                     
 
         fp = io.BytesIO()
