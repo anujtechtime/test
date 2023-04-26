@@ -106,7 +106,9 @@ class techtime_payrollDepartment(models.Model):
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
-            worksheet.write(row - 1, 0, depp.department, header_bold)
+            # worksheet.write(row - 1, 0, depp.department, header_bold)
+
+            worksheet.write_merge(row - 1, row - 1 + 3, 0, 2, depp.department, header_bold)
 
             worksheet.write(row, 1, 'التسلسل', header_bold)
 
