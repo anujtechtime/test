@@ -110,13 +110,13 @@ class techtime_payrollDepartment(models.Model):
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
 
             worksheet.cols_right_to_left = True
-            
+
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
             # worksheet.write(row - 1, 0, depp.department, header_bold)
             worksheet.write_merge(row - 2, row - 2, 0, 3, date.today(), header_bold)
 
-            worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department  + "(" + len(invoice_data_department_total.mapped("id")) + ")", header_bold)
+            worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department  + "(" + str(len(invoice_data_department_total.mapped("id"))) + ")", header_bold)
 
             worksheet.write(row, 1, 'التسلسل', header_bold)
 
@@ -148,7 +148,7 @@ class techtime_payrollDepartment(models.Model):
                 sequence = 1
 
                 if invoice_data:
-                    worksheet.write(row - 1, 0, level_name   + "(" + len(invoice_data.mapped("id")) + ")" , header_bold)
+                    worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
                     for inv in invoice_data:
                         print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
                         print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
