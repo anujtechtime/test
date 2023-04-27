@@ -102,13 +102,21 @@ class techtime_payrollDepartment(models.Model):
         department_data = self.env["department.department"].search([])
         level_name = ""
         for depp in  department_data:
-            row = 1
+            row = 2
+
+            invoice_data_department_total = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000)
+
+
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
+
+            worksheet.cols_right_to_left = True
+            
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
             # worksheet.write(row - 1, 0, depp.department, header_bold)
+            worksheet.write_merge(row - 2, row - 2, 0, 3, date.today(), header_bold)
 
-            worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department, header_bold)
+            worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department  + "(" + len(invoice_data_department_total.mapped("id")) + ")", header_bold)
 
             worksheet.write(row, 1, 'التسلسل', header_bold)
 
@@ -116,7 +124,7 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 3, 'أسم الطالب', header_bold)
 
-            row = 2
+            row = 3
             for level in level_data:
 
                 if level == "leve1":
@@ -140,7 +148,7 @@ class techtime_payrollDepartment(models.Model):
                 sequence = 1
 
                 if invoice_data:
-                    worksheet.write(row - 1, 0, level_name , header_bold)
+                    worksheet.write(row - 1, 0, level_name   + "(" + len(invoice_data.mapped("id")) + ")" , header_bold)
                     for inv in invoice_data:
                         print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
                         print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
