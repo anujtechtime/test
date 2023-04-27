@@ -114,7 +114,7 @@ class techtime_payrollDepartment(models.Model):
             level_data = ["leve1","level2", "level3", "level4", "level5"]
 
             # worksheet.write(row - 1, 0, depp.department, header_bold)
-            worksheet.write_merge(row - 2, row - 2, 0, 3, date.today(), header_bold)
+            worksheet.write_merge(row - 2, row - 2, 0, 3, date.today().strftime('%m/%d/%Y'), header_bold)
 
             worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department  + "(" + str(len(invoice_data_department_total.mapped("id"))) + ")", header_bold)
 
