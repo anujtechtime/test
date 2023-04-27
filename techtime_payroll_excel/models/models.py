@@ -62,7 +62,7 @@ class techtime_payrollDepartment(models.Model):
         header_bold = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre")
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
 
 
         header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
@@ -93,7 +93,7 @@ class techtime_payrollDepartment(models.Model):
         main_cell = xlwt.easyxf('font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; align: horiz centre')
+                     pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
         
 
         row = 1
@@ -108,6 +108,10 @@ class techtime_payrollDepartment(models.Model):
 
 
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
+
+            worksheet.col(0).width = 4500
+            worksheet.col(2).width = 5500
+            worksheet.col(3).width = 7500
 
             worksheet.cols_right_to_left = True
 
