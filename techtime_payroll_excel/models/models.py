@@ -246,7 +246,7 @@ class techtime_payrollDepartment(models.Model):
         for depp in  department_data:
             row = 2
 
-            invoice_data_department_total = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted")
+            invoice_data_department_total = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.invoice_payment_state != 'paid')
 
 
             worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
@@ -289,7 +289,7 @@ class techtime_payrollDepartment(models.Model):
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
                 
-                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.level == level).sorted(key=lambda r: r.partner_id.name)
+                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                 sequence = 1
 
