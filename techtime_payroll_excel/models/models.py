@@ -192,7 +192,149 @@ class techtime_payrollDepartment(models.Model):
             "type": "ir.actions.act_url",
             "url": str(base_url) + str(download_url),
             "target": "new",
-        }    
+        } 
+
+
+    
+    def send_mis_report_for_department_new_data_level_without_fifty(self):
+        filename = 'Department_level.xls'
+        string = 'Department_level_report.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre")
+
+
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
+        cell_format = xlwt.easyxf()
+        filename = 'Department_level_Report_%s.xls' % date.today()
+
+        main_cell = xlwt.easyxf('font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
+        
+
+        row = 1
+        call = 1
+
+        department_data = self.env["department.department"].search([])
+        level_name = ""
+        for depp in  department_data:
+            row = 2
+
+            invoice_data_department_total = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted")
+
+
+            worksheet = wb.add_sheet(depp.department,  cell_overwrite_ok=True)
+
+            worksheet.col(0).width = 4500
+            worksheet.col(2).width = 5500
+            worksheet.col(3).width = 7500
+
+            worksheet.cols_right_to_left = True
+
+            level_data = ["leve1","level2", "level3", "level4", "level5"]
+
+            # worksheet.write(row - 1, 0, depp.department, header_bold)
+            worksheet.write_merge(row - 2, row - 2, 0, 3, date.today().strftime('%m/%d/%Y'), header_bold)
+
+            worksheet.write_merge(row - 1, row - 1, 0, 3, depp.department  + "(" + str(len(invoice_data_department_total.mapped("id"))) + ")", header_bold)
+
+            worksheet.write(row, 1, 'التسلسل', header_bold)
+
+            worksheet.write(row, 2, 'رقم الفاتورة', header_bold)
+
+            worksheet.write(row, 3, 'أسم الطالب', header_bold)
+
+            row = 3
+            for level in level_data:
+
+                if level == "leve1":
+                    level_name = "المرحلة الاولى"
+                if level == "level2":
+                    level_name = "المرحلة الثانية"
+                if level == "level3": 
+                    level_name = "المرحلة الثالثة"
+                if level == "level4":
+                    level_name = "المرحلة الرابعة"
+                if level == "level5":
+                    level_name = "المرحلة الخامسة"
+
+                
+
+                print("level@@@@@@@@@@@@@",level)
+                print("self$$$$$$$$$$$$$",self)
+                
+                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name)
+                
+                sequence = 1
+
+                if invoice_data:
+                    worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
+                    for inv in invoice_data:
+                        print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
+                        print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
+                        worksheet.write(row, 1, sequence, main_cell)
+
+                        worksheet.write(row, 2, inv.name, main_cell)
+
+                        worksheet.write(row, 3, inv.partner_id.name, main_cell)
+                        row = row + 1
+                        print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
+                        sequence = sequence + 1
+                    row = row + 3    
+                    
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }        
 
 
     def send_mis_report_for_department_new_sheet(self):

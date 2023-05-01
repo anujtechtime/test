@@ -75,6 +75,21 @@
     </record>
 
 
+    <record id="holiday_department_levekl_data_without_fifty" model="ir.actions.server">
+        <field name="name">Amount Due Excel Without 50000</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+          action = records.send_mis_report_for_department_new_data_level_without_fifty()
+        </field>
+    </record>
+
+
+
+    
+
 <!--     <record id="res_partner_view_search_inherit_data_batch" model="ir.ui.view">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
