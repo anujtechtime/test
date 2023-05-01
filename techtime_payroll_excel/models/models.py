@@ -289,7 +289,7 @@ class techtime_payrollDepartment(models.Model):
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
                 
-                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name)
+                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.level == level).sorted(key=lambda r: r.partner_id.name)
                 
                 sequence = 1
 
