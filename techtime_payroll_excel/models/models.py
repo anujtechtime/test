@@ -1462,7 +1462,7 @@ class techtime_payroll_excel(models.Model):
                 print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
 
                 # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
-                rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
+                rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence if r.employee_id.job_id else r.employee_id.job_id)
 
                 worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
                 worksheet.write(call - 1, 0, dep.name, header_bold)
