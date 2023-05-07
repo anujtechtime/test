@@ -86,6 +86,18 @@
         </field>
     </record>
 
+    <record id="holiday_department_levekl_data_without_fifty_sst_payslip" model="ir.actions.server">
+        <field name="name">SST Payslip excel</field>
+        <field name="model_id" ref="payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+        if records:
+          action = records.send_mis_report_techtime_data()
+        </field>
+    </record>
+
+
 
 
     
