@@ -112,6 +112,7 @@ class techtime_payrollDepartment(models.Model):
             worksheet.col(0).width = 4500
             worksheet.col(2).width = 5500
             worksheet.col(3).width = 7500
+            worksheet.col(4).width = 7500
 
             worksheet.cols_right_to_left = True
 
@@ -283,6 +284,7 @@ class techtime_payrollDepartment(models.Model):
             worksheet.col(0).width = 4500
             worksheet.col(2).width = 5500
             worksheet.col(3).width = 7500
+            worksheet.col(4).width = 7500
 
             worksheet.cols_right_to_left = True
 
