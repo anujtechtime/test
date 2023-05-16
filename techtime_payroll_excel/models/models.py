@@ -168,7 +168,7 @@ class techtime_payrollDepartment(models.Model):
                         status_data = ""
 
                         if inv.partner_id.Status == "currecnt_student":
-                            status_data  = "Current Student"
+                            status_data  = "طالب حالي"
                         if inv.partner_id.Status == "status1":
                             status_data  = "ترقين قيد"
                         if inv.partner_id.Status == "status2":
@@ -178,16 +178,16 @@ class techtime_payrollDepartment(models.Model):
                             status_data  = "انسحاب"
 
                         if inv.partner_id.Status == "succeeded":
-                            status_data  = "Succeeded"
+                            status_data  = "طالب ناجح"
                             
                         if inv.partner_id.Status == "failed":
-                            status_data  = "Falied"
+                            status_data  = "طالب راسب"
                             
                         if inv.partner_id.Status == "transferred_from_us":
-                            status_data  = "Transferred From Us"     
+                            status_data  = "طالب منتقل من الجامعة"     
 
                         if inv.partner_id.Status == "graduated":
-                            status_data  = "Graduated"                            
+                            status_data  = "طالب ناجح"                            
 
                         worksheet.write(row, 4, status_data, main_cell)
 
@@ -340,7 +340,7 @@ class techtime_payrollDepartment(models.Model):
                         status_data = ""
 
                         if inv.partner_id.Status == "currecnt_student":
-                            status_data  = "Current Student"
+                            status_data  = "طالب حالي"
                         if inv.partner_id.Status == "status1":
                             status_data  = "ترقين قيد"
                         if inv.partner_id.Status == "status2":
@@ -350,16 +350,16 @@ class techtime_payrollDepartment(models.Model):
                             status_data  = "انسحاب"
 
                         if inv.partner_id.Status == "succeeded":
-                            status_data  = "Succeeded"
+                            status_data  = "طالب ناجح"
                             
                         if inv.partner_id.Status == "failed":
-                            status_data  = "Falied"
+                            status_data  = "طالب راسب"
                             
                         if inv.partner_id.Status == "transferred_from_us":
-                            status_data  = "Transferred From Us"     
+                            status_data  = "طالب منتقل من الجامعة"     
 
                         if inv.partner_id.Status == "graduated":
-                            status_data  = "Graduated"                            
+                            status_data  = "طالب ناجح"                            
 
                         worksheet.write(row, 4, status_data, main_cell)
 
