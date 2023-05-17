@@ -180,20 +180,20 @@
         </record>
 
 
-        <record id="sale_orderform_view_account_move_data_miss" model="ir.ui.view">
+<!--         <record id="sale_orderform_view_account_move_data_miss" model="ir.ui.view">
             <field name="name">account.move.data</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="techtime_univeristy.sale_orderform_view_account_move"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='level']" position="before">
-                    <field name="Status" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                    <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
                 </xpath>
 
-<!--                 <xpath expr="//field[@name='Subject']" position="after">
+                <xpath expr="//field[@name='Subject']" position="after">
                     <field name="department" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
-                </xpath> -->
+                </xpath>
               </field>
-            </record>
+            </record> -->
     
 
     

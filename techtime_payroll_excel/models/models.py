@@ -53,7 +53,7 @@ class techtime_payrollDepartment(models.Model):
     _inherit = 'account.move'
 
     year = fields.Many2one("year.year", string="Year")
-    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", related="partner_id.Status")
+    Status = fields.Selection([('status3', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", related="partner_id.Status")
 
     def send_mis_report_for_department_new_data_level(self):
         filename = 'Department_level.xls'
@@ -2120,6 +2120,8 @@ class PayrollExcelBatch(models.Model):
     _inherit = 'res.partner'
     
     batch = fields.Char("Batch")
+
+    Status = fields.Selection(selection_add=[('status3', 'مؤجل')])
 
 
 class PayrollExcel(models.Model):
