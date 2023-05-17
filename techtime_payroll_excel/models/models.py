@@ -2121,7 +2121,7 @@ class PayrollExcelBatch(models.Model):
     
     batch = fields.Char("Batch")
 
-    Status = fields.Selection(selection_add=[('status4', 'مؤجل')])
+    Status = fields.Selection(selection_add=[('status4', 'مؤجل')], default=None)
 
 
 class PayrollExcel(models.Model):
