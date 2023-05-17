@@ -138,7 +138,7 @@ class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
 
 
-    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
     transferred_to_us = fields.Boolean("Transferred To Us ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
@@ -639,7 +639,7 @@ class ResData(models.Model):
     payment_number = fields.Many2one("account.payment",string="payment number", tracking=True)
     transferred_to_us = fields.Boolean("Transferred To Us ", tracking=True)
     transfer_shift = fields.Boolean("Transferred Shift ", tracking=True)
-    Status = fields.Selection([('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", tracking=True)
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", tracking=True)
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى", tracking=True)
 
 
