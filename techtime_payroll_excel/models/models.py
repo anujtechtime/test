@@ -149,53 +149,55 @@ class techtime_payrollDepartment(models.Model):
 
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
-                
-                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
-                
-                sequence = 1
 
-                if invoice_data:
-                    worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
-                    for inv in invoice_data:
-                        print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
-                        print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
-                        worksheet.write(row, 1, sequence, main_cell)
-
-                        worksheet.write(row, 2, inv.name, main_cell)
-
-                        worksheet.write(row, 3, inv.partner_id.name, main_cell)
-
-                        status_data = ""
-
-                        if inv.partner_id.Status == "currecnt_student":
-                            status_data  = "طالب حالي"
-                        if inv.partner_id.Status == "status1":
-                            status_data  = "ترقين قيد"
-                        if inv.partner_id.Status == "status2":
-                            status_data  = "طالب غير مباشر"
-                        
-                        if inv.partner_id.Status == "status3":
-                            status_data  = "انسحاب"
-
-                        if inv.partner_id.Status == "succeeded":
-                            status_data  = "طالب ناجح"
-                            
-                        if inv.partner_id.Status == "failed":
-                            status_data  = "طالب راسب"
-                            
-                        if inv.partner_id.Status == "transferred_from_us":
-                            status_data  = "طالب منتقل من الجامعة"     
-
-                        if inv.partner_id.Status == "graduated":
-                            status_data  = "طالب ناجح"                            
-
-                        worksheet.write(row, 4, status_data, main_cell)
-
-                        row = row + 1
-                        print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
-                        sequence = sequence + 1
-                    row = row + 3    
+                status_data = ['currecnt_student','status1','status2','status3','succeeded','failed','transferred_from_us','graduated']
+                for status in status_data:
+                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
                     
+                    sequence = 1
+
+                    if invoice_data:
+                        worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
+                        for inv in invoice_data:
+                            print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
+                            print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
+                            worksheet.write(row, 1, sequence, main_cell)
+
+                            worksheet.write(row, 2, inv.name, main_cell)
+
+                            worksheet.write(row, 3, inv.partner_id.name, main_cell)
+
+                            status_data = ""
+
+                            if status == "currecnt_student":
+                                status_data  = "طالب حالي"
+                            if status == "status1":
+                                status_data  = "ترقين قيد"
+                            if status == "status2":
+                                status_data  = "طالب غير مباشر"
+                            
+                            if status == "status3":
+                                status_data  = "انسحاب"
+
+                            if status == "succeeded":
+                                status_data  = "طالب ناجح"
+                                
+                            if status == "failed":
+                                status_data  = "طالب راسب"
+                                
+                            if status == "transferred_from_us":
+                                status_data  = "طالب منتقل من الجامعة"     
+
+                            if status == "graduated":
+                                status_data  = "طالب ناجح"                            
+
+                            worksheet.write(row, 4, status_data, main_cell)
+
+                            row = row + 1
+                            print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
+                            sequence = sequence + 1
+                        row = row + 3    
+                        
 
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
@@ -321,53 +323,54 @@ class techtime_payrollDepartment(models.Model):
 
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
+                status_data = ['currecnt_student','status1','status2','status3','succeeded','failed','transferred_from_us','graduated']
+                for status in status_data:
+                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
                 
-                invoice_data = self.filtered(lambda picking: picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
-                
-                sequence = 1
+                    sequence = 1
 
-                if invoice_data:
-                    worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
-                    for inv in invoice_data:
-                        print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
-                        print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
-                        worksheet.write(row, 1, sequence, main_cell)
+                    if invoice_data:
+                        worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
+                        for inv in invoice_data:
+                            print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
+                            print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
+                            worksheet.write(row, 1, sequence, main_cell)
 
-                        worksheet.write(row, 2, inv.name, main_cell)
+                            worksheet.write(row, 2, inv.name, main_cell)
 
-                        worksheet.write(row, 3, inv.partner_id.name, main_cell)
+                            worksheet.write(row, 3, inv.partner_id.name, main_cell)
 
-                        status_data = ""
+                            status_data = ""
 
-                        if inv.partner_id.Status == "currecnt_student":
-                            status_data  = "طالب حالي"
-                        if inv.partner_id.Status == "status1":
-                            status_data  = "ترقين قيد"
-                        if inv.partner_id.Status == "status2":
-                            status_data  = "طالب غير مباشر"
+                            if status == "currecnt_student":
+                                status_data  = "طالب حالي"
+                            if status == "status1":
+                                status_data  = "ترقين قيد"
+                            if status == "status2":
+                                status_data  = "طالب غير مباشر"
+                            
+                            if status == "status3":
+                                status_data  = "انسحاب"
+
+                            if status == "succeeded":
+                                status_data  = "طالب ناجح"
+                                
+                            if status == "failed":
+                                status_data  = "طالب راسب"
+                                
+                            if status == "transferred_from_us":
+                                status_data  = "طالب منتقل من الجامعة"     
+
+                            if status == "graduated":
+                                status_data  = "طالب ناجح"                            
+
+                            worksheet.write(row, 4, status_data, main_cell)
+
+                            row = row + 1
+                            print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
+                            sequence = sequence + 1
+                        row = row + 3    
                         
-                        if inv.partner_id.Status == "status3":
-                            status_data  = "انسحاب"
-
-                        if inv.partner_id.Status == "succeeded":
-                            status_data  = "طالب ناجح"
-                            
-                        if inv.partner_id.Status == "failed":
-                            status_data  = "طالب راسب"
-                            
-                        if inv.partner_id.Status == "transferred_from_us":
-                            status_data  = "طالب منتقل من الجامعة"     
-
-                        if inv.partner_id.Status == "graduated":
-                            status_data  = "طالب ناجح"                            
-
-                        worksheet.write(row, 4, status_data, main_cell)
-
-                        row = row + 1
-                        print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
-                        sequence = sequence + 1
-                    row = row + 3    
-                    
 
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
