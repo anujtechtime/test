@@ -128,6 +128,44 @@
       </field>
     </record>
 
+    <record id="res_partner_view_search_inherit_data_batch_data" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='child_ids']" position="before">
+                <group>
+                    <field name="sale_order_ids" colspan="4" nolabel="1">
+                                <tree string="Sale Order" editable="bottom">
+                                    <field name="year"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="department" domain="[('college', '=', college)]"  context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}"/>
+
+                                    <field name="student" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="Subject" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="level" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    
+                                </tree>
+                                <form string="Sale Order">
+                                    <group col="4">
+                                        <field name="year"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                        <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                        <field name="department" domain="[('college', '=', college)]"  context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}"/>
+
+                                        <field name="student" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                        <field name="Subject" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                        <field name="level" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    
+                                    </group>
+                                </form>
+                            </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
 
     <record id="ir_actions_server_sale_cart_data_done_day" model="ir.actions.server">
         <field name="name">Change Day Deduction</field>
