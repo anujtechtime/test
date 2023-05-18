@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="group_sale_salesman_for_student" model="res.groups">
+            <field name="name">Sale Order Students</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="comment">the user will have access to his own data in the sales application.</field>
+        </record>
+</odoo>

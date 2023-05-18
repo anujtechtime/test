@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_techtime_mcc_data_techtime_mcc_data,techtime_mcc_data.techtime_mcc_data,model_techtime_mcc_data_techtime_mcc_data,base.group_user,1,1,1,1
 access_new_work,new.work,model_new_work,base.group_user,1,1,1,1
+access_sale_order,sale.order,model_sale_order,techtime_mcc_data.group_sale_salesman_for_student,1,0,0,0
