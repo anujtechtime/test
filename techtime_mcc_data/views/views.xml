@@ -128,7 +128,7 @@
       </field>
     </record>
 
-    <record id="res_partner_view_search_inherit_data_batch_data" model="ir.ui.view">
+<!--     <record id="res_partner_view_search_inherit_data_batch_data" model="ir.ui.view">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
@@ -164,7 +164,7 @@
             </xpath>
         </field>
     </record>
-
+ -->
 
 
     <record id="ir_actions_server_sale_cart_data_done_day" model="ir.actions.server">
