@@ -833,6 +833,11 @@ select {
     height: auto !important;
     margin: 0 !important;
 }
+
+.o_control_panel .o_cp_searchview{
+    min-height : 51px !important;
+}
+
 .o_base_settings .o_control_panel .o_panel .o_setting_search .searchIcon {
     top: 9px;
     right: 10px;
