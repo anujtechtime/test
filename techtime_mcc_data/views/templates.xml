@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_payment_receipt_document_unpaid">
-         <t t-call="web.external_layout">
+          <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
             <!-- <t t-if="o.name"> -->
@@ -152,9 +152,7 @@
                                     <tr class="is-subtotal text-right">
                                         <td colspan="99">
                                             
-                                            <span
-                                                t-esc="balance_data"
-                                            />
+                                            <span t-esc="balance_data"/>
                                             <strong class="mr16">المجموع</strong>
                                         </td>
                                     </tr>
@@ -184,6 +182,7 @@
                 
                 
             </div>
+        </t>
         </t>
        
         
