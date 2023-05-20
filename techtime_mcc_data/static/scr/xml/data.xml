@@ -20,6 +20,11 @@
                             <!-- <t t-foreach="widget.record_status" t-as="reccd_status"> -->
                             <!-- <t  t-esc="reccd.college_id"/> -->
                             
+                            <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status4">
+                            <input type="checkbox" class="form-check-input" value="" id="status4" style="display : none;"/>
+                            <label class="form-check-label" for="exampleCheck1">مؤجل</label>
+                          </div>  
+                          
 
                              <div class="form-check ml-2" id="form_click_data_status_type" value="" data-id="status1">
                             <input type="checkbox" class="form-check-input" value="" id="status1" style="display : none;"/>
