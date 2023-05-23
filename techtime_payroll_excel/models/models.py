@@ -153,7 +153,7 @@ class techtime_payrollDepartment(models.Model):
 
                 status_data = ['currecnt_student','status1','status4','status2','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
-                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
+                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name)
                     
                     sequence = 1
 
@@ -330,7 +330,7 @@ class techtime_payrollDepartment(models.Model):
                 print("self$$$$$$$$$$$$$",self)
                 status_data = ['currecnt_student','status1','status2','status4','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
-                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
+                    invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                     sequence = 1
 
