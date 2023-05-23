@@ -151,7 +151,7 @@ class techtime_payrollDepartment(models.Model):
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
 
-                status_data = ['currecnt_student','status1','status2','status3','succeeded','failed','transferred_from_us','graduated']
+                status_data = ['currecnt_student','status1','status4','status2','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.amount_residual > 50000 and picking.level == level).sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
                     
@@ -174,6 +174,10 @@ class techtime_payrollDepartment(models.Model):
                                 status_data  = "طالب حالي"
                             if status == "status1":
                                 status_data  = "ترقين قيد"
+
+                            if status == "status4":
+                                status_data  = "مؤجل"
+                                
                             if status == "status2":
                                 status_data  = "طالب غير مباشر"
                             
@@ -324,7 +328,7 @@ class techtime_payrollDepartment(models.Model):
 
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
-                status_data = ['currecnt_student','status1','status2','status3','succeeded','failed','transferred_from_us','graduated']
+                status_data = ['currecnt_student','status1','status2','status4','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name  and r.partner_id.Status)
                 
@@ -349,6 +353,9 @@ class techtime_payrollDepartment(models.Model):
                                 status_data  = "ترقين قيد"
                             if status == "status2":
                                 status_data  = "طالب غير مباشر"
+
+                            if status == "status4":
+                                status_data  = "مؤجل"    
                             
                             if status == "status3":
                                 status_data  = "انسحاب"
