@@ -308,7 +308,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[1]" position="before">
                 <group>
-                    <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
                     <field name="file_upload"/>
                 </group>
             </xpath>

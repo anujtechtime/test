@@ -33,6 +33,14 @@ class techtime_new_data(models.Model):
 
     name = fields.Char("نافذة القبول")        
 
+class DataDDFHrEmployee(models.Model):
+    _inherit = "hr.employee"
+
+    iban = fields.Char("IBAN")
+    Account_number = fields.Char("Account Number")
+
+
+
 class DataHrEmployee(models.Model):
     _inherit = "hr.job"
 
@@ -46,6 +54,9 @@ class DataMphine(models.Model):
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)
+
+    year_of_graduation = fields.Char("Year Of Graduation")
+    academic_branch = fields.Char("Academi Branch")
 
     def get_college_data(self):
         print("self################",self)
