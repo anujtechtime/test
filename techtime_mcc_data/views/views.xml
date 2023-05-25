@@ -377,6 +377,19 @@
             menu="True"
         />
 
+
+
+                <report
+            id="report_account_move_line_pending_new_temp"
+            model="hr.contract"
+            string="Contract Template"
+            report_type="qweb-pdf"
+            name="techtime_mcc_data.report_payment_receipt_unpaid_new_temp"
+            file="techtime_mcc_data.report_payment_receipt_unpaid_new_temp"
+            menu="True"
+        />
+
+
     <record id="res_partner_view_kanban_inherit_pos_sale" model="ir.ui.view"> 
         <field name="name">res.partner.kanban</field>
         <field name="model">res.partner</field>

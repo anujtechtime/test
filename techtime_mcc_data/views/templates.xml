@@ -187,6 +187,1053 @@
             
     </template>
 
+
+    
+<template id="report_payment_receipt_document_unpaid_new_temp">
+         <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+    <style type="text/css">
+        @page { size: 8.27in 11.69in; margin-left: 0.2in; margin-right: 0.2in; margin-top: 0.3in; margin-bottom: 0.1in }
+        p { line-height: 115%; text-align: right; orphans: 2; widows: 2; margin-bottom: 0.1in; direction: rtl; background: transparent }
+    </style>
+<span id="Frame2" dir="ltr" style="float: left; width: 3.15in; border: none; padding: 0in; background: #ffffff"><p dir="rtl" align="center" style="line-height: 100%; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>جمهورية
+    العراق</b></span></font></span></font></p>
+    <p dir="rtl" align="center" style="line-height: 100%; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>وزارة
+    المالية</b></span></font></span></font></p>
+    <p dir="rtl" align="center" style="line-height: 100%; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>الهيئة
+    العامة للضرائب</b></span></font></span></font></p>
+    <p dir="rtl" align="center" style="line-height: 100%; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>قسم
+    الاستقطاع المباشر</b></span></font></span></font></p>
+</span>
+
+
+<span id="Frame1" dir="ltr" style="float: left; width: 3.15in; border: none; padding: 0in; background: #ffffff"><p dir="rtl" style="line-height: 100%; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>رقم
+    الاستمارة</b></span></font></span></font></p>
+    <p dir="rtl" style="line-height: 100%; margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>السنة
+    المالية      </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>20</b></font></p>
+    <p dir="rtl" style="line-height: 100%; margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>الصفحة
+                </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>1</b></font></p>
+</span><br/>
+<br/>
+
+<p style="margin-bottom: 0.14in"><br/>
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الاستمارة
+ض</b></span></span></font><b>. </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>د
+</b></span></span></font><b>/ 4</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>أ</b></span></span></font></p>
+<p align="center" style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>خاصة
+بالمنتسبين الخاضعين للضريبة بطريقة
+الاستقطاع المباشر </b></span></span></font>
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in"> <b>1</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+ اسم المنتسب الكامل </b></span></span></font><b>:____________________________
+  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>تاريخ
+الميلاد </b></span></span></font><b>________________________________</b></p>
+<p style="margin-bottom: 0in">   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>رقم
+هوية الاحوال المدنية للمنتسب
+</b></span></span></font><b>:_______________________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الجنسية
+</b></span></span></font><b>:  _______________________________   </b>
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>محلة
+</b></span></span></font><b>: ___________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>شارع
+</b></span></span></font><b>:________ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>رقم
+السكن </b></span></span></font><b>: ___________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الجنس
+</b></span></span></font><b>: _______ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ذكر
+</b></span></span></font><b>: _______  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>انثى
+</b></span></span></font><b>______   </b>   
+</p>
+<p style="margin-bottom: 0in">     <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>هاتف
+</b></span></span></font><b>: ___________________________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>بريد
+الكتروني </b></span></span></font><b>: </b> 
+<b>________________________________</b>       
+</p>
+<p style="margin-bottom: 0in"> <b>2</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+ العنوان الوظيفي </b></span></span></font><b>:
+__________________________   </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اليوم
+الاول لبدء العمل </b></span></span></font><b>:_________________________</b>
+  
+</p>
+<p style="margin-bottom: 0in">   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اسم
+صاحب العمل  </b></span></span></font><b>:__________________________
+ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>هل
+هو صاحب العمل الرئيسي ؟ نعم </b></span></span></font><b>______
+ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كلا
+</b></span></span></font><b>______</b></p>
+<p style="margin-bottom: 0in">   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الرقم
+التعريفي لصاحب العمل </b></span></span></font><b>:
+______________________</b></p>
+<p style="margin-bottom: 0in">   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اذا
+كان المنتسب هوه الزوجة </b></span></span></font><b>:
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>هل
+زواجك عاجز عن العمل وليس له دخل خاضع
+للضريبة ؟  نعم </b></span></span></font><b>______  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كلا
+ </b></span></span></font><b>_______</b></p>
+<p style="margin-bottom: 0in"> <b>3</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+ الحالة الاجتماعية  </b></span></span></font><b>:
+_______  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اعزب
+</b></span></span></font><b>_______ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>متزوج
+</b></span></span></font><b>_______ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ارمل
+</b></span></span></font><b>_______ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>مطلق
+</b></span></span></font>
+</p>
+<p style="margin-bottom: 0in">     <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>أ
+ـ اذا كان متزوج تاريخ الزواج </b></span></span></font><b>:
+__________________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اسم
+الزوجة </b></span></span></font><b>( </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج
+</b></span></span></font><b>) ________________ </b>      
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ب
+ـ اذا كان مطلقاً تاريخ الطلاق </b></span></span></font><b>:
+__________________ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>رقم
+هوية الاحوال المدنية للزوجة </b></span></span></font><b>(
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج
+</b></span></span></font><b>) ___________________</b></p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ج
+ـ  اذا كان ارملا </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>تاريخ
+وفاة الزوجة </b></span></span></font><b>( </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج
+</b></span></span></font><b>) : ________________________</b>        
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>د
+ـ هل الزوجة ربة بيت وليس لها دخل ؟ نعم 
+</b></span></span></font><b>__________   </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كلا
+ </b></span></span></font><b>____________    ( </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>لذل
+كان الجواب </b></span></span></font><b>(</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>نعم</b></span></span></font><b>)
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>انتقل
+الى الفقرة </b></span></span></font><b>(4) )</b></p>
+<p style="margin-bottom: 0in">   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>هـ
+ـ  هل الزوجة </b></span></span></font><b>( </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج
+</b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>منتسبا
+نعم </b></span></span></font><b>_________  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كلا
+</b></span></span></font><b>__________ </b>
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>و
+ـ هل تطلب انت وزوجتك </b></span></span></font><b>(
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>زوجك
+</b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دمج
+المدخولات ؟  نعم </b></span></span></font><b>:
+__________ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كلا
+</b></span></span></font><b>______ (</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اذا
+كان الجواب </b></span></span></font><b>(</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>نعم</b></span></span></font><b>)
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>يوقع
+الزوجان </b></span></span></font><b>) </b>
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>توقيع
+الزوج </b></span></span></font><b>:                             
+                                         </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>توقيع
+الزوجة </b></span></span></font><b>:               </b>
+</p>
+<p style="margin-bottom: 0in">    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>التاريخ
+</b></span></span></font><b>:                                        
+                                       </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>التاريخ
+</b></span></span></font><b>: </b>
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>معلومات
+عن صاحب عمل الزوجة </b></span></span></font><b>(</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج</b></span></span></font><b>)
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الرئيسي
+</b></span></span></font><b>: </b>
+</p>
+<p style="margin-bottom: 0in">  <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اسم
+صاحب العمل </b></span></span></font><b>:
+______________________           </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الرقم
+التعريفي </b></span></span></font><b>:
+____________________________</b></p>
+<p style="margin-bottom: 0in"><b>4 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+ معلومات حول الاولاد الذين يحق للمنتسب
+طلب السماح القانوني عنهم </b></span></span></font><b>:
+</b>
+</p>
+<p style="margin-bottom: 0in">     <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الاولاد
+المستحقون هم </b></span></span></font><b>:</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>أ
+</b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>البنات
+غير المتزوجات دون سن </b></span></span></font><b>18
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>عاما
+؛ ب </b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>البنات
+غير المتزوجات في سن </b></span></span></font><b>18
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>عاما
+فما فوق من ذوات الدخول </b></span></span></font>
+</p>
+<p style="margin-left: 0.2in; text-indent: -0.2in; margin-bottom: 0in">
+    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>السنوية
+اقل من </b></span></span></font><b>200,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+؛ ج </b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الابناء
+دون سن </b></span></span></font><b>18 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>عام
+؛ د </b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الابناء
+بين سن </b></span></span></font><b>25-18 (</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>داخل
+</b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>عاما
+من ذوي الدخول السنوية دون </b></span></span></font><b>200,000
+ </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+ والمستمرين على الدراسة في المرحلة
+الاعدادية او الجامعة او الدراسات العليا
+؛ هـ </b></span></span></font><b>) </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الابناء
+غير القادرين على الكسب بسبب الاعاقة
+العقلية او الجسدية</b></span></span></font></p>
+<dl>
+    <dd>
+    <table width="709" cellpadding="7" cellspacing="0">
+        <col width="146"/>
+
+        <col width="52"/>
+
+        <col width="99"/>
+
+        <col width="90"/>
+
+        <col width="109"/>
+
+        <col width="127"/>
+
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>اسم
+                الولد او البنت</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الجنس</b></span></span></font></font></p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2; margin-bottom: 0in">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>رقم
+                هوية الاحوال</b></span></span></font></font></p>
+                <p align="center" style="orphans: 2; widows: 2"><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>المدنية</b></span></span></font></font></p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>تاريخ
+                الميلاد</b></span></span></font></font></p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2; margin-bottom: 0in">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الدخل
+                السنوي</b></span></span></font></font></p>
+                <p align="center" style="orphans: 2; widows: 2"><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>المقدر
+                </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(
+                </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+                </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)</b></font></font></p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2; margin-bottom: 0in">
+                <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>سبب
+                استحقاق السماح</b></span></span></font></font></p>
+                <p align="center" style="orphans: 2; widows: 2"><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>القانوني
+                </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>أ</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>,</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ب</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>,</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ج</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>,</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>د</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>,</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>هـ
+                </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)</b></font></font></p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>2</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>3</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>4</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>5</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td width="146" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+                <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>6</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ</b></span></span></font></font></p>
+            </td>
+            <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="99" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="90" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="109" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+            <td width="127" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+                <br/>
+
+                </p>
+            </td>
+        </tr>
+    </table>
+</dd>
+</dl>
+<p style="margin-left: 0.2in; text-indent: -0.2in; margin-bottom: 0in">
+<br/>
+
+</p>
+<p style="margin-bottom: 0in">  <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>٭</b></span><span lang="ar-IQ"><b>
+استخدام استمارة ثانية في حالة اكثر من
+</b></span></span></font><b>6 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اولاد
+</b></span></span></font><b>.</b></p>
+<p style="margin-bottom: 0in">  <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اني
+الموقع ادناه </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اقر
+ان البيانات المسجلة في هذه الاستمارة
+صحيحة ودقيقة بحسب معلوماتي  و اتحمل
+المسؤولية القانونية خلاف ذلك </b></span></span></font>
+</p>
+<p style="margin-bottom: 0in; border-top: none; border-bottom: 1.50pt solid #000000; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.01in; padding-left: 0in; padding-right: 0in">
+   <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>توقيع
+الموظف </b></span></span></font><b>: ______________________    
+                                         </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>التاريخ
+</b></span></span></font><b>____ / ____ / ______</b></p>
+<p style="margin-bottom: 0in; border-top: none; border-bottom: 1.50pt solid #000000; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.01in; padding-left: 0in; padding-right: 0in">
+<br/>
+
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ملاحظة
+</b></span></span></font><b>: 1</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+يجب ملئ هذه الاستمارة بنسختين </b></span></span></font>
+</p>
+<p style="margin-bottom: 0in">           <b>2 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+عند عدم ملئ الجزء </b></span></span></font><b>3  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>او
+</b></span></span></font><b>4 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>بالكامل
+</b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>يحجب
+سماح الزوجة والاولاد </b></span></span></font><b>.</b></p>
+<p style="margin-bottom: 0in">            <b>3 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ـ
+عند حدوث تغير في الوضع الاجتماعي خلال
+السنة يبلغ المحاسب بذلك </b></span></span></font><b>.
+</b>
+</p>
+<p style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اذا
+كنت تعمل لدى اكثر من صاحب عمل </b></span></span></font><b>,
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>فان
+صاحب العمل الرئيسي هو الذي تختاره لمنحك
+السماح القانوني وبقية التنزيلات بينما
+لايحق ذلك لصاحب العمل الاخر </b></span></span></font><b>.
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ماعدا
+توقيفات التقاعدية او حصة الضمان الاجتماعي
+فتنزل لدى كل صاحب عمل </b></span></span></font>
+</p>
+<p style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ان
+دمج مدخولات يسمح به فقط في حالة كون احد
+الزوجين يملك دخلاً سنوياً اقل من </b></span></span></font><b>2,500,000
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+و ان يقدم طلب الدمج قبل </b></span></span></font><b>31
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>كانون
+الثاني من السنة المعنية في هذه الحالة
+يجب استقطاع الضريبة من راتب احد الزوجين
+ذو الدخل الاعلى  ولايتم استقطاع اي ضريبة
+من راتب الزوج الاخر </b></span></span></font>
+</p>
+<p style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>نقحت
+بتاريخ نيسان </b></span></span></font><b>_ 2005 </b>
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0in"><br/>
+
+</p>
+<p align="center" style="margin-bottom: 0in">
+<span id="Frame3" dir="ltr" style="float: left; width: 2.6in; border: none; padding: 0in; background: #ffffff"><p dir="rtl" style="margin-bottom: 0.14in">
+    <font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الصفحة
+            </b></span></span></font><b>2</b></p>
+</span><br/>
+
+</p>
+<p align="center" style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>الاستمارة
+ض </b></span></span></font><b>. </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>د</b></span></span></font><b>/</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>أ</b></span></span></font><b>4</b></p>
+<p align="center" style="margin-bottom: 0in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>حساب
+ضريبة الدخل تملأ من قبل المحاسب في نهاية
+السنة </b></span></span></font>
+</p>
+<p align="center" style="margin-bottom: 0in"><br/>
+
+</p>
+<table width="744" cellpadding="7" cellspacing="0">
+    <col width="540"/>
+
+    <col width="174"/>
+
+    <tr valign="top">
+        <td width="540" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الدخل</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار</b></span></span></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="12" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>أ
+            </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مجموع
+            الرواتب والاجور المدفوع خلال سنة</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="33" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ب</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مجموع
+            المخصصات للملابس والسكن والاقامة
+            والطعام والنقل والخطورة المدفوعة خلال
+             السنة بالنسبة لمستخدمي القطاع الخاص
+            واجمالي المخصصات المستخدمة من قبل
+            موظفي الدولة والقطاع العام والمختلط</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ج</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مجموع
+            المخصصات والمزايا الاخرى الخاضعة
+            للضريبة المدفوعة خلال السنة</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="13" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>د</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مزايا
+            عينية</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>هـ</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مكافئات
+            مدفوعة للمنتسب ومدخولات اخرى من صاحب
+            العمل</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>و</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مدخولات
+            اضافية من الاولاد ومن دمج دخل الزوجة
+            </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الزوج</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>عند
+            تحقق الشروط</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width="540" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="left" style="orphans: 2; widows: 2; margin-bottom: 0in">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>اجمالي
+            الدخل </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(1)</b></font></font></p>
+            <p align="left" style="orphans: 2; widows: 2"><br/>
+
+            </p>
+        </td>
+        <td width="174" valign="top" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width="540" height="6" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ينزل
+            مايلي</b></span></span></font></font></p>
+        </td>
+        <td width="174" valign="top" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>2</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>أ</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>مجموع
+            السماح القانوني </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>.
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>المستحق
+            خلال السنة</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="13" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>2</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ب</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>التوقيفات
+            التقاعدية والضمان الاجتماعي المدفوع
+            خلال السنة</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>2</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ج</b></span></span></font></font><font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>التنزيلات
+            الواردة في المادة </b></span></span></font></font><font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>(
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الثامنة
+            </b></span></span></font></font><font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>من
+            قانون ضريبة الدخل رقم </b></span></span></font></font><font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>113
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>لسنة
+            </b></span></span></font></font><font size="2" style="font-size: 11pt"><font face="Calibri, serif"><b>1982</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>٭</b></span></span></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="14" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>2</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>د</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>المبلغ
+            من </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ب</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>بما
+            لايتجاوز </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>30%
+             </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>من
+            المبلغ في السطر </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(1</b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>أ</b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>)</b></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="13" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="left" style="orphans: 2; widows: 2">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>اجمالي
+            التنزيلات  </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(2)</b></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="540" height="13" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="left" style="orphans: 2; widows: 2">
+            <font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>الدخل
+            الخاضع للضريبة </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>**
+            [ </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>السطر
+            </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(1)
+            </b></font></font><font face="Arial"><font size="2" style="font-size: 11pt"><span lang="ar-SA"><span lang="ar-IQ"><b>ناقصاً
+            السطر </b></span></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><b>(2)
+            ]  (3)</b></font></font></p>
+        </td>
+        <td width="174" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+</table>
+<p align="center" style="margin-bottom: 0in"><br/>
+
+</p>
+<p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>٭</b></span><span lang="ar-IQ"><b>تذكر
+تفاصيل التنزيلات ومبالغها </b></span></span></font><b>:
+________________________________________________________________</b></p>
+<p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>٭٭</b></span><span lang="ar-IQ"><b>اذا
+كانت هذه الاستمارة تخص أحد الزوجين ذو
+دخل سنوي أقل من </b></span></span></font><b>2,500,000 
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+ويتم دمج دخلة من دخل الزوج الاخر </b></span></span></font><b>,
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>يتم
+ارسال المعلومات من هذه الاستمارة الى
+صاحب العمل الرئيسي للزوج الاخر لغرض
+احتساب المبلغ الصحيح لضريبة الاستقطاع
+المباشر لهذة السنة </b></span></span></font><b>. </b>
+</p>
+<p align="center" style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><font size="3" style="font-size: 12pt"><span lang="ar-IQ"><b>حساب
+ضريبة الدخل للسنة </b></span></font></span></font><font size="3" style="font-size: 12pt"><b>:</b></font></p>
+<p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اذا
+كان الدخل الخاضع للضريبة من السطر </b></span></span></font><b>(3)
+</b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اعلاه
+</b></span></span></font><b>:</b></p>
+<ul>
+    <li><p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>لا
+    يتجاوز </b></span></span></font><b>250,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ادخله
+    في السطر </b></span></span></font><b>1 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>من
+    العامود  أ من الجدول ادناه </b></span></span></font>
+    </p>
+</li>
+    <li><p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اكثر
+    من  </b></span></span></font><b>250,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    ولا يتجاوز </b></span></span></font><b>500,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ادخله
+    في السطر </b></span></span></font><b>1  </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>من
+    العامود ب من الجدول ادناه </b></span></span></font>
+    </p>
+</li>
+    <li><p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اكثر
+    من  </b></span></span></font><b>500,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    ولا يتجاوز </b></span></span></font><b>1,000,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ادخله
+    في السطر من العامود ج من الجدول ادناه </b></span></span></font>
+    </p>
+</li>
+    <li><p style="margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>اكثر
+    من  </b></span></span></font><b>1,000,000 </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>دينار
+    </b></span></span></font><b>, </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>ادخله
+    في السطر </b></span></span></font><b>1   </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>من
+    العامود الجدول ادناه </b></span></span></font>
+    </p>
+</li>
+</ul>
+<p style="margin-bottom: 0in"><table dir="rtl" align="right" width="353" hspace="12" cellpadding="7" cellspacing="0">
+    <col width="81"/>
+
+    <col width="71"/>
+
+    <col width="71"/>
+
+    <col width="52"/>
+
+    <col width="7"/>
+
+    <tr valign="top">
+        <td width="81" height="1" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>د</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>ج</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>ب</b></span></font></span></font></p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p align="center" style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>أ</b></span></font></span></font></p>
+        </td>
+        <td width="7" style="border: none; padding: 0in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2; margin-right: -0.49in">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>1</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>1,000,000
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>500,000
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>250,000
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>صفر
+            دينار</b></span></font></span></font></p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>2</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>3</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>%15</b></font></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>%10</b></font></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>%5</b></font></font></p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>%3</b></font></font></p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>4</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>5</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>70,000
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>20,000
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>7,500
+            </b></font></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>دينار</b></span></font></span></font></p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>صفر
+            دينار</b></span></font></span></font></p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>6</b></font></font></p>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="81" height="2" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="71" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="52" style="border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <br/>
+
+            </p>
+        </td>
+        <td width="7" style="background: transparent; border: 1px solid #000000; padding: 0in 0.08in"><p style="orphans: 2; widows: 2">
+            <font face="Calibri, serif"><font size="2" style="font-size: 10pt"><b>7</b></font></font></p>
+        </td>
+    </tr>
+</table><br clear="all"/>
+<span id="Frame4" dir="ltr" style="float: left; width: 4.21in; border: none; padding: 0in; background: #ffffff"><p dir="rtl" style="margin-bottom: 0in">
+                            <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>الدخل
+    الخاضع للضريبة </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>,
+    </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>انظر
+    التعليمات اعلاه     </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>=1
+     </b></font>
+    </p>
+    <p dir="rtl" style="margin-bottom: 0in"><font size="2" style="font-size: 10pt"><b>-
+                                                                </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>شرائح
+    الدخل     </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>=2
+                  </b></font>
+    </p>
+    <p dir="rtl" style="margin-bottom: 0in"><font size="2" style="font-size: 10pt"><b>=
+                                              </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>اطرح
+    السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>2
+    </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>من
+    السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>1
+       = 3</b></font></p>
+    <p dir="rtl" style="margin-bottom: 0in"><font size="2" style="font-size: 10pt"><b>×
+                                                             </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>النسبة
+    الضريبة     </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>=4</b></font></p>
+    <p dir="rtl" style="margin-bottom: 0in"><font size="2" style="font-size: 10pt"><b>=
+                                              </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>اضرب
+    السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>3
+    </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>في
+    السطر     </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>4
+    =5</b></font></p>
+    <p dir="rtl" style="margin-bottom: 0in"> <font size="2" style="font-size: 10pt"><b>+
+                                                </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>قيمة
+    الضريبة من السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>2
+       =6              </b></font>
+    </p>
+    <p dir="rtl" style="margin-bottom: 0in"><font size="2" style="font-size: 10pt"><b>=
+                                             </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>اضف
+    السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>5
+     </b></font><font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>الى
+    السطر </b></span></font></span></font><font size="2" style="font-size: 10pt"><b>6
+        = 7</b></font></p>
+    <p dir="rtl" style="margin-bottom: 0in">                            
+                 <font face="Arial"><span lang="ar-SA"><font size="2" style="font-size: 10pt"><span lang="ar-IQ"><b>ضريبة
+    الدخل المطلوب دفعها عن السنة</b></span></font><font size="2" style="font-size: 10pt"><span lang="ar-IQ">
+    </span></font></span></font>
+    </p>
+</span>
+</p>
+<p style="margin-bottom: 0.14in"><br/>
+<br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>توقيع
+المحاسب </b></span></span></font><b>:
+_________________________          </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>التاريخ
+</b></span></span></font><b>: ____/____/_____</b></p>
+<p style="line-height: 100%; margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>توقيع
+المدير </b></span></span></font><b>:  
+__________________________          </b><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>التاريخ
+</b></span></span></font><b>: ____/____/_____</b></p>
+<p style="line-height: 100%; margin-bottom: 0.14in"><font face="Arial"><span lang="ar-SA"><span lang="ar-IQ"><b>نقحت
+بتاريخ </b></span></span></font><b>:2005</b></p>
+<p style="margin-bottom: 0.14in"><br/>
+<br/>
+
+</p>
+            </div>
+         </t>
+</template>
+
+
+    
+
+    <template id="report_payment_receipt_unpaid_new_temp">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="techtime_mcc_data.report_payment_receipt_document_unpaid_new_temp" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+
     <template id="report_payment_receipt_unpaid">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
