@@ -19,15 +19,7 @@ var HrDashboard = AbstractAction.extend({
         '/hrms_dashboard/static/src/js/lib/d3.min.js'
     ],
     events: {
-        'click .login_broad_factor': 'employee_broad_factor',
-        'click .hr_leave_request_approve': 'leaves_to_approve',
-        'click .hr_leave_allocations_approve': 'leave_allocations_to_approve',
-        'click .hr_timesheets': 'hr_timesheets',
-        'click .hr_payslip':'hr_payslip',
-        'click .hr_contract':'hr_contract',
-        'click .hr_employee':'hr_employee',
-        'click .leaves_request_month':'leaves_request_month',
-        'click .leaves_request_today':'leaves_request_today',
+
         "click .o_hr_attendance_sign_in_out_icon": function() {
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
             this.update_attendance();
@@ -525,17 +517,25 @@ var HrDashboard = AbstractAction.extend({
                 .attr('d', function(d) { return line(d.values); })
                 .style('stroke', (d, i) => color(i));
 
-            lines.selectAll("circle-group")
+
+            const line_dd = lines.selectAll("circle-group")
                 .data(data).enter()
                 .append("g")
                 .selectAll("circle")
                 .data(function(d) { return d.values;}).enter()
                 .append("g")
                 .attr("class", "circle")
-                .append("circle")
+
+
+                line_dd.append("circle")
                 .attr("cx", function(d) { return x(d.l_month)})
                 .attr("cy", function(d) { return y(d.count)})
                 .attr("r", 3);
+
+                line_dd.append("text")
+                .attr("x", function(d) { return x(d.l_month)})
+                .attr("y", function(d) { return y(d.count)})
+                .text(function(d){ return d.count;});    
 
             var legend = d3.select(elem[0]).append("div").attr('class','legend');
 
@@ -623,17 +623,24 @@ var HrDashboard = AbstractAction.extend({
                 .attr('d', function(d) { return line(d.values); })
                 .style('stroke', (d, i) => color(i));
 
-            lines.selectAll("circle-group")
+            const line_dd = lines.selectAll("circle-group")
                 .data(data).enter()
                 .append("g")
                 .selectAll("circle")
                 .data(function(d) { return d.values;}).enter()
                 .append("g")
                 .attr("class", "circle")
-                .append("circle")
+
+
+                line_dd.append("circle")
                 .attr("cx", function(d) { return x(d.l_month)})
                 .attr("cy", function(d) { return y(d.count)})
                 .attr("r", 3);
+
+                line_dd.append("text")
+                .attr("x", function(d) { return x(d.l_month)})
+                .attr("y", function(d) { return y(d.count)})
+                .text(function(d){ return d.count;});
 
             var legend = d3.select(elem[0]).append("div").attr('class','legend');
 
@@ -704,13 +711,20 @@ var HrDashboard = AbstractAction.extend({
                 .attr("d", valueline(data));
 
             // Add the scatterplot
-            svg.selectAll("dot")
+            const data_plot = svg.selectAll("dot")
                 .data(data)
-                .enter().append("circle")
+                .enter()
+
+                data_plot.append("circle")
                 .attr("r", 3)
                 .attr("cx", function(d) { return x(d.month); })
                 .attr("cy", function(d) { return y(d.attrition_rate); })
-                
+
+
+                data_plot.append("text")
+                .attr("x", function(d) { return x(d.month)})
+                .attr("y", function(d) { return y(d.attrition_rate)})
+                .text(function(d){ return d.attrition_rate;});
 
 
             var tooltip = svg.append("g")
@@ -788,15 +802,23 @@ var HrDashboard = AbstractAction.extend({
                 .attr("d", valueline(data));
 
             // Add the scatterplot
-            svg.selectAll("dot")
-                .data(data)
-                .enter().append("circle")
-                .attr("r", 3)
-                .attr("cx", function(d) { return x(d.l_month); })
-                .attr("cy", function(d) { return y(d.leave); })
 //                .on('mouseover', function() { d3.select(this).transition().duration(500).ease("elastic").attr('r', 3 * 2) })
 //                .on('mouseout', function() { d3.select(this).transition().duration(500).ease("in-out").attr('r', 3) });
                 
+            const data_plot = svg.selectAll("dot")
+                .data(data)
+                .enter()
+
+                data_plot.append("circle")
+                .attr("r", 3)
+                .attr("cx", function(d) { return x(d.l_month); })
+                .attr("cy", function(d) { return y(d.leave); })
+
+
+                data_plot.append("text")
+                .attr("x", function(d) { return x(d.l_month)})
+                .attr("y", function(d) { return y(d.leave)})
+                .text(function(d){ return d.leave;});
 
             var tooltip = svg.append("g")
                   .attr("class", "tooltip")
@@ -812,6 +834,7 @@ var HrDashboard = AbstractAction.extend({
                   .attr("x", 15)
                   .attr("dy", "1.2em")
                   .style("text-anchor", "middle")
+                  .style("font-size", "12px")
                   .attr("font-size", "12px")
                   .attr("font-weight", "bold");
 

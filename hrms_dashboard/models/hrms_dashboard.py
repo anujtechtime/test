@@ -156,7 +156,7 @@ group by res_partner.year,year_year.year""")
         graph_result = []
 
         graph_result_pie = []
-        level_data = ["leve1","level2", "level3", "level4", "level5"]
+        level_data = ["leve1","level2", "level3", "level4"]
         level_name = ""
         department_list = ""
         for level in level_data:
