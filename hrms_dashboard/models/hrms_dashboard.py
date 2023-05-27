@@ -28,7 +28,7 @@ class Employee(models.Model):
     @api.model
     def get_user_employee_details(self):
         uid = request.session.uid
-        employee = self.env['hr.employee'].sudo().search_read([('user_id', '=', uid)], limit=1)
+        employee = self.env['res.users'].sudo().search_read([('id', '=', uid)], limit=1)
         today = datetime.strftime(datetime.today(), '%Y-%m-%d')
         
         first_day = date.today().replace(day=1)
@@ -68,8 +68,8 @@ class Employee(models.Model):
                 age = diff.years
             else:
                 age = False
-            if employee[0]['joining_date']:
-                diff = relativedelta(datetime.today(), employee[0]['joining_date'])
+            if employee[0]['create_date']:
+                diff = relativedelta(datetime.today(), employee[0]['create_date'])
                 years = diff.years
                 months = diff.months
                 days = diff.days
