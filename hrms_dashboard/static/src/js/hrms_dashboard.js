@@ -88,7 +88,7 @@ var HrDashboard = AbstractAction.extend({
         if (this.login_employee){
             var templates = []
             if( self.is_manager == true){templates = ['LoginEmployeeDetails','ManagerDashboard', 'EmployeeDashboard'];}
-            else{ templates = ['LoginEmployeeDetails', 'EmployeeDashboard'];}
+            else{ templates = ['LoginEmployeeDetails','ManagerDashboard', 'EmployeeDashboard'];}
             _.each(templates, function(template) {
                 self.$('.o_hr_dashboard').append(QWeb.render(template, {widget: self}));
             });
