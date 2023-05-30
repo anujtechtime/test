@@ -373,6 +373,8 @@ class ContraPayslipDateAccount(models.Model):
 
     description = fields.Html("Description")
 
+    Account_number = fields.Char("Account Number", related="employee_id.Account_number")
+
     department = fields.Many2one("hr.department", related="employee_id.department_id", store=True)
 
     def change_the_value_payslip(self):
