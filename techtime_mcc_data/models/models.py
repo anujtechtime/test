@@ -377,6 +377,15 @@ class ContraPayslipDateAccount(models.Model):
 
     department = fields.Many2one("hr.department", related="employee_id.department_id", store=True)
 
+    net_salary = fields.Float("Net Salary",compute="_value_pc", store=True)
+
+    @api.depends('net_salary')
+    def _value_pc(self):
+        for record in self:
+            for line in record.line_ids:
+                if line.category_id.name == 'Net':
+                    record.net_salary = line.total
+
     def change_the_value_payslip(self):
         _logger.info("self************11111111111111#####**%s" %self)
         for ddtt in self:
