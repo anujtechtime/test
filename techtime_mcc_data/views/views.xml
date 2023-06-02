@@ -188,7 +188,7 @@
     <record id="extra_hr_payslip_run_action" model="ir.actions.act_window">
         <field name="name">Payslips New</field>
         <field name="res_model">hr.payslip</field>
-        <field name="view_mode">tree, form</field>
+        <field name="view_mode">tree</field>
         <field name="view_id" ref="extra_hr_payslip_run_view_tree"/>
     </record>
     <menuitem
