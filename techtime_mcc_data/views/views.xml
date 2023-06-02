@@ -440,10 +440,10 @@
                 </div>
 
 
-                <div class="float-right" t-if="record.attachment_upload.raw_value">
+                <div class="float-right" t-if="record.attachment_upload">
                     <span class="fa fa-exclamation-triangle text-success" role="img" aria-label="File" title="File" name="attachment_upload"/>
                 </div>
-                <div class="float-right" t-if="record.attachment_upload.raw_value == false">
+                <div class="float-right" t-if="record.attachment_upload == false">
                     <span class="fa fa-exclamation-triangle text-danger" role="img" aria-label="nofile" title="nofile" name="attachment_upload_2"/>
                 </div>
 
