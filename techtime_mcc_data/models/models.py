@@ -54,6 +54,7 @@ class DataMphine(models.Model):
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)
+    attachment_upload = fields.Binary(string='File', attachment=True)
 
     year_of_graduation = fields.Char("Year Of Graduation")
     academic_branch = fields.Char("Academi Branch")

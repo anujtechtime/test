@@ -176,11 +176,11 @@
                 <field name="Account_number"/>
                 <field name="net_salary"/>
 
-                <field name="name"/>
-                <field name="date_from"/>
-                <field name="date_to"/>
-                <field name="state"/>
-                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="name" invisible="1"/>
+                <field name="date_from" invisible="1"/>
+                <field name="date_to" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" invisible="1"/>
                 <field name="payslip_run_id" invisible="1"/>
             </tree>
         </field>
@@ -188,7 +188,7 @@
     <record id="extra_hr_payslip_run_action" model="ir.actions.act_window">
         <field name="name">Payslips New</field>
         <field name="res_model">hr.payslip</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree, form</field>
         <field name="view_id" ref="extra_hr_payslip_run_view_tree"/>
     </record>
     <menuitem
@@ -341,6 +341,7 @@
                 <group>
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
                     <field name="file_upload"/>
+                    <field name="attachment_upload"/>
                 </group>
             </xpath>
         </field>
@@ -437,6 +438,17 @@
                 <div class="float-right" t-if="record.file_upload.raw_value == false">
                     <span class="fa fa-circle text-danger" role="img" aria-label="nofile" title="nofile" name="file_upload_2"/>
                 </div>
+
+
+                <div class="float-right" t-if="record.attachment_upload.raw_value">
+                    <span class="fa fa-exclamation-triangle text-success" role="img" aria-label="File" title="File" name="attachment_upload"/>
+                </div>
+                <div class="float-right" t-if="record.attachment_upload.raw_value == false">
+                    <span class="fa fa-exclamation-triangle text-danger" role="img" aria-label="nofile" title="nofile" name="attachment_upload_2"/>
+                </div>
+
+
+                
             </xpath>
         </data>
     </field>
