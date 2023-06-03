@@ -54,7 +54,7 @@ class DataMphine(models.Model):
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)
-    attachment_upload = fields.Binary(string='File', attachment=True)
+    attachment_upload = fields.Binary(string='Attachment', attachment=True)
 
     year_of_graduation = fields.Char("Year Of Graduation")
     academic_branch = fields.Char("Academi Branch")
@@ -388,7 +388,6 @@ class ContraPayslipDateAccount(models.Model):
                     record.net_salary = line.total
 
     def change_the_value_payslip(self):
-        _logger.info("self************11111111111111#####**%s" %self)
         for ddtt in self:
             ddtt.state = 'draft'
 

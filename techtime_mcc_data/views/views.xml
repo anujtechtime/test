@@ -239,6 +239,23 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+
+    
+
+    <record id="ir_actions_server_add_the_hr_payslip_net_dalary" model="ir.actions.server">
+        <field name="name">Set Net Salary</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._value_pc()
+        </field>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
     <record id="ir_actions_server_add_the_hr_payslip" model="ir.actions.server">
         <field name="name">Set to Done</field>
         <field name="type">ir.actions.server</field>
