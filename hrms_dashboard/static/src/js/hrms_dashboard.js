@@ -103,6 +103,7 @@ var HrDashboard = AbstractAction.extend({
         if (this.login_employee){
             self.render_department_employee();
             self.render_department_employee_shift();
+            self.render_department_employee_shift_gender();
             self.render_leave_graph();
             self.update_join_resign_trends();
             self.update_join_resign_trends_dep();
@@ -445,6 +446,59 @@ var HrDashboard = AbstractAction.extend({
 
     },
 
+
+
+    render_department_employee_shift_gender:function(){
+        var self = this;
+        var w = 200;
+        var h = 200;
+        var r = h/2;
+        var elem = this.$('.emp_graph_shift_gender');
+//        var colors = ['#ff8762', '#5ebade', '#b298e1', '#70cac1', '#cf2030'];
+        var colors = ['#70cac1', '#659d4e', '#208cc2', '#4d6cb1', '#584999', '#8e559e', '#cf3650', '#f65337', '#fe7139',
+        '#ffa433', '#ffc25b', '#f8e54b'];
+        var color = d3.scale.ordinal().range(colors);
+        rpc.query({
+            model: "hr.employee",
+            method: "get_dept_employee_shift_gender",
+        }).then(function (data) {
+            var segColor = {};
+            var vis = d3.select(elem[0]).append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+            var pie = d3.layout.pie().value(function(d){return d.value;});
+            var arc = d3.svg.arc().outerRadius(r);
+            var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+            arcs.append("svg:path")
+                .attr("fill", function(d, i){
+                    return color(i);
+                })
+                .attr("d", function (d) {
+                    return arc(d);
+                });
+
+            var legend = d3.select(elem[0]).append("table").attr('class','legend');
+
+            // create one row per segment.
+            var tr = legend.append("tbody").selectAll("tr").data(data).enter().append("tr");
+
+            // create the first column for each segment.
+            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                .attr("width", '16').attr("height", '16')
+                .attr("fill",function(d, i){ return color(i) });
+
+            // create the second column for each segment.
+            tr.append("td").text(function(d){ return d.label;});
+
+            // create the third column for each segment.
+            tr.append("td").attr("class",'legendFreq')
+                .text(function(d){ return d.value;});
+
+
+
+        });
+
+    },
+
+
     update_join_resign_trends: function(){
         var elem = this.$('.join_resign_trend');
         var colors = ['#70cac1', '#659d4e', '#208cc2', '#4d6cb1', '#584999', '#8e559e', '#cf3650', '#f65337', '#fe7139',
@@ -754,13 +808,13 @@ var HrDashboard = AbstractAction.extend({
             method: "employee_leave_trend",
         }).then(function (data) {
             var elem = self.$('.leave_trend');
-            var margin = {top: 30, right: 10, bottom: 30, left: 40},
+            var margin = {top: 30, right: 20, bottom: 30, left: 80},
                 width = 1200 - margin.left - margin.right,
                 height = 250 - margin.top - margin.bottom;
 
             // Set the ranges
             var x = d3.scale.ordinal()
-                .rangeRoundBands([0, width], 0);
+                .rangeRoundBands([0, width], 1);
 
             var y = d3.scale.linear()
                 .range([height, 0]);
@@ -789,7 +843,7 @@ var HrDashboard = AbstractAction.extend({
             // Add the X Axis
             svg.append("g")
                 .attr("class", "x axis")
-                .attr("transform", "translate(-36," + height + ")")
+                .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
             // Add the Y Axis
@@ -802,9 +856,6 @@ var HrDashboard = AbstractAction.extend({
                 .attr("d", valueline(data));
 
             // Add the scatterplot
-//                .on('mouseover', function() { d3.select(this).transition().duration(500).ease("elastic").attr('r', 3 * 2) })
-//                .on('mouseout', function() { d3.select(this).transition().duration(500).ease("in-out").attr('r', 3) });
-                
             const data_plot = svg.selectAll("dot")
                 .data(data)
                 .enter()
@@ -834,7 +885,6 @@ var HrDashboard = AbstractAction.extend({
                   .attr("x", 15)
                   .attr("dy", "1.2em")
                   .style("text-anchor", "middle")
-                  .style("font-size", "12px")
                   .attr("font-size", "12px")
                   .attr("font-weight", "bold");
 

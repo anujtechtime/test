@@ -293,20 +293,40 @@
 
         <div class="row main-section">
              <div class="col-md-2 col-sm-2 dummy"></div>
-             <div class="col-sm-7 col-lg-7">
-                    <div class="col-sm-10 col-lg-10  graph_view" style="padding:0">
+             <div class="col-sm-10 col-lg-10">
+                    <div class="col-sm-12 col-lg-12  graph_view" style="padding:0">
                 <div class="text-color hr-chart-1">
                     <div class="oh-card-body pb-0">
                         <h4 class="mb-0">
                         </h4>
                         <div class="oh-ribbon"><span>Shift</span></div>
                     </div>
-                    <div class="emp_graph_shift"/>
+                    <div class="emp_graph_shift"  style="height: 250px;"/>
                 </div>
             </div>
                 </div>
             
         </div>
+
+
+        <div class="row main-section">
+             <div class="col-md-2 col-sm-2 dummy"></div>
+             <div class="col-sm-10 col-lg-10">
+                    <div class="col-sm-12 col-lg-12  graph_view" style="padding:0">
+                <div class="text-color hr-chart-1">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-0">
+                        </h4>
+                        <div class="oh-ribbon"><span>Gender</span></div>
+                    </div>
+                    <div class="emp_graph_shift_gender"  style="height: 250px;"/>
+                </div>
+            </div>
+                </div>
+            
+        </div>
+
+
 
         <div class="row main-section">
                 <div class="col-md-2 col-sm-2 dummy"></div>

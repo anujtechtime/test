@@ -120,14 +120,20 @@ rect:hover {  fill:#934da5; }
     border-spacing: 0px;
     display: inline-block;
 }
+
 .monthly_leave_graph_view .legend{
     height: 250px;
     overflow: scroll;
-    margin-left: 112px;
+    margin-left: 231px;
     margin-top: 77px;
     margin-bottom: -97px
 
 }
+
+.emp_graph_shift svg {
+      margin-left: 367px;
+}
+
 .legend td, .legend .legend_col{
     padding:4px 5px;
     vertical-align:bottom;

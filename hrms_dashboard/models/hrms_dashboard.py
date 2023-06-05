@@ -149,6 +149,22 @@ group by res_partner.year,year_year.year""")
             data.append({'label': i, 'value': shift_contact})
         return data
 
+    @api.model
+    def get_dept_employee_shift_gender(self):
+        shift = ['male','female']
+        data = []
+        for i in shift:
+            shift_contact = self.env['res.partner'].sudo().search_count([("gender",'=',i)])
+            if i == 'male':
+                i = 'ذكر'
+            if i == 'female':
+                i = 'انثى'    
+
+            data.append({'label': i, 'value': shift_contact})
+        return data    
+
+        
+
 
     @api.model
     def get_department_leave(self):
