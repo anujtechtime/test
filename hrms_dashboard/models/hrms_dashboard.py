@@ -59,9 +59,6 @@ class Employee(models.Model):
 
 
         if employee:
-            sql = """select broad_factor from hr_employee_broad_factor where id =%s"""
-            self.env.cr.execute(sql, (employee[0]['id'],))
-            result = self.env.cr.dictfetchall()
             # broad_factor = result[0]['broad_factor']
             if employee[0]['birthday']:
                 diff = relativedelta(datetime.today(), employee[0]['birthday'])
