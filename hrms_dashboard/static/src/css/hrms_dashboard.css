@@ -130,10 +130,6 @@ rect:hover {  fill:#934da5; }
 
 }
 
-.emp_graph_shift svg {
-      margin-left: 367px;
-}
-
 .legend td, .legend .legend_col{
     padding:4px 5px;
     vertical-align:bottom;
