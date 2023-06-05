@@ -122,7 +122,7 @@
                 <div class="oh-card">
                     <div class="oh-card-body">
                         <div class="stat-widget-one">
-                            <div class="stat-icon"><i class="fa fa-fw fa-book"/></div>
+                            <div class="stat-icon" style="padding-top: 8%;"><i class="fa fa-fw fa-book"/></div>
                             <div class="stat-content">
                                 <div class="stat-text">نقل الى جامعة المعقل</div>
                                 <div class="stat-digit"><t t-esc="widget.login_employee['contracts_count']"/></div>
