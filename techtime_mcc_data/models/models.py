@@ -39,6 +39,29 @@ class DataDDFHrEmployee(models.Model):
     iban = fields.Char("IBAN")
     Account_number = fields.Char("Account Number")
 
+    wedding_date = fields.Date("Wedding Date")
+    date_divource = fields.Date("Date Divource")
+    husband_id = fields.Char("Husband Id")
+    date_of_death = fields.Date("Date_Of Death")
+    house_wife = fields.Selection([('yes','Yes'),('no','No')], string="House Wife")
+    husband_working = fields.Selection([('yes','Yes'),('no','No')], string="Husband Working")
+    merge_salary = fields.Char("Merge Salary")
+    field_1 = fields.Float("1أ ) مجموع الرواتب والاجور المدفوع خلال سنة")
+
+
+
+    field_2 = fields.Float("1ب) مجموع المخصصات للملابس والسكن والاقامة والطعام والنقل والخطورة المدفوعة خلال  السنة بالنسبة لمستخدمي القطاع الخاص واجمالي المخصصات المستخدمة من قبل موظفي الدولة والقطاع العام والمختلط")
+    field_3 = fields.Float("1 ج) مجموع المخصصات والمزايا الاخرى الخاضعة للضريبة المدفوعة خلال السنة ")
+    field_4 = fields.Float("1د) مزايا عينية ")
+    field_5 = fields.Float("1هـ) مكافئات مدفوعة للمنتسب ومدخولات اخرى من صاحب العمل")
+    field_6 = fields.Float("1و) مدخولات اضافية من الاولاد ومن دمج دخل الزوجة (الزوج) عند تحقق الشروط")
+
+    field_7 = fields.Float("2أ) مجموع السماح القانوني . المستحق خلال السنة")
+    field_8 = fields.Float("2ب) التوقيفات التقاعدية والضمان الاجتماعي المدفوع خلال السنة ")
+    field_9 = fields.Float("2ج) التنزيلات الواردة في المادة ( الثامنة ) من قانون ضريبة الدخل رقم 113 لسنة 1982٭")
+    field_10 = fields.Float("2د) المبلغ من (1ب) بما لايتجاوز 30%  من المبلغ في السطر (1أ)")
+
+
 
 
 class DataHrEmployee(models.Model):
