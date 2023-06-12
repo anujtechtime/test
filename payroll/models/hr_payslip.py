@@ -140,7 +140,7 @@ class HrPayslip(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("verify", "Waiting"),
+            ("verify", "Locked"),
             ("done", "Done"),
             ("cancel", "Rejected"),
         ],
