@@ -473,14 +473,11 @@ class DataMphine(models.Model):
         worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
 
 
-        field_one_1 = self.env["res.partner"].search([('field_one_1','=',True)])
-        worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
-        total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+        field_one_1_2 = self.env["res.partner"].search([('field_one_1','=',True)])
+        worksheet.write(row, 10, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
         
-        fields_one_2 = self.env["res.partner"].search([('fields_one_2','=',True)])
-        worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
-
-        total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+        fields_one_2_2 = self.env["res.partner"].search([('fields_one_2','=',True)])
+        worksheet.write(row, 11, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
 
 
 
