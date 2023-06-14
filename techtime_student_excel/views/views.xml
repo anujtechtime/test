@@ -57,21 +57,6 @@
     </record>
 
 
-        <record id="ir_actions_server_sale_res_partner_data_s" model="ir.actions.server">
-        <field name="name">New Student</field>
-        <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="model_res_partner"/>
-        <field name="state">code</field>
-        <field name="code">
-            if records:
-                action = records.send_mis_report_sale_student_data_report()
-        </field>
-        <field name="binding_model_id" ref="base.model_res_partner"/>
-        <field name="binding_view_types">list,form</field>
-    </record>
-
-
-
 
     <record model="ir.ui.view" id="view_any_name_form_level_value">
         <field name="name">level.value.form</field>
