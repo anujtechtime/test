@@ -120,6 +120,7 @@ class DataMphine(models.Model):
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
         filename = 'Student_Report_%s.xls' % date.today()
