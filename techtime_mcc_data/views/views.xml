@@ -359,6 +359,10 @@
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
                     <field name="file_upload"/>
                     <field name="attachment_upload"/>
+
+                    <field name="field_one_1"/>
+                    <field name="fields_one_2"/>
+
                 </group>
             </xpath>
         </field>

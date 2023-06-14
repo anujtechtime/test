@@ -771,6 +771,431 @@ class ResData(models.Model):
         }
 
 
+    def send_mis_report_sale_student_data_report(self):  
+        filename = 'جدول الاحصاء الصباحي.xls'
+        string = 'جدول الاحصاء الصباحي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        data_one = self.env["new.work"].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        # worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+
+        
+        col = 0
+
+        worksheet.write(0, 0, 'الكلية / القسم', header_bold) #Department
+        worksheet.write(0, 1, 'المرحلة الدراسية', header_bold) #level
+        worksheet.write(0, 2, 'نوع الدراسة', header_bold) #Shift
+        worksheet.write(0, 3, 'الطلبة المقبولين/المسجلين', header_bold)  #Current students
+        worksheet.write(0, 4, 'طالب غير مباشر', header_bold) #Status 3
+        worksheet.write(0, 5, 'الطلبة المنسحبين', header_bold) #status 4
+        worksheet.write(0, 6, 'مؤجلين  الطلبة المرقنين', header_bold) #status 2
+        worksheet.write(0, 7, 'الطلبة الراسبين', header_bold) #failed
+        worksheet.write(0, 8, 'نقل من الجامعة', header_bold) #trasferred from us
+        worksheet.write(0, 9, 'نقل الى الجامعة', header_bold) #trasferred to us
+        worksheet.write(0, 10, 'استضافة من الجامعة', header_bold) #new field
+        worksheet.write(0, 11, 'استضافة الى الجامعة', header_bold) #new field
+        worksheet.write(0, 12, 'الطلبة الفعليين', header_bold) #remaning status exept last 3 status- current students
+        
+
+        colld = 13
+        for ddts in data_one:
+            worksheet.write(0, colld, ddts.name, header_bold) #data_one
+            colld = colld + 1
+
+          
+        worksheet.write(0, colld, 'ذكور', header_bold) #Male
+        worksheet.write(0, colld + 1, 'اناث', header_bold) #Female
+        worksheet.write(0, colld + 2, 'المجموع', header_bold) #Total Data_one 
+
+
+
+        level_type = ['leve1','level2','level3','level4','level5']
+        shift_data = ['morning', 'evening']
+        lev_1 = ''
+        shift_name = ''
+
+        department = self.env["department.department"].search([])
+        for dept in department:
+            # worksheet.write(row, 0, dept.department or '')
+            worksheet.write_merge(row, row + 9, 0, 0, dept.department, main_cell_total)
+            total_of_currecnt = 0
+
+            total_of_status_2 = 0
+            total_of_status_4 = 0
+            total_of_status_5 = 0
+            total_of_failed = 0
+            total_transferred_from_us = 0
+            total_transferred_to_us = 0
+            total_total_of_all = 0
+            total_gender_male_data = 0
+            gender_female_data = 0
+            total_gender_female_data = 0
+            total_total_of_data_one = 0
+            total_field_one_1 = 0
+            total_fields_one_2 = 0
+            
+
+            for lev in level_type:
+                if lev == 'leve1':
+                    lev_1 = 'المرحلة الاولى'
+                if lev == 'level2':
+                    lev_1 = 'المرحلة الثانية'
+                if lev == 'level3':
+                    lev_1 = 'المرحلة الثالثة'
+                if lev == 'level4':
+                    lev_1 = 'المرحلة الرابعة'
+                if lev == 'level5':
+                    lev_1 = 'المرحلة الخامسة'
+
+                worksheet.write_merge(row, row + 1, 1, 1, lev_1, main_cell_total)    
+                # worksheet.write(row, 1, lev_1 or '')    
+
+                for shift in shift_data:
+                    total_of_all = 0
+                    last_three_status = 0
+
+                    if shift == 'morning':
+                        shift_name = 'صباحي'
+                    if shift == 'evening':    
+                        shift_name = 'مسائي'
+
+
+                    worksheet.write(row, 2, shift_name or '', main_cell_total)
+
+                    currecnt_status_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"currecnt_student")])
+
+                    status_2_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status2")])
+
+                    status_4_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status3")])
+
+
+                    status_5_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status1")])
+                    failed = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"failed")])
+
+                    transferred_to_us = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('transferred_to_us','=',True)])
+                    transferred_from_us = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('transfer_shift','=',True)])
+                    print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
+                    print("row@@@@@@@@@@@@@@@",row)
+                    worksheet.write(row, 3, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
+
+                    total_of_currecnt = total_of_currecnt + len(currecnt_status_data.mapped('id'))
+
+
+                    worksheet.write(row, 4, len(status_2_data.mapped('id')) or '', main_cell_total)
+
+                    total_of_status_2 = total_of_status_2 + len(status_2_data.mapped('id'))
+
+                    worksheet.write(row, 5, len(status_4_data.mapped('id')) or '', main_cell_total)
+
+                    total_of_status_4 = total_of_status_4 + len(status_4_data.mapped('id'))
+                    worksheet.write(row, 6, len(status_5_data.mapped('id')) or '', main_cell_total)
+
+                    total_of_status_5 = total_of_status_5 + len(status_5_data.mapped('id'))
+
+
+
+                    worksheet.write(row, 7, len(failed.mapped('id')) or '', main_cell_total)
+
+                    total_of_failed = total_of_failed + len(failed.mapped('id'))
+
+
+
+                    worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
+                    total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
+
+                    worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
+                    total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
+
+                    field_one_1 = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('field_one_1','=',True)])
+                    worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+                    total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+                    
+                    fields_one_2 = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('fields_one_2','=',True)])
+                    worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+
+                    total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+
+                    last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id'))
+
+                    total_of_all = len(currecnt_status_data.mapped('id')) - last_three_status
+
+                    total_total_of_all = total_total_of_all + total_of_all
+
+
+                    worksheet.write(row, 12, total_of_all or '', main_cell_total)
+
+                    total_of_data_one = 0
+                    colld = 13
+                    for ddts in data_one:
+                        data_one_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('data_one','=',ddts.id)])
+                        worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
+                        total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
+                        colld = colld + 1
+
+                    gender_male_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('gender','=','male')])
+                    worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
+                    total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
+
+                    gender_female_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('gender','=','female')])
+                    worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
+
+                    total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
+
+                    worksheet.write(row, colld + 2, total_of_data_one, main_cell_total)
+
+                    total_total_of_data_one = total_total_of_data_one + total_of_data_one  
+
+
+
+
+                    
+                    row = row + 1
+
+            # worksheet.write(row, 0, )
+            worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
+            worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
+
+            worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
+            worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
+            worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
+            worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
+            worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
+            worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
+            worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
+            worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
+            worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
+            colld = 13
+            for ddts in data_one:
+                ttl_data_one_data = self.env["res.partner"].search([('department','=',dept.id),('data_one','=',ddts.id)])
+                worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
+
+                colld = colld + 1
+            worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
+            worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
+            worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
+            
+            row = row + 1
+
+        row = row + 1
+        
+        worksheet.write_merge(row, row + 4, 0, 0, 'الكليات', main_cell_total)
+
+        for lev in level_type:
+            if lev == 'leve1':
+                lev_1 = 'المرحلة الاولى'
+            if lev == 'level2':
+                lev_1 = 'المرحلة الثانية'
+            if lev == 'level3':
+                lev_1 = 'المرحلة الثالثة'
+            if lev == 'level4':
+                lev_1 = 'المرحلة الرابعة'
+            if lev == 'level5':
+                lev_1 = 'المرحلة الخامسة'
+
+
+                
+
+
+            worksheet.write(row, 1, lev_1 or '', main_cell_total)
+            worksheet.write(row, 2, "صباحي / مسائي" or '', main_cell_total)
+            currecnt_status_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"currecnt_student")])
+
+            status_2_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status2")])
+
+            status_4_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status3")])
+
+
+            status_5_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status1")])
+            failed_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"failed")])
+
+            transferred_to_us_1 = self.env["res.partner"].search([('level','=',lev),('transferred_to_us','=',True)])
+            transferred_from_us_1 = self.env["res.partner"].search([('level','=',lev),('transfer_shift','=',True)])
+            worksheet.write(row, 3, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 4, len(status_2_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 5, len(status_4_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 6, len(status_5_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 7, len(failed_1.mapped('id')) or '', main_cell_total)
+
+
+            worksheet.write(row, 8, len(transferred_from_us_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 9, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
+
+            field_one_1 = self.env["res.partner"].search([('level','=',lev),('field_one_1','=',True)])
+            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+            total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+            
+            fields_one_2 = self.env["res.partner"].search([('level','=',lev),('fields_one_2','=',True)])
+            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+
+            total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+
+
+            last_three_status_1 = len(status_2_data_1.mapped('id')) + len(status_4_data_1.mapped('id')) + len(status_5_data_1.mapped('id'))
+
+            total_of_all_1 = len(currecnt_status_data_1.mapped('id')) - last_three_status_1
+
+
+            worksheet.write(row, 12, total_of_all_1 or '', main_cell_total)
+
+
+            total_of_data_one_1 = 0
+            colld = 13
+            for ddts in data_one:
+                data_one_data_1 = self.env["res.partner"].search([('level','=',lev),('data_one','=',ddts.id)])
+                worksheet.write(row, colld, len(data_one_data_1.mapped("id")), main_cell_total) #data_one
+                total_of_data_one_1 = total_of_data_one_1 + len(data_one_data_1.mapped("id"))
+                colld = colld + 1
+
+            gender_female_data_1 = self.env["res.partner"].search([('level','=',lev),('gender','=','male')])
+            worksheet.write(row, colld, len(gender_female_data_1.mapped("id")), main_cell_total)
+
+            gender_female_data_1 = self.env["res.partner"].search([('level','=',lev),('gender','=','female')])
+            worksheet.write(row, colld + 1, len(gender_female_data_1.mapped("id")), main_cell_total)
+
+
+            worksheet.write(row, colld + 2, total_of_data_one_1, main_cell_total)
+            print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
+            row = row + 1
+
+        
+        currecnt_status_data_2 = self.env["res.partner"].search([('Status','=',"currecnt_student")])
+
+        status_2_data_2 = self.env["res.partner"].search([('Status','=',"status2")])
+
+        status_4_data_2 = self.env["res.partner"].search([('Status','=',"status3")])
+
+
+        status_5_data_2 = self.env["res.partner"].search([('Status','=',"status1")])
+        failed_2 = self.env["res.partner"].search([('Status','=',"failed")])
+
+        transferred_to_us_2 = self.env["res.partner"].search([('transferred_to_us','=',True)])
+        transferred_from_us_2 = self.env["res.partner"].search([('transfer_shift','=',True)])
+
+        worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
+        worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 4, len(status_2_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 5, len(status_4_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 6, len(status_5_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 7, len(failed_2.mapped('id')) or '', main_cell_total_of_total)
+
+
+        worksheet.write(row, 8, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
+
+
+        field_one_1 = self.env["res.partner"].search([('field_one_1','=',True)])
+        worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+        total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+        
+        fields_one_2 = self.env["res.partner"].search([('fields_one_2','=',True)])
+        worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+
+        total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+
+
+
+
+        last_three_status_2 = len(status_2_data_2.mapped('id')) + len(status_4_data_2.mapped('id')) + len(status_5_data_2.mapped('id'))
+
+        total_of_all_2 = len(currecnt_status_data_2.mapped('id')) - last_three_status_2
+
+
+        worksheet.write(row, 12, total_of_all_2 or '', main_cell_total_of_total)
+
+
+        total_of_data_one_2 = 0
+        colld = 13
+        for ddts in data_one:
+            data_one_data_2 = self.env["res.partner"].search([('data_one','=',ddts.id)])
+            worksheet.write(row, colld, len(data_one_data_2.mapped("id")), main_cell_total_of_total) #data_one
+            total_of_data_one_2 = total_of_data_one_2 + len(data_one_data_2.mapped("id"))
+            colld = colld + 1
+
+        gender_female_data_2 = self.env["res.partner"].search([('gender','=','male')])
+        worksheet.write(row, colld, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
+
+        gender_female_data_2 = self.env["res.partner"].search([('gender','=','female')])
+        worksheet.write(row, colld + 1, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
+
+
+        worksheet.write(row, colld + 2, total_of_data_one_2, main_cell_total_of_total)
+        print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
+        row = row + 1    
+
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
+
 
 
     def send_mis_report_sale_college_report(self):  

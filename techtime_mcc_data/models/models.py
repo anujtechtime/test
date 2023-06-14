@@ -82,6 +82,10 @@ class DataMphine(models.Model):
     year_of_graduation = fields.Char("Year Of Graduation")
     academic_branch = fields.Char("Academi Branch")
 
+
+    field_one_1 = fields.Boolean("استضافة من الجامعة")
+    fields_one_2 = fields.Boolean("استضافة الى الجامعة")
+
     def get_college_data(self):
         print("self################",self)
         print("request@@@@@@@@@@@@@@@",request)
