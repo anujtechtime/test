@@ -2,6 +2,34 @@
 
 from odoo import models, fields, api, _
 from odoo.http import request
+import logging
+import pytz
+import threading
+from collections import OrderedDict, defaultdict
+import re
+
+from datetime import date, datetime, timedelta
+from psycopg2 import sql
+from geopy.geocoders import Nominatim
+import xml.dom.minidom
+import calendar
+from translate import Translator
+import convert_numbers
+from bs4 import BeautifulSoup
+import re
+from prettytable import PrettyTable
+import pandas as pd
+from dateutil.relativedelta import relativedelta
+
+import base64
+import xlwt
+import io
+from lxml import etree
+import html2text
+
+import requests
+import json
+from odoo import api, fields, models, tools, SUPERUSER_ID
 
 import logging
 _logger = logging.getLogger(__name__)
