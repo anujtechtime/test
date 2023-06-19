@@ -67,6 +67,7 @@ class DataDDFHrEmployee(models.Model):
     iban = fields.Char("IBAN")
     Account_number = fields.Char("Account Number")
 
+
     wedding_date = fields.Date("Wedding Date")
     date_divource = fields.Date("Date Divource")
     husband_id = fields.Char("Husband Id")
@@ -84,10 +85,35 @@ class DataDDFHrEmployee(models.Model):
     field_5 = fields.Float("1هـ) مكافئات مدفوعة للمنتسب ومدخولات اخرى من صاحب العمل")
     field_6 = fields.Float("1و) مدخولات اضافية من الاولاد ومن دمج دخل الزوجة (الزوج) عند تحقق الشروط")
 
+    total_of_above_field = fields.Float("اجمالي الدخل (1)")
+
     field_7 = fields.Float("2أ) مجموع السماح القانوني . المستحق خلال السنة")
     field_8 = fields.Float("2ب) التوقيفات التقاعدية والضمان الاجتماعي المدفوع خلال السنة ")
     field_9 = fields.Float("2ج) التنزيلات الواردة في المادة ( الثامنة ) من قانون ضريبة الدخل رقم 113 لسنة 1982٭")
     field_10 = fields.Float("2د) المبلغ من (1ب) بما لايتجاوز 30%  من المبلغ في السطر (1أ)")
+
+    total_of_above_2 = fields.Float("اجمالي التنزيلات  (2)")
+
+    grand_total = fields.Float("جامعة المعقل الأهلية")
+
+    @api.onchange('field_2','field_3','field_4','field_5','field_6')
+    def _inverse_fields_data(self):
+        for ddts in self:
+            self.total_of_above_field = self.field_2 + self.field_3 + self.field_4 + self.field_5 + self.field_6
+
+    @api.onchange('field_7', 'field_8', 'field_9', 'field_10')
+    def _inverse_fields_data_2(self):
+        for ddts in self:
+            self.total_of_above_2 = self.field_7 + self.field_8 + self.field_9 + self.field_10    
+
+
+    @api.onchange('total_of_above_field','total_of_above_2')
+    def _inverse_total_of_above_field(self):
+        for ddts in self:
+            self.grand_total = self.total_of_above_field - self.total_of_above_2
+    
+            
+
 
 
 

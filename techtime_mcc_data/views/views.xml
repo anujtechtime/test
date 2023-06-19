@@ -143,6 +143,52 @@
       </field>
     </record>
 
+
+        <record id="view_sale_order_inherit__employee_feilds" model="ir.ui.view">
+      <field name="name">hr.employee.form</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page" position="after">
+            <page string="Calculative Data">
+                <group>
+                    <group>
+                        <field name="wedding_date"/>
+                    <field name="date_divource"/>
+                    <field name="husband_id"/>
+                    <field name="field_1"/>
+                    <field name="field_2"/>
+                    <field name="field_3"/>
+                    <field name="field_4"/>
+                    <field name="field_5"/>
+                    <field name="field_6"/>
+                    <field name="total_of_above_field" />
+                    </group>
+                    <group>
+                        <field name="date_of_death"/>
+                    <field name="house_wife"/>
+                    <field name="husband_working"/>
+                    <field name="merge_salary"/>
+                    <field name="field_7"/>
+                    <field name="field_8"/>
+                    <field name="field_9"/>
+                    <field name="field_10"/>
+
+                    <field name="total_of_above_2"  />
+
+                    <field name="grand_total" />
+                    </group>
+                </group>
+                </page>
+                    
+
+
+        </xpath>
+      </field>
+    </record>
+
+
+
 <!--     <record id="res_partner_view_search_inherit_data_batch_data" model="ir.ui.view">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
