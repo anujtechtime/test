@@ -822,10 +822,6 @@ class ContractmDateAccount(models.Model):
                 if self.if_age_is_above_63:
                     self.total_salary = self.total_salary + 25000     
             
-            
-        else:
-            self.total_salary = 0 
-            self.tota_before = 0
 
 
 
@@ -841,7 +837,11 @@ class ContractmDateAccount(models.Model):
                 self.tota_before =  ((value_data - 20833) * 0.05) + 625 
 
             if value_data > 0 and value_data <= 250000:
-                self.tota_before =  value_data * 0.03               
+                self.tota_before =  value_data * 0.03  
+
+        else:
+            self.total_salary = 0 
+            self.tota_before = 0                     
 
 
 class CrmTeamSaleOrderccount(models.Model):
