@@ -767,7 +767,7 @@ class ContractmDateAccount(models.Model):
     @api.onchange('wage','compensation','day_deduction','social_security','married_with_house_wife','married_with_working_wife','married_with_non_working_husband','married_with_working_husband','single_male','male_female_with_children','divorced_male','sinle_female','divorced_female','if_age_is_above_63')
     def _inverse_wage(self):
         self.total_salary = 0
-        if self.wage:
+        if self.wage and self.day_deduction < 30:
             self.basic_salary = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
             self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23) 
             self.basic_salary_one = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
@@ -823,7 +823,10 @@ class ContractmDateAccount(models.Model):
                     self.total_salary = self.total_salary + 25000     
             
             
-            
+        else:
+            self.total_salary = 0 
+            self.tota_before = 0
+
 
 
             value_data = self.basic_salary + self.compensation - self.total_salary 
