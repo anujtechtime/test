@@ -917,4 +917,73 @@ class ContraPayslipDateAccount(models.Model):
 
 
 
+    def send_mis_report_sale_payslip_data(self):
+        filename = 'Payslip.xls'
+        string = 'Payslip.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        worksheet.col(0).width = 10000
+        worksheet.col(1).width = 15000
+        worksheet.col(2).width = 10000
+        worksheet.row(0).height = 500
+        # Student Name  
+        # Membership Lines/Installment  
+        # Membership Lines/#No  
+        # Membership Lines/Invoice  
+        # Membership Lines/Amount   
+        # Membership Lines/Payment Status   
+        # Membership Lines/Payment Date
+
+        worksheet.write(0, 0, 'Employee Name', border_color_2)
+        worksheet.write(0, 1, 'Date From', border_color_2)
+        worksheet.write(0, 2, 'Date To', border_color_2)
+        worksheet.write(0, 3, 'Description', border_color_2)
+        worksheet.write(0, 4, 'Day Deduction', border_color_2)
+
+        # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
+        print("self############",self)
+        for material_line_id in self:
+            worksheet.write(row, 0, material_line_id.employee_id.name or '')
+            worksheet.write(row, 1, material_line_id.date_from or '')
+            worksheet.write(row, 2, material_line_id.date_to or '')
+            worksheet.write(row, 3, re.sub('<[^>]*>', '', material_line_id.description) or '')
+            worksheet.write(row, 4, material_line_id.contract_id.day_deduction or '')   
+            row += 1    
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }    
+
+
 

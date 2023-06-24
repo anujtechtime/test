@@ -100,6 +100,23 @@
     </record>
 
 
+    <record id="ir_actions_payslip_data_new" model="ir.actions.server">
+        <field name="name">New Payslip Data</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.send_mis_report_sale_payslip_data()
+        </field>
+        <field name="binding_model_id" ref="payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+    
+
+
 
     <record id="view_sale_order_inherit_search_hr_contract" model="ir.ui.view">
       <field name="name">hr.contract.form</field>
