@@ -599,9 +599,9 @@ class techtime_payroll_excel(models.Model):
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
-        worksheet.col(0).width = 10000
-        worksheet.col(1).width = 15000
-        worksheet.col(2).width = 10000
+        worksheet.col(0).width = 7000
+        worksheet.col(1).width = 7000
+        worksheet.col(2).width = 7000
         worksheet.row(0).height = 500
                    
 
