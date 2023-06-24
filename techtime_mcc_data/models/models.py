@@ -216,7 +216,7 @@ class DataMphine(models.Model):
 
 
         level_type = ['leve1','level2','level3','level4','level5']
-        shift_data = ['morning', 'evening']
+        shift_data = ['morning', 'afternoon']
         lev_1 = ''
         shift_name = ''
 
@@ -262,7 +262,7 @@ class DataMphine(models.Model):
 
                     if shift == 'morning':
                         shift_name = 'صباحي'
-                    if shift == 'evening':    
+                    if shift == 'afternoon':    
                         shift_name = 'مسائي'
 
 
@@ -351,10 +351,6 @@ class DataMphine(models.Model):
 
                     total_total_of_data_one = total_total_of_data_one + total_of_data_one  
 
-
-
-
-                    
                     row = row + 1
 
             # worksheet.write(row, 0, )
