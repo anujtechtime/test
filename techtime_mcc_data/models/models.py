@@ -954,7 +954,7 @@ class ContraPayslipDateAccount(models.Model):
         department = self.env["department.department"].search([])
         for value in department:
             rest = self.filtered(lambda picking: picking.employee_id.department_id.id == value.id)
-            worksheet.write(row, 0, value.name or '')
+            worksheet.write(row, 0, value.department or '')
             for material_line_id in rest:
                 worksheet.write(row, 1, material_line_id.employee_id.name or '')
                 worksheet.write(row, 2, material_line_id.date_from or '')
