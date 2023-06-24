@@ -958,8 +958,8 @@ class ContraPayslipDateAccount(models.Model):
                 worksheet.write(row, 0, value.department or '')
             for material_line_id in rest:
                 worksheet.write(row, 1, material_line_id.employee_id.name or '')
-                worksheet.write(row, 2, material_line_id.date_from or '')
-                worksheet.write(row, 3, material_line_id.date_to or '')
+                worksheet.write(row, 2, material_line_id.date_from.strftime('%m/%d/%Y') or '')
+                worksheet.write(row, 3, material_line_id.date_to.strftime('%m/%d/%Y') or '')
                 if material_line_id.description:
                     worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '')
 
