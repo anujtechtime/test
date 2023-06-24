@@ -963,7 +963,9 @@ class ContraPayslipDateAccount(models.Model):
                     worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '')
 
                 worksheet.write(row, 5, material_line_id.contract_id.day_deduction or '')   
-                row += 1    
+                row += 1 
+
+            row += 1        
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
