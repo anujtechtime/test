@@ -942,22 +942,28 @@ class ContraPayslipDateAccount(models.Model):
         # Membership Lines/Amount   
         # Membership Lines/Payment Status   
         # Membership Lines/Payment Date
-
-        worksheet.write(0, 0, 'Employee Name', border_color_2)
-        worksheet.write(0, 1, 'Date From', border_color_2)
-        worksheet.write(0, 2, 'Date To', border_color_2)
-        worksheet.write(0, 3, 'Description', border_color_2)
-        worksheet.write(0, 4, 'Day Deduction', border_color_2)
+        worksheet.write(0, 0, 'Department Name', border_color_2)
+        worksheet.write(0, 1, 'Employee Name', border_color_2)
+        worksheet.write(0, 2, 'Date From', border_color_2)
+        worksheet.write(0, 3, 'Date To', border_color_2)
+        worksheet.write(0, 4, 'Description', border_color_2)
+        worksheet.write(0, 5, 'Day Deduction', border_color_2)
 
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############",self)
-        for material_line_id in self:
-            worksheet.write(row, 0, material_line_id.employee_id.name or '')
-            worksheet.write(row, 1, material_line_id.date_from or '')
-            worksheet.write(row, 2, material_line_id.date_to or '')
-            worksheet.write(row, 3, re.sub('<[^>]*>', '', material_line_id.description) or '')
-            worksheet.write(row, 4, material_line_id.contract_id.day_deduction or '')   
-            row += 1    
+        department = self.env["department.department"].search([])
+        for value in department:
+            rest = self.filtered(lambda picking: picking.employee_id.department_id.id == value.id)
+            worksheet.write(row, 0, value.name or '')
+            for material_line_id in rest:
+                worksheet.write(row, 1, material_line_id.employee_id.name or '')
+                worksheet.write(row, 2, material_line_id.date_from or '')
+                worksheet.write(row, 3, material_line_id.date_to or '')
+                if material_line_id.description:
+                    worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '')
+
+                worksheet.write(row, 5, material_line_id.contract_id.day_deduction or '')   
+                row += 1    
         fp = io.BytesIO()
         print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
