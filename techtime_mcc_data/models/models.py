@@ -215,7 +215,7 @@ class DataMphine(models.Model):
 
 
 
-        level_type = ['leve1','level2','level3','level4','level5']
+        level_type = ['leve1','level2','level3','level4']
         shift_data = ['morning', 'afternoon']
         lev_1 = ''
         shift_name = ''
