@@ -924,16 +924,28 @@ class ContraPayslipDateAccount(models.Model):
         worksheet = wb.add_sheet(string)
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
-        filename = 'Student_Report_%s.xls' % date.today()
+        filename = 'payslip_%s.xls' % date.today()
         rested = self.env['sale.order'].search([])
-        row = 1
+        row = 2
         border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
         border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
         border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
-        worksheet.col(0).width = 10000
-        worksheet.col(1).width = 15000
-        worksheet.col(2).width = 10000
+        
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; ")
+
+        
+
+        worksheet.col(0).width = 5000
+        worksheet.col(1).width = 5000
+        worksheet.col(2).width = 5000
         worksheet.row(0).height = 500
         # Student Name  
         # Membership Lines/Installment  
@@ -942,12 +954,12 @@ class ContraPayslipDateAccount(models.Model):
         # Membership Lines/Amount   
         # Membership Lines/Payment Status   
         # Membership Lines/Payment Date
-        worksheet.write(0, 0, 'Department Name', border_color_2)
-        worksheet.write(0, 1, 'Employee Name', border_color_2)
-        worksheet.write(0, 2, 'Date From', border_color_2)
-        worksheet.write(0, 3, 'Date To', border_color_2)
-        worksheet.write(0, 4, 'Description', border_color_2)
-        worksheet.write(0, 5, 'Day Deduction', border_color_2)
+        worksheet.write(0, 0, 'Department Name', header_bold_extra)
+        worksheet.write(0, 1, 'Employee Name', header_bold_extra)
+        worksheet.write(0, 2, 'Date From', header_bold_extra)
+        worksheet.write(0, 3, 'Date To', header_bold_extra)
+        worksheet.write(0, 4, 'Description', header_bold_extra)
+        worksheet.write(0, 5, 'Day Deduction', header_bold_extra)
 
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############",self)
@@ -955,15 +967,15 @@ class ContraPayslipDateAccount(models.Model):
         for value in department:
             rest = self.filtered(lambda picking: picking.employee_id.department_id.id == value.id)
             if rest:
-                worksheet.write(row, 0, value.department or '')
+                worksheet.write(row - 1, 0, value.department + "(" + len(rest.mapped("id")) + ")" or '', main_cell_total_of_total)
             for material_line_id in rest:
-                worksheet.write(row, 1, material_line_id.employee_id.name or '')
-                worksheet.write(row, 2, material_line_id.date_from.strftime('%m/%d/%Y') or '')
-                worksheet.write(row, 3, material_line_id.date_to.strftime('%m/%d/%Y') or '')
+                worksheet.write(row, 1, material_line_id.employee_id.name or '' , main_cell_total_of_total)
+                worksheet.write(row, 2, material_line_id.date_from.strftime('%m/%d/%Y') or '' , main_cell_total_of_total)
+                worksheet.write(row, 3, material_line_id.date_to.strftime('%m/%d/%Y') or '' , main_cell_total_of_total)
                 if material_line_id.description:
-                    worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '')
+                    worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '' , main_cell_total_of_total)
 
-                worksheet.write(row, 5, material_line_id.contract_id.day_deduction or '')   
+                worksheet.write(row, 5, material_line_id.contract_id.day_deduction or '' , main_cell_total_of_total)   
                 row += 1 
 
             row += 1        
