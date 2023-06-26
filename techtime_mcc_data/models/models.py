@@ -967,7 +967,7 @@ class ContraPayslipDateAccount(models.Model):
         for value in department:
             rest = self.filtered(lambda picking: picking.employee_id.department_id.id == value.id)
             if rest:
-                worksheet.write(row - 1, 0, value.department + "(" + len(rest.mapped("id")) + ")" or '', main_cell_total_of_total)
+                worksheet.write(row - 1, 0, str(value.department) + "(" + str(len(rest.mapped("id"))) + ")" or '', main_cell_total_of_total)
             for material_line_id in rest:
                 worksheet.write(row, 1, material_line_id.employee_id.name or '' , main_cell_total_of_total)
                 worksheet.write(row, 2, material_line_id.date_from.strftime('%m/%d/%Y') or '' , main_cell_total_of_total)
