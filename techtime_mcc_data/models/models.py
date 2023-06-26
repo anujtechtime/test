@@ -965,7 +965,7 @@ class ContraPayslipDateAccount(models.Model):
         print("self############",self)
         department = self.env["department.department"].search([])
         for value in department:
-            rest = self.filtered(lambda picking: picking.employee_id.department_id.id == value.id)
+            rest = self.filtered(lambda picking: picking.department.id == value.id)
             if rest:
                 worksheet.write(row - 1, 0, str(value.department) + "(" + str(len(rest.mapped("id"))) + ")" or '', main_cell_total_of_total)
             for material_line_id in rest:
