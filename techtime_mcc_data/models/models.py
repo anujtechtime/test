@@ -934,7 +934,7 @@ class ContraPayslipDateAccount(models.Model):
         
         header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
 
-        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25; font: color white; align: horiz centre")
 
         main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
@@ -974,6 +974,8 @@ class ContraPayslipDateAccount(models.Model):
                 worksheet.write(row, 3, material_line_id.date_to.strftime('%m/%d/%Y') or '' , main_cell_total_of_total)
                 if material_line_id.description:
                     worksheet.write(row, 4, re.sub('<[^>]*>', '', material_line_id.description) or '' , main_cell_total_of_total)
+                else:    
+                    worksheet.write(row, 4, '' , main_cell_total_of_total)    
 
                 worksheet.write(row, 5, material_line_id.contract_id.day_deduction or '' , main_cell_total_of_total)   
                 row += 1 
