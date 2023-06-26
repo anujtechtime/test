@@ -963,7 +963,7 @@ class ContraPayslipDateAccount(models.Model):
 
         # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
         print("self############",self)
-        department = self.env["department.department"].search([])
+        department = self.env["hr.department"].search([])
         for value in department:
             rest = self.filtered(lambda picking: picking.department.id == value.id)
             if rest:
