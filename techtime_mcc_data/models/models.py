@@ -226,9 +226,9 @@ class DataMphine(models.Model):
             if depart_data:
                 # worksheet.write(row, 0, dept.department or '')
                 if dept.department in  ("طب الاسنان", "الصيدلة"):
-                    worksheet.write_merge(row, row + 4, 0, 0, dept.department, main_cell_total)
+                    worksheet.write_merge(row, row + 3, 0, 0, dept.department, main_cell_total)
                 elif dept.department not in  ("طب الاسنان", "الصيدلة"):
-                    worksheet.write_merge(row, row + 9, 0, 0, dept.department, main_cell_total)
+                    worksheet.write_merge(row, row + 7, 0, 0, dept.department, main_cell_total)
                 total_of_currecnt = 0
 
                 total_of_status_2 = 0
@@ -368,7 +368,7 @@ class DataMphine(models.Model):
                             row = row + 1
 
                 # worksheet.write(row, 0, )
-                # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
+                worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
                 worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
 
                 worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
@@ -491,7 +491,7 @@ class DataMphine(models.Model):
         transferred_to_us_2 =  self.filtered(lambda picking:picking.transferred_to_us == True)
         transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
 
-        # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
+        worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
         worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
 
         worksheet.write(row, 4, len(status_2_data_2.mapped('id')) or '', main_cell_total_of_total)
