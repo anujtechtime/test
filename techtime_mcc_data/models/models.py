@@ -222,173 +222,175 @@ class DataMphine(models.Model):
 
         department = self.env["department.department"].search([])
         for dept in department:
-            # worksheet.write(row, 0, dept.department or '')
-            if dept.department in  ("طب الاسنان", "الصيدلة"):
-                worksheet.write_merge(row, row + 4, 0, 0, dept.department, main_cell_total)
-            elif dept.department not in  ("طب الاسنان", "الصيدلة"):
-                worksheet.write_merge(row, row + 9, 0, 0, dept.department, main_cell_total)
-            total_of_currecnt = 0
-
-            total_of_status_2 = 0
-            total_of_status_4 = 0
-            total_of_status_5 = 0
-            total_of_failed = 0
-            total_transferred_from_us = 0
-            total_transferred_to_us = 0
-            total_total_of_all = 0
-            total_gender_male_data = 0
-            gender_female_data = 0
-            total_gender_female_data = 0
-            total_total_of_data_one = 0
-            total_field_one_1 = 0
-            total_fields_one_2 = 0
-            
-
-            for lev in level_type:
-                if lev == 'leve1':
-                    lev_1 = 'المرحلة الاولى'
-                if lev == 'level2':
-                    lev_1 = 'المرحلة الثانية'
-                if lev == 'level3':
-                    lev_1 = 'المرحلة الثالثة'
-                if lev == 'level4':
-                    lev_1 = 'المرحلة الرابعة'
-                if lev == 'level5':
-                    lev_1 = 'المرحلة الخامسة'
-
-                # worksheet.write_merge(row, row + 1, 1, 1, lev_1, main_cell_total)
+            depart_data  = self.filtered(lambda picking:picking.department.id == dept.id)
+            if depart_data:
+                # worksheet.write(row, 0, dept.department or '')
                 if dept.department in  ("طب الاسنان", "الصيدلة"):
-                    worksheet.write_merge(row, row, 1, 1, lev_1, main_cell_total)  
+                    worksheet.write_merge(row, row + 4, 0, 0, dept.department, main_cell_total)
                 elif dept.department not in  ("طب الاسنان", "الصيدلة"):
-                    worksheet.write_merge(row, row + 1, 1, 1, lev_1, main_cell_total)    
-                # worksheet.write(row, 1, lev_1 or '')    
+                    worksheet.write_merge(row, row + 9, 0, 0, dept.department, main_cell_total)
+                total_of_currecnt = 0
 
-                for shift in shift_data:
-                    total_of_all = 0
-                    last_three_status = 0
+                total_of_status_2 = 0
+                total_of_status_4 = 0
+                total_of_status_5 = 0
+                total_of_failed = 0
+                total_transferred_from_us = 0
+                total_transferred_to_us = 0
+                total_total_of_all = 0
+                total_gender_male_data = 0
+                gender_female_data = 0
+                total_gender_female_data = 0
+                total_total_of_data_one = 0
+                total_field_one_1 = 0
+                total_fields_one_2 = 0
+                
 
+                for lev in level_type:
+                    if lev == 'leve1':
+                        lev_1 = 'المرحلة الاولى'
+                    if lev == 'level2':
+                        lev_1 = 'المرحلة الثانية'
+                    if lev == 'level3':
+                        lev_1 = 'المرحلة الثالثة'
+                    if lev == 'level4':
+                        lev_1 = 'المرحلة الرابعة'
+                    if lev == 'level5':
+                        lev_1 = 'المرحلة الخامسة'
 
-                    if dept.department in  ("طب الاسنان", "الصيدلة") and shift == "afternoon":
-                        print("data")
+                    # worksheet.write_merge(row, row + 1, 1, 1, lev_1, main_cell_total)
+                    if dept.department in  ("طب الاسنان", "الصيدلة"):
+                        worksheet.write_merge(row, row, 1, 1, lev_1, main_cell_total)  
+                    elif dept.department not in  ("طب الاسنان", "الصيدلة"):
+                        worksheet.write_merge(row, row + 1, 1, 1, lev_1, main_cell_total)    
+                    # worksheet.write(row, 1, lev_1 or '')    
 
-                    else:    
-                        if shift == 'morning':
-                            shift_name = 'صباحي'
-                        if shift == 'afternoon':    
-                            shift_name = 'مسائي'
-
-
-                        worksheet.write(row, 2, shift_name or '', main_cell_total)
-
-                        currecnt_status_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"currecnt_student")])
-
-                        status_2_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status2")])
-
-                        status_4_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status3")])
-
-
-                        status_5_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"status1")])
-                        failed = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('Status','=',"failed")])
-
-                        transferred_to_us = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('transferred_to_us','=',True)])
-                        transferred_from_us = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('transfer_shift','=',True)])
-                        print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
-                        print("row@@@@@@@@@@@@@@@",row)
-                        worksheet.write(row, 3, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
-
-                        total_of_currecnt = total_of_currecnt + len(currecnt_status_data.mapped('id'))
-
-
-                        worksheet.write(row, 4, len(status_2_data.mapped('id')) or '', main_cell_total)
-
-                        total_of_status_2 = total_of_status_2 + len(status_2_data.mapped('id'))
-
-                        worksheet.write(row, 5, len(status_4_data.mapped('id')) or '', main_cell_total)
-
-                        total_of_status_4 = total_of_status_4 + len(status_4_data.mapped('id'))
-                        worksheet.write(row, 6, len(status_5_data.mapped('id')) or '', main_cell_total)
-
-                        total_of_status_5 = total_of_status_5 + len(status_5_data.mapped('id'))
+                    for shift in shift_data:
+                        total_of_all = 0
+                        last_three_status = 0
 
 
+                        if dept.department in  ("طب الاسنان", "الصيدلة") and shift == "afternoon":
+                            print("data")
 
-                        worksheet.write(row, 7, len(failed.mapped('id')) or '', main_cell_total)
-
-                        total_of_failed = total_of_failed + len(failed.mapped('id'))
-
-
-
-                        worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
-                        total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
-
-                        worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
-                        total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
-
-                        field_one_1 = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('field_one_1','=',True)])
-                        worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
-                        total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
-                        
-                        fields_one_2 = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('fields_one_2','=',True)])
-                        worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
-
-                        total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
-
-                        last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id'))
-
-                        total_of_all = len(currecnt_status_data.mapped('id')) - last_three_status
-
-                        total_total_of_all = total_total_of_all + total_of_all
+                        else:    
+                            if shift == 'morning':
+                                shift_name = 'صباحي'
+                            if shift == 'afternoon':    
+                                shift_name = 'مسائي'
 
 
-                        worksheet.write(row, 12, total_of_all or '', main_cell_total)
+                            worksheet.write(row, 2, shift_name or '', main_cell_total)
 
-                        total_of_data_one = 0
-                        colld = 13
-                        for ddts in data_one:
-                            data_one_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('data_one','=',ddts.id)])
-                            worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
-                            total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
-                            colld = colld + 1
+                            currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "currecnt_student")
 
-                        gender_male_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('gender','=','male')])
-                        worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
-                        total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
+                            status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status2")
 
-                        gender_female_data = self.env["res.partner"].search([('level','=',lev),('department','=',dept.id),('shift','=',shift),('gender','=','female')])
-                        worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
+                            status_4_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status3")
 
-                        total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
 
-                        worksheet.write(row, colld + 2, total_of_data_one, main_cell_total)
+                            status_5_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status1")
+                            failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "failed")
 
-                        total_total_of_data_one = total_total_of_data_one + total_of_data_one  
+                            transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transferred_to_us == True) 
+                            transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transfer_shift == True)
+                            print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
+                            print("row@@@@@@@@@@@@@@@",row)
+                            worksheet.write(row, 3, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
 
-                        row = row + 1
+                            total_of_currecnt = total_of_currecnt + len(currecnt_status_data.mapped('id'))
 
-            # worksheet.write(row, 0, )
-            worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
-            worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
 
-            worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
-            worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
-            worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
-            worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
-            worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
-            worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
-            worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
-            worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
-            worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
-            colld = 13
-            for ddts in data_one:
-                ttl_data_one_data = self.env["res.partner"].search([('department','=',dept.id),('data_one','=',ddts.id)])
-                worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
+                            worksheet.write(row, 4, len(status_2_data.mapped('id')) or '', main_cell_total)
 
-                colld = colld + 1
-            worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
-            worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
-            worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
-            
-            row = row + 1
+                            total_of_status_2 = total_of_status_2 + len(status_2_data.mapped('id'))
+
+                            worksheet.write(row, 5, len(status_4_data.mapped('id')) or '', main_cell_total)
+
+                            total_of_status_4 = total_of_status_4 + len(status_4_data.mapped('id'))
+                            worksheet.write(row, 6, len(status_5_data.mapped('id')) or '', main_cell_total)
+
+                            total_of_status_5 = total_of_status_5 + len(status_5_data.mapped('id'))
+
+
+
+                            worksheet.write(row, 7, len(failed.mapped('id')) or '', main_cell_total)
+
+                            total_of_failed = total_of_failed + len(failed.mapped('id'))
+
+
+
+                            worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
+                            total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
+
+                            worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
+                            total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
+
+                            field_one_1 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.field_one_1 == True) 
+                            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+                            total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+                            
+                            fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.fields_one_2 == True)
+                            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+
+                            total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+
+                            last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id'))
+
+                            total_of_all = len(currecnt_status_data.mapped('id')) - last_three_status
+
+                            total_total_of_all = total_total_of_all + total_of_all
+
+
+                            worksheet.write(row, 12, total_of_all or '', main_cell_total)
+
+                            total_of_data_one = 0
+                            colld = 13
+                            for ddts in data_one:
+                                data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id)
+                                worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
+                                total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
+                                colld = colld + 1
+
+                            gender_male_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'male')
+                            worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
+                            total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
+
+                            gender_female_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'female') 
+                            worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
+
+                            total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
+
+                            worksheet.write(row, colld + 2, total_of_data_one, main_cell_total)
+
+                            total_total_of_data_one = total_total_of_data_one + total_of_data_one  
+
+                            row = row + 1
+
+                    # worksheet.write(row, 0, )
+                    worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
+                    worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
+
+                    worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
+                    worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
+                    worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
+                    worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
+                    worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
+                    worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
+                    worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
+                    worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
+                    worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
+                    colld = 13
+                    for ddts in data_one:
+                        ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
+                        worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
+
+                        colld = colld + 1
+                    worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
+                    worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
+                    worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
+                    
+                    row = row + 1
 
         row = row + 1
         
@@ -412,18 +414,18 @@ class DataMphine(models.Model):
 
             worksheet.write(row, 1, lev_1 or '', main_cell_total)
             worksheet.write(row, 2, "صباحي / مسائي" or '', main_cell_total)
-            currecnt_status_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"currecnt_student")])
+            currecnt_status_data_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'currecnt_student')
 
-            status_2_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status2")])
+            status_2_data_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'status2') 
 
-            status_4_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status3")])
+            status_4_data_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'status3') 
 
 
-            status_5_data_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"status1")])
-            failed_1 = self.env["res.partner"].search([('level','=',lev),('Status','=',"failed")])
+            status_5_data_1 =  self.filtered(lambda picking:picking.level == lev and picking.Status == 'status1') 
+            failed_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'failed') 
 
-            transferred_to_us_1 = self.env["res.partner"].search([('level','=',lev),('transferred_to_us','=',True)])
-            transferred_from_us_1 = self.env["res.partner"].search([('level','=',lev),('transfer_shift','=',True)])
+            transferred_to_us_1 =  self.filtered(lambda picking:picking.level == lev and picking.transferred_to_us == True)
+            transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.transfer_shift == True) 
             worksheet.write(row, 3, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
 
             worksheet.write(row, 4, len(status_2_data_1.mapped('id')) or '', main_cell_total)
@@ -439,11 +441,11 @@ class DataMphine(models.Model):
 
             worksheet.write(row, 9, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
 
-            field_one_1 = self.env["res.partner"].search([('level','=',lev),('field_one_1','=',True)])
+            field_one_1 =  self.filtered(lambda picking:picking.level == lev and picking.field_one_1 == True) 
             worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
             total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
             
-            fields_one_2 = self.env["res.partner"].search([('level','=',lev),('fields_one_2','=',True)])
+            fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.fields_one_2 == True) 
             worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
 
             total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
@@ -460,15 +462,15 @@ class DataMphine(models.Model):
             total_of_data_one_1 = 0
             colld = 13
             for ddts in data_one:
-                data_one_data_1 = self.env["res.partner"].search([('level','=',lev),('data_one','=',ddts.id)])
+                data_one_data_1 = self.filtered(lambda picking:picking.level == lev and picking.data_one.id == ddts.id) 
                 worksheet.write(row, colld, len(data_one_data_1.mapped("id")), main_cell_total) #data_one
                 total_of_data_one_1 = total_of_data_one_1 + len(data_one_data_1.mapped("id"))
                 colld = colld + 1
 
-            gender_female_data_1 = self.env["res.partner"].search([('level','=',lev),('gender','=','male')])
+            gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.gender == 'male')
             worksheet.write(row, colld, len(gender_female_data_1.mapped("id")), main_cell_total)
 
-            gender_female_data_1 = self.env["res.partner"].search([('level','=',lev),('gender','=','female')])
+            gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.gender == 'female')
             worksheet.write(row, colld + 1, len(gender_female_data_1.mapped("id")), main_cell_total)
 
 
@@ -477,18 +479,18 @@ class DataMphine(models.Model):
             row = row + 1
 
         
-        currecnt_status_data_2 = self.env["res.partner"].search([('Status','=',"currecnt_student")])
+        currecnt_status_data_2 = self.filtered(lambda picking:picking.Status == "currecnt_student")
 
-        status_2_data_2 = self.env["res.partner"].search([('Status','=',"status2")])
+        status_2_data_2 = self.filtered(lambda picking:picking.Status == "status2")
 
-        status_4_data_2 = self.env["res.partner"].search([('Status','=',"status3")])
+        status_4_data_2 = self.filtered(lambda picking:picking.Status == "status3")
 
 
-        status_5_data_2 = self.env["res.partner"].search([('Status','=',"status1")])
-        failed_2 = self.env["res.partner"].search([('Status','=',"failed")])
+        status_5_data_2 = self.filtered(lambda picking:picking.Status == "status1")
+        failed_2 = self.filtered(lambda picking:picking.Status == "failed")
 
-        transferred_to_us_2 = self.env["res.partner"].search([('transferred_to_us','=',True)])
-        transferred_from_us_2 = self.env["res.partner"].search([('transfer_shift','=',True)])
+        transferred_to_us_2 =  self.filtered(lambda picking:picking.transferred_to_us == True)
+        transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
 
         worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
         worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
@@ -507,10 +509,10 @@ class DataMphine(models.Model):
         worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
 
 
-        field_one_1_2 = self.env["res.partner"].search([('field_one_1','=',True)])
+        field_one_1_2 = self.filtered(lambda picking:picking.field_one_1 == True)
         worksheet.write(row, 10, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
         
-        fields_one_2_2 = self.env["res.partner"].search([('fields_one_2','=',True)])
+        fields_one_2_2 =  self.filtered(lambda picking:picking.fields_one_2 == True)
         worksheet.write(row, 11, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
 
 
@@ -527,15 +529,15 @@ class DataMphine(models.Model):
         total_of_data_one_2 = 0
         colld = 13
         for ddts in data_one:
-            data_one_data_2 = self.env["res.partner"].search([('data_one','=',ddts.id)])
+            data_one_data_2 = self.filtered(lambda picking:picking.data_one.id == ddts.id)
             worksheet.write(row, colld, len(data_one_data_2.mapped("id")), main_cell_total_of_total) #data_one
             total_of_data_one_2 = total_of_data_one_2 + len(data_one_data_2.mapped("id"))
             colld = colld + 1
 
-        gender_female_data_2 = self.env["res.partner"].search([('gender','=','male')])
+        gender_female_data_2 =  self.filtered(lambda picking:picking.gender == 'male')
         worksheet.write(row, colld, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
 
-        gender_female_data_2 = self.env["res.partner"].search([('gender','=','female')])
+        gender_female_data_2 =  self.filtered(lambda picking:picking.gender == 'female')
         worksheet.write(row, colld + 1, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
 
 
@@ -571,6 +573,7 @@ class DataMphine(models.Model):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }
+
 
     def get_college_data(self):
         print("self################",self)
