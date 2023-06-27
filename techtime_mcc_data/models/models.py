@@ -368,7 +368,7 @@ class DataMphine(models.Model):
                             row = row + 1
 
                     # worksheet.write(row, 0, )
-                    worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
+                    # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
                     worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
 
                     worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
