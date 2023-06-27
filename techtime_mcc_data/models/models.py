@@ -282,15 +282,15 @@ class DataMphine(models.Model):
 
                             worksheet.write(row, 2, shift_name or '', main_cell_total)
 
-                            currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "currecnt_student")
+                            currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "currecnt_student")
 
-                            status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status2")
+                            status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status2")
 
-                            status_4_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status3")
+                            status_4_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status3")
 
 
-                            status_5_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "status1")
-                            failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and Status == "failed")
+                            status_5_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status1")
+                            failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "failed")
 
                             transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transferred_to_us == True) 
                             transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transfer_shift == True)
