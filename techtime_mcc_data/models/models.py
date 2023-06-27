@@ -492,7 +492,7 @@ class DataMphine(models.Model):
         transferred_to_us_2 =  self.filtered(lambda picking:picking.transferred_to_us == True)
         transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
 
-        worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
+        # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
         worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
 
         worksheet.write(row, 4, len(status_2_data_2.mapped('id')) or '', main_cell_total_of_total)
