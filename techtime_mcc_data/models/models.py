@@ -391,7 +391,7 @@ class DataMphine(models.Model):
                 worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
                 
                 row = row + 1
-            row = row + 1
+            # row = row + 1
         row = row + 1
         worksheet.write_merge(row, row + 4, 0, 0, 'الكليات', main_cell_total)
 
