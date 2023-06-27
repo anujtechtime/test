@@ -367,30 +367,29 @@ class DataMphine(models.Model):
 
                             row = row + 1
 
-                    # worksheet.write(row, 0, )
-                    # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
-                    worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
+                # worksheet.write(row, 0, )
+                # worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
+                worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
 
-                    worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
-                    worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
-                    worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
-                    worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
-                    worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
-                    worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
-                    worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
-                    worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
-                    worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
-                    colld = 13
-                    for ddts in data_one:
-                        ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
-                        worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
+                worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
+                worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
+                worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
+                worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
+                worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
+                worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
+                worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
+                worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
+                worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
+                colld = 13
+                for ddts in data_one:
+                    ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
+                    worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
 
-                        colld = colld + 1
-                    worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
-                    worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
-                    worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
-                    
-                    row = row + 1
+                    colld = colld + 1
+                worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
+                worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
+                worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
+                
                 row = row + 1
             row = row + 1
         row = row + 1
