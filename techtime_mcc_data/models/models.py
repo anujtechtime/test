@@ -393,7 +393,7 @@ class DataMphine(models.Model):
                     row = row + 1
                 row = row + 1
             row = row + 1
-        
+        row = row + 1
         worksheet.write_merge(row, row + 4, 0, 0, 'الكليات', main_cell_total)
 
         for lev in level_type:
