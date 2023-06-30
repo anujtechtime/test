@@ -6,6 +6,11 @@
 	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/kanban_controller.js"></script>
 	    </xpath>
 
+	    <xpath expr="//script[contains(@src, '/web/static/src/js/views/list/list_controller.js')]" position="replace">	        
+	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/list_controller.js"></script>
+	    </xpath>
+
+
 	    <xpath expr="//script[contains(@src, '/web/static/src/js/views/control_panel/search/search_filters.js')]"  position="replace">	  
 	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/search_filters.js"></script>
 	    </xpath>
