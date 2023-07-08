@@ -24,9 +24,6 @@ var ListController = BasicController.extend({
      * the list view. It can be overridden to add buttons in specific child views.
      */
     buttons_template: 'ListView.buttons',
-    events: _.extend({}, BasicController.prototype.events, {
-        'click .o_list_export_xlsx': '_onDirectExportData',
-    }),
     custom_events: _.extend({}, BasicController.prototype.custom_events, {
         activate_next_widget: '_onActivateNextWidget',
         add_record: '_onAddRecord',
@@ -40,6 +37,7 @@ var ListController = BasicController.extend({
     }),
 
     events: _.extend({}, BasicController.prototype.events, {
+        'click .o_list_export_xlsx': '_onDirectExportData',
         'click #form_click_data_student_type': '_onButtonClickedFormValueStudentType',
         'click #form_click_data_department': '_onButtonClickedFormValueDepartment',
         'click #form_click_data_year': '_onButtonClickedFormValueYear',
