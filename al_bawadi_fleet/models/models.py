@@ -14,17 +14,23 @@ from datetime import date as date_n
 class SaleOrderField_user(models.Model):
     _inherit = 'account.move'
 
+    @api.depends('in_date')
+    def _compute_level(self):
+        for expense in self:
+            expense.in_date = datetime.today()
+
     receipt_number = fields.Integer("Receipt Number")
     car_number = fields.Char(string="Car Number")
     car_type = fields.Selection([('small','Small'),('large','Large')], string="Car Type")
     car_type_drop_down = fields.Selection([('container','container'),('refrigerator','refrigerator')], string="Large Car")
-    in_date = fields.Datetime("In Date")
+    in_date = fields.Datetime("In Date", compute="_compute_level")
     out_date = fields.Datetime("Out Date")
 
 
     qr_code = fields.Binary("QR Code", attachment=True, store=True)
 
     amount_for_parking = fields.Monetary("Parking Amount", store=True, currency_field='currency_id')
+
 
 
     @api.onchange('out_date')
