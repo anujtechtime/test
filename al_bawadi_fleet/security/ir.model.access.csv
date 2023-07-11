@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_al_bawadi_fleet_al_bawadi_fleet,al_bawadi_fleet.al_bawadi_fleet,model_al_bawadi_fleet_al_bawadi_fleet,base.group_user,1,1,1,1
