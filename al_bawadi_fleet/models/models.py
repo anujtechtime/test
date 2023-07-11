@@ -44,7 +44,7 @@ class SaleOrderField_user(models.Model):
                 box_size=10,
                 border=4,
             )
-            qr.add_data("In Time :" + str(self.in_date + relativedelta(hours=5.5)) + ", Out Time :" + str(self.out_date + relativedelta(hours=5.5)) + ", Receipt Number : " + str(self.receipt_number) + ", Car Number : " + self.car_number)
+            qr.add_data("In Time :" + str(self.in_date + relativedelta(hours=5.5)))
             qr.make(fit=True)
             img = qr.make_image()
             temp = BytesIO()
