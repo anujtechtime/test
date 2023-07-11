@@ -34,6 +34,18 @@
                 </xpath>
               </field>
             </record>
+
+
+            <record id="view_account_move_filter_inherit_barcode" model="ir.ui.view">
+            <field name="name">account.move.select</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="receipt_number" string="Receipt Number"/>
+                </xpath>
+            </field>
+        </record>
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="al_bawadi_fleet.action_window">
