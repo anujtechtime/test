@@ -24,7 +24,7 @@ class SaleOrderField_user(models.Model):
             expense.in_date = datetime.today()
             
 
-    receipt_number = fields.Char("Receipt Number", compute="generate_qr_code")
+    receipt_number = fields.Char("Receipt Number")
     car_number = fields.Char(string="Car Number")
     car_type = fields.Selection([('small','Small'),('large','Large')], string="Car Type")
     car_type_drop_down = fields.Selection([('container','container'),('refrigerator','refrigerator')], string="Large Car")
@@ -48,32 +48,35 @@ class SaleOrderField_user(models.Model):
 
     @api.onchange('receipt_number')
     def generate_qr_code(self):
-        self.receipt_number = random.randint(100000000000,999999999999)
-        if self.receipt_number:
-            # qr = qrcode.QRCode(
-            #     version=1,
-            #     error_correction=qrcode.constants.ERROR_CORRECT_L,
-            #     box_size=10,
-            #     border=4,
-            # )
-            # qr.add_data("In Time :" + str(self.in_date + relativedelta(hours=5.5)))
-            # qr.make(fit=True)
-            # img = qr.make_image()
-            temp = BytesIO()
+        for ddts in self:
+            # ddts.receipt_number = random.randint(100000000000,999999999999)
+            if ddts.receipt_number:
+                if len(ddts.receipt_number) != 12:
+                    return ValidationError(_("The Receipt Number must be of 12 Digits!."))
+                # qr = qrcode.QRCode(
+                #     version=1,
+                #     error_correction=qrcode.constants.ERROR_CORRECT_L,
+                #     box_size=10,
+                #     border=4,
+                # )
+                # qr.add_data("In Time :" + str(self.in_date + relativedelta(hours=5.5)))
+                # qr.make(fit=True)
+                # img = qr.make_image()
+                temp = BytesIO()
 
-            img = EAN13(str(self.receipt_number), writer=ImageWriter())
+                img = EAN13(str(ddts.receipt_number), writer=ImageWriter())
 
-            print("img@@@@@@@@@@@@@@@",img)
-
-
-            data = img.save("new_code")
-            # my_code.save(“”)
-
-            print("img#rrrrrrrrrrrrrrrrrrr",data)
-            # qr_image = base64.b64encode(img.read())
-            with open("new_code.png", "rb") as img_file:
-                my_string = base64.b64encode(img_file.read())
-            print("ssssssssssssssss",my_string)
+                print("img@@@@@@@@@@@@@@@",img)
 
 
-            self.qr_code = my_string
+                data = img.save("new_code")
+                # my_code.save(“”)
+
+                print("img#rrrrrrrrrrrrrrrrrrr",data)
+                # qr_image = base64.b64encode(img.read())
+                with open("new_code.png", "rb") as img_file:
+                    my_string = base64.b64encode(img_file.read())
+                print("ssssssssssssssss",my_string)
+
+
+                ddts.qr_code = my_string
