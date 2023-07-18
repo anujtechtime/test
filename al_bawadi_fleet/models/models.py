@@ -7,6 +7,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta, MO
 from io import BytesIO
 from datetime import date as date_n  
+from odoo.exceptions import UserError, ValidationError
 from barcode import EAN13
 from barcode.writer import ImageWriter
 import random
