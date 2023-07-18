@@ -38,6 +38,10 @@ class SaleOrderField_user(models.Model):
     amount_for_parking = fields.Monetary("Parking Amount", store=True, currency_field='currency_id')
 
 
+    def button_check_out(self):
+        for out in self:
+            out.out_date = datetime.today()
+            self.generate_out_date()
 
     @api.onchange('out_date')
     def generate_out_date(self):  
