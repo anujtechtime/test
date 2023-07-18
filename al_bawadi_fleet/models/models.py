@@ -42,6 +42,19 @@ class SaleOrderField_user(models.Model):
     def create(self, vals):
         res =  super(SaleOrderField_user, self).create(vals)
         res.in_date = datetime.today()
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data("In Time :" + str(res.in_date + relativedelta(hours=5.5)) + ", Receipt Number : " + str(res.receipt_number) + ", Car Number :" + res.car_number)
+        qr.make(fit=True)
+        img = qr.make_image()
+        temp = BytesIO()
+        img.save(temp, format="PNG")
+        qr_image = base64.b64encode(temp.getvalue())
+        res.qr_code = qr_image
         return res
 
 
