@@ -52,6 +52,17 @@
                 </xpath>
             </field>
         </record>
+
+
+        <report
+            id="report_product_product_barcode_data"
+            string="Barcode (PDF)"
+            model="account.move"
+            report_type="qweb-pdf"
+            name="al_bawadi_fleet.report_productbarcode_data"
+            file="al_bawadi_fleet.report_productbarcode_data"
+            print_report_name="'barcode - %s' % (object.name)"
+        />
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="al_bawadi_fleet.action_window">
