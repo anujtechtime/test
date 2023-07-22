@@ -725,10 +725,7 @@ class DataLevelValueData(models.TransientModel):
                 levels_sale_order.sequence_num = self.sequence_num
 
             if self.attachment:
-                for rec in self.attachment: 
-                    levels_sale_order.attachment =  [(4, [rec.id])]
-                    print("levels_sale_order.attachment############",levels_sale_order.attachment.id) 
-
+                levels_sale_order.attachment =  [(6, 0, self.attachment.mapped("id"))]
                 # for pdf in self.attachment:
                 #     attachments.append(pdf.id)
 
