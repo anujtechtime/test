@@ -372,9 +372,9 @@
         <field name="inherit_id" ref="techtime_student_excel.view_any_name_form_level_value"/>
         <!-- <field name="type">form</field> -->
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='year']" position="after">
-                <field name="Status"/>
-                <field name="contact_type"/>
+            <xpath expr="//field[@name='year']" position="replace">
+                <field name="Status" invisible="1"/>
+                <field name="contact_type" invisible="1"/>
                     <field name="notes_data"/>
                 <field name="data_date_value"/>
                 <field name="sequence_num"/>
@@ -441,7 +441,7 @@
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
 
                     <field name="attachment" widget="many2many_binary"/>
-                    
+
                     <field name="file_upload"/>
                     <field name="attachment_upload"/>
 
