@@ -375,6 +375,10 @@
             <xpath expr="//field[@name='year']" position="after">
                 <field name="Status"/>
                 <field name="contact_type"/>
+                    <field name="notes_data"/>
+                <field name="data_date_value"/>
+                <field name="sequence_num"/>
+                <field name="attachment" widget="many2many_binary"/>
         </xpath>
         </field>
     </record>
@@ -435,8 +439,16 @@
             <xpath expr="//group[1]" position="before">
                 <group>
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
+
+                    <field name="attachment" widget="many2many_binary"/>
+                    
                     <field name="file_upload"/>
                     <field name="attachment_upload"/>
+
+                    <field name="notes_data"/>
+                <field name="data_date_value"/>
+                <field name="sequence_num"/>
+                
 
                     <field name="field_one_1"/>
                     <field name="fields_one_2"/>

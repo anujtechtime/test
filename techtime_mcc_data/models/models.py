@@ -129,12 +129,19 @@ class DataMphine(models.Model):
 
     data_one = fields.Many2one("new.work", string="نافذة القبول")
 
+
+    attachment = fields.Many2many("ir.attachment",  string="Attachment")
+
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     file_upload = fields.Binary(string='File', attachment=True)
     attachment_upload = fields.Binary(string='Attachment', attachment=True)
 
     year_of_graduation = fields.Char("Year Of Graduation")
     academic_branch = fields.Char("Academi Branch")
+
+    notes_data = fields.Text("Notes", track_visibility=True)
+    data_date_value = fields.Date("Date", track_visibility=True)
+    sequence_num = fields.Char("Sequence", track_visibility=True)
 
 
     field_one_1 = fields.Boolean("استضافة من الجامعة")
@@ -682,6 +689,11 @@ class DataLevelValueData(models.TransientModel):
     _inherit = 'level.value'
    
 
+    notes_data = fields.Text("Notes", track_visibility=True)
+    data_date_value = fields.Date("Date", track_visibility=True)
+    sequence_num = fields.Char("Sequence", track_visibility=True)
+    attachment = fields.Many2many("ir.attachment",  string="Attachment")
+
     Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
 
@@ -705,6 +717,12 @@ class DataLevelValueData(models.TransientModel):
                 
             if self.contact_type:
                 levels_sale_order.contact_type = self.contact_type
+            if self.notes_data:
+                levels_sale_order.notes_data = self.notes_data
+            if self.data_date_value:
+                levels_sale_order.data_date_value = self.data_date_value
+            if self.sequence_num:
+                levels_sale_order.sequence_num = self.sequence_num     
 
 class ContractmDateAccount(models.Model):
 
