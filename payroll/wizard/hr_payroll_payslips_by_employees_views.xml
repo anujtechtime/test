@@ -23,7 +23,7 @@
                 <group colspan="4">
                     <separator string="Employees" colspan="4" />
                     <newline />
-                    <field name="employee_ids" nolabel="1" />
+                    <field name="employee_ids" nolabel="1"  domain="[('contract_id', '!=', False)]"/>
                 </group>
             </form>
         </field>

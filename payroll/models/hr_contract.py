@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import fields, models, api, _
 
 
 class HrContract(models.Model):
@@ -31,6 +31,12 @@ class HrContract(models.Model):
     resource_calendar_id = fields.Many2one(
         required=True, help="Employee's working schedule."
     )
+
+
+    @api.onchange('state')
+    def _onchange_state(self):
+        if self.state != 'open':
+            self.employee_id.contract_id = False
 
     def get_all_structures(self):
         """
