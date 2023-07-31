@@ -127,6 +127,8 @@ class DataHrEmployee(models.Model):
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
+    rfid = fields.Char("RFID")
+
     data_one = fields.Many2one("new.work", string="نافذة القبول")
 
 

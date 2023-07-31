@@ -193,7 +193,7 @@ class ModelDownloadPack(models.TransientModel):
 
                 # Copy attachments
                 if os.path.isdir(rec_folder):
-                    for att in self.env["res.partner"].search([("id",'=',rec.id)]):
+                    for att1 in self.env["res.partner"].search([("id",'=',rec.id)]):
                         data_in  = self.env["res.partner"].search([("id",'=',rec.id)])
                         if data_in.image_1920:
                             encoded_string = data_in.image_1920
@@ -204,7 +204,7 @@ class ModelDownloadPack(models.TransientModel):
                                 'res_model': self._context['active_model'],
                                 'res_id' : rec.id,
                                 'datas' : data_in.image_1920,
-                                'name': str(rec.id) + "." + str(extension),
+                                'name': str(att1.rfid) + "." + str(extension),
                                 })
 
                             try:

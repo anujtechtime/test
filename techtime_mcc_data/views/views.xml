@@ -447,6 +447,8 @@
         <field name="arch" type="xml">
             <xpath expr="//group[1]" position="before">
                 <group>
+
+                    <field name="rfid"/>
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
 
                     <field name="attachment" widget="many2many_binary"/>
