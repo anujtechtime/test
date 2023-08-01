@@ -210,24 +210,41 @@ class DataMphine(models.Model):
         level_data = ["leve1","level2", "level3", "level4", "level5"]
         shift_data = ['morning', 'afternoon'] 
         level_name = ""
-        for depp in  level_data:
+        for lev in  level_data:
             for shift in shift_data:
                 data_student = self.filtered(lambda picking: picking.level == depp and picking.shift == shift)
                 print("data_student@@@@@@@@@@@@@@@@@@@@@@@@@",data_student)
+                if lev == 'leve1':
+                    depp = 'المرحلة الاولى'
+                if lev == 'level2':
+                    depp = 'المرحلة الثانية'
+                if lev == 'level3':
+                    depp = 'المرحلة الثالثة'
+                if lev == 'level4':
+                    depp = 'المرحلة الرابعة'
+                if lev == 'level5':
+                    depp = 'المرحلة الخامسة'
 
-                worksheet.write(row, 0, str(depp) + " - " + str(shift) , header_bold)
 
-                worksheet.write(row, 1, 'Status', header_bold)
+                if shift == 'morning':
+                    shift_name = 'صباحي'
+                if shift == 'afternoon':    
+                    shift_name = 'مسائي'
+                worksheet.write(row, 0, "المرحلة ونوع الدراسة" , header_bold)
 
-                worksheet.write(row, 2, 'year', header_bold)
+                worksheet.write(row, 1, 'أسم الطالب', header_bold)
 
-                worksheet.write(row, 3, 'college', header_bold)
+                worksheet.write(row, 2, 'Status', header_bold)
 
-                worksheet.write(row, 4, 'department', header_bold)
+                worksheet.write(row, 3, 'السنة', header_bold)
 
-                worksheet.write(row, 5, 'College Number', header_bold)
+                worksheet.write(row, 4, 'الكلية', header_bold)
 
-                worksheet.write(row, 6, 'RFID', header_bold)
+                worksheet.write(row, 5, 'القسم', header_bold)
+
+                worksheet.write(row, 6, 'الرقم الجامعي', header_bold)
+
+                worksheet.write(row, 7, 'RFID', header_bold)
 
                 row = row + 1
 
@@ -252,12 +269,16 @@ class DataMphine(models.Model):
                     if res_partner.Status == 'graduated':
                         status_yu = 'Graduated'
 
-                    worksheet.write(row, 1, status_yu or '', main_cell_total)
-                    worksheet.write(row, 2, res_partner.year.year or '', main_cell_total)
-                    worksheet.write(row, 3, res_partner.college.college or '', main_cell_total)
-                    worksheet.write(row, 4, res_partner.department.department or '', main_cell_total)
-                    worksheet.write(row, 5, res_partner.college_number or '', main_cell_total)
-                    worksheet.write(row, 6, res_partner.rfid or '', main_cell_total)
+                    worksheet.write(row, 0, str(depp) + " - " + str(shift_name) , main_cell_total)
+
+                    worksheet.write(row, 1, res_partner.display_name or '', main_cell_total)    
+
+                    worksheet.write(row, 2, status_yu or '', main_cell_total)
+                    worksheet.write(row, 3, res_partner.year.year or '', main_cell_total)
+                    worksheet.write(row, 4, res_partner.college.college or '', main_cell_total)
+                    worksheet.write(row, 5, res_partner.department.department or '', main_cell_total)
+                    worksheet.write(row, 6, res_partner.college_number or '', main_cell_total)
+                    worksheet.write(row, 7, res_partner.rfid or '', main_cell_total)
                     row = row + 1
                 row = row + 1
 
