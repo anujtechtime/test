@@ -234,7 +234,7 @@ class DataMphine(models.Model):
 
                 worksheet.write(row, 1, 'أسم الطالب', header_bold)
 
-                worksheet.write(row, 2, 'Status', header_bold)
+                worksheet.write(row, 2, 'الحالة', header_bold)
 
                 worksheet.write(row, 3, 'السنة', header_bold)
 
