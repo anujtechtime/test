@@ -191,6 +191,12 @@ class DataMphine(models.Model):
                               left thin, right thin, top thin, bottom thin;\
                      pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
         
+        
+
+        row = 1
+        call = 1
+        worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
         worksheet.col(0).width = 10000
         worksheet.col(1).width = 10000
         worksheet.col(2).width = 10000
@@ -198,11 +204,6 @@ class DataMphine(models.Model):
         worksheet.col(4).width = 10000
         worksheet.col(5).width = 10000
         worksheet.col(6).width = 10000
-
-        row = 1
-        call = 1
-        worksheet = wb.add_sheet(string)
-        worksheet.cols_right_to_left = True
         print("self@@@@@@@@@@@@@",self)
 
         # department_data = self.env["department.department"].search([])
