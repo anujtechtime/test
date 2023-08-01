@@ -225,6 +225,7 @@ class DataMphine(models.Model):
         worksheet.write(row, 6, 'الرقم الجامعي', header_bold)
 
         worksheet.write(row, 7, 'RFID', header_bold)
+        row = row + 1
         for lev in  level_data:
             for shift in shift_data:
                 data_student = self.filtered(lambda picking: picking.level == lev and picking.shift == shift)
@@ -249,7 +250,7 @@ class DataMphine(models.Model):
 
                 
 
-                row = row + 1
+                
 
                 for res_partner in data_student:
 
