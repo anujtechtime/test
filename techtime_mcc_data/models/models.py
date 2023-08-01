@@ -212,7 +212,7 @@ class DataMphine(models.Model):
         level_name = ""
         for lev in  level_data:
             for shift in shift_data:
-                data_student = self.filtered(lambda picking: picking.level == depp and picking.shift == shift)
+                data_student = self.filtered(lambda picking: picking.level == lev and picking.shift == shift)
                 print("data_student@@@@@@@@@@@@@@@@@@@@@@@@@",data_student)
                 if lev == 'leve1':
                     depp = 'المرحلة الاولى'
