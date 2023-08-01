@@ -140,7 +140,7 @@ class ModelDownloadPack(models.TransientModel):
     def pack_render_folder_structure(self, rec, file_path):
         folder_structure = self._context.get('pack_folder_structure')
         if not folder_structure:
-            folder_structure = ['create_date|%Y','name']
+            folder_structure = ['create_date|%Y']
         else:
             folder_structure = folder_structure.split(',')
 
