@@ -150,6 +150,139 @@ class DataMphine(models.Model):
     fields_one_2 = fields.Boolean("استضافة الى الجامعة")
 
 
+    def report_for_export_image(self):
+        filename = 'Department_level.xls'
+        string = 'Department_level_report.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre")
+
+
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+
+        header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
+        cell_format = xlwt.easyxf()
+        filename = 'Department_level_Report_%s.xls' % date.today()
+
+        main_cell = xlwt.easyxf('font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
+        
+
+        row = 1
+        call = 1
+        worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
+        print("self@@@@@@@@@@@@@",self)
+
+        # department_data = self.env["department.department"].search([])
+        level_data = ["leve1","level2", "level3", "level4", "level5"]
+        shift_data = ['morning', 'afternoon'] 
+        level_name = ""
+        for depp in  level_data:
+            for shift in shift_data:
+                data_student = self.filtered(lambda picking: picking.level == depp and picking.shift == shift)
+                print("data_student@@@@@@@@@@@@@@@@@@@@@@@@@",data_student)
+
+                worksheet.write(row, 0, str(depp) + " - " + str(shift) , header_bold)
+
+                worksheet.write(row, 1, 'Status', header_bold)
+
+                worksheet.write(row, 2, 'year', header_bold)
+
+                worksheet.write(row, 3, 'college', header_bold)
+
+                worksheet.write(row, 4, 'department', header_bold)
+
+                worksheet.write(row, 5, 'College Number', header_bold)
+
+                worksheet.write(row, 6, 'RFID', header_bold)
+
+                row = row + 1
+
+                for res_partner in data_student:
+
+                    if res_partner.Status == 'status4':
+                        status_yu =  'مؤجل'
+                    if res_partner.Status == 'status1':
+                        status_yu = 'ترقين قيد'
+                    if res_partner.Status == 'status2':
+                        status_yu = 'طالب غير مباشر'
+                    if res_partner.Status == 'status3':
+                        status_yu = 'انسحاب'
+                    if res_partner.Status == 'currecnt_student':
+                        status_yu = 'Current student'
+                    if res_partner.Status == 'succeeded':
+                        status_yu = 'Succeeded'
+                    if res_partner.Status == 'failed':
+                        status_yu = 'Falied'
+                    if res_partner.Status == 'transferred_from_us':
+                        status_yu = 'Transferred From Us'
+                    if res_partner.Status == 'graduated':
+                        status_yu = 'Graduated'
+
+                    worksheet.write(row, 1, status_yu or '', main_cell_total)
+                    worksheet.write(row, 2, res_partner.year.year or '', main_cell_total)
+                    worksheet.write(row, 3, res_partner.college.college or '', main_cell_total)
+                    worksheet.write(row, 4, res_partner.department.department or '', main_cell_total)
+                    worksheet.write(row, 5, res_partner.college_number or '', main_cell_total)
+                    worksheet.write(row, 6, res_partner.rfid or '', main_cell_total)
+                    row = row + 1
+                row = row + 1
+
+            
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/payslip_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }     
+
+
+
     def send_mis_report_sale_student_data_report(self):  
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
