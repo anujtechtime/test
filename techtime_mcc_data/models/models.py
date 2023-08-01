@@ -230,17 +230,19 @@ class DataMphine(models.Model):
                     shift_name = 'صباحي'
                 if shift == 'afternoon':    
                     shift_name = 'مسائي'
-                worksheet.write(row, 0, "المرحلة ونوع الدراسة" , header_bold)
+                # worksheet.write(row, 0, "المرحلة ونوع الدراسة" , header_bold)  
 
-                worksheet.write(row, 1, 'أسم الطالب', header_bold)
+                worksheet.write(row, 0, 'أسم الطالب', header_bold)
 
-                worksheet.write(row, 2, 'الحالة', header_bold)
+                worksheet.write(row, 1, 'الحالة', header_bold)
 
-                worksheet.write(row, 3, 'السنة', header_bold)
+                worksheet.write(row, 2, 'السنة الدراسية', header_bold)
 
-                worksheet.write(row, 4, 'الكلية', header_bold)
+                worksheet.write(row, 3, 'الكلية', header_bold)
 
-                worksheet.write(row, 5, 'القسم', header_bold)
+                worksheet.write(row, 4, 'القسم', header_bold)
+
+                worksheet.write(row, 5, "المرحلة ونوع الدراسة" , header_bold) 
 
                 worksheet.write(row, 6, 'الرقم الجامعي', header_bold)
 
@@ -259,24 +261,29 @@ class DataMphine(models.Model):
                     if res_partner.Status == 'status3':
                         status_yu = 'انسحاب'
                     if res_partner.Status == 'currecnt_student':
-                        status_yu = 'Current student'
+                        status_yu = 'طالب حالي'
                     if res_partner.Status == 'succeeded':
-                        status_yu = 'Succeeded'
+                        status_yu = 'طالب ناجح'
                     if res_partner.Status == 'failed':
-                        status_yu = 'Falied'
+                        status_yu = 'راسب'
                     if res_partner.Status == 'transferred_from_us':
-                        status_yu = 'Transferred From Us'
+                        status_yu = 'انتقل من جامعة المعقل '
                     if res_partner.Status == 'graduated':
-                        status_yu = 'Graduated'
+                        status_yu = 'طالب متخرج'
 
-                    worksheet.write(row, 0, str(depp) + " - " + str(shift_name) , main_cell_total)
+                    # worksheet.write(row, 0, str(depp) + " - " + str(shift_name) , main_cell_total)
 
-                    worksheet.write(row, 1, res_partner.display_name or '', main_cell_total)    
+                    worksheet.write(row, 0, res_partner.display_name or '', main_cell_total)    #student 
 
-                    worksheet.write(row, 2, status_yu or '', main_cell_total)
-                    worksheet.write(row, 3, res_partner.year.year or '', main_cell_total)
-                    worksheet.write(row, 4, res_partner.college.college or '', main_cell_total)
-                    worksheet.write(row, 5, res_partner.department.department or '', main_cell_total)
+                    worksheet.write(row, 1, status_yu or '', main_cell_total)  #status
+                    worksheet.write(row, 2, res_partner.year.year or '', main_cell_total) 
+                    worksheet.write(row, 3, res_partner.college.college or '', main_cell_total)
+                    worksheet.write(row, 4, res_partner.department.department or '', main_cell_total)
+
+
+                    worksheet.write(row, 5, str(depp) + " - " + str(shift_name) , main_cell_total)
+
+
                     worksheet.write(row, 6, res_partner.college_number or '', main_cell_total)
                     worksheet.write(row, 7, res_partner.rfid or '', main_cell_total)
                     row = row + 1
