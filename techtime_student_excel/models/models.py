@@ -778,6 +778,7 @@ class ResData(models.Model):
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
         filename = 'Student_Report_%s.xls' % date.today()
@@ -929,6 +930,7 @@ class ResData(models.Model):
         string = 'جدول الاحصاء المسائي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
         filename = 'Student_Report_%s.xls' % date.today()
@@ -1037,8 +1039,8 @@ class ResData(models.Model):
                     
                     row = row + 3
                 
-                worksheet.write(col ,row + 1, coll.college or '', main_cell_total)
-                worksheet.write(col ,row, ddept.department or '', main_cell_total)
+                # worksheet.write(col ,row + 1, coll.college or '', main_cell_total)
+                # worksheet.write(col ,row, ddept.department or '', main_cell_total)
                 col = col + 1
 
 
