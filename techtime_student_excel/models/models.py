@@ -848,9 +848,9 @@ class ResData(models.Model):
                 row = 0
                 female_row = 3
                 for student in student_type: 
-                    sale_ord_level1_morning_male  = self.filtered(lambda picking:picking.level == student and picking.college == coll.id and picking.department == ddept.id and picking.shift == 'morning' and picking.gender == 'female')
-                    sale_ord_level1_morning_female  = self.filtered(lambda picking:picking.level == student and picking.college == coll.id and picking.department == ddept.id and picking.shift == 'morning' and picking.gender == 'female')
-                    
+                    sale_ord_level1_morning_male  = self.filtered(lambda picking:picking.level == student and picking.college.id == coll.id and picking.department.id == ddept.id and picking.shift == 'morning' and picking.gender == 'female')
+                    sale_ord_level1_morning_female  = self.filtered(lambda picking:picking.level == student and picking.college.id == coll.id and picking.department.id == ddept.id and picking.shift == 'morning' and picking.gender == 'female')
+
                     # sale_ord_level1_morning_male = self.env["res.partner"].search([('level','=',student),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','male')])
                    
                     # sale_ord_level1_morning_female = self.env["res.partner"].search([('level','=',student),('college','=',coll.id),('department','=',ddept.id),('shift','=','morning'),('gender','=','female')])
@@ -991,8 +991,8 @@ class ResData(models.Model):
                 row = 0
                 female_row = 3
                 for student in student_type: 
-                    sale_ord_level1_afternoon_male  = self.filtered(lambda picking:picking.level == student and picking.college == coll.id and picking.department == ddept.id and picking.shift == 'afternoon' and picking.gender == 'male')
-                    sale_ord_level1_afternoon_female  = self.filtered(lambda picking:picking.level == student and picking.college == coll.id and picking.department == ddept.id and picking.shift == 'afternoon' and picking.gender == 'female')
+                    sale_ord_level1_afternoon_male  = self.filtered(lambda picking:picking.level == student and picking.college.id == coll.id and picking.department.id == ddept.id and picking.shift == 'afternoon' and picking.gender == 'male')
+                    sale_ord_level1_afternoon_female  = self.filtered(lambda picking:picking.level == student and picking.college.id == coll.id and picking.department.id == ddept.id and picking.shift == 'afternoon' and picking.gender == 'female')
                     # sale_ord_level1_afternoon_male = self.env["res.partner"].search([('level','=',student),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','male')])
                    
                     # sale_ord_level1_afternoon_female = self.env["res.partner"].search([('level','=',student),('college','=',coll.id),('department','=',ddept.id),('shift','=','afternoon'),('gender','=','female')])
