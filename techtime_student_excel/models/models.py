@@ -1004,7 +1004,7 @@ class ResData(models.Model):
             for ddept in department:
                 worksheet.write(col ,0 , coll.college or '', main_cell_total)
                 worksheet.write(col ,1 , ddept.department or '', main_cell_total)
-                row = 0
+                row = 2
                 female_row = 3
                 for student in student_type: 
                     sale_ord_level1_afternoon_male  = self.filtered(lambda picking:picking.level == student and picking.college.id == coll.id and picking.department.id == ddept.id and picking.shift == 'afternoon' and picking.gender == 'male')
