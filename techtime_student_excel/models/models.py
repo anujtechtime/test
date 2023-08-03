@@ -823,8 +823,8 @@ class ResData(models.Model):
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
         Registered_total = 0
         format2 = xlwt.easyxf('font:bold True;align: horiz center')
-        worksheet.write(1, 0, "College" or '',header_bold)
-        worksheet.write(1, 1, "Department" or '', header_bold)
+        worksheet.write(1, 0, "الكلية" or '',header_bold)
+        worksheet.write(1, 1, "القسم" or '', header_bold)
         for coll in college_data:
             not_registered_level1 = 0
             not_registered_level2 = 0
@@ -974,8 +974,8 @@ class ResData(models.Model):
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
         Registered_total = 0
         format2 = xlwt.easyxf('font:bold True;align: horiz center')
-        worksheet.write(1, 0, "College" or '',header_bold)
-        worksheet.write(1, 1, "Department" or '', header_bold)
+        worksheet.write(1, 0, "الكلية" or '',header_bold)
+        worksheet.write(1, 1, "القسم" or '', header_bold)
         for coll in college_data:
             not_registered_level1 = 0
             not_registered_level2 = 0
