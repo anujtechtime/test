@@ -873,8 +873,8 @@ class ResData(models.Model):
                         worksheet.write(1, row + 2, "المجموع" or '', header_bold)
 
                     worksheet.write(col, row, len(sale_ord_level1_morning_male.mapped("id")) or '', header_bold)
-                    worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '', header_bold)
-                    worksheet.write(col, row + 2, len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id")) or '', header_bold)
+                    worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '', main_cell_total)
+                    worksheet.write(col, row + 2, len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id")) or '', main_cell_total)
                     
                     row = row + 3
                 
