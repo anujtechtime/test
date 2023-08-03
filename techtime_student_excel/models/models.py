@@ -790,8 +790,32 @@ class ResData(models.Model):
         # worksheet.col(0).width = 10000
         # worksheet.col(1).width = 15000
         # worksheet.col(2).width = 10000
-        # worksheet.row(0).height = 500
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
         
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+
+
         col = 2
         college_data = self.env["faculty.faculty"].search([])
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
@@ -840,22 +864,22 @@ class ResData(models.Model):
                         student = 'المرحلة الخامسة'
 
                     if col == 2:
-                        worksheet.write_merge(0, 0, row, row + 2, student or '', format2)
+                        worksheet.write_merge(0, 0, row, row + 2, student or '', header_bold)
                         # worksheet.write(0, row, student.Student or '')
                         # worksheet.write(1, row - 2, "College" or '')
                         # worksheet.write(1, row - 1, "Department" or '')
-                        worksheet.write(1, row, "الذكور" or '')
-                        worksheet.write(1, row + 1, "الاناث" or '')
-                        worksheet.write(1, row + 2, "المجموع" or '')
+                        worksheet.write(1, row, "الذكور" or '', header_bold)
+                        worksheet.write(1, row + 1, "الاناث" or '', header_bold)
+                        worksheet.write(1, row + 2, "المجموع" or '', header_bold)
 
-                    worksheet.write(col, row, len(sale_ord_level1_morning_male.mapped("id")) or '')
-                    worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '')
-                    worksheet.write(col, row + 2, len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id")) or '')
+                    worksheet.write(col, row, len(sale_ord_level1_morning_male.mapped("id")) or '', header_bold)
+                    worksheet.write(col, row + 1, len(sale_ord_level1_morning_female.mapped("id")) or '', header_bold)
+                    worksheet.write(col, row + 2, len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id")) or '', header_bold)
                     
                     row = row + 3
                 
-                worksheet.write(col ,row + 1, coll.college or '')
-                worksheet.write(col ,row, ddept.department or '')
+                worksheet.write(col ,row + 1, coll.college or '', main_cell_total)
+                worksheet.write(col ,row, ddept.department or '', main_cell_total)
                 col = col + 1
 
 
@@ -906,8 +930,32 @@ class ResData(models.Model):
         # worksheet.col(0).width = 10000
         # worksheet.col(1).width = 15000
         # worksheet.col(2).width = 10000
-        # worksheet.row(0).height = 500
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
         
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+
+
         col = 2
         college_data = self.env["faculty.faculty"].search([])
         # print("college_data$$$$$$$$$$$$$$$$$$$$$$",college_data)
@@ -956,22 +1004,22 @@ class ResData(models.Model):
                     if student == 'level5':
                         student = 'المرحلة الخامسة'
                     if col == 2:
-                        worksheet.write_merge(0, 0, row, row + 2, student or '', format2)
+                        worksheet.write_merge(0, 0, row, row + 2, student or '', header_bold)
                         # worksheet.write(0, row, student.Student or '')
                         # worksheet.write(1, row - 2, "College" or '')
                         # worksheet.write(1, row - 1, "Department" or '')
-                        worksheet.write(1, row, "الذكور" or '')
-                        worksheet.write(1, row + 1, "الاناث" or '')
-                        worksheet.write(1, row + 2, "المجموع" or '')
+                        worksheet.write(1, row, "الذكور" or '',header_bold)
+                        worksheet.write(1, row + 1, "الاناث" or '', header_bold)
+                        worksheet.write(1, row + 2, "المجموع" or '', header_bold)
 
-                    worksheet.write(col, row, len(sale_ord_level1_afternoon_male.mapped("id")) or '')
-                    worksheet.write(col, row + 1, len(sale_ord_level1_afternoon_female.mapped("id")) or '')
-                    worksheet.write(col, row + 2, len(sale_ord_level1_afternoon_male.mapped("id")) + len(sale_ord_level1_afternoon_female.mapped("id")) or '')
+                    worksheet.write(col, row, len(sale_ord_level1_afternoon_male.mapped("id")) or '', main_cell_total)
+                    worksheet.write(col, row + 1, len(sale_ord_level1_afternoon_female.mapped("id")) or '', main_cell_total)
+                    worksheet.write(col, row + 2, len(sale_ord_level1_afternoon_male.mapped("id")) + len(sale_ord_level1_afternoon_female.mapped("id")) or '', main_cell_total)
                     
                     row = row + 3
                 
-                worksheet.write(col ,row + 1, coll.college or '')
-                worksheet.write(col ,row, ddept.department or '')
+                worksheet.write(col ,row + 1, coll.college or '', main_cell_total)
+                worksheet.write(col ,row, ddept.department or '', main_cell_total)
                 col = col + 1
 
 
