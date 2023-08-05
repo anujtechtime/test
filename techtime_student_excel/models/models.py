@@ -1037,7 +1037,7 @@ class ResData(models.Model):
                     worksheet.write(col, row, len(sale_ord_level1_afternoon_male.mapped("id")) or '', main_cell_total)
                     worksheet.write(col, row + 1, len(sale_ord_level1_afternoon_female.mapped("id")) or '', main_cell_total)
                     worksheet.write(col, row + 2, len(sale_ord_level1_afternoon_male.mapped("id")) + len(sale_ord_level1_afternoon_female.mapped("id")) or '', main_cell_total)
-                    data_sale_morning = len(sale_ord_level1_morning_male.mapped("id")) + len(sale_ord_level1_morning_female.mapped("id"))
+                    data_sale_morning = len(sale_ord_level1_afternoon_male.mapped("id")) + len(sale_ord_level1_afternoon_female.mapped("id"))
                     data_total_all = data_total_all + data_sale_morning
                     row = row + 3
                 
