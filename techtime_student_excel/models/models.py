@@ -1041,6 +1041,7 @@ class ResData(models.Model):
                 
                 # worksheet.write(col ,row + 1, coll.college or '', main_cell_total)
                 # worksheet.write(col ,row, ddept.department or '', main_cell_total)
+                worksheet.write(col, row, data_total_all or '', main_cell_total)
                 col = col + 1
 
 
