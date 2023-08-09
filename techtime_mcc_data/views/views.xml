@@ -30,6 +30,27 @@
     </record>
 
 
+    <record id="view_sale_order_serach_inherit_year" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_res_partner_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="year" filter_domain="[('year', 'ilike', self)]"/>
+            <field name="college" />
+            <field name="year_of_acceptance_1" />
+            <field name="data_one" />
+            <field name="Status" />
+            <field name="shift" />
+            <field name="level" />
+            <field name="student_type" />
+            <field name="department" />
+            <field name="year" />
+        </xpath>
+      </field>
+    </record>
+
+
 
     
 
