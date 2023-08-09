@@ -173,7 +173,6 @@ var ExtendedSearchProposition = Widget.extend({
         console.log("nval@@@@@@@@@@",nval)
 
         console.log("this.$()@@@@@@@@@@@@@@@",$(".o_apply_filter"))
-        console.log("this@@@@@@@@@@@@@@@@@@@",this)
         if(this.attrs.selected === null || this.attrs.selected === undefined || nval !== this.attrs.selected.name) {
             this.select_field(_.detect(this.fields, function (x) {return x.name === nval;}));
         }

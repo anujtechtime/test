@@ -14,5 +14,10 @@
 	    <xpath expr="//script[contains(@src, '/web/static/src/js/views/control_panel/search/search_filters.js')]"  position="replace">	  
 	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/search_filters.js"></script>
 	    </xpath>
+
+	    <xpath expr="//script[contains(@src, '/web/static/src/js/widgets/auto_complete.js')]"  position="replace">	  
+	        <script type="text/javascript" src="/techtime_mcc_data/static/scr/js/auto_complete.js"></script>
+	    </xpath>
+
 	</template>
 </odoo>

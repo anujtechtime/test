@@ -42,12 +42,12 @@ var KanbanController = BasicController.extend({
     events: _.extend({}, BasicController.prototype.events, {
         click: '_onClick',
         'click #form_click_data': '_onButtonClickedFormValue',
-        'click #form_click_data_student_type': '_onButtonClickedFormValueStudentType',
-        'click #form_click_data_department': '_onButtonClickedFormValueDepartment',
+        'click #form_click_data_student_type': '_onButtonClickedFormValueYear',
+        'click #form_click_data_department': '_onButtonClickedFormValueYear',
         'click #form_click_data_year': '_onButtonClickedFormValueYear',
-        'click #form_click_data_status_type' : '_onButtonClickedFormValueLevel',
-        'click #form_click_data_shift_type' : '_onButtonClickedFormValueLevel',
-        'click #form_click_data_level_type' : '_onButtonClickedFormValueLevel',
+        'click #form_click_data_status_type' : '_onButtonClickedFormValueYear',
+        'click #form_click_data_shift_type' : '_onButtonClickedFormValueYear',
+        'click #form_click_data_level_type' : '_onButtonClickedFormValueYear',
         'click #form_click_data_year_acceptance' : '_onButtonClickedFormValueYear',
         'click #form_click_data_new_data' : '_onButtonClickedFormValueYear',
 
@@ -607,27 +607,9 @@ var KanbanController = BasicController.extend({
         $('.o_add_custom_filter')[0].click();
         // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
 
-        setTimeout(() => {
-            // var selection_d = document.getElementsByClassName('o_input o_searchview_extended_prop_field')[0].click();
-
-
-            // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
-
-            // var qqjj = $('.o_filter_condition')[0].id = "college";
-
-            // var options_d = $('option')[17].id = "college";
-            // this.datam = 'college';
-            var ddtsgs = document.getElementsByClassName('o_searchview_extended_prop_value')[0].lastChild.value = current_target;
-            
-
-            }, 500);        
-
-        setTimeout(() => {
-            // var ddgst = document.getElementsByClassName('o_searchview_extended_prop_field')[0].selectedIndex = 17;
-            // console.log("ddgst@@@@@@@@@@@@@@@@@@@@@",ddgst)
-
-              var nval_dd = document.getElementsByClassName('btn-primary o_apply_filter')[0].click();
-            }, 1000);
+        $('.o_searchview_input').val(current_target).trigger('keyup');
+        $('.o_searchview_input').trigger($.Event('keydown', { which: $.ui.keyCode.ENTER, keyCode: $.ui.keyCode.ENTER }))
+        console.log("$('.o_searchview_input')@@@@@@@@@@@@@",$('li'));
     },
 
     /**
