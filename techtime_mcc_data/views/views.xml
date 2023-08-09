@@ -501,6 +501,34 @@
 
                 </group>
             </xpath>
+            <xpath expr="//page" position="after">
+                <page string="Change Log">
+                <group>
+            <field name="remark_data_change" nolabel="1">
+                                <tree string="Sale Order" editable="bottom">
+                                    <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    
+                                </tree>
+                                <form string="Sale Order">
+                                    <group col="4">
+                                        <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                    
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                        </xpath>
         </field>
     </record>
 
