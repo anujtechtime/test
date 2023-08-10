@@ -158,6 +158,83 @@
         />
 
 
+
+
+        <record model="ir.ui.view" id="techtime_mcc_data_attachemt_sale_order">
+      <field name="name">Sale Order</field>
+      <field name="model">sale.order</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Name"/>
+                    <field name="Status"/>
+                    <field name="college_number"/>
+                    <field name="student_no"/>
+                    <field name="year"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                    <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="department" domain="[('college', '=', college)]"  context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}"/>
+
+                    <field name="student" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="Subject" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="level" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="state"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_any_name_form_level_value_attachment_sale_order">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="My Form">
+                <sheet>                         
+                    <group> 
+<field name="name" string="Name"/>
+                    <field name="Status"/>
+                    <field name="college_number"/>
+                    <field name="student_no"/>
+                    <field name="year"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                    <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="department" domain="[('college', '=', college)]"  context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}"/>
+
+                    <field name="student" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="Subject" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="level" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                    <field name="state"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+    <record model="ir.actions.act_window" id="techtime_mcc_data_attchment_widnet_sale_order">
+      <field name="name">Sale Order</field>
+      <field name="res_model">sale.order</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_invoice_salesteams_view_tree_inherit" model="ir.actions.act_window.view">
+            <field name="sequence">1</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="techtime_mcc_data.techtime_mcc_data_attachemt_sale_order"/>
+            <field name="act_window_id" ref="techtime_mcc_data_attchment_widnet_sale_order"/>
+        </record>
+
+        <record id="action_invoice_salesteams_view_form_inherit" model="ir.actions.act_window.view">
+            <field name="sequence">2</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="techtime_mcc_data.view_any_name_form_level_value_attachment_sale_order"/>
+            <field name="act_window_id" ref="techtime_mcc_data_attchment_widnet_sale_order"/>
+        </record>
+
+
     
 
 
@@ -486,14 +563,14 @@
                     <field name="rfid"/>
                     <field name="data_one"   options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" invisible="1"/>
 
-                    <field name="attachment" widget="many2many_binary"/>
+                    <field name="attachment" widget="many2many_binary" invisible="1"/>
 
                     <field name="file_upload"/>
                     <field name="attachment_upload"/>
 
-                    <field name="notes_data"/>
-                <field name="data_date_value"/>
-                <field name="sequence_num"/>
+                    <field name="notes_data" invisible="1"/>
+                <field name="data_date_value" invisible="1"/>
+                <field name="sequence_num" invisible="1"/>
                 
 
                     <field name="field_one_1"/>
@@ -512,6 +589,7 @@
                                     <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                                     <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                                     <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
                                     
                                 </tree>
                                 <form string="Sale Order">
@@ -522,6 +600,7 @@
                                     <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                                     <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                                     <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
                     
                                     </group>
                                 </form>
@@ -690,6 +769,11 @@
 
     <menuitem name="نافذة القبول" id="techtime_mcc_data.menu_1_list" parent="contacts.res_partner_menu_contacts"
               action="techtime_mcc_data.techtime_mcc_data_action_windownew_work"/>
+
+                  <menuitem name="Sale Order" id="techtime_mcc_data_sale_order" parent="contacts.menu_contacts"
+              action="techtime_mcc_data.techtime_mcc_data_attchment_widnet_sale_order" sequence="2"/>          
+
+              
 
 <!--
     <menuitem name="List" id="techtime_mcc_data.menu_1_list" parent="techtime_mcc_data.menu_1"
