@@ -127,7 +127,7 @@ class DataHrEmployee(models.Model):
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
-    remark_data_change = fields.Many2many("level.value")
+    remark_data_change = fields.Many2many("level.value","res_partber")
 
     rfid = fields.Char("RFID")
 
@@ -880,6 +880,7 @@ class DataLevelValueData(models.TransientModel):
             # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self.id)
             levels_sale_order.remark_data_change  = (4, self.id)
+            self.res_partber = levels_sale_order.id
             if self.level:
                 levels_sale_order.level = self.level
                 # levels_sale_order.partner_id.level = self.level
