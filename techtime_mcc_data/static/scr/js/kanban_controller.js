@@ -604,12 +604,30 @@ var KanbanController = BasicController.extend({
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
 
-        $('.o_add_custom_filter')[0].click();
+        ev.currentTarget.dataset.value = true;
+        console.log("ev.currentTarget.dblclick()###########",ev.currentTarget.dataset.value);
+        // ev.currentTarget.click();
+        // ev.currentTarget.click();
+
+        
+        // $('.o_add_custom_filter')[0].click();
         // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
 
         $('.o_searchview_input').val(current_target).trigger('keyup');
         $('.o_searchview_input').trigger($.Event('keydown', { which: $.ui.keyCode.ENTER, keyCode: $.ui.keyCode.ENTER }))
-        console.log("$('.o_searchview_input')@@@@@@@@@@@@@",$('li'));
+
+        // console.log("$('.o_searchview_input')@@@@@@@@@@@@@",$('.o_searchview_autocomplete')[0].childNodes);
+                setTimeout(() => {
+                    console.log("ev.currentTarget.dataset.value@@@@@@@@",ev.currentTarget.dataset.value)
+                    if (ev.currentTarget.dataset.value == 'true'){
+                        console.log("dddddddddddddddddddd")
+                    ev.currentTarget.click();
+                    ev.currentTarget.dataset.value = false;
+                }
+
+            }, 500);        
+
+        
     },
 
     /**
