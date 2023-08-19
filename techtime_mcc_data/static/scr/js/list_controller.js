@@ -359,7 +359,7 @@ var ListController = BasicController.extend({
                     ev.currentTarget.dataset.value = false;
                 }
 
-            }, 500);        
+            }, 10);        
 
         
     },
