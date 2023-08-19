@@ -338,12 +338,12 @@ var ListController = BasicController.extend({
         // var datadd = fropdownMenu._commitSearch();
         var current_target = ev.currentTarget.childNodes[3].innerHTML;
 
-        $('.o_add_custom_filter')[0].click();
-        // var qjj = $('.o_searchview_extended_prop_field').val('college'); 
+        console.log("ev.currentTarget.dblclick()###########",ev.currentTarget);
 
         $('.o_searchview_input').val(current_target).trigger('keyup');
         $('.o_searchview_input').trigger($.Event('keydown', { which: $.ui.keyCode.ENTER, keyCode: $.ui.keyCode.ENTER }))
-        console.log("$('.o_searchview_input')@@@@@@@@@@@@@",$('li'));
+        // console.log("$('.o_searchview_input')@@@@@@@@@@@@@",$('.o_searchview_autocomplete')[0].childNodes);
+        
     },
 
     /**
