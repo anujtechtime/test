@@ -879,7 +879,7 @@ class DataLevelValueData(models.TransientModel):
             levels_sale_order = self.env["res.partner"].browse(int(idds))
             # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self.id)
-            # levels_sale_order.remark_data_change  = (4, self.id)
+            levels_sale_order.remark_data_change  = (4, self.id)
             self.res_partber = levels_sale_order.id
             if self.level:
                 levels_sale_order.level = self.level
