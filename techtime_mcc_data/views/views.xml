@@ -37,7 +37,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='name']" position="after">
             <field name="year" filter_domain="[('year', 'ilike', self)]"/>
-            <field name="college" />
+            <field name="college" filter_domain="[('college', 'ilike', self)]"/>
             <field name="year_of_acceptance_1" />
             <field name="data_one" />
             <field name="Status" filter_domain="[('Status', 'ilike', self)]"/>
