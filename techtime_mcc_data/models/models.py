@@ -127,7 +127,7 @@ class DataHrEmployee(models.Model):
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
-    remark_data_change = fields.Many2many("level.value",store = True)
+    remark_data_change = fields.One2many("level.value","res_part",store = True)
 
     rfid = fields.Char("RFID")
 
@@ -862,7 +862,9 @@ class CrmTeamDateAccount(models.Model):
 
 class DataLevelValueData(models.TransientModel):
     _inherit = 'level.value'
-   
+
+
+    res_part = fields.Many2one("res.partner")   
     notes_data = fields.Text("Notes", track_visibility=True)
     data_date_value = fields.Date("Date", track_visibility=True)
     sequence_num = fields.Char("Sequence", track_visibility=True)
@@ -878,7 +880,8 @@ class DataLevelValueData(models.TransientModel):
             levels_sale_order = self.env["res.partner"].browse(int(idds))
             # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
             _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self.id)
-            levels_sale_order.remark_data_change  = (4, self.id)
+            # levels_sale_order.remark_data_change  = (4, self.id)
+            self.res_part = levels_sale_order.id
             if self.level:
                 levels_sale_order.level = self.level
                 # levels_sale_order.partner_id.level = self.level
