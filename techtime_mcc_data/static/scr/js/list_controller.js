@@ -40,6 +40,7 @@ var ListController = BasicController.extend({
     }),
 
     events: _.extend({}, BasicController.prototype.events, {
+        'click #form_click_data_college' : '_onButtonClickedFormValueYear',
         'click #form_click_data_student_type': '_onButtonClickedFormValueYear',
         'click #form_click_data_department': '_onButtonClickedFormValueYear',
         'click #form_click_data_year': '_onButtonClickedFormValueYear',

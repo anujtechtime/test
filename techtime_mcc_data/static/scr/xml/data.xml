@@ -120,7 +120,7 @@
                             <!-- <t  t-esc="reccd.college_id"/> -->
                             
 
-                             <div class="form-check ml-2" id="form_click_data" value="" data-value="" data-id="reccd.college_id">
+                             <div class="form-check ml-2" id="form_click_data_college" value="" data-value="" data-id="reccd.college_id">
                             <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd.college_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd.college_name"/></label>
                           </div>
@@ -444,7 +444,7 @@
                             <!-- <t  t-esc="reccd.college_id"/> -->
                             
 
-                             <div class="form-check ml-2" id="form_click_data" value="" data-value="" data-id="reccd.college_id">
+                             <div class="form-check ml-2" id="form_click_data_college" value="" data-value="" data-id="reccd.college_id">
                             <input type="checkbox" class="form-check-input" style="display : none;" value="" t-att-id="reccd.college_id"/>
                             <label class="form-check-label" for="exampleCheck1"><t t-esc="reccd.college_name"/></label>
                           </div>
