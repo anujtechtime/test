@@ -203,7 +203,7 @@ return Widget.extend({
         
             if (ddgst_status[0].childNodes[m].childNodes[1].value == 'true') {
                 // nval = 'Status';
-                self.focus_element(self.$('li:nth-child(2)'));
+                self.focus_element(self.$('li:nth-child(7)'));
                 ddgst_status[0].childNodes[m].childNodes[1].value = '';
             }
 
@@ -214,7 +214,7 @@ return Widget.extend({
         
             if (ddgst_shift[0].childNodes[n].childNodes[1].value == 'true') {
                 // nval = 'shift';
-                self.focus_element(self.$('li:nth-child(2)'));
+                self.focus_element(self.$('li:nth-child(7)'));
                 ddgst_shift[0].childNodes[n].childNodes[1].value = '';
             }
 
@@ -225,7 +225,7 @@ return Widget.extend({
         
             if (ddgst_level[0].childNodes[o].childNodes[1].value == 'true') {
                 // nval = 'level';
-                self.focus_element(self.$('li:nth-child(3)'));
+                self.focus_element(self.$('li:nth-child(7)'));
                 ddgst_level[0].childNodes[o].childNodes[1].value = '';
             }
 

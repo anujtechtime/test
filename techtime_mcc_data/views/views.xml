@@ -40,12 +40,11 @@
             <field name="college" />
             <field name="year_of_acceptance_1" />
             <field name="data_one" />
-            <field name="Status" />
-            <field name="shift" />
-            <field name="level" />
+            <field name="Status" filter_domain="[('Status', 'ilike', self)]"/>
+            <field name="shift" filter_domain="[('shift', 'ilike', self)]"/>
+            <field name="level" filter_domain="[('level', 'ilike', self)]"/>
             <field name="student_type" />
             <field name="department" />
-            <field name="year" />
         </xpath>
       </field>
     </record>
@@ -493,7 +492,7 @@
         <field name="inherit_id" ref="techtime_student_excel.view_any_name_form_level_value"/>
         <!-- <field name="type">form</field> -->
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='year']" position="replace">
+            <xpath expr="//field[@name='year']" position="after">
                 <field name="Status" invisible="1"/>
                 <field name="contact_type" invisible="1"/>
                     <field name="notes_data"/>
