@@ -138,6 +138,11 @@ return Widget.extend({
             if (results.length) {
                 self.render_search_results(results);
 
+               var ddgst = $('.data_filter_data');
+                // console.log("ddgst[0]@@@@@@@@@@@@@@@@@@@",ddgst)
+
+                if (ddgst.length > 0){
+
                 var ddgst = document.getElementsByClassName('data_filter_data');
         // console.log("o_filters_menu_button@@@@@@@@@@@@@@@@@@@@@",ddgst[0].childNodes[3])
 
@@ -151,6 +156,8 @@ return Widget.extend({
 
         var ddgst_new_data = document.getElementsByClassName('data_filter_data_new_data');
 
+
+        console.log("ddgst_year@@@@@@@@@@@@@@@@@",ddgst_year)
         
         
         
@@ -168,9 +175,7 @@ return Widget.extend({
 
         for (i = 1; i < ddgst[0].childNodes.length; i++) {
         
-            console.log("ddgst[0].childNodes@@@@@@@@@@@",ddgst[0])
             if (ddgst[0].childNodes[i].childNodes[1].value == 'true') {
-                console.log("dddddkjhdadjkasjkdhjkahkdjhaskjhd")
                 // nval = 'college';
                 self.focus_element(self.$('li:nth-child(3)'));
                 ddgst[0].childNodes[i].childNodes[1].value = '';
@@ -233,13 +238,11 @@ return Widget.extend({
         }
 
 
-        console.log("ddgst_student[0]@@@@@@@@@@@@@@@@@",ddgst_year[0])
 
 
         for (j = 1; j < ddgst_student[0].childNodes.length; j++) {
         
             if (ddgst_student[0].childNodes[j].childNodes[1].value == 'true') {
-                console.log("dddddkjhdadjkasjkdhjkahkdjhaskjhd")
                 // nval = 'student_type';
                 self.focus_element(self.$('li:nth-child(6)'));
                 ddgst_student[0].childNodes[j].childNodes[1].value = '';
@@ -250,7 +253,6 @@ return Widget.extend({
         for (k = 1; k < ddgst_department[0].childNodes.length; k++) {
         
             if (ddgst_department[0].childNodes[k].childNodes[1].value == 'true') {
-                console.log("dddddkjhdadjkasjkdhjkahkdjhaskjhd")
                 // nval = 'department';
                 self.focus_element(self.$('li:nth-child(7)'));
                 ddgst_department[0].childNodes[k].childNodes[1].value = '';
@@ -261,7 +263,6 @@ return Widget.extend({
         for (l = 1; l < ddgst_year[0].childNodes.length; l++) {
         
             if (ddgst_year[0].childNodes[l].childNodes[1].value == 'true') {
-                console.log("dddddkjhdadjkasjkdhjkahkdjhaskjhd");
                 // nval = 'year';
                 self.focus_element(self.$('li:nth-child(2)'));
                 ddgst_year[0].childNodes[l].childNodes[1].value = '';
@@ -269,6 +270,10 @@ return Widget.extend({
             l = l + 1
         }
 
+        }
+        }
+        else{
+            self.focus_element(self.$('li:first-child'))
         }
 
 
