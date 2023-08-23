@@ -203,6 +203,7 @@ class Payment_Data(models.Model):
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
+    year = fields.Many2one("year.year", string="Year", related="partner_id.year")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     department = fields.Many2one("department.department", string="Department")
 
