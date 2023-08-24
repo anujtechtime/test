@@ -629,6 +629,8 @@ class ResData(models.Model):
 
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
 
+    chckbox_data_2 = fields.Boolean("نقل من جامعة المعقل")
+
 
     boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية", tracking=True)
     boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى", tracking=True)
