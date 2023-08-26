@@ -51,6 +51,28 @@
 
 
 
+        <record id="view_sale_order_serach_inherit_year_sale_order" model="ir.ui.view">
+      <field name="name">sale.order.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="year" filter_domain="[('year', 'ilike', self)]"/>
+            <field name="college" filter_domain="[('college', 'ilike', self)]"/>
+            <!-- <field name="year_of_acceptance_1" /> -->
+            <!-- <field name="data_one" /> -->
+            <field name="user_id"/>
+                    <field name="team_id" string="Sales Team"/>
+            <field name="Status" filter_domain="[('Status', 'ilike', self)]"/>
+
+            <field name="Subject" filter_domain="[('Subject', 'ilike', self)]"/>
+            <field name="level" filter_domain="[('level', 'ilike', self)]"/>
+            <field name="student" />
+            <field name="department" />
+        </xpath>
+      </field>
+    </record>
+
     
 
 <!--         <report
@@ -116,6 +138,20 @@
                 action = records.send_mis_report_sale_student_data_report()
         </field>
         <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+    <record id="ir_actions_server_sale_sale_order_s" model="ir.actions.server">
+        <field name="name">New Student</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.send_mis_report_sale_student_data_report()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_view_types">list,form</field>
     </record>
 

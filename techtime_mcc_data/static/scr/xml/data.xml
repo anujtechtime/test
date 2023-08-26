@@ -326,7 +326,7 @@
 
          <t t-extend="ListView.buttons">
             <t t-jquery=".o_list_buttons" t-operation="after">
-                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner'">
+                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner' or widget.modelName == 'sale.order'">
                     
                         <!-- <t t-esc="widget.record"/> -->
 
@@ -584,6 +584,8 @@
                         </div>
 
 
+<div t-attf-style="#{ widget.modelName == 'res.partner' ? 'display: block;' : 'display : none' }">
+
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
     background-color: #636678 !important;">
                           <button style="margin-top: -7px;
@@ -634,6 +636,8 @@
                         </t>
                           </div>
                         </div>
+
+                      </div>
                         <!-- <button
                         class="btn btn-primary oe_button oe_highlight o_button_lap"
                         type="button">Department</button>
