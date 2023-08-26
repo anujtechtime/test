@@ -1084,7 +1084,7 @@ class CrmTeamSaleOrderccount(models.Model):
         cell_format = xlwt.easyxf()
         filename = 'Student_Report_%s.xls' % date.today()
         rested = self.env['sale.order'].search([])
-        # data_one = self.env["new.work"].search([])
+        data_one = self.env["new.work"].search([])
         row = 1
         border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
         border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
@@ -1129,22 +1129,22 @@ class CrmTeamSaleOrderccount(models.Model):
         worksheet.write(0, 5, 'الطلبة المنسحبين', header_bold) #status 4
         worksheet.write(0, 6, 'مؤجلين  الطلبة المرقنين', header_bold) #status 2
         worksheet.write(0, 7, 'الطلبة الراسبين', header_bold) #failed
-        # worksheet.write(0, 8, 'نقل من الجامعة', header_bold) #trasferred from us
-        # worksheet.write(0, 9, 'نقل الى الجامعة', header_bold) #trasferred to us
-        # worksheet.write(0, 10, 'استضافة من الجامعة', header_bold) #new field
-        # worksheet.write(0, 11, 'استضافة الى الجامعة', header_bold) #new field
-        worksheet.write(0, 8, 'الطلبة الفعليين', header_bold) #remaning status exept last 3 status- current students
+        worksheet.write(0, 8, 'نقل من الجامعة', header_bold) #trasferred from us
+        worksheet.write(0, 9, 'نقل الى الجامعة', header_bold) #trasferred to us
+        worksheet.write(0, 10, 'استضافة من الجامعة', header_bold) #new field
+        worksheet.write(0, 11, 'استضافة الى الجامعة', header_bold) #new field
+        worksheet.write(0, 12, 'الطلبة الفعليين', header_bold) #remaning status exept last 3 status- current students
         
 
-        # colld = 13
-        # for ddts in data_one:
-        #     worksheet.write(0, colld, ddts.name, header_bold) #data_one
-        #     colld = colld + 1
+        colld = 13
+        for ddts in data_one:
+            worksheet.write(0, colld, ddts.name, header_bold) #data_one
+            colld = colld + 1
 
           
-        # worksheet.write(0, colld, 'ذكور', header_bold) #Male
-        # worksheet.write(0, colld + 1, 'اناث', header_bold) #Female
-        # worksheet.write(0, colld + 2, 'المجموع', header_bold) #Total Data_one 
+        worksheet.write(0, colld, 'ذكور', header_bold) #Male
+        worksheet.write(0, colld + 1, 'اناث', header_bold) #Female
+        worksheet.write(0, colld + 2, 'المجموع', header_bold) #Total Data_one 
 
 
 
@@ -1168,15 +1168,15 @@ class CrmTeamSaleOrderccount(models.Model):
                 total_of_status_4 = 0
                 total_of_status_5 = 0
                 total_of_failed = 0
-                # total_transferred_from_us = 0
-                # total_transferred_to_us = 0
+                total_transferred_from_us = 0
+                total_transferred_to_us = 0
                 total_total_of_all = 0
-                # total_gender_male_data = 0
-                # gender_female_data = 0
-                # total_gender_female_data = 0
-                # total_total_of_data_one = 0
-                # total_field_one_1 = 0
-                # total_fields_one_2 = 0
+                total_gender_male_data = 0
+                gender_female_data = 0
+                total_gender_female_data = 0
+                total_total_of_data_one = 0
+                total_field_one_1 = 0
+                total_fields_one_2 = 0
                 
 
                 for lev in level_type:
@@ -1225,10 +1225,10 @@ class CrmTeamSaleOrderccount(models.Model):
                             status_5_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.Status == "status1")
                             failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.Status == "failed")
 
-                            # transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.transferred_to_us == True) 
-                            # transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.transfer_shift == True)
-                            # print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
-                            # print("row@@@@@@@@@@@@@@@",row)
+                            transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.transferred_to_us == True) 
+                            transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.transfer_shift == True)
+                            print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
+                            print("row@@@@@@@@@@@@@@@",row)
                             worksheet.write(row, 3, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
 
                             total_of_currecnt = total_of_currecnt + len(currecnt_status_data.mapped('id'))
@@ -1253,20 +1253,20 @@ class CrmTeamSaleOrderccount(models.Model):
 
 
 
-                            # worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
-                            # total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
+                            worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
+                            total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
 
-                            # worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
-                            # total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
+                            worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
+                            total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
 
-                            # field_one_1 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.field_one_1 == True) 
-                            # worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
-                            # total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+                            field_one_1 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.field_one_1 == True) 
+                            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+                            total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
                             
-                            # fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.fields_one_2 == True)
-                            # worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+                            fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.fields_one_2 == True)
+                            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
 
-                            # total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+                            total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
 
                             last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id'))
 
@@ -1275,28 +1275,28 @@ class CrmTeamSaleOrderccount(models.Model):
                             total_total_of_all = total_total_of_all + total_of_all
 
 
-                            worksheet.write(row, 8, total_of_all or '', main_cell_total)
+                            worksheet.write(row, 12, total_of_all or '', main_cell_total)
 
                             total_of_data_one = 0
-                            # colld = 13
-                            # for ddts in data_one:
-                            #     data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.data_one.id == ddts.id)
-                            #     worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
-                            #     total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
-                            #     colld = colld + 1
+                            colld = 13
+                            for ddts in data_one:
+                                data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.data_one.id == ddts.id)
+                                worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
+                                total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
+                                colld = colld + 1
 
-                            # gender_male_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.gender == 'male')
-                            # worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
-                            # total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
+                            gender_male_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.gender == 'male')
+                            worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
+                            total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
 
-                            # gender_female_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.gender == 'female') 
-                            # worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
+                            gender_female_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.Subject == shift and picking.partner_id.gender == 'female') 
+                            worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
 
-                            # total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
+                            total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
 
-                            # worksheet.write(row, colld + 2, total_of_data_one, main_cell_total)
+                            worksheet.write(row, colld + 2, total_of_data_one, main_cell_total)
 
-                            # total_total_of_data_one = total_total_of_data_one + total_of_data_one  
+                            total_total_of_data_one = total_total_of_data_one + total_of_data_one  
 
                             row = row + 1
 
@@ -1308,20 +1308,20 @@ class CrmTeamSaleOrderccount(models.Model):
                 worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
                 worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
                 worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
-                # worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
-                # worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
-                # worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
-                # worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
-                worksheet.write(row, 8, total_total_of_all, main_cell_total_of_total)
-                # colld = 13
-                # for ddts in data_one:
-                #     ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
-                #     worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
+                worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
+                worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
+                worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
+                worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
+                worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
+                colld = 13
+                for ddts in data_one:
+                    ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.partner_id.data_one.id == ddts.id)
+                    worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
 
-                #     colld = colld + 1
-                # worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
-                # worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
-                # worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
+                    colld = colld + 1
+                worksheet.write(row, colld, total_gender_male_data, main_cell_total_of_total)
+                worksheet.write(row, colld + 1, total_gender_female_data, main_cell_total_of_total)
+                worksheet.write(row, colld + 2, total_total_of_data_one, main_cell_total_of_total)
                 
                 row = row + 1
             row = row + 1
@@ -1356,8 +1356,8 @@ class CrmTeamSaleOrderccount(models.Model):
             status_5_data_1 =  self.filtered(lambda picking:picking.level == lev and picking.Status == 'status1') 
             failed_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'failed') 
 
-            # transferred_to_us_1 =  self.filtered(lambda picking:picking.level == lev and picking.transferred_to_us == True)
-            # transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.transfer_shift == True) 
+            transferred_to_us_1 =  self.filtered(lambda picking:picking.level == lev and picking.partner_id.transferred_to_us == True)
+            transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.partner_id.transfer_shift == True) 
             worksheet.write(row, 3, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
 
             worksheet.write(row, 4, len(status_2_data_1.mapped('id')) or '', main_cell_total)
@@ -1369,18 +1369,18 @@ class CrmTeamSaleOrderccount(models.Model):
             worksheet.write(row, 7, len(failed_1.mapped('id')) or '', main_cell_total)
 
 
-            # worksheet.write(row, 8, len(transferred_from_us_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 8, len(transferred_from_us_1.mapped('id')) or '', main_cell_total)
 
-            # worksheet.write(row, 9, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 9, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
 
-            # field_one_1 =  self.filtered(lambda picking:picking.level == lev and picking.field_one_1 == True) 
-            # worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
-            # total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
+            field_one_1 =  self.filtered(lambda picking:picking.level == lev and picking.partner_id.field_one_1 == True) 
+            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+            total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
             
-            # fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.fields_one_2 == True) 
-            # worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+            fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.partner_id.fields_one_2 == True) 
+            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
 
-            # total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
+            total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
 
 
             last_three_status_1 = len(status_2_data_1.mapped('id')) + len(status_4_data_1.mapped('id')) + len(status_5_data_1.mapped('id'))
@@ -1388,26 +1388,26 @@ class CrmTeamSaleOrderccount(models.Model):
             total_of_all_1 = len(currecnt_status_data_1.mapped('id')) - last_three_status_1
 
 
-            worksheet.write(row, 8, total_of_all_1 or '', main_cell_total)
+            worksheet.write(row, 12, total_of_all_1 or '', main_cell_total)
 
 
             total_of_data_one_1 = 0
-            # colld = 13
-            # for ddts in data_one:
-            #     data_one_data_1 = self.filtered(lambda picking:picking.level == lev and picking.data_one.id == ddts.id) 
-            #     worksheet.write(row, colld, len(data_one_data_1.mapped("id")), main_cell_total) #data_one
-            #     total_of_data_one_1 = total_of_data_one_1 + len(data_one_data_1.mapped("id"))
-            #     colld = colld + 1
+            colld = 13
+            for ddts in data_one:
+                data_one_data_1 = self.filtered(lambda picking:picking.level == lev and picking.partner_id.data_one.id == ddts.id) 
+                worksheet.write(row, colld, len(data_one_data_1.mapped("id")), main_cell_total) #data_one
+                total_of_data_one_1 = total_of_data_one_1 + len(data_one_data_1.mapped("id"))
+                colld = colld + 1
 
-            # gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.gender == 'male')
-            # worksheet.write(row, colld, len(gender_female_data_1.mapped("id")), main_cell_total)
+            gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.partner_id.gender == 'male')
+            worksheet.write(row, colld, len(gender_female_data_1.mapped("id")), main_cell_total)
 
-            # gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.gender == 'female')
-            # worksheet.write(row, colld + 1, len(gender_female_data_1.mapped("id")), main_cell_total)
+            gender_female_data_1 = self.filtered(lambda picking:picking.level == lev and picking.partner_id.gender == 'female')
+            worksheet.write(row, colld + 1, len(gender_female_data_1.mapped("id")), main_cell_total)
 
 
-            # worksheet.write(row, colld + 2, total_of_data_one_1, main_cell_total)
-            # print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
+            worksheet.write(row, colld + 2, total_of_data_one_1, main_cell_total)
+            print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
             row = row + 1
 
         
@@ -1421,8 +1421,8 @@ class CrmTeamSaleOrderccount(models.Model):
         status_5_data_2 = self.filtered(lambda picking:picking.Status == "status1")
         failed_2 = self.filtered(lambda picking:picking.Status == "failed")
 
-        transferred_to_us_2 =  self.filtered(lambda picking:picking.transferred_to_us == True)
-        transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
+        transferred_to_us_2 =  self.filtered(lambda picking:picking.partner_id.transferred_to_us == True)
+        transferred_from_us_2 = self.filtered(lambda picking:picking.partner_id.transfer_shift == True)
 
         worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
         worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
@@ -1436,16 +1436,16 @@ class CrmTeamSaleOrderccount(models.Model):
         worksheet.write(row, 7, len(failed_2.mapped('id')) or '', main_cell_total_of_total)
 
 
-        # worksheet.write(row, 8, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 8, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
 
-        # worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
 
 
-        # field_one_1_2 = self.filtered(lambda picking:picking.field_one_1 == True)
-        # worksheet.write(row, 10, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
+        field_one_1_2 = self.filtered(lambda picking:picking.partner_id.field_one_1 == True)
+        worksheet.write(row, 10, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
         
-        # fields_one_2_2 =  self.filtered(lambda picking:picking.fields_one_2 == True)
-        # worksheet.write(row, 11, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
+        fields_one_2_2 =  self.filtered(lambda picking:picking.partner_id.fields_one_2 == True)
+        worksheet.write(row, 11, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
 
 
 
@@ -1455,26 +1455,26 @@ class CrmTeamSaleOrderccount(models.Model):
         total_of_all_2 = len(currecnt_status_data_2.mapped('id')) - last_three_status_2
 
 
-        worksheet.write(row, 8, total_of_all_2 or '', main_cell_total_of_total)
+        worksheet.write(row, 12, total_of_all_2 or '', main_cell_total_of_total)
 
 
         total_of_data_one_2 = 0
-        # colld = 13
-        # for ddts in data_one:
-        #     data_one_data_2 = self.filtered(lambda picking:picking.data_one.id == ddts.id)
-        #     worksheet.write(row, colld, len(data_one_data_2.mapped("id")), main_cell_total_of_total) #data_one
-        #     total_of_data_one_2 = total_of_data_one_2 + len(data_one_data_2.mapped("id"))
-        #     colld = colld + 1
+        colld = 13
+        for ddts in data_one:
+            data_one_data_2 = self.filtered(lambda picking:picking.partner_id.data_one.id == ddts.id)
+            worksheet.write(row, colld, len(data_one_data_2.mapped("id")), main_cell_total_of_total) #data_one
+            total_of_data_one_2 = total_of_data_one_2 + len(data_one_data_2.mapped("id"))
+            colld = colld + 1
 
-        # gender_female_data_2 =  self.filtered(lambda picking:picking.gender == 'male')
-        # worksheet.write(row, colld, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
+        gender_female_data_2 =  self.filtered(lambda picking:picking.partner_id.gender == 'male')
+        worksheet.write(row, colld, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
 
-        # gender_female_data_2 =  self.filtered(lambda picking:picking.gender == 'female')
-        # worksheet.write(row, colld + 1, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
+        gender_female_data_2 =  self.filtered(lambda picking:picking.partner_id.gender == 'female')
+        worksheet.write(row, colld + 1, len(gender_female_data_2.mapped("id")), main_cell_total_of_total)
 
 
-        # worksheet.write(row, colld + 2, total_of_data_one_2, main_cell_total_of_total)
-        # print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
+        worksheet.write(row, colld + 2, total_of_data_one_2, main_cell_total_of_total)
+        print("row$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",row)
         row = row + 1    
 
 
