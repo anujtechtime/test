@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="burj_module.list">
+      <field name="name">burj_module list</field>
+      <field name="model">burj_module.burj_module</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+
+<!-- <record id="" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order" class="o_purchase_order">
+                <header>
+ -->
+
+    <record id="purchase_order_form_inherit_daat" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="after"> 
+                <field name="finished_date"/>  
+                </xpath>
+            </field>
+    </record>             
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="burj_module.action_window">
+      <field name="name">burj_module window</field>
+      <field name="res_model">burj_module.burj_module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="burj_module.action_server">
+      <field name="name">burj_module server</field>
+      <field name="model_id" ref="model_burj_module_burj_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="burj_module" id="burj_module.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="burj_module.menu_1" parent="burj_module.menu_root"/>
+    <menuitem name="Menu 2" id="burj_module.menu_2" parent="burj_module.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="burj_module.menu_1_list" parent="burj_module.menu_1"
+              action="burj_module.action_window"/>
+    <menuitem name="Server to list" id="burj_module" parent="burj_module.menu_2"
+              action="burj_module.action_server"/>
+-->
+  </data>
+</odoo>
