@@ -269,7 +269,7 @@ class Payment_Data(models.Model):
             self.invoice_ids.action_view_payments()
         # print("selfhhhhhhhhhhhhhhhhhhhhhhhhhh",self)            
 
-        payment_data  = self.env["account.move"].search([("partner_id","=",self.partner_id.id),("state","=","posted"),("invoice_payment_state","=","not_paid"),("amount_total","=",self.amount)],limit=1, order='id asc')
+        payment_data  = self.env["account.move"].search([("partner_id","=",self.partner_id.id),("state","=","posted"),("invoice_payment_state","=","not_paid"),("amount_total","=",self.amount)],limit=1, order='invoice_date asc')
         payment_data.invoice_payment_ref = self.id
         payment_data.payment_id = self.id
         ddts = []
