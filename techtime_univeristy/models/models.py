@@ -273,7 +273,7 @@ class Payment_Data(models.Model):
         payment_data.invoice_payment_ref = self.id
         payment_data.payment_id = self.id
         ddts = []
-        move_line = self.env["account.move.line"].search([("partner_id","=",self.partner_id.id),("parent_state","=","posted"),("full_reconcile_id","=",False),("debit","=",0)])
+        move_line = self.env["account.move.line"].search([("partner_id","=",self.partner_id.id),("parent_state","=","posted"),("full_reconcile_id","=",False),("debit","=",0)],order='id asc')
         if move_line and payment_data:
             for ssnt in move_line:
                 if "INV" not in ssnt.name:
@@ -293,6 +293,27 @@ class AccountMove(models.Model):
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     payment_id = fields.Many2one("account.payment", string="payment")
     year = fields.Many2one("year.year", string="Year",related="partner_id.year")
+
+    def _check_reconcile_validity(self):
+        # Empty self can happen if there is no line to check.
+        if not self:
+            return
+
+        #Perform all checks on lines
+        company_ids = set()
+        all_accounts = []
+        for line in self:
+            company_ids.add(line.company_id.id)
+            all_accounts.append(line.account_id)
+            if line.reconciled:
+                raise UserError(_('You are trying to reconcile some entries that are already reconciled.'))
+        if len(company_ids) > 1:
+            raise UserError(_('To reconcile the entries company should be the same for all entries.'))
+        if len(set(all_accounts)) > 1:
+            raise UserError(_('Entries are not from the same account.'))
+        # if not (all_accounts[0].reconcile or all_accounts[0].internal_type == 'liquidity'):
+        #     raise UserError(_('Account %s (%s) does not allow reconciliation. First change the configuration of this account to allow it.') % (all_accounts[0].name, all_accounts[0].code))
+
 
 
 # class AccountMoveInstallment(models.Model):
