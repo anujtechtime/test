@@ -269,16 +269,16 @@ class Payment_Data(models.Model):
             self.invoice_ids.action_view_payments()
         # print("selfhhhhhhhhhhhhhhhhhhhhhhhhhh",self)            
 
-        payment_data  = self.env["account.move"].search([("partner_id","=",self.partner_id.id),("state","=","posted"),("invoice_payment_state","=","not_paid"),("amount_total","=",self.amount)],limit=1, order='invoice_date asc')
-        payment_data.invoice_payment_ref = self.id
-        payment_data.payment_id = self.id
-        ddts = []
-        move_line = self.env["account.move.line"].search([("partner_id","=",self.partner_id.id),("parent_state","=","posted"),("full_reconcile_id","=",False),("debit","=",0)],order='id asc')
-        if move_line and payment_data:
-            for ssnt in move_line:
-                if "INV" not in ssnt.name:
-                    ddts.append(ssnt.id)
-            payment_data.js_assign_outstanding_line(ssnt.id)
+        # payment_data  = self.env["account.move"].search([("partner_id","=",self.partner_id.id),("state","=","posted"),("invoice_payment_state","=","not_paid"),("amount_total","=",self.amount)],limit=1, order='invoice_date asc')
+        # payment_data.invoice_payment_ref = self.id
+        # payment_data.payment_id = self.id
+        # ddts = []
+        # move_line = self.env["account.move.line"].search([("partner_id","=",self.partner_id.id),("parent_state","=","posted"),("full_reconcile_id","=",False),("debit","=",0)],order='id asc')
+        # if move_line and payment_data:
+        #     for ssnt in move_line:
+        #         if "INV" not in ssnt.name:
+        #             ddts.append(ssnt.id)
+        #     payment_data.js_assign_outstanding_line(ssnt.id)
         return True
 
 

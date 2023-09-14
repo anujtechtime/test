@@ -1,0 +1,274 @@
+<odoo>
+    <data>
+<template id="report_payment_receipt_student_almaqal_templates">
+         <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page"> 
+          
+                  <div class="">
+                
+                <div class=" text-right" id="informations">
+                  
+              
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">التاريخ  : </strong><t t-esc="datetime.datetime.now().date()" class="m-0"/>
+                    
+                </div>
+                  <div class="col-12" style="margin-top: 10px;">
+                  <div class="" >
+                    
+                      <t>
+                          <strong style="color : #000000;">  اسم الطالب  : </strong>
+                      </t>
+                      <span t-field="o.name"/>
+                      
+                  </div>
+              </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">القسم :</strong> <span t-field="o.department" class="m-0"/>
+                    
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">السنة الدراسية :</strong> <span t-field="o.year" class="m-0"/>
+                    
+                </div>
+
+                
+                
+                
+                
+                
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;"> المرحلة  : </strong><span t-field="o.level" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;">نوع الدراسة :</strong> <span t-field="o.shift" class="m-0"/>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;">دعم الطالب  : </strong><span t-field="o.student_type" class="m-0"/>
+                    
+                </div>
+            </div>
+            </div>
+
+                <div class="col-12 text-right" >
+                    <div style="border-bottom: 1px solid black;">الأقساط الدراسية </div>
+                </div>
+            
+            <div class="row col-12" style="width : 100%;">
+              <div class="col-6" style="width : 50%;">
+                <table class="table table-sm" style="margin:5px 0px">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span style="color : #000000;">تاريخ الدفع </span></th>
+
+                            <th class="text-center"><span style="color : #000000;">رقم الوصل</span></th>
+
+                            <th class="text-center"><span style="color : #000000;">المدفوعات</span></th>
+
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set="payment_total" t-value="0"/>
+                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')"/>
+                      <!-- <t t-esc="invoice_id.mapped('id')"/> -->
+                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
+
+
+
+                         <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
+                        <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
+                            <td  class="text-center"><t t-esc="line.payment_date"/></td>
+                            <td  class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
+                                
+                              </td>
+                            <td  class="text-center"><t t-esc="line.amount"/></td>
+                        <t t-set="payment_total" t-value="payment_total + line.amount"/>
+                        </tr>
+                      </t>
+
+                    </tbody>
+                </table>
+              </div>
+
+              <div class="col-6 " style="width : 50%;">
+                <table class="table table-sm" style="margin:5px 0px">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span style="color : #000000;">تاريخ الاستحقاق</span></th>
+                            <th class="text-center"><span style="color : #000000;">الفواتير مطلوبة السداد </span></th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set="invoice_total" t-value="0"/>
+                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','!=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')" t-as="line">
+                        <tr>
+                            <td  class="text-center"><t t-esc="line.invoice_date"/></td>
+                            <td  class="text-center"><t t-esc="line.amount_total"/></td>
+                        </tr>
+                        <t t-set="invoice_total" t-value="invoice_total + line.amount_total"/>
+                      </t>
+
+                    </tbody>
+                </table>
+              </div>
+
+              
+              </div>
+
+                <br/>
+
+                <div class="col-12">
+                  <div class="col-6">
+                  </div>
+                  <div class="col-6 float-right">
+                <table class="table table-sm ">
+                  <tr class="border-black o_subtotal" style="">
+                      <td name="td_amount_untaxed" class="text-center">
+                          <t t-esc="invoice_total - payment_total"/>
+                      </td>
+                      <td name="td_amount_untaxed_label" class="text-center"><strong>المبلغ المتبقي </strong></td>
+                  </tr>
+                </table>
+              </div>
+              </div>
+
+
+
+<br/>
+              <div class="col-12  row">
+                <div class="col-6">
+
+
+                <table class="table table-sm" style="margin:5px 0px">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span style="color : #000000;">تاريخ الدفع </span></th>
+
+                            <th class="text-center"><span style="color : #000000;">رقم الوصل</span></th>
+
+                            <th class="text-center"><span style="color : #000000;">المدفوعات</span></th>
+
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set="payment_total_second_product" t-value="0"/>
+                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')"/>
+                      <!-- <t t-esc="invoice_id.mapped('id')"/> -->
+                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
+
+
+
+                         <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
+                        <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
+                            <td  class="text-center"><t t-esc="line.payment_date"/></td>
+                            <td  class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
+                                
+                              </td>
+                            <td  class="text-center"><t t-esc="line.amount"/></td>
+                        <t t-set="payment_total_second_product" t-value="payment_total_second_product + line.amount"/>
+                        </tr>
+                      </t>
+
+                    </tbody>
+                </table>
+              </div>
+
+              <div class="col-6">
+                <table class="table table-sm" style="margin:5px 0px">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span style="color : #000000;">تاريخ الاستحقاق</span></th>
+                            <th class="text-center"><span style="color : #000000;">الفواتير مطلوبة السداد </span></th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <t t-set="invoice_total_second_product" t-value="0"/>
+                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','!=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')" t-as="line">
+                        <tr>
+                            <td  class="text-center"><t t-esc="line.invoice_date"/></td>
+                            <td  class="text-center"><t t-esc="line.amount_total"/></td>
+                        </tr>
+                        <t t-set="invoice_total_second_product" t-value="invoice_total_second_product + line.amount_total"/>
+                      </t>
+
+                    </tbody>
+                </table>
+              </div>
+
+              
+              </div>
+
+              <div class="col-12">
+                  <div class="col-6">
+                  </div>
+                  <div class="col-6 float-right">
+                <table class="table table-sm ">
+                  <tr class="border-black o_subtotal" style="">
+                      <td name="td_amount_untaxed" class="text-center">
+                          <t t-esc="invoice_total_second_product - payment_total_second_product"/>
+                      </td>
+                      <td name="td_amount_untaxed_label" class="text-center"><strong>المبلغ المتبقي </strong></td>
+                  </tr>
+                </table>
+              </div>
+              </div>
+
+<!--               
+            <div class="" style="float: left; position : fixed; left : 0; margin-top : -20px;">
+                <div class="" style="text-align : right;">
+                       <strong>   اسم وتوقيع امين الصندوق</strong>
+                     </div>
+                     
+                </div>  
+                
+                
+                <div class="" style="float: right; position : fixed; right : 0; margin-top : -20px;">
+                <div class="" style="text-align : right;">
+                       <strong>   انشأت بواسطة :</strong>    <span t-field="o.create_uid"/>
+                     </div>
+                     
+                </div>   -->
+                
+                <!--<div class="" style="float: right; position : fixed; right : 0; margin-top : -20px;">-->
+                
+                <!--</div>  -->
+                
+                
+
+            </div>
+        </t>
+       
+        
+            
+    </template>
+
+    <template id="report_payment_receipt_student_almaqal_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.lang or o.company_id.partner_id.lang"/>
+                <t t-call="almaqal_templates.report_payment_receipt_student_almaqal_templates" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    </data>
+</odoo>
