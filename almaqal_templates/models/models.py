@@ -13,8 +13,10 @@ class almaqal_templates(models.Model):
             year_active  = self.env["year.year"].search([("active", "=", True)])
             self.year = self.year.id
             self.partner_id = self.partner_id.id
+            print("year_active@@@@@@@@@@@@@@@",year_active)
+            print("selfddddddddddddddddddddd",self.year)
 
-            if self.year.id not in year_active.mapped("id"):
+            if self.partner_id.year.id not in year_active.mapped("id"):
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟', 
@@ -31,7 +33,7 @@ class almaqalPayment(models.Model):
             self.year = self.year.id
             self.partner_id = self.partner_id.id
 
-            if self.year.id not in year_active.mapped("id"):
+            if self.partner_id.year.id not in year_active.mapped("id"):
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟', 
