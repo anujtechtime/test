@@ -11,9 +11,33 @@ class almaqal_templates(models.Model):
     def _onchange_partner_id(self):
         if self.partner_id:
             year_active  = self.env["year.year"].search([("active", "=", True)])
+            self.year = self.year.id
+            self.partner_id = self.partner_id.id
+
             if self.year.id not in year_active.mapped("id"):
-                raise ValidationError(_('الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟'))
-                self.year = self.year
+                return {'warning': { 
+                    'title': "Warning", 
+                    'message': 'الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟', 
+                    } 
+                }
+
+class almaqalPayment(models.Model):
+    _inherit = "account.payment"
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        if self.partner_id:
+            year_active  = self.env["year.year"].search([("active", "=", True)])
+            self.year = self.year.id
+            self.partner_id = self.partner_id.id
+
+            if self.year.id not in year_active.mapped("id"):
+                return {'warning': { 
+                    'title': "Warning", 
+                    'message': 'الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟', 
+                    } 
+                }                
+            #     raise UserError(_('الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟'))
 #     _name = 'almaqal_templates.almaqal_templates'
 #     _description = 'almaqal_templates.almaqal_templates'
 
