@@ -842,7 +842,7 @@ class DataMphine(models.Model):
         print("request@@@@@@@@@@@@@@@",request)
         dct = {}
 
-        college_value = request.env["year.year"].sudo().search([])
+        college_value = request.env["year.year"].sudo().search(['|',('active','=',True),('active','=',False)])
         print("college_value@@@@@@@@@@",college_value)
         dicts = []
         for coll in college_value:
