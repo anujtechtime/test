@@ -5,9 +5,14 @@
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
           
-                  <div class="">
+                  <div style="margin-top : -6px;">
                 
-                <div class=" text-right" id="informations">
+                <div class=" text-right" id="informations" style="margin-bottom : 20px;">
+                  
+                                  <div t-if="o" class="col-12 text-center" style="font-size: 22px;">
+                    <strong style="color : #000000;">كشف حساب  </strong>
+                    
+                </div>
                   
               
                 <div t-if="o" class="col-12" style="text-align : right;">
@@ -15,28 +20,28 @@
                     
                 </div>
                   <div class="col-12" style="margin-top: 10px;">
-                  <div class="" >
+                  <div class="">
                     
                       <t>
                           <strong style="color : #000000;">  اسم الطالب  : </strong>
                       </t>
-                      <span t-field="o.name"/>
+                      <span t-field="o.partner_id.name"/>
                       
                   </div>
               </div>
 
                 <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
+                    <strong style="color : #000000;">الكلية  : </strong><span t-field="o.partner_id.college" class="m-0"/>
                     
                 </div>
                 
                 <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">القسم :</strong> <span t-field="o.department" class="m-0"/>
+                    <strong style="color : #000000;">القسم :</strong> <span t-field="o.partner_id.department" class="m-0"/>
                     
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">السنة الدراسية :</strong> <span t-field="o.year" class="m-0"/>
+                    <strong style="color : #000000;">السنة الدراسية :</strong> <span t-field="o.partner_id.year" class="m-0"/>
                     
                 </div>
 
@@ -46,23 +51,23 @@
                 
                 
                 <div t-if="o" class="col-12" style="">
-                    <strong style="color : #000000;"> المرحلة  : </strong><span t-field="o.level" class="m-0"/>
+                    <strong style="color : #000000;"> المرحلة  : </strong><span t-field="o.partner_id.level" class="m-0"/>
                     
                 </div>
                 
                 <div t-if="o" class="col-12" style="">
-                    <strong style="color : #000000;">نوع الدراسة :</strong> <span t-field="o.shift" class="m-0"/>
+                    <strong style="color : #000000;">نوع الدراسة :</strong> <span t-field="o.partner_id.shift" class="m-0"/>
                     
                 </div>
                 <div t-if="o" class="col-12" style="">
-                    <strong style="color : #000000;">دعم الطالب  : </strong><span t-field="o.student_type" class="m-0"/>
+                    <strong style="color : #000000;">دعم الطالب  : </strong><span t-field="o.partner_id.student_type" class="m-0"/>
                     
                 </div>
             </div>
             </div>
 
-                <div class="col-12 text-right" >
-                    <div style="border-bottom: 1px solid black;">الأقساط الدراسية </div>
+                <div class="col-12 text-center" style="font-size : 16px;">
+                   <strong> <div style="border-bottom: 1px solid black;">الأقساط الدراسية </div></strong>
                 </div>
             
             <div class="row col-12" style="width : 100%;">
@@ -82,19 +87,19 @@
                     </thead>
                     <tbody>
                       <t t-set="payment_total" t-value="0"/>
-                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')"/>
+                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id)]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')"/>
                       <!-- <t t-esc="invoice_id.mapped('id')"/> -->
-                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
+                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id)])" t-as="line">
 
 
 
                          <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
                         <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
-                            <td  class="text-center"><t t-esc="line.payment_date"/></td>
-                            <td  class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
+                            <td class="text-center"><t t-esc="line.payment_date"/></td>
+                            <td class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
                                 
                               </td>
-                            <td  class="text-center"><t t-esc="line.amount"/></td>
+                            <td class="text-center"><t t-esc="line.amount"/></td>
                         <t t-set="payment_total" t-value="payment_total + line.amount"/>
                         </tr>
                       </t>
@@ -115,10 +120,10 @@
                     </thead>
                     <tbody>
                       <t t-set="invoice_total" t-value="0"/>
-                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','!=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')" t-as="line">
+                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id)]).filtered(lambda r: r.invoice_line_ids.product_id.name == 'تسجيل')" t-as="line">
                         <tr>
-                            <td  class="text-center"><t t-esc="line.invoice_date"/></td>
-                            <td  class="text-center"><t t-esc="line.amount_total"/></td>
+                            <td class="text-center"><t t-esc="line.invoice_date"/></td>
+                            <td class="text-center"><t t-esc="line.amount_total"/></td>
                         </tr>
                         <t t-set="invoice_total" t-value="invoice_total + line.amount_total"/>
                       </t>
@@ -129,8 +134,12 @@
 
               
               </div>
+              
+              
+              
+              
+              <br/>
 
-                <br/>
 
                 <div class="col-12">
                   <div class="col-6">
@@ -146,8 +155,21 @@
                 </table>
               </div>
               </div>
+              
+              <br/>
+              
+              <br/>
+              
+                
+                
+                
+                <div class="col-12 text-right float-right" style="font-size : 16px; text-align: right !important;">
+                   <strong style="float : right;"> <div>رسوم أخرى  </div></strong>
+                </div>
 
+                
 
+<br/>
 
 <br/>
               <div class="col-12  row">
@@ -169,19 +191,19 @@
                     </thead>
                     <tbody>
                       <t t-set="payment_total_second_product" t-value="0"/>
-                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')"/>
+                      <t t-set="invoice_id" t-value="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id),('invoice_payment_state','=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')"/>
                       <!-- <t t-esc="invoice_id.mapped('id')"/> -->
-                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
+                      <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id)])" t-as="line">
 
 
 
                          <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
                         <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
-                            <td  class="text-center"><t t-esc="line.payment_date"/></td>
-                            <td  class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
+                            <td class="text-center"><t t-esc="line.payment_date"/></td>
+                            <td class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
                                 
                               </td>
-                            <td  class="text-center"><t t-esc="line.amount"/></td>
+                            <td class="text-center"><t t-esc="line.amount"/></td>
                         <t t-set="payment_total_second_product" t-value="payment_total_second_product + line.amount"/>
                         </tr>
                       </t>
@@ -202,10 +224,10 @@
                     </thead>
                     <tbody>
                       <t t-set="invoice_total_second_product" t-value="0"/>
-                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id),('invoice_payment_state','!=','paid')]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')" t-as="line">
+                      <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.partner_id.id)]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')" t-as="line">
                         <tr>
-                            <td  class="text-center"><t t-esc="line.invoice_date"/></td>
-                            <td  class="text-center"><t t-esc="line.amount_total"/></td>
+                            <td class="text-center"><t t-esc="line.invoice_date"/></td>
+                            <td class="text-center"><t t-esc="line.amount_total"/></td>
                         </tr>
                         <t t-set="invoice_total_second_product" t-value="invoice_total_second_product + line.amount_total"/>
                       </t>
@@ -257,6 +279,7 @@
             </div>
         </t>
        
+        
         
             
     </template>
