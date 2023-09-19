@@ -26,7 +26,7 @@
 
 <report
             id="report_payment_receipt_student_almaqal_data"
-            model="account.move"
+            model="res.partner"
             string="كشف حساب الطالب"
             report_type="qweb-pdf"
             name="almaqal_templates.report_payment_receipt_student_almaqal_template"
