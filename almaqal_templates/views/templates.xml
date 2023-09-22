@@ -1,7 +1,7 @@
 <odoo>
     <data>
 <template id="report_payment_receipt_student_almaqal_templates">
-         <t t-call="web.external_layout">
+          <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page"> 
           
@@ -91,10 +91,10 @@
                       <!-- <t t-esc="invoice_id.mapped('id')"/> -->
                       <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
 
-
+                      <!--<t t-foreach="liness.reconciled_invoice_ids" t-as="line">-->
 
                          <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
-                        <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
+                        <tr t-if="line.reconciled_invoice_ids[0].id in invoice_id.mapped('id')">
                             <td class="text-center"><t t-esc="line.payment_date"/></td>
                             <td class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
                                 
@@ -102,6 +102,8 @@
                             <td class="text-center"><t t-esc="line.amount"/></td>
                         <t t-set="payment_total" t-value="payment_total + line.amount"/>
                         </tr>
+                        
+                        <!--</t>-->
                       </t>
 
                     </tbody>
@@ -144,7 +146,7 @@
                 <div class="col-12">
                   <div class="col-6">
                   </div>
-                  <div class="col-6 float-right">
+                  <div class="col-5 float-right">
                 <table class="table table-sm ">
                   <tr class="border-black o_subtotal" style="">
                       <td name="td_amount_untaxed" class="text-center">
@@ -163,8 +165,12 @@
                 
                 
                 
-                <div class="col-12 text-right float-right" style="font-size : 16px; text-align: right !important;">
+                <div class="col-12 text-right" style="font-size : 16px; margin-right : 10px !important;">
+                                    <div class="col-5">
+                  </div>
+                  <div class="col-7 float-right">
                    <strong style="float : right;"> <div>رسوم أخرى  </div></strong>
+                   </div>
                 </div>
 
                 
@@ -195,10 +201,10 @@
                       <!-- <t t-esc="invoice_id.mapped('id')"/> -->
                       <t t-foreach="request.env['account.payment'].sudo().search([('payment_date','!=',false),('state','=','posted'),('partner_id','=',o.id)])" t-as="line">
 
-
+                      <!--<t t-foreach="liness.reconciled_invoice_ids" t-as="line">-->
 
                          <!-- <t t-esc="line.reconciled_invoice_ids"/> -->
-                        <tr t-if="line.reconciled_invoice_ids.id in invoice_id.mapped('id')">
+                        <tr t-if="line.reconciled_invoice_ids[0].id in invoice_id.mapped('id')">
                             <td class="text-center"><t t-esc="line.payment_date"/></td>
                             <td class="text-center"><t t-esc="line.name.split('/')[1] + '/' + line.name.split('/')[2]"/>
                                 
@@ -206,6 +212,8 @@
                             <td class="text-center"><t t-esc="line.amount"/></td>
                         <t t-set="payment_total_second_product" t-value="payment_total_second_product + line.amount"/>
                         </tr>
+                        
+                        <!--</t>-->
                       </t>
 
                     </tbody>
@@ -217,6 +225,7 @@
                     <thead>
                         <tr>
                             <th class="text-center"><span style="color : #000000;">تاريخ الاستحقاق</span></th>
+                            <th class="text-center"><span style="color : #000000;">منتج</span></th>
                             <th class="text-center"><span style="color : #000000;">الفواتير مطلوبة السداد </span></th>
 
 
@@ -227,6 +236,7 @@
                       <t t-foreach="request.env['account.move'].sudo().search([('invoice_date','!=',false),('state','=','posted'),('partner_id','=',o.id)]).filtered(lambda r: r.invoice_line_ids.product_id.name != 'تسجيل')" t-as="line">
                         <tr>
                             <td class="text-center"><t t-esc="line.invoice_date"/></td>
+                            <td class="text-center"><t t-esc="line.invoice_line_ids.product_id.name"/></td>
                             <td class="text-center"><t t-esc="line.amount_total"/></td>
                         </tr>
                         <t t-set="invoice_total_second_product" t-value="invoice_total_second_product + line.amount_total"/>
@@ -242,7 +252,7 @@
               <div class="col-12">
                   <div class="col-6">
                   </div>
-                  <div class="col-6 float-right">
+                  <div class="col-5 float-right">
                 <table class="table table-sm ">
                   <tr class="border-black o_subtotal" style="">
                       <td name="td_amount_untaxed" class="text-center">
@@ -278,10 +288,7 @@
 
             </div>
         </t>
-       
-        
-        
-            
+          
     </template>
 
     <template id="report_payment_receipt_student_almaqal_template">

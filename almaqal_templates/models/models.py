@@ -23,6 +23,15 @@ class almaqal_templates(models.Model):
                     } 
                 }
 
+            failed_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("college","=",self.partner_id.college.id),("year","!=",self.partner_id.year.id),("level","=",self.partner_id.level)], limit=1)
+            if failed_student:
+                self.installment_amount = failed_student.installment_amount
+                return {'warning': { 
+                    'title': "Warning", 
+                    'message': 'This Student is failed.', 
+                    } 
+                }  
+
 class almaqalPayment(models.Model):
     _inherit = "account.payment"
 
