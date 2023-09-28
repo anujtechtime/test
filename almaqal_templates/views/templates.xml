@@ -286,8 +286,8 @@
              </div>
 
                 <div t-if="o" class="row col-12" style="text-align : right;">
-                <div class="col-4">
-                <!-- <img width="120" t-att-src="image_data_uri(o.image_1920)"/> -->
+                <div class="col-4" style="margin-top : 57px;">
+                <img style="float : left; margin-left : 70px; border-radius : 5px;" width="215" height="250" t-att-src="image_data_uri(o.image_1920)"/>
                 </div>
                 <div class="col-3" style="margin-top : 240px; font-size : 30px;">
                     <strong><t t-esc="o.name_english" class="m-0"/></strong>
