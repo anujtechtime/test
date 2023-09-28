@@ -27,13 +27,55 @@
 <report
             id="report_payment_receipt_student_almaqal_data"
             model="res.partner"
-            string="كشف حساب الطالب"
+            string="وصل الطالب"
             report_type="qweb-pdf"
             name="almaqal_templates.report_payment_receipt_student_almaqal_template"
             file="almaqal_templates.report_payment_receipt_student_almaqal_template"
             menu="True"
         />
 
+       <report
+            id="report_payment_receipt_student_batch_data"
+            model="res.partner"
+            string="Student Batch Card"
+            report_type="qweb-pdf"
+            name="almaqal_templates.report_payment_receipt_student_batch_card"
+            file="almaqal_templates.report_payment_receipt_student_batch_card"
+            menu="True"
+        /> 
+
+        
+
+        <record id="ir_actions_server_sale_res_google_transale" model="ir.actions.server">
+        <field name="name">Google Translate</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._onchange_name()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+
+<!--         <record id="view_sale_order_serach_inherit_year_english_name" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_res_partner_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            
+            <button name="button_create_new_sequences" type="object" string="Create New Sequences"
+                        attrs="{'invisible': ['|', '|', '|', ('l10n_cl_sequence_ids', '!=', []), ('l10n_latam_use_documents', '=', False), ('type', '=', 'purchase'), ('l10n_latam_country_code', '!=', 'CL')]}"
+                        class="btn btn-primary"/>
+        </xpath>
+      </field>
+    </record>
+ -->
+    
     <!-- server action to the one above -->
 <!--
     <record model="ir.actions.server" id="almaqal_templates.action_server">

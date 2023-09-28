@@ -2,6 +2,9 @@
 
 from odoo import models, fields, api , _ 
 from odoo.exceptions import UserError, ValidationError
+from googletrans import Translator
+import googletrans
+
 
 
 class almaqal_templates(models.Model):
@@ -22,15 +25,19 @@ class almaqal_templates(models.Model):
                     'message': 'الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟', 
                     } 
                 }
-
             failed_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("college","=",self.partner_id.college.id),("year","!=",self.partner_id.year.id),("level","=",self.partner_id.level)], limit=1)
+            print("failed_student@@@@@@@@@@@@@@@",failed_student)
+            print("self.partner_id@@@@@@@@@@@@@@",self.partner_id)
+            print("self.college@@@@@@@@@@@@@@@",self.college)
+            print("self.year@@@@@@@@@@@@@@@@@@@",self.year)
+            print("level@@@@@@@@@@@@@@@",self.level)
             if failed_student:
                 self.installment_amount = failed_student.installment_amount
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'This Student is failed.', 
                     } 
-                }  
+                }      
 
 class almaqalPayment(models.Model):
     _inherit = "account.payment"
@@ -61,3 +68,23 @@ class almaqalPayment(models.Model):
 #     def _value_pc(self):
 #         for record in self:
 #             record.value2 = float(record.value) / 100
+
+class Techtest(models.Model):
+    _inherit = 'res.partner'
+
+    name_english = fields.Char("English Name")
+    batch_number = fields.Char("Batch Number")
+    date_of_expiration = fields.Char("Date Of  Expiration")
+
+    @api.onchange('name')
+    def _onchange_name(self):
+        for sstd in self:
+            if sstd.name:
+                text = sstd.name
+                print("text###############",text)
+                translator = Translator()
+                translated_text = translator.translate(text, src='ar', dest='en')
+                sstd.name_english = translated_text.text
+            
+            # print("translation@@@@@@@@",translated_text.text)
+            # print(googletrans.LANGUAGES)
