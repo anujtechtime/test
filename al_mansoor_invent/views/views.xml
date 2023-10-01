@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="al_mansoor_invent.list">
+      <field name="name">al_mansoor_invent list</field>
+      <field name="model">al_mansoor_invent.al_mansoor_invent</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record id="awesome_view_form_inheirt_stock_picking" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="receipt_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="al_mansoor_invent.action_window">
+      <field name="name">al_mansoor_invent window</field>
+      <field name="res_model">al_mansoor_invent.al_mansoor_invent</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="al_mansoor_invent.action_server">
+      <field name="name">al_mansoor_invent server</field>
+      <field name="model_id" ref="model_al_mansoor_invent_al_mansoor_invent"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="al_mansoor_invent" id="al_mansoor_invent.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="al_mansoor_invent.menu_1" parent="al_mansoor_invent.menu_root"/>
+    <menuitem name="Menu 2" id="al_mansoor_invent.menu_2" parent="al_mansoor_invent.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="al_mansoor_invent.menu_1_list" parent="al_mansoor_invent.menu_1"
+              action="al_mansoor_invent.action_window"/>
+    <menuitem name="Server to list" id="al_mansoor_invent" parent="al_mansoor_invent.menu_2"
+              action="al_mansoor_invent.action_server"/>
+-->
+  </data>
+</odoo>
