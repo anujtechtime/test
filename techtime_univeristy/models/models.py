@@ -199,7 +199,7 @@ class SaleOrderField_user(models.Model):
 class Payment_Data(models.Model):
     _inherit = 'account.payment'
 
-
+    partner_id = fields.Many2one("res.partner", string="Customer")
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
@@ -286,7 +286,7 @@ class Payment_Data(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-
+    partner_id = fields.Many2one("res.partner", string="Customer")
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
