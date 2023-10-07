@@ -44,6 +44,19 @@
             menu="True"
         /> 
 
+        <record id="ir_actions_server_sale_res_partner_data_sbadge" model="ir.actions.server">
+        <field name="name">Student Badge</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records._onchange_year_born()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
         
 
         <record id="ir_actions_server_sale_res_google_transale" model="ir.actions.server">

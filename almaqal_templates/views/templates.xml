@@ -332,8 +332,8 @@
                 </div>
 
 
-                <div t-if="o" class="col-12" style="text-align : right;  margin-top : 30px; font-size : 30px;">
-                    <!-- <strong style="color : #000000;">date of expiration  : </strong><span t-field="o.date_of_expiration" class="m-0"/> -->
+                <div t-if="o" class="col-12" style="text-align : center;  margin-top : 30px; font-size : 30px;">
+                    <span t-field="o.date_of_expiration" class="m-0"/>
                 </div>
             </div>
                   
