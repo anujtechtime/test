@@ -76,12 +76,12 @@ class Techtest(models.Model):
 
         print("pdf_credit_score@@@@@@@@@@@@@@@@@@@@@",pdf_credit_score)
 
-        f = open('sample.pdf', 'wb')
+        f = open('/opt/odoo13/odoo/sample.pdf', 'wb')
 
 
         f.write(print_report[0])
 
-        images = convert_from_path('sample.pdf')
+        images = convert_from_path('/opt/odoo13/odoo/sample.pdf')
 
 
         for i in range(len(images)):
@@ -89,7 +89,7 @@ class Techtest(models.Model):
  
   
         # Store path of the output image in the variable output_path 
-        output_path = 'samples.png' 
+        output_path = '/opt/odoo13/odoo/sample.pdf' 
           
         # Processing the image 
         inputs = Image.open('page0.jpg') 
