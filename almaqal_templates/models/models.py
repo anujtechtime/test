@@ -65,7 +65,7 @@ class Techtest(models.Model):
 
     name_english = fields.Char("English Name")
     batch_number = fields.Char("Batch Number")
-    date_of_expiration = fields.Char("Date Of  Expiration")
+    date_of_expiration = fields.Date("Date Of  Expiration")
     image_stuent = fields.Binary("Image Student badge")
 
     def _onchange_year_born(self):
