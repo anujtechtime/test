@@ -6,7 +6,6 @@ from googletrans import Translator
 import googletrans
 import base64
 from pdf2image import convert_from_path
-from rembg import remove 
 from PIL import Image 
 
 
@@ -60,33 +59,6 @@ class almaqalPayment(models.Model):
                     } 
                 }       
 
-class ReportToImage(models.Model):
-    _inherit = "res.partner"
-
-    @api.onchange("year_born"):
-    def _onchange_year_born(self):
-        print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_card').sudo()._render_qweb_pdf(self.ids)
-        print("print_report#############",print_report)
-        # loan_lead.pdf_credit_score = base64.b64encode(print_report[0]) 
-
-
-        # images = convert_from_path('example.pdf')
-
-        # for i in range(len(images)):
-        #     images[i].save('page'+ str(i) +'.jpg', 'JPEG')                 
-            #     raise UserError(_('الطالب لم يرحل. هل تريد اكمال عملية التسجيل؟'))
-#     _name = 'almaqal_templates.almaqal_templates'
-#     _description = 'almaqal_templates.almaqal_templates'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
 
 class Techtest(models.Model):
     _inherit = 'res.partner'
