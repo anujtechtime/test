@@ -67,7 +67,8 @@ class Techtest(models.Model):
     _inherit = 'res.partner'
 
     name_english = fields.Char("English Name")
-    batch_number = fields.Char("Batch Number")
+    batch_number = fields.Char(string='Badge', required=True,
+                          readonly=True, default=lambda self: _('New'))
     date_of_expiration = fields.Date("Date Of  Expiration")
     image_stuent = fields.Binary("Image Student badge")
 
@@ -154,8 +155,8 @@ class Techtest(models.Model):
 
     @api.model
     def create(self, vals):
-       if vals.get('batch_id', _('New')) == _('New'):
-           vals['batch_id'] = self.env['ir.sequence'].next_by_code(
+       if vals.get('batch_number', _('New')) == _('New'):
+           vals['batch_number'] = self.env['ir.sequence'].next_by_code(
                'badge.sequence') or _('New')
 
        res = super(Techtest, self).create(vals)

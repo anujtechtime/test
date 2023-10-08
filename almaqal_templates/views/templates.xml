@@ -327,7 +327,7 @@
 
                 <div t-if="o" class="col-12" style="text-align : right;  margin-top : -3px; font-size : 20px;">
                     <div style="margin-right : 45px; font-weight: 900;">
-                        <strong><span t-field="o.batch" class="m-0"/></strong>
+                        <strong><span t-field="o.batch_number" class="m-0"/></strong>
                     </div>
                 </div>
 
