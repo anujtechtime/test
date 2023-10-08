@@ -36,6 +36,9 @@ class almaqal_templates(models.Model):
             print("level@@@@@@@@@@@@@@@",self.level)
             if failed_student:
                 self.installment_amount = failed_student.installment_amount
+                for inst in failed_student.sale_installment_line_ids:
+                    print("inst@@@@@@@@@@@@@@@",inst)
+                    self.sale_installment_line_ids = [(4, inst.id)]
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'This Student is failed.', 
@@ -138,6 +141,25 @@ class Techtest(models.Model):
         encoded_excel = encode_file(excel_file)
 
         self.image_stuent = encoded_excel
+
+        return {
+                     'type' : 'ir.actions.act_url',
+                     'url': '/web/image?model=res.partner&field=image_stuent&id=%s&download=true'%(self.id),
+                     'target': 'self',
+         }
+
+    def sequence_amiu(self):
+        for batch in self:
+            batch.batch_id = self.env['ir.sequence'].next_by_code('badge.sequence')
+
+    @api.model
+    def create(self, vals):
+       if vals.get('batch_id', _('New')) == _('New'):
+           vals['batch_id'] = self.env['ir.sequence'].next_by_code(
+               'badge.sequence') or _('New')
+
+       res = super(Techtest, self).create(vals)
+       return res  
 
     @api.onchange('name')
     def _onchange_name(self):

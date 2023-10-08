@@ -285,59 +285,59 @@
              </div>
 
                 <div t-if="o" class="row col-12" style="text-align : right;">
-                <div class="col-2" style="margin-top : 25px;">
-                <img style="float : left; margin-left : 20px; border-radius : 5px;" width="90" height="105" t-att-src="image_data_uri(o.image_1920)"/>
+                <div class="col-2" style="margin-top : 30px;">
+                <img style="float : left; margin-left : -5px; border-radius : 5px;" width="95" height="105" t-att-src="image_data_uri(o.image_1920)"/>
                 </div>
-                <div class="col-5" style="margin-top : 2px; font-size : 3px;">
+                <div class="col-2" style="margin-top : 2px; font-size : 3px;">
                     <!-- <strong style="margin-left : 120px !important;"><t  t-esc="o.name_english" class="m-0"/></strong> -->
                 </div>
-                <div class="col-5 text-right" style="margin-top : 85px; font-size : 12px;">
-                    <div style="margin-right : 20px;">
+                <div class="col-8 text-right" style="margin-top : 82px; font-size : 19px;">
+                    <div style="margin-right : 20px; font-weight: 900;">
                     <strong><t t-esc="o.name"   class="m-0"/></strong>
                 </div>
                 </div>
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : left;  margin-top : -20x; font-size : 14px;">
-                    <div style="margin-left : 175px; margin-top : -29px;    font-family: sans-serif !important;">
+                    <div style="margin-left : 160px; margin-top : -27px;    font-family: sans-serif !important; ">
                     <strong><span t-field="o.name_english"  class="m-0"/></strong>
                 </div>
                 </div>
 
 
-                <div t-if="o" class="col-12" style="text-align : right;  margin-top : -10x; font-size : 12px;">
-                    <div style="margin-right : 55px; margin-top : 13px;">
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top : -10px; font-size : 19px;">
+                    <div style="margin-right : 45px; margin-top : 13px; font-weight: 900;">
                     <strong><span t-field="o.college"  class="m-0"/></strong>
                 </div>
                 </div>
 
-                <div t-if="o" class="col-12" style="text-align : right;  margin-top : 13px; font-size : 12px;">
-                    <div style="margin-right : 55px;">
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top : 8px; font-size : 19px;">
+                    <div style="margin-right : 45px; font-weight: 900;">
                     <strong><span t-field="o.level" class="m-0"/></strong>
                 </div>
                     
                 </div>
 
 
-                <div t-if="o" class="col-12" style="text-align : right; margin-top : 19px; font-size : 12px;">
-                    <div style="margin-right : 55px;">
+                <div t-if="o" class="col-12" style="text-align : right; margin-top : 8px; font-size : 20px;">
+                    <div style="margin-right : 45px; font-weight: 900;">
                     <strong><span t-field="o.year_born" class="m-0"/></strong>
                     </div>
                 </div>
 
-                <div t-if="o" class="col-12" style="text-align : right;  margin-top : 11px; font-size : 12px;">
-                    <div style="margin-right : 55px;">
-                        <strong><span t-field="o.batch_id" class="m-0"/></strong>
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top : -3px; font-size : 20px;">
+                    <div style="margin-right : 45px; font-weight: 900;">
+                        <strong><span t-field="o.batch" class="m-0"/></strong>
                     </div>
                 </div>
 
 
-                <div t-if="o" class="col-12" style="text-align : center;  margin-top : 30px; font-size : 30px;">
-                    <span t-field="o.date_of_expiration" class="m-0"/>
+                <div t-if="o" class="col-12" style="text-align : left;  margin-top : -3px; font-size : 20px;">
+                   <strong style="margin-left : 220px !important;"> <span  t-esc="o.date_of_expiration" class="m-0"/></strong>
                 </div>
             </div>
                   
-        </t>      
+        </t>   
             
     </template>
 
