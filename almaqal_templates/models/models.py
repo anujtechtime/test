@@ -151,7 +151,7 @@ class Techtest(models.Model):
 
     def sequence_amiu(self):
         for batch in self:
-            batch.batch_id = self.env['ir.sequence'].next_by_code('badge.sequence')
+            batch.batch_number = self.env['ir.sequence'].next_by_code('badge.sequence')
 
     @api.model
     def create(self, vals):
