@@ -655,7 +655,7 @@ class ResData(models.Model):
 
     gender = fields.Selection([('male','ذكر'),('female','انثى')], string="Gender", tracking=True)
     nationalty = fields.Char("Nationalty", tracking=True)
-    year_born = fields.Char("Year Born", tracking=True)
+    year_born = fields.Integer("Year Born", tracking=True)
     Academic_Branch = fields.Integer("Academic Branch", tracking=True)
     year_of_graduation = fields.Integer("Year Of Graduation", tracking=True)
     final_result = fields.Char("Final Result", tracking=True)
