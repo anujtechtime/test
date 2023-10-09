@@ -161,6 +161,75 @@ class Techtest(models.Model):
         self.image_stuent = encoded_excel
 
     def print_student_badge(self):
+        print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_data').sudo().render_qweb_pdf(self.ids)
+        print("print_report#############",print_report)
+
+        pdf_credit_score = base64.b64encode(print_report[0]) 
+
+        print("pdf_credit_score@@@@@@@@@@@@@@@@@@@@@",pdf_credit_score)
+
+        f = open('/opt/odoo13/odoo/sample.pdf', 'wb')
+
+
+        f.write(print_report[0])
+
+        images = convert_from_path('/opt/odoo13/odoo/sample.pdf')
+
+
+        for i in range(len(images)):
+            images[i].save('page'+ str(i) +'.jpg') 
+ 
+  
+        # Store path of the output image in the variable output_path 
+        output_path = '/opt/odoo13/odoo/sample.pdf' 
+          
+        # Processing the image 
+        inputs = Image.open('page0.jpg') 
+          
+        # # Removing the background from the given Image 
+        # output = remove(inputs) 
+          
+        # #Saving the image in the given path 
+        # output.save(output_path)  
+
+        # img = Image.open("./image.png")
+        img = inputs.convert("RGBA")
+     
+        datas = img.getdata()
+     
+        newData = []
+     
+        for item in datas:
+            if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                newData.append((255, 255, 255, 0))
+            else:
+                newData.append(item)
+     
+        img.putdata(newData)
+
+        print("img@@@@@@@@@@@@@@@@@@@@@@@@@@@",img)
+        img.save("./New.png", "PNG")
+        print("Successful")
+
+        print("img@@@@@@@@@@@@@@ccccccccccc",img)
+
+
+        def open_target_file(target_path):
+            with open(target_path,"rb") as excel_file:
+                return excel_file.read()
+
+        def encode_file(excel_file):
+            return base64.b64encode(excel_file)
+
+        def decode_file():
+            return base64.b64decode(excel_file)
+
+        destiny_path = ""
+
+        excel_file = open_target_file('New.png')
+        encoded_excel = encode_file(excel_file)
+
+        self.image_stuent = encoded_excel
         return {
                      'type' : 'ir.actions.act_url',
                      'url': '/web/image?model=res.partner&field=image_stuent&id=%s&download=true'%(self.id),
