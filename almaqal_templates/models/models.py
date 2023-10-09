@@ -160,6 +160,7 @@ class Techtest(models.Model):
 
         self.image_stuent = encoded_excel
 
+    def print_student_badge(self):
         return {
                      'type' : 'ir.actions.act_url',
                      'url': '/web/image?model=res.partner&field=image_stuent&id=%s&download=true'%(self.id),
