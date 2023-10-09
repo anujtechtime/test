@@ -245,10 +245,10 @@ class Techtest(models.Model):
            
 
        res = super(Techtest, self).create(vals)
-       text = res.name
-       translator = Translator()
-       translated_text = translator.translate(text, src='ar', dest='en')
-       res.name_english = translated_text.text
+       # text = res.name
+       # translator = Translator()
+       # translated_text = translator.translate(text, src='ar', dest='en')
+       # res.name_english = translated_text.text
        return res  
 
     @api.onchange('name')
