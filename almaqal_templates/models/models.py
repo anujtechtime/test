@@ -78,9 +78,6 @@ class almaqalPayment(models.Model):
 class Techtest(models.Model):
     _inherit = 'res.partner'
 
-    name_english = fields.Char("English Name")
-    batch_number = fields.Char("Batch Number")
-    date_of_expiration = fields.Char("Date Of  Expiration")
 
     name_english = fields.Char("English Name")
     batch_number = fields.Char(string='Badge', required=True,
