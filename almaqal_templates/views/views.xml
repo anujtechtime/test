@@ -108,7 +108,7 @@
                                 <group>
                                   <button name="onchange_year_born" type="object" string="Print Image" class="oe_highlight"/>
                                   <!-- <field name="image_stuent" widget="image"/> -->
-                                  <field name="batch_id"/>
+                                  <field name="batch_number"/>
                                   <field name="date_of_expiration"/>
                                   <!-- <field name="college_number"/> -->
                               </group>
