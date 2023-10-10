@@ -29,21 +29,22 @@ class almaqal_templates(models.Model):
                     } 
                 }
             failed_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("college","=",self.partner_id.college.id),("year","!=",self.partner_id.year.id),("level","=",self.partner_id.level)], limit=1)
-            # print("failed_student@@@@@@@@@@@@@@@",failed_student)
-            # print("self.partner_id@@@@@@@@@@@@@@",self.partner_id)
-            # print("self.college@@@@@@@@@@@@@@@",self.college)
-            # print("self.year@@@@@@@@@@@@@@@@@@@",self.year)
-            # print("level@@@@@@@@@@@@@@@",self.level)
             if failed_student:
                 self.installment_amount = failed_student.installment_amount
-                for inst in failed_student.sale_installment_line_ids:
-                    print("inst@@@@@@@@@@@@@@@",inst)
-                    self.sale_installment_line_ids = [(4, inst.id)]
+                for i in failed_student.sale_installment_line_ids:
+                    installment = self.sale_installment_line_ids.create({
+                    'number' : i.number,
+                    'payment_date' : i.payment_date,
+                    'amount_installment' : i.amount_installment,
+                    'description': 'Installment Payment',
+                    'sale_installment_id' : self._origin.id,
+                    # "invoice_id" : invoice_id.id
+                    })
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'This Student is failed.', 
                     } 
-                }      
+                }       
 
 class almaqalPayment(models.Model):
     _inherit = "account.payment"
