@@ -22,6 +22,7 @@ class almaqal_templates(models.Model):
         print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
         print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
+        print("installmet_dat@@@@@@@@@@@@@@@",installmet_dat)
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
             # for datts in installmet_dat.sale_installment_line_ids:
@@ -38,32 +39,31 @@ class almaqal_templates(models.Model):
                 'order_id': result._origin.id,
                 'name': 'sales order line',
             })
-            # journal = result.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
-            failed_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("college","=",self.partner_id.college.id),("year","!=",self.partner_id.year.id),("level","=",self.partner_id.level)], limit=1)
-            if failed_student:
-                result.installment_amount = failed_student.installment_amount
-                for i in failed_student.sale_installment_line_ids:
-                    installment = result.sale_installment_line_ids.create({
+        failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
+        print("failed_student@@@@@@@@@@@@@@@@",failed_student)
+        if failed_student:
+            result.installment_amount = failed_student.installment_amount
+            for i in failed_student.sale_installment_line_ids:
+                installment = result.sale_installment_line_ids.create({
+                'number' : i.number,
+                'payment_date' : i.payment_date,
+                'amount_installment' : i.amount_installment,
+                'description': 'Installment Payment',
+                'sale_installment_id' : result.id,
+                # "invoice_id" : invoice_id.id
+                })  
+        if not failed_student and installmet_dat:
+            count = 0
+            for i in installmet_dat.sale_installment_line_ids:
+                sale_installment = result.sale_installment_line_ids.create({
                     'number' : i.number,
                     'payment_date' : i.payment_date,
                     'amount_installment' : i.amount_installment,
                     'description': 'Installment Payment',
                     'sale_installment_id' : result.id,
                     # "invoice_id" : invoice_id.id
-                    })  
-            if not failed_student:
-                count = 0
-                for i in installmet_dat.sale_installment_line_ids:
-                    # invoice_id = result.env['account.move'].create(invoice_vals)
-                    sale_installment = result.sale_installment_line_ids.create({
-                        'number' : i.number,
-                        'payment_date' : i.payment_date,
-                        'amount_installment' : i.amount_installment,
-                        'description': 'Installment Payment',
-                        'sale_installment_id' : result.id,
-                        # "invoice_id" : invoice_id.id
-                        })
-                    count = count + 1          
+                    })
+                count = count + 1          
 
         return result
 
