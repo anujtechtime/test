@@ -4,10 +4,14 @@ from odoo import models, fields, api , _
 from odoo.exceptions import UserError, ValidationError
 from googletrans import Translator
 import googletrans
+import logging
 import base64
 from pdf2image import convert_from_path
 from PIL import Image 
 from datetime import date, datetime, timedelta
+
+_logger = logging.getLogger(__name__)
+
 
 
 
@@ -41,6 +45,7 @@ class almaqal_templates(models.Model):
             })
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         print("failed_student@@@@@@@@@@@@@@@@",failed_student)
+        _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         if failed_student:
             result.installment_amount = failed_student.installment_amount
             for i in failed_student.sale_installment_line_ids:
