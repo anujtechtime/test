@@ -38,64 +38,64 @@ class SaleOrderField_user(models.Model):
     amount = fields.Char("مبلغ الدفع")
     # installment_no = fields.Float("Installment" ,related="level.installment") 
 
-    @api.model
-    def create(self, vals):
-        result = super(SaleOrderField_user, self).create(vals)
-        print("result##############",result)    
-        print("result.college###########",result.college,result.department,result.student, result.year)
-        installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
-        print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
-        if installmet_dat:
-            print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
-            # for datts in installmet_dat.sale_installment_line_ids:
-            # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
-            result.installment_amount = installmet_dat.installment
-            # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
-            result.tenure_month = installmet_dat.installment_number
-            result.second_payment_date = datetime.today().date()
-            order_line = result.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': result.installment_amount,
-                'product_uom': result.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': result._origin.id,
-                'name': 'sales order line',
-            })
-            # journal = result.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
-            count = 0
-            for i in installmet_dat.sale_installment_line_ids:
-                # invoice_id = result.env['account.move'].create(invoice_vals)
-                sale_installment = result.sale_installment_line_ids.create({
-                    'number' : i.number,
-                    'payment_date' : i.payment_date,
-                    'amount_installment' : i.amount_installment,
-                    'description': 'Installment Payment',
-                    'sale_installment_id' : result.id,
-                    # "invoice_id" : invoice_id.id
-                    })
-                count = count + 1
+    # @api.model
+    # def create(self, vals):
+    #     result = super(SaleOrderField_user, self).create(vals)
+    #     print("result##############",result)    
+    #     print("result.college###########",result.college,result.department,result.student, result.year)
+    #     installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
+    #     print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
+    #     if installmet_dat:
+    #         print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
+    #         # for datts in installmet_dat.sale_installment_line_ids:
+    #         # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
+    #         result.installment_amount = installmet_dat.installment
+    #         # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
+    #         result.tenure_month = installmet_dat.installment_number
+    #         result.second_payment_date = datetime.today().date()
+    #         order_line = result.env['sale.order.line'].create({
+    #             'product_id': 1,
+    #             'price_unit': result.installment_amount,
+    #             'product_uom': result.env.ref('uom.product_uom_unit').id,
+    #             'product_uom_qty': 1,
+    #             'order_id': result._origin.id,
+    #             'name': 'sales order line',
+    #         })
+    #         # journal = result.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
+    #         count = 0
+    #         for i in installmet_dat.sale_installment_line_ids:
+    #             # invoice_id = result.env['account.move'].create(invoice_vals)
+    #             sale_installment = result.sale_installment_line_ids.create({
+    #                 'number' : i.number,
+    #                 'payment_date' : i.payment_date,
+    #                 'amount_installment' : i.amount_installment,
+    #                 'description': 'Installment Payment',
+    #                 'sale_installment_id' : result.id,
+    #                 # "invoice_id" : invoice_id.id
+    #                 })
+    #             count = count + 1
 
-                # i.invoice_id = invoice_id.id
-                # print("invoice_id##################",invoice_id)
+    #             # i.invoice_id = invoice_id.id
+    #             # print("invoice_id##################",invoice_id)
 
-                # account_invoice_line  = result.env['account.move.line'].with_context(
-                #     check_move_validity=False).create({
-                #     'name': self.order_line.product_id.name,
-                #     'price_unit': self.payable_amount,
-                #     'quantity': 1.0,
-                #     'discount': 0.0,
-                #     'journal_id': journal.id,
-                #     'product_id': self.order_line.product_id.id,
-                #     'analytic_account_id': self.analytic_account_id.id,
-                #     'account_id': self.partner_invoice_id.property_account_receivable_id.id,
-                #     'move_id': invoice_id.id,
-                #     })
-                # for order in self:
-                #     order.order_line.update({
-                #         'invoice_lines' : [(4, account_invoice_line.id)]
-                #         })
+    #             # account_invoice_line  = result.env['account.move.line'].with_context(
+    #             #     check_move_validity=False).create({
+    #             #     'name': self.order_line.product_id.name,
+    #             #     'price_unit': self.payable_amount,
+    #             #     'quantity': 1.0,
+    #             #     'discount': 0.0,
+    #             #     'journal_id': journal.id,
+    #             #     'product_id': self.order_line.product_id.id,
+    #             #     'analytic_account_id': self.analytic_account_id.id,
+    #             #     'account_id': self.partner_invoice_id.property_account_receivable_id.id,
+    #             #     'move_id': invoice_id.id,
+    #             #     })
+    #             # for order in self:
+    #             #     order.order_line.update({
+    #             #         'invoice_lines' : [(4, account_invoice_line.id)]
+    #             #         })
 
-        return result
+    #     return result
 
 
     @api.onchange('year',"college","Subject","department","student","level")
