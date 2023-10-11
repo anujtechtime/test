@@ -88,75 +88,76 @@ class Techtest(models.Model):
 
     @api.onchange('date_of_expiration','batch_number', 'name_english','name', 'college','level','image_1920','year_born','batch_number')
     def _onchange_year_born(self):
-        print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_data').sudo().render_qweb_pdf(self.ids)
-        print("print_report#############",print_report)
+        if self.date_of_expiration and self.batch_number and self.name_english and self.name and self.college and self.level and self.image_1920 and self.year_born and self.batch_number:
+            print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_data').sudo().render_qweb_pdf(self.ids)
+            print("print_report#############",print_report)
 
-        pdf_credit_score = base64.b64encode(print_report[0]) 
+            pdf_credit_score = base64.b64encode(print_report[0]) 
 
-        print("pdf_credit_score@@@@@@@@@@@@@@@@@@@@@",pdf_credit_score)
+            print("pdf_credit_score@@@@@@@@@@@@@@@@@@@@@",pdf_credit_score)
 
-        f = open('/opt/odoo13/odoo/sample.pdf', 'wb')
-
-
-        f.write(print_report[0])
-
-        images = convert_from_path('/opt/odoo13/odoo/sample.pdf')
+            f = open('/opt/odoo13/odoo/sample.pdf', 'wb')
 
 
-        for i in range(len(images)):
-            images[i].save('page'+ str(i) +'.jpg') 
- 
-  
-        # Store path of the output image in the variable output_path 
-        output_path = '/opt/odoo13/odoo/sample.pdf' 
-          
-        # Processing the image 
-        inputs = Image.open('page0.jpg') 
-          
-        # # Removing the background from the given Image 
-        # output = remove(inputs) 
-          
-        # #Saving the image in the given path 
-        # output.save(output_path)  
+            f.write(print_report[0])
 
-        # img = Image.open("./image.png")
-        img = inputs.convert("RGBA")
+            images = convert_from_path('/opt/odoo13/odoo/sample.pdf')
+
+
+            for i in range(len(images)):
+                images[i].save('page'+ str(i) +'.jpg') 
      
-        datas = img.getdata()
-     
-        newData = []
-     
-        for item in datas:
-            if item[0] == 255 and item[1] == 255 and item[2] == 255:
-                newData.append((255, 255, 255, 0))
-            else:
-                newData.append(item)
-     
-        img.putdata(newData)
+      
+            # Store path of the output image in the variable output_path 
+            output_path = '/opt/odoo13/odoo/sample.pdf' 
+              
+            # Processing the image 
+            inputs = Image.open('page0.jpg') 
+              
+            # # Removing the background from the given Image 
+            # output = remove(inputs) 
+              
+            # #Saving the image in the given path 
+            # output.save(output_path)  
 
-        print("img@@@@@@@@@@@@@@@@@@@@@@@@@@@",img)
-        img.save("./New.png", "PNG")
-        print("Successful")
+            # img = Image.open("./image.png")
+            img = inputs.convert("RGBA")
+         
+            datas = img.getdata()
+         
+            newData = []
+         
+            for item in datas:
+                if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                    newData.append((255, 255, 255, 0))
+                else:
+                    newData.append(item)
+         
+            img.putdata(newData)
 
-        print("img@@@@@@@@@@@@@@ccccccccccc",img)
+            print("img@@@@@@@@@@@@@@@@@@@@@@@@@@@",img)
+            img.save("./New.png", "PNG")
+            print("Successful")
+
+            print("img@@@@@@@@@@@@@@ccccccccccc",img)
 
 
-        def open_target_file(target_path):
-            with open(target_path,"rb") as excel_file:
-                return excel_file.read()
+            def open_target_file(target_path):
+                with open(target_path,"rb") as excel_file:
+                    return excel_file.read()
 
-        def encode_file(excel_file):
-            return base64.b64encode(excel_file)
+            def encode_file(excel_file):
+                return base64.b64encode(excel_file)
 
-        def decode_file():
-            return base64.b64decode(excel_file)
+            def decode_file():
+                return base64.b64decode(excel_file)
 
-        destiny_path = ""
+            destiny_path = ""
 
-        excel_file = open_target_file('New.png')
-        encoded_excel = encode_file(excel_file)
+            excel_file = open_target_file('New.png')
+            encoded_excel = encode_file(excel_file)
 
-        self.image_stuent = encoded_excel
+            self.image_stuent = encoded_excel
 
     def print_student_badge(self):
         print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_data').sudo().render_qweb_pdf(self.ids)
