@@ -101,7 +101,7 @@ class almaqal_templates(models.Model):
                     })
                 return {'warning': { 
                     'title': "Warning", 
-                    'message': 'This Student is failed.', 
+                    'message': 'هذا الطالب راسب, هل تريد اكمال عملية التسجيل؟', 
                     } 
                 }       
 
