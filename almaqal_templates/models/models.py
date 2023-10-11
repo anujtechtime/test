@@ -40,7 +40,7 @@ class almaqal_templates(models.Model):
             # journal = result.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             failed_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("college","=",self.partner_id.college.id),("year","!=",self.partner_id.year.id),("level","=",self.partner_id.level)], limit=1)
             if failed_student:
-                self.installment_amount = failed_student.installment_amount
+                result.installment_amount = failed_student.installment_amount
                 for i in failed_student.sale_installment_line_ids:
                     installment = result.sale_installment_line_ids.create({
                     'number' : i.number,
