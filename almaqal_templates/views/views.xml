@@ -136,16 +136,23 @@
 
 
 <record id="crm_lead_action_my_activities_view_tree_capwise_lead" model="ir.actions.act_window.view">
-            <field name="sequence">2</field>
+            <field name="sequence">3</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="almaqal_templates.view_partner_form_custom"/>
             <field name="act_window_id" ref="almaqal_templates.crm_stage_action_mtalks_config_data"/>
         </record>
 
         <record id="crm_lead_action_my_activities_tree_ddts" model="ir.actions.act_window.view">
-            <field name="sequence">1</field>
+            <field name="sequence">2</field>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="almaqal_templates.view_partner_tree_custom"/>
+            <field name="act_window_id" ref="almaqal_templates.crm_stage_action_mtalks_config_data"/>
+        </record>
+
+        <record id="crm_lead_action_my_activities_kanban_ddts" model="ir.actions.act_window.view">
+            <field name="sequence">1</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
             <field name="act_window_id" ref="almaqal_templates.crm_stage_action_mtalks_config_data"/>
         </record>
 
