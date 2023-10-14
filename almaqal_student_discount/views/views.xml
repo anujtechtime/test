@@ -1,0 +1,125 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaqal_student_discount.list">
+      <field name="name">almaqal_student_discount list</field>
+      <field name="model">almaqal_student_discount.almaqal_student_discount</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record id="crm_stage_tree_student_grade" model="ir.ui.view">
+        <field name="name">student.grade.tree</field>
+        <field name="model">student.grade</field>
+        <field name="arch" type="xml">
+            <tree string="Student Grade" multi_edit="1">
+                <field name="shift"/>
+                <field name="percentage_from"/>
+                <field name="percentage_to"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_stage_form_symbol_student_grade" model="ir.ui.view">
+        <field name="name">student.grade.form</field>
+        <field name="model">student.grade</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Student Grade">
+                <sheet>
+                    <group>
+                        <field name="shift"/>
+                        <field name="percentage_from"/>
+                        <field name="percentage_to"/>
+                        <field name="amount"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_stage_action_symbol_data_student_grade" model="ir.actions.act_window">
+        <field name="name">Student Grade</field>
+        <field name="res_model">student.grade</field>
+        <field name="view_id" ref="almaqal_student_discount.crm_stage_tree_student_grade"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+    <record id="view_sale_order_serach_data_m_faculty_faculty" model="ir.ui.view">
+      <field name="name">faculty.faculty.form.data</field>
+      <field name="model">faculty.faculty</field>
+      <field name="inherit_id" ref="techtime_department.crm_stage_form_symbol_faculty_faculty"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='college']" position="after">
+            <field name="student_discoubt"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_sale_order_serach_data_m_installment_details" model="ir.ui.view">
+      <field name="name">installment.details.form.data</field>
+      <field name="model">installment.details</field>
+      <field name="inherit_id" ref="techtime_department.crm_stage_form_symbol_data_installment_details"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='installment']" position="after">
+            <field name="student_dicount"/>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaqal_student_discount.action_window">
+      <field name="name">almaqal_student_discount window</field>
+      <field name="res_model">almaqal_student_discount.almaqal_student_discount</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaqal_student_discount.action_server">
+      <field name="name">almaqal_student_discount server</field>
+      <field name="model_id" ref="model_almaqal_student_discount_almaqal_student_discount"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaqal_student_discount" id="almaqal_student_discount.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaqal_student_discount.menu_1" parent="almaqal_student_discount.menu_root"/>
+    <menuitem name="Menu 2" id="almaqal_student_discount.menu_2" parent="almaqal_student_discount.menu_root"/>
+-->
+    <!-- actions -->
+
+    <menuitem name="Student Discount" id="almaqal_student_discount.menu_1_list" parent="sale.sale_order_menu"
+              action="crm_stage_action_symbol_data_student_grade"/>
+
+  </data>
+</odoo>
