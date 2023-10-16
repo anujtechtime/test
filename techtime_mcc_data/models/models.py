@@ -94,7 +94,7 @@ class DataDDFHrEmployee(models.Model):
 
     total_of_above_2 = fields.Float("اجمالي التنزيلات  (2)")
 
-    grand_total = fields.Float("جامعة المعقل الأهلية")
+    grand_total = fields.Float("جامعة الأهلية")
 
     @api.onchange('field_2','field_3','field_4','field_5','field_6')
     def _inverse_fields_data(self):
@@ -271,7 +271,7 @@ class DataMphine(models.Model):
                     if res_partner.Status == 'failed':
                         status_yu = 'راسب'
                     if res_partner.Status == 'transferred_from_us':
-                        status_yu = 'انتقل من جامعة المعقل '
+                        status_yu = 'انتقل من جامعة '
                     if res_partner.Status == 'graduated':
                         status_yu = 'طالب متخرج'
 

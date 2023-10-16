@@ -1769,7 +1769,7 @@ class techtime_payroll_excel(models.Model):
             total_entitlements_total = 0
             certificate_total = 0
             
-            worksheet.write_merge(call - 4, call - 2 , 0, 2, "جامعة المعقل الاهلية / قسم الشؤون المالية", header_bold_main_header)
+            worksheet.write_merge(call - 4, call - 2 , 0, 2, "جامعة الاهلية / قسم الشؤون المالية", header_bold_main_header)
             
             for values_data in all_ids:
                 dep = self.env["hr.department"].search([('id','=',values_data)])

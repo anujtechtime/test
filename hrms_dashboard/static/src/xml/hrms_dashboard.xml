@@ -111,7 +111,7 @@
                         <div class="stat-widget-one">
                             <div class="stat-icon"><i class="fa fa-clock-o"/></div>
                             <div class="stat-content">
-                                <div class="stat-text">نقل الى جامعة المعقل</div>
+                                <div class="stat-text">نقل الى جامعة</div>
                                 <div class="stat-digit"><t t-esc="widget.login_employee['emp_timesheets']"/></div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                         <div class="stat-widget-one">
                             <div class="stat-icon" style="padding-top: 8%;"><i class="fa fa-fw fa-book"/></div>
                             <div class="stat-content">
-                                <div class="stat-text">نقل الى جامعة المعقل</div>
+                                <div class="stat-text">نقل الى جامعة</div>
                                 <div class="stat-digit"><t t-esc="widget.login_employee['contracts_count']"/></div>
                             </div>
                         </div>
