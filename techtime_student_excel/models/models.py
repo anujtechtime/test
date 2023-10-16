@@ -629,7 +629,7 @@ class ResData(models.Model):
 
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
 
-    chckbox_data_2 = fields.Boolean("نقل من جامعة المعقل")
+    chckbox_data_2 = fields.Boolean("نقل من جامعة")
 
 
     boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية", tracking=True)
@@ -639,9 +639,9 @@ class ResData(models.Model):
 
 
     payment_number = fields.Many2one("account.payment",string="payment number", tracking=True)
-    transferred_to_us = fields.Boolean("نقل الى جامعة المعقل", tracking=True)
+    transferred_to_us = fields.Boolean("نقل الى جامعة", tracking=True)
     transfer_shift = fields.Boolean("Transferred Shift ", tracking=True)
-    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','طالب حالي'),('succeeded','ناجح'),('failed','راسب'),('transferred_from_us','نقل من جامعة المعقل'),('graduated','متخرج')], string="Status", tracking=True)
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','طالب حالي'),('succeeded','ناجح'),('failed','راسب'),('transferred_from_us','نقل من جامعة'),('graduated','متخرج')], string="Status", tracking=True)
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى", tracking=True)
 
 

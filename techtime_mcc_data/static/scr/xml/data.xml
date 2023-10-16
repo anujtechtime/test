@@ -60,7 +60,7 @@
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-value="" data-id="transferred_from_us">
                             <input type="checkbox" class="form-check-input" style="display : none;" value="" id="transferred_from_us"/>
-                            <label class="form-check-label" for="exampleCheck1">نقل من جامعة المعقل</label>
+                            <label class="form-check-label" for="exampleCheck1">نقل من جامعة </label>
                           </div>
 
 
@@ -384,7 +384,7 @@
 
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-value="" data-id="transferred_from_us">
                             <input type="checkbox" class="form-check-input" style="display : none;" value="" id="transferred_from_us"/>
-                            <label class="form-check-label" for="exampleCheck1">نقل من جامعة المعقل</label>
+                            <label class="form-check-label" for="exampleCheck1">نقل من جامعة </label>
                           </div>
 
 

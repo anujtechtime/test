@@ -15,7 +15,7 @@ from odoo.tools import float_is_zero, float_compare
 from werkzeug.urls import url_encode
 
 
-class SaleOrderField_user(models.Model):
+class SaleOrderFielduser(models.Model):
     _inherit = 'sale.order'
 
     # faculty = fields.Char("Faculty")
@@ -196,7 +196,7 @@ class SaleOrderField_user(models.Model):
                 #         })
 
 
-class Payment_Data(models.Model):
+class PaymentData(models.Model):
     _inherit = 'account.payment'
 
     partner_id = fields.Many2one("res.partner", string="Customer")
