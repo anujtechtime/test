@@ -34,7 +34,7 @@ class SaleOrderField_user(models.Model):
     college = fields.Many2one("faculty.faculty", string="College")
     department = fields.Many2one("department.department", string="Department")
     student = fields.Many2one("level.level", string="Student Type")
-    # year = fields.Many2one("year.year", string="Year")
+    year = fields.Many2one("year.year", string="Year")
     amount = fields.Char("مبلغ الدفع")
     # installment_no = fields.Float("Installment" ,related="level.installment") 
 
@@ -203,7 +203,7 @@ class Payment_Data(models.Model):
     level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
     college = fields.Many2one("faculty.faculty", string="College")
     student = fields.Many2one("level.level", string="Student Type")
-    # year = fields.Many2one("year.year", string="Year", related="partner_id.year")
+    year = fields.Many2one("year.year", string="Year", related="partner_id.year")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     department = fields.Many2one("department.department", string="Department")
 
@@ -292,7 +292,7 @@ class AccountMove(models.Model):
     student = fields.Many2one("level.level", string="Student Type")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     payment_id = fields.Many2one("account.payment", string="payment")
-    # year = fields.Many2one("year.year", string="Year",related="partner_id.year")
+    year = fields.Many2one("year.year", string="Year",related="partner_id.year")
 
     def _check_reconcile_validity(self):
         # Empty self can happen if there is no line to check.
