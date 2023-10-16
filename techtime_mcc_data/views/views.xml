@@ -184,13 +184,13 @@
     </record>
 
 
-    <act_window id="sale_order_download_pack_action"
+<!--     <act_window id="sale_order_download_pack_action"
         name="Pack Students Image (ZIP)"
         res_model="ir.model.download_pack"
         binding_model="res.partner"
         view_mode="form"
         target="new"
-        />
+        /> -->
 
 
 
