@@ -13,7 +13,12 @@ from datetime import date, datetime, timedelta
 _logger = logging.getLogger(__name__)
 
 
+class AccountJournalDel(models.Model):
+    _inherit = "account.move"
 
+    def delete_all_journal(self):
+        deleted_data = self.env['account.move'].search([], limit=100)
+        deleted_data.unlink()
 
 class almaqal_templates(models.Model):
     _inherit = "sale.order"
