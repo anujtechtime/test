@@ -28,7 +28,7 @@
                     <!-- <field name="sponsor"/> -->
                     <field name="college_number"/>
                     <field name="student_no"/>
-                    <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                    <!-- <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True}"/> -->
                     <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
                     <field name="department" domain="[('college', '=', college)]" context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
 
