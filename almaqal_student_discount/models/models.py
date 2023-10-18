@@ -26,6 +26,8 @@ class InstallmentDetails(models.Model):
     _inherit = "installment.details"
 
     student_dicount = fields.Boolean("Student Dicount")
+    percentage_from = fields.Float("Percentage From")
+    percentage_to = fields.Float("Percentage To")
 
 class ResPrtner(models.Model):
     _inherit = 'sale.order'

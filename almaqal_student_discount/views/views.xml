@@ -78,6 +78,8 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='installment']" position="after">
             <field name="student_dicount"/>
+            <field name="percentage_from"/>
+            <field name="percentage_to"/>
         </xpath>
       </field>
     </record>
