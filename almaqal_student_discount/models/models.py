@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-
+from odoo import models, fields, api , _ 
+from odoo.exceptions import UserError, ValidationError
+import logging
+import base64
+from pdf2image import convert_from_path
+from PIL import Image 
+from datetime import date, datetime, timedelta
 
 class almaqal_student_discount(models.Model):
     _name = 'student.grade'
