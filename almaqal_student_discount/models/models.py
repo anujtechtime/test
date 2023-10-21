@@ -57,7 +57,7 @@ class ResPrtner(models.Model):
         print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
         print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
-        instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',self.college.id),('Subject','=',self.partner_id.shift),('year','=',self.year.id),('department','=',self.department.id),('percentage_from','>=',self.partner_id.final_result),('percentage_to','<=',self.partner_id.final_result)])
+        instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.college.id),('Subject','=',result.partner_id.shift),('year','=',result.year.id),('department','=',result.department.id),('percentage_from','>=',result.partner_id.final_result),('percentage_to','<=',result.partner_id.final_result)])
         print("installmet_dat@@@@@@@@@@@@@@@",installmet_dat)
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
@@ -92,10 +92,10 @@ class ResPrtner(models.Model):
         if not failed_student and installmet_dat:
             count = 0
             if instamm_ment_details:
-                self.installment = instamm_ment_details.installment
+                result.installment = instamm_ment_details.installment
                 if instamm_ment_details:
                     for i in instamm_ment_details.sale_installment_line_ids:
-                        sale_installment = self.sale_installment_line_ids.create({
+                        sale_installment = result.sale_installment_line_ids.create({
                             'number' : i.number,
                             'payment_date' : i.payment_date,
                             'amount_installment' : i.amount_installment,
