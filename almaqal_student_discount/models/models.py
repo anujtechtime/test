@@ -8,6 +8,9 @@ from pdf2image import convert_from_path
 from PIL import Image 
 from datetime import date, datetime, timedelta
 
+
+_logger = logging.getLogger(__name__)
+
 class almaqal_student_discount(models.Model):
     _name = 'student.grade'
     _description = 'student.grade'
