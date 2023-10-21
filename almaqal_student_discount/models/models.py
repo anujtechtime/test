@@ -52,7 +52,7 @@ class ResPrtner(models.Model):
 
     @api.model
     def create(self, vals):
-        result = super(almaqal_templates, self).create(vals)
+        result = super(ResPrtner, self).create(vals)
         print("result##############",result)    
         print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
