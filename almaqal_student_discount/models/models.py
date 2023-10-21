@@ -71,7 +71,7 @@ class ResPrtner(models.Model):
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
             # for datts in installmet_dat.sale_installment_line_ids:
             # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
-            result.installment_amount = installmet_dat.installment
+            
             # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
             result.tenure_month = installmet_dat.installment_number
             result.second_payment_date = datetime.today().date()
@@ -101,7 +101,7 @@ class ResPrtner(models.Model):
             count = 0
             _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
             if instamm_ment_details:
-                result.installment = instamm_ment_details.installment
+                result.installment_amount = instamm_ment_details.installment
                 for d in instamm_ment_details.sale_installment_line_ids:
                     _logger.info("dddddddddddddddddddddddddddddd#####**%s" %d)
                     sale_installment = result.sale_installment_line_ids.create({
@@ -113,6 +113,7 @@ class ResPrtner(models.Model):
                         # "invoice_id" : invoice_id.id
                         })
             else:            
+                result.installment_amount = installmet_dat.installment
                 for i in installmet_dat.sale_installment_line_ids:
                     sale_installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
@@ -132,7 +133,7 @@ class ResPrtner(models.Model):
         if self.partner_id:
             # if self.partner_id.shift >=  cgpa.shift and self.partner_id.student_cgpa >=  cgpa.percentage_from and self.partner_id.student_cgpa <=  cgpa.percentage_to:
             instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',self.college.id),('Subject','=',self.partner_id.shift),('year','=',self.year.id),('department','=',self.department.id),('percentage_from','<=',self.partner_id.final_result),('percentage_to','>=',self.partner_id.final_result)])
-            self.installment = instamm_ment_details.installment
+            self.installment_amount = instamm_ment_details.installment
             if instamm_ment_details:
                 for i in instamm_ment_details.sale_installment_line_ids:
                     sale_installment = self.sale_installment_line_ids.create({
