@@ -99,6 +99,7 @@ class ResPrtner(models.Model):
                 })  
         if not failed_student and installmet_dat:
             count = 0
+            _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
             if instamm_ment_details:
                 result.installment = instamm_ment_details.installment
                 if instamm_ment_details:
