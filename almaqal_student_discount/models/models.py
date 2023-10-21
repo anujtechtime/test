@@ -102,16 +102,16 @@ class ResPrtner(models.Model):
             _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
             if instamm_ment_details:
                 result.installment = instamm_ment_details.installment
-                if instamm_ment_details:
-                    for i in instamm_ment_details.sale_installment_line_ids:
-                        sale_installment = result.sale_installment_line_ids.create({
-                            'number' : i.number,
-                            'payment_date' : i.payment_date,
-                            'amount_installment' : i.amount_installment,
-                            'description': 'Installment Payment',
-                            'sale_installment_id' : result.id,
-                            # "invoice_id" : invoice_id.id
-                            })
+                for d in instamm_ment_details.sale_installment_line_ids:
+                    _logger.info("dddddddddddddddddddddddddddddd#####**%s" %d)
+                    sale_installment = result.sale_installment_line_ids.create({
+                        'number' : d.number,
+                        'payment_date' : d.payment_date,
+                        'amount_installment' : d.amount_installment,
+                        'description': 'Installment Payment',
+                        'sale_installment_id' : result.id,
+                        # "invoice_id" : invoice_id.id
+                        })
             else:            
                 for i in installmet_dat.sale_installment_line_ids:
                     sale_installment = result.sale_installment_line_ids.create({
@@ -131,7 +131,7 @@ class ResPrtner(models.Model):
     def _compute_partner_id(self):
         if self.partner_id:
             # if self.partner_id.shift >=  cgpa.shift and self.partner_id.student_cgpa >=  cgpa.percentage_from and self.partner_id.student_cgpa <=  cgpa.percentage_to:
-            instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',self.college.id),('Subject','=',self.partner_id.shift),('year','=',self.year.id),('department','=',self.department.id),('percentage_from','>=',self.partner_id.final_result),('percentage_to','<=',self.partner_id.final_result)])
+            instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',self.college.id),('Subject','=',self.partner_id.shift),('year','=',self.year.id),('department','=',self.department.id),('percentage_from','<=',self.partner_id.final_result),('percentage_to','>=',self.partner_id.final_result)])
             self.installment = instamm_ment_details.installment
             if instamm_ment_details:
                 for i in instamm_ment_details.sale_installment_line_ids:
