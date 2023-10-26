@@ -206,33 +206,6 @@
                         </h1>
 
                     </div>
-                    <group>
-                        <group>
-                            <!-- <field name="number_exam"/> -->
-                            <field name="payment_number"/>
-                            <field name="contact_type"/>
-                            <field name="year_of_graduation"/>
-                            <field name="final_result"/>
-                            <field name="year_of_acceptance_1"/>
-
-                        </group>
-                        <group>
-
-                    <field name="year" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/> 
-                    <field name="college" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
-                    <field name="department" domain="[('college', '=', college)]" context="{'default_college': college}" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
-                    <field name="student_type" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/> 
-                    <field name="shift"/>
-                    <field name="level"/>
-
-                    <field name="data_one" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True, 'no_create' : True}"/>
-
-                    <field name="gender"/>
-                    <field name="year_born"/>
-
-
-                        </group>
-                    </group>
                   </sheet>
                     </form>
             </field>
