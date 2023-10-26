@@ -208,7 +208,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="number_exam"/>
+                            <!-- <field name="number_exam"/> -->
                             <field name="payment_number"/>
                             <field name="contact_type"/>
                             <field name="year_of_graduation"/>
