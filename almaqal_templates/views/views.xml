@@ -225,7 +225,25 @@
 
 
 
-<record id="crm_lead_action_my_activities_view_tree_capwise_lead_new_registration" model="ir.actions.act_window.view">
+
+
+<record id="crm_stage_action_mtalks_config_data_new_registration" model="ir.actions.act_window">
+        <field name="name">view.partner.tree.custom</field>
+            <field name="res_model">res.partner</field>
+        <field name="view_id" ref="almaqal_templates.crm_lead_action_my_activities_tree_ddts_new_registration"/>
+        
+        <!-- <field name="view_id" ref="almaqal_templates.view_partner_form_custom"/> -->
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+    <record id="crm_lead_action_my_activities_view_tree_capwise_lead_new_registration" model="ir.actions.act_window.view">
             <field name="sequence">3</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="almaqal_templates.view_partner_form_custom_new_registration"/>
@@ -245,22 +263,6 @@
             <field name="view_id" ref="base.res_partner_kanban_view"/>
             <field name="act_window_id" ref="almaqal_templates.crm_stage_action_mtalks_config_data_new_registration"/>
         </record>
-
-<record id="crm_stage_action_mtalks_config_data_new_registration" model="ir.actions.act_window">
-        <field name="name">view.partner.tree.custom</field>
-            <field name="res_model">res.partner</field>
-        <field name="view_id" ref="almaqal_templates.crm_lead_action_my_activities_tree_ddts_new_registration"/>
-        
-        <!-- <field name="view_id" ref="almaqal_templates.view_partner_form_custom"/> -->
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-            Set a new stage in your opportunity pipeline
-          </p><p>
-            Stages allow salespersons to easily track how a specific opportunity
-            is positioned in the sales cycle.
-          </p>
-        </field>
-    </record>
 
 
 <!-- <record model="ir.actions.act_window" id="custom_partner_action">
