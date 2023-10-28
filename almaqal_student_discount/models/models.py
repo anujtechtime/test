@@ -155,10 +155,16 @@ class ResPrtner(models.Model):
 class ResPartnerSeq(models.Model):
     _inherit = "res.partner"
 
+    @api.model
+    def create(self, vals):
+        result = super(ResPartnerSeq, self).create(vals)
+
+        return result
+
 
     def add_sequence(self):
         sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
-        shift = 1
+        shift = 1 if self.shift == "morning" else 2
         self.college_number = str(self.year_of_acceptance)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
 
 
