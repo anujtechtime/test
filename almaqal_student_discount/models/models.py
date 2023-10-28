@@ -24,6 +24,7 @@ class InheritData(models.Model):
     _inherit = 'faculty.faculty'
 
     student_discoubt = fields.Many2many("student.grade", string="Student CGPA (Discount)")
+    code = fields.Integer("Code")
 
 class ResPartnerInherit(models.Model):
     _inherit = "res.partner"
@@ -36,6 +37,11 @@ class InstallmentDetails(models.Model):
     student_dicount = fields.Boolean("Student Dicount")
     percentage_from = fields.Float("Percentage From")
     percentage_to = fields.Float("Percentage To")
+
+class InheritData(models.Model):
+    _inherit = 'department.department'
+
+    code = fields.Integer("Code")    
 
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
@@ -144,6 +150,17 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         # "invoice_id" : invoice_id.id
                         })
+
+
+class ResPartnerSeq(models.Model):
+    _inherit = "res.partner"
+
+
+    def add_sequence(self):
+        sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
+        shift = 1
+        self.college_number = str(self.year_of_acceptance)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
+
 
 #     name = fields.Char()
 #     value = fields.Integer()

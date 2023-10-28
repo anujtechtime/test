@@ -67,6 +67,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='college']" position="after">
             <field name="student_discoubt"/>
+            <field name="code"/>
         </xpath>
       </field>
     </record>
@@ -82,6 +83,32 @@
             <field name="percentage_to"/>
         </xpath>
       </field>
+    </record>
+
+
+    <record id="view_sale_order_serach_data_m_department_department" model="ir.ui.view">
+      <field name="name">department.department.form.data</field>
+      <field name="model">department.department</field>
+      <field name="inherit_id" ref="techtime_department.crm_stage_form_symbol_department_data"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='college']" position="after">
+            <field name="code"/>
+        </xpath>
+      </field>
+    </record>
+
+
+            <record id="ir_actions_server_sale_res_partner_data_sbadge" model="ir.actions.server">
+        <field name="name">College Sequence</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.add_sequence()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
     </record>
 
     <!-- actions opening views on models -->
