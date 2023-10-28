@@ -26,10 +26,10 @@ class InheritData(models.Model):
     student_discoubt = fields.Many2many("student.grade", string="Student CGPA (Discount)")
     code = fields.Integer("Code")
 
-class ResPartnerInherit(models.Model):
-    _inherit = "res.partner"
+# class ResPartnerInherit(models.Model):
+#     _inherit = "res.partner"
 
-    student_cgpa = fields.Float("Student CGPA")
+    
 
 class InstallmentDetails(models.Model):
     _inherit = "installment.details"
@@ -38,10 +38,10 @@ class InstallmentDetails(models.Model):
     percentage_from = fields.Float("Percentage From")
     percentage_to = fields.Float("Percentage To")
 
-class InheritData(models.Model):
-    _inherit = 'department.department'
+# class InheritData(models.Model):
+#     _inherit = 'department.department'
 
-    code = fields.Integer("Code")    
+#     code = fields.Integer("Code")    
 
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
@@ -152,20 +152,23 @@ class ResPrtner(models.Model):
                         })
 
 
-class ResPartnerSeq(models.Model):
-    _inherit = "res.partner"
+# class ResPartnerSeq(models.Model):
+#     _inherit = "res.partner"
+#     student_cgpa = fields.Float("Student CGPA")
 
-    @api.model
-    def create(self, vals):
-        result = super(ResPartnerSeq, self).create(vals)
+#     @api.model
+#     def create(self, vals):
+#         result = super(ResPartnerSeq, self).create(vals)
+#         sequence_res = result.env['ir.sequence'].next_by_code('res.sequence')
+#         shift = 1 if result.shift == "morning" else 2
+#         result.college_number = str(result.year_of_acceptance_1.name)[-2:] + str(result.college.code) + str(result.department.code) + str(shift) + str(sequence_res)
+#         return result
 
-        return result
 
-
-    def add_sequence(self):
-        sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
-        shift = 1 if self.shift == "morning" else 2
-        self.college_number = str(self.year_of_acceptance_1.name)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
+#     def add_sequence(self):
+#         sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
+#         shift = 1 if self.shift == "morning" else 2
+#         self.college_number = str(self.year_of_acceptance_1.name)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
 
 
 #     name = fields.Char()
