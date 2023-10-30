@@ -111,6 +111,21 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+    <record id="ir_actions_server_sale_orderdata_sbadge" model="ir.actions.server">
+        <field name="name">Change Order Line amount</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.change_value_for_sale_order_line()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="almaqal_student_discount.action_window">

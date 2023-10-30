@@ -64,6 +64,11 @@ class ResPrtner(models.Model):
     #                         # "invoice_id" : invoice_id.id
     #                         })
 
+    def change_value_for_sale_order_line(self):
+        for lin in self:
+            if lin.order_line:
+                lin.order_line.price_unit = lin.installment_amount
+
     @api.model
     def create(self, vals):
         result = super(ResPrtner, self).create(vals)
