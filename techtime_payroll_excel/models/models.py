@@ -1782,6 +1782,7 @@ class techtime_payroll_excel(models.Model):
                 _logger.info("ffffffffffff************11111111111111#####**%s" %dep)
 
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
+                _logger.info("rested************11111111111111#####**%s" %rested)
 
                 worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
                 worksheet.write(call - 1, 0, dep.name, header_bold)
