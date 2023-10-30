@@ -30,6 +30,8 @@ import requests
 import json
 from odoo import api, fields, models, tools, SUPERUSER_ID
 
+_logger = logging.getLogger(__name__)
+
 class techtime_payrollEmployee(models.Model):
     _inherit = 'hr.employee'
 
@@ -1776,6 +1778,9 @@ class techtime_payroll_excel(models.Model):
                 print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
 
                 # rested = self.env['hr.payslip'].search([('department','=',dep.id)])
+                _logger.info("dddddd************11111111111111#####**%s" %self)
+                _logger.info("ffffffffffff************11111111111111#####**%s" %dep)
+
                 rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
 
                 worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
