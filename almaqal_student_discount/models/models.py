@@ -178,6 +178,25 @@ class ResPartnerSeq(models.Model):
         self.college_number = str(self.year_of_acceptance_1.name)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
 
 
+
+class PaymentValue(models.Model):
+    _inherit = "account.payment"
+
+    
+    def change_the_value_department(self):
+        _logger.info("self************11111111111111#####**%s" %self)
+        for ddtt in self:
+            if ddtt.partner_id:
+                _logger.info("ddtt.partner_id************11111111111111#####**%s" %ddtt.partner_id)
+                ddtt.update({
+                    "college" : ddtt.partner_id.college.id if ddtt.partner_id.college else False,
+                    "student" : ddtt.partner_id.student_type.id if ddtt.partner_id.student_type else False,
+                    "department" : ddtt.partner_id.department.id if ddtt.partner_id.department else False,
+                    "Subject" : ddtt.partner_id.shift if ddtt.partner_id.shift else False,
+                    "level" : ddtt.partner_id.level if ddtt.partner_id.level else False,
+                    "year" : ddtt.partner_id.year if ddtt.partner_id.year else False,
+                    })     
+
 #     name = fields.Char()
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)

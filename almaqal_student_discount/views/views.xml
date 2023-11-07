@@ -28,6 +28,19 @@
         </field>
     </record>
 
+    <record id="ir_actions_server_add_the_value_to_payment" model="ir.actions.server">
+        <field name="name">Add All the Value</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_payment"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.change_the_value_department()
+        </field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
     <record id="crm_stage_form_symbol_student_grade" model="ir.ui.view">
         <field name="name">student.grade.form</field>
         <field name="model">student.grade</field>
