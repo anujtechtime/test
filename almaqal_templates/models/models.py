@@ -312,12 +312,12 @@ class Techtest(models.Model):
        # res.name_english = translated_text.text
        return res  
 
-    @api.onchange('name')
-    def _onchange_name(self):
-        for sstd in self:
-            if sstd.name:
-                text = sstd.name
-                print("text###############",text)
-                translator = Translator()
-                translated_text = translator.translate(text, src='ar', dest='en')
-                sstd.name_english = translated_text.text
+    # @api.onchange('name')
+    # def _onchange_name(self):
+    #     for sstd in self:
+    #         if sstd.name:
+    #             text = sstd.name
+    #             print("text###############",text)
+    #             translator = Translator()
+    #             translated_text = translator.translate(text, src='ar', dest='en')
+    #             sstd.name_english = translated_text.text
