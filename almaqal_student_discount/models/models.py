@@ -214,7 +214,6 @@ class DataInherit(models.Model):
                     "level" : sale_order_data.level if sale_order_data.level else False,
                     "year" : sale_order_data.year if sale_order_data.year else False,
                     })     
-    invoice_origin
 #     name = fields.Char()
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
