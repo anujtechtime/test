@@ -197,6 +197,24 @@ class PaymentValue(models.Model):
                     "year" : ddtt.partner_id.year if ddtt.partner_id.year else False,
                     })     
 
+
+class DataInherit(models.Model):
+    _inherit = "account.move"
+
+    def change_the_value_using_sale_order(self):
+        for ddtt in self:
+            sale_order_data = self.env['sale.order'].search([("name",'=',ddtt.invoice_origin)])
+            if sale_order_data:
+                _logger.info("ddtt.partner_id************11111111111111#####**%s" %ddtt.partner_id)
+                ddtt.update({
+                    "college" : sale_order_data.college.id if sale_order_data.college else False,
+                    "student" : sale_order_data.student.id if sale_order_data.student else False,
+                    "department" : sale_order_data.department.id if sale_order_data.department else False,
+                    "Subject" : sale_order_data.Subject if sale_order_data.Subject else False,
+                    "level" : sale_order_data.level if sale_order_data.level else False,
+                    "year" : sale_order_data.year if sale_order_data.year else False,
+                    })     
+    invoice_origin
 #     name = fields.Char()
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
