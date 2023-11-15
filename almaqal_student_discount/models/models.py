@@ -173,9 +173,10 @@ class ResPartnerSeq(models.Model):
 
 
     def add_sequence(self):
-        sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
-        shift = 1 if self.shift == "morning" else 2
-        self.college_number = str(self.year_of_acceptance_1.name)[-2:] + str(self.college.code) + str(self.department.code) + str(shift) + str(sequence_res)
+        for sstd in self:
+            sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
+            shift = 1 if sstd.shift == "morning" else 2
+            sstd.college_number = str(sstd.year_of_acceptance_1.name)[-2:] + str(sstd.college.code) + str(sstd.department.code) + str(shift) + str(sequence_res)
 
 
 
