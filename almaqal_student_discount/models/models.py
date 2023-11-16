@@ -194,7 +194,7 @@ class ResPartnerSeq(models.Model):
 class PaymentValue(models.Model):
     _inherit = "account.payment"
  
-    boolean_data = fields.Boolean("رسوم هوية")
+    # boolean_data = fields.Boolean("رسوم هوية")
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
