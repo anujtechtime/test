@@ -292,7 +292,7 @@ class AccountMove(models.Model):
     student = fields.Many2one("level.level", string="Student Type")
     Subject = fields.Selection([('morning','صباحي'),('afternoon','مسائي')], string="Shift")
     payment_id = fields.Many2one("account.payment", string="payment")
-    year = fields.Many2one("year.year", string="Year")
+    year = fields.Many2one("year.year", string="Year",related="partner_id.year")
 
     def _check_reconcile_validity(self):
         # Empty self can happen if there is no line to check.
