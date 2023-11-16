@@ -42,7 +42,7 @@ class InheritData(models.Model):
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
 
-    final_result = fields.Char("CGPA")
+    final_result = fields.Char("CGPA", related="partner_id.final_result")
     data_one = fields.Many2one("new.work", string="نافذة القبول")
 
     # @api.onchange('partner_id')
