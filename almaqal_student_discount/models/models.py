@@ -110,6 +110,9 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         # "invoice_id" : invoice_id.id
                         })
+                    if count == 0:
+                        result.amount = d.amount_installment
+                        count = count + 1
             else:            
                 result.installment_amount = installmet_dat.installment
                 for i in installmet_dat.sale_installment_line_ids:
@@ -121,7 +124,9 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         # "invoice_id" : invoice_id.id
                         })
-                    count = count + 1          
+                    if count == 0:
+                        result.amount = d.amount_installment
+                        count = count + 1        
 
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
@@ -139,6 +144,9 @@ class ResPrtner(models.Model):
                 'order_id': result._origin.id,
                 'name': 'sales order line',
             })
+            if count == 0:
+                result.amount = d.amount_installment
+                count = count + 1
 
         return result
 
