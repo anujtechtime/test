@@ -111,7 +111,7 @@ class ResPrtner(models.Model):
                         # "invoice_id" : invoice_id.id
                         })
                     if count == 0:
-                        result.amount = d.amount_installment
+                        result.amount = ('{:,}'.format(d.amount_installment))
                         count = count + 1
             else:            
                 result.installment_amount = installmet_dat.installment
@@ -125,7 +125,7 @@ class ResPrtner(models.Model):
                         # "invoice_id" : invoice_id.id
                         })
                     if count == 0:
-                        result.amount = i.amount_installment
+                        result.amount = ('{:,}'.format(i.amount_installment))
                         count = count + 1        
 
         if installmet_dat:
