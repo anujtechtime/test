@@ -79,7 +79,7 @@ class ResPrtner(models.Model):
         print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
         print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
-        instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
+        instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
         print("installmet_dat@@@@@@@@@@@@@@@",installmet_dat)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         print("failed_student@@@@@@@@@@@@@@@@",failed_student)
