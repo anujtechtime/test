@@ -26,10 +26,6 @@ class InheritData(models.Model):
     student_discoubt = fields.Many2many("student.grade", string="Student CGPA (Discount)")
     code = fields.Integer("Code")
 
-# class ResPartnerInherit(models.Model):
-#     _inherit = "res.partner"
-
-    
 
 class InstallmentDetails(models.Model):
     _inherit = "installment.details"
@@ -47,7 +43,7 @@ class ResPrtner(models.Model):
     _inherit = 'sale.order'
 
     final_result = fields.Char("CGPA", related="partner_id.final_result")
-    # data_one = fields.Many2one("new.work", string="نافذة القبول", related="partner_id.data_one")
+    data_one = fields.Many2one("new.work", string="نافذة القبول", related="partner_id.data_one")
 
     # @api.onchange('partner_id')
     # def _compute_partner_id(self):
@@ -171,6 +167,7 @@ class ResPrtner(models.Model):
 
 class ResPartnerSeq(models.Model):
     _inherit = "res.partner"
+
     student_cgpa = fields.Float("Student CGPA")
 
     @api.model
@@ -194,7 +191,7 @@ class ResPartnerSeq(models.Model):
 class PaymentValue(models.Model):
     _inherit = "account.payment"
  
-    # boolean_data = fields.Boolean("رسوم هوية")
+    boolean_data = fields.Boolean("رسوم هوية")
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
