@@ -125,7 +125,7 @@ class ResPrtner(models.Model):
                         # "invoice_id" : invoice_id.id
                         })
                     if count == 0:
-                        result.amount = d.amount_installment
+                        result.amount = i.amount_installment
                         count = count + 1        
 
         if installmet_dat:
@@ -144,9 +144,9 @@ class ResPrtner(models.Model):
                 'order_id': result._origin.id,
                 'name': 'sales order line',
             })
-            if count == 0:
-                result.amount = d.amount_installment
-                count = count + 1
+            # if count == 0:
+            #     result.amount = d.amount_installment
+            #     count = count + 1
 
         return result
 
