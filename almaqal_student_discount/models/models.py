@@ -51,6 +51,7 @@ class ResPrtner(models.Model):
         for result in self:
             instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
             print("instamm_ment_details@@@@@@@@@@@@@@@@",instamm_ment_details)
+            product_id = self.env["product.product"].search([("id",'=',3)])
             journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             count = 0
             invoice_vals = {
@@ -75,10 +76,10 @@ class ResPrtner(models.Model):
                 'invoice_payment_ref': result.reference,
                 'transaction_ids': [(6, 0, result.transaction_ids.ids)],
                 'invoice_line_ids': [(0, 0, {
-                    'name': instamm_ment_details.product_id.name,
-                    'price_unit': instamm_ment_details.product_id.lst_price,
+                    'name': product_id.name,
+                    'price_unit': product_id.lst_price,
                     'quantity': 1.0,
-                    'product_id': instamm_ment_details.product_id.id,
+                    'product_id': product_id.id,
                     # 'tax_ids': [(6, 0, self.order_line.tax_id.ids)],
                     'analytic_account_id': result.analytic_account_id.id or False,
                 })],
