@@ -28,6 +28,34 @@
         </field>
     </record>
 
+    <record id="ir_actions_server_add_the_value_to_payment" model="ir.actions.server">
+        <field name="name">Add All the Value</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_payment"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.change_the_value_department()
+        </field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="ir_actions_server_add_the_value_to_invooce" model="ir.actions.server">
+        <field name="name">Change invoice value using sale order</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.change_the_value_using_sale_order()
+        </field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    
+
     <record id="crm_stage_form_symbol_student_grade" model="ir.ui.view">
         <field name="name">student.grade.form</field>
         <field name="model">student.grade</field>
@@ -81,9 +109,38 @@
             <field name="student_dicount"/>
             <field name="percentage_from"/>
             <field name="percentage_to"/>
+            <field name="product_id"/>
         </xpath>
       </field>
     </record>
+
+        <record id="view_account_payment_form_inherited_data_m" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="boolean_data"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_sale_order_form_inherited_data_m" model="ir.ui.view">
+            <field name="name">sale.order.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_draft']" position="after">
+                    <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="final_result"/>
+                    <field name="data_one"/>
+                </xpath>
+            </field>
+        </record>
 
 
     <record id="view_sale_order_serach_data_m_department_department" model="ir.ui.view">
@@ -110,6 +167,21 @@
         <field name="binding_model_id" ref="base.model_res_partner"/>
         <field name="binding_view_types">list,form</field>
     </record>
+
+    <record id="ir_actions_server_sale_orderdata_sbadge" model="ir.actions.server">
+        <field name="name">Change Order Line amount</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.change_value_for_sale_order_line()
+        </field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    
 
     <!-- actions opening views on models -->
 <!--
