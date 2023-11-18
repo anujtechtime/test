@@ -130,6 +130,10 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_draft']" position="after">
+                    <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('invoice_count', '>', 3)]}" states="sent,sale"/>
+                </xpath>
+
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="final_result"/>
                     <field name="data_one"/>

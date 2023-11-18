@@ -45,6 +45,80 @@ class ResPrtner(models.Model):
     final_result = fields.Char("CGPA", related="partner_id.final_result")
     data_one = fields.Many2one("new.work", string="نافذة القبول")
 
+
+    def action_create_badge_invoice(self):
+        for result in self:
+            instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
+            print("instamm_ment_details@@@@@@@@@@@@@@@@",instamm_ment_details)
+            product_id = self.env["product.product"].search([("id",'=',3)])
+            journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
+            count = 0
+            invoice_vals = {
+                'ref': result.client_order_ref or '',
+                'type': 'out_invoice',
+                'narration': result.note,
+                'invoice_date': result.second_payment_date,
+                'invoice_date_due' : result.date_order,
+                'currency_id': result.pricelist_id.currency_id.id,
+                'campaign_id': result.campaign_id.id,
+                'medium_id': result.medium_id.id,
+                'source_id': result.source_id.id,
+                'invoice_user_id': result.user_id and result.user_id.id,
+                'team_id': result.team_id.id,
+                'partner_id': result.partner_invoice_id.id,
+                'partner_shipping_id': result.partner_shipping_id.id,
+                'invoice_partner_bank_id': result.company_id.partner_id.bank_ids[:1].id,
+                'fiscal_position_id': result.fiscal_position_id.id or result.partner_invoice_id.property_account_position_id.id,
+                'journal_id': journal.id,  # company comes from the journal
+                'invoice_origin': result.name,
+                'invoice_payment_term_id': result.payment_term_id.id,
+                'invoice_payment_ref': result.reference,
+                'transaction_ids': [(6, 0, result.transaction_ids.ids)],
+                'invoice_line_ids': [(0, 0, {
+                    'name': product_id.name,
+                    'price_unit': product_id.lst_price,
+                    'quantity': 1.0,
+                    'product_id': product_id.id,
+                    # 'tax_ids': [(6, 0, self.order_line.tax_id.ids)],
+                    'analytic_account_id': result.analytic_account_id.id or False,
+                })],
+                'company_id': result.company_id.id,
+                'sponsor' : result.sponsor.id,
+            } 
+            count = count + 1
+
+            invoice_id = self.env['account.move'].create(invoice_vals)
+            invoice_id.action_post()
+            # i.invoice_id = invoice_id.id
+            # print("invoice_id##############",invoice_id)
+
+            # account_invoice_line  = self.env['account.move.line'].with_context(
+            #     check_move_validity=False).create({
+            #     'name': self.order_line.product_id.name,
+            #     'price_unit': self.payable_amount,
+            #     'quantity': 1.0,
+            #     'discount': 0.0,
+            #     'journal_id': journal.id,
+            #     'product_id': self.order_line.product_id.id,
+            #     'analytic_account_id': self.analytic_account_id.id,
+            #     'account_id': self.partner_invoice_id.property_account_receivable_id.id,
+            #     'move_id': invoice_id.id,
+            #     })
+            # for order in self:
+            #     order.order_line.update({
+            #         'invoice_lines' : [(4, account_invoice_line.id)]
+            #         })
+
+            result.order_line.update({
+                'invoice_lines' : [(4, invoice_id.invoice_line_ids.id)]
+                })
+
+
+            # result.write({
+            #     "invoice_id" : invoice_id.id,
+            # })
+        return True
+
     # @api.onchange('partner_id')
     # def _compute_partner_id(self):
     #     print("college################eeeeeeeeeeeeeeee",self.college.student_discoubt) 
