@@ -145,9 +145,12 @@ class DbBackup(models.Model):
 
             s3_client = boto3.client('s3')
             try:
+                _logger.info('(Part of the) path didn\'t exist. Creating it now at ' + str(file_path))
                 response = s3_client.upload_file(file_path, 'database.backup.erp-techtime', bkp_file)
+
                 print("response@@@@@@@@@@@@@@@@@@@",response)
             except ClientError as e:
+                _logger.info('(Part of the) 3333333333333333333333333 ' + str(file_path))
                 logging.error(e)
                 return False    
             if rec.autoremove:
