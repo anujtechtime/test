@@ -109,7 +109,6 @@
             <field name="student_dicount"/>
             <field name="percentage_from"/>
             <field name="percentage_to"/>
-            <field name="product_id"/>
         </xpath>
       </field>
     </record>
@@ -132,12 +131,17 @@
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_draft']" position="after">
-                    <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('invoice_count', '>', 3)]}"/>
+                    <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('invoice_count', '!=', 3)]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_draft']" position="before">
+                    <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('installment_amount', '!=',0)('invoice_count', '!=', 0)]}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="final_result"/>
                     <field name="data_one"/>
+                    <field name="show_invoice_button"/>
                 </xpath>
             </field>
         </record>
