@@ -134,9 +134,9 @@
                     <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('invoice_count', '!=', 3)]}"/>
                 </xpath>
 
-                <xpath expr="//button[@name='action_draft']" position="before">
+<!--                 <xpath expr="//button[@name='action_draft']" position="before">
                     <button name="action_create_badge_invoice" type="object" string="انشاء فاتورة الهوية" attrs="{'invisible': [('installment_amount', '!=',0)('invoice_count', '!=', 0)]}"/>
-                </xpath>
+                </xpath> -->
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="final_result"/>
