@@ -42,9 +42,20 @@ class InheritData(models.Model):
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
 
-    final_result = fields.Char("CGPA", related="partner_id.final_result")
+    final_result = fields.Char("CGPA", compute="_data_for_final_result")
     data_one = fields.Many2one("new.work", string="نافذة القبول")
+    show_invoice_button = fields.Boolean("Show Invoive Button")
 
+    def _data_for_final_result(self):
+        for final in self:
+            if final.partner_id:
+                final.final_result = final.partner_id.final_result
+                final.data_one = final.partner_id.data_one
+
+    def action_installment_invoice(self):
+        result = super(ResPrtner, self).action_installment_invoice()
+        result.show_invoice_button = False
+        return result
 
     def action_create_badge_invoice(self):
         for result in self:
@@ -85,6 +96,8 @@ class ResPrtner(models.Model):
                 'company_id': result.company_id.id,
                 'sponsor' : result.sponsor.id,
             } 
+
+            result.show_invoice_button = True
             count = count + 1
 
             invoice_id = self.env['account.move'].create(invoice_vals)
