@@ -54,7 +54,7 @@ class ResPrtner(models.Model):
 
     def action_installment_invoice(self):
         result = super(ResPrtner, self).action_installment_invoice()
-        result.show_invoice_button = False
+        result.show_invoice_button = True
         return result
 
     def action_create_badge_invoice(self):
@@ -97,7 +97,7 @@ class ResPrtner(models.Model):
                 'sponsor' : result.sponsor.id,
             } 
 
-            result.show_invoice_button = True
+            result.show_invoice_button = False
             count = count + 1
 
             invoice_id = self.env['account.move'].create(invoice_vals)
