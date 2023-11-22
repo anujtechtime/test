@@ -54,7 +54,7 @@ class ResPrtner(models.Model):
 
     def action_installment_invoice(self):
         result = super(ResPrtner, self).action_installment_invoice()
-        result.show_invoice_button = True
+        self.show_invoice_button = True
         return result
 
     def action_create_badge_invoice(self):
