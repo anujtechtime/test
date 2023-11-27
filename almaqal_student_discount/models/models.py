@@ -271,11 +271,10 @@ class ResPartnerSeq(models.Model):
     student_cgpa = fields.Float("Student CGPA")
 
     def action_done_show_wizard_exipire(self):
-        for ddtsh in self:
-            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
-            if payment_first:
-                ddtsh.payment_number = payment_first.id
-                print("payment_first#################",payment_first)
+        # for ddtsh in self:
+        #     payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
+        #     if payment_first:
+        #         ddtsh.payment_number = payment_first.id
         print("self._context##################",self._context.get("active_ids"))
         return {'type': 'ir.actions.act_window',
         'name': _('Change the Expiration Date'),
