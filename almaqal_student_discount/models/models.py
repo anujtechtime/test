@@ -252,10 +252,39 @@ class ResPrtner(models.Model):
                         })
 
 
+class DataLevelValue(models.TransientModel):
+    _name = 'exipire.value'
+   
+    date = fields.Date(string="Date")
+
+
+    def action_confirm_change_exipire(self):
+        for idds in self._context.get("active_id"):
+            levels_sale_order = self.env["res.partner"].browse(int(idds))
+            levels_sale_order.date_of_expiration = self.date
+
+
+
 class ResPartnerSeq(models.Model):
     _inherit = "res.partner"
 
     student_cgpa = fields.Float("Student CGPA")
+
+    def action_done_show_wizard_exipire(self):
+        for ddtsh in self:
+            payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
+            if payment_first:
+                ddtsh.payment_number = payment_first.id
+                print("payment_first#################",payment_first)
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Expiration Date'),
+        'res_model': 'exipire.value',
+        'target': 'new',
+        'view_id': self.env.ref('almaqal_student_discount.view_any_name_form_level_exipire').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }    
 
     @api.model
     def create(self, vals):
