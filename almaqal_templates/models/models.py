@@ -145,7 +145,7 @@ class Techtest(models.Model):
     date_of_expiration = fields.Date("Date Of  Expiration")
     image_stuent = fields.Binary("Image Student badge")
 
-    @api.onchange('date_of_expiration','batch_number', 'name_english','name', 'college','level','image_1920','year_born','batch_number')
+    @api.onchange('date_of_expiration','batch_number', 'name_english','name', 'college','level','year_born','batch_number')
     def _onchange_year_born(self):
         if self.date_of_expiration and self.batch_number and self.name_english and self.name and self.college and self.level and self.image_1920 and self.year_born and self.batch_number:
             print_report = self.env.ref('almaqal_templates.report_payment_receipt_student_batch_data').sudo().render_qweb_pdf(self.ids)
