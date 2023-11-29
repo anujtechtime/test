@@ -321,7 +321,7 @@ class PaymentValue(models.Model):
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
-        worksheet = wb.add_sheet(string, cell_overwrite_ok=True)
+        worksheet = wb.add_sheet(string)
         worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
@@ -409,10 +409,7 @@ class PaymentValue(models.Model):
                     worksheet.write(row, 0, count)
 
                     worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
-                    if name != rest.name:
-                        worksheet.write(row, 2, rest.name)
-                    else:
-                        worksheet.write_merge(row, row - 1, 2, 2, rest.name, header_bold)
+                    worksheet.write(row, 2, rest.name if name != rest.name else " ")
 
                     name = rest.name
 
