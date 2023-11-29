@@ -387,6 +387,7 @@ class PaymentValue(models.Model):
         total_of_amount_with_account_4395 = 0
         total_of_amount_with_account_4351 = 0
         date_check = ""
+        name = ''
         for rest in self:
             if rest.state == "cancelled":
                 worksheet.write(row, 0, count,main_cell_total)
@@ -397,24 +398,26 @@ class PaymentValue(models.Model):
                 worksheet.write(row, 4, '', main_cell_total)
                 worksheet.write(row, 5, '', main_cell_total)
                 worksheet.write(row, 6, "ملغي", main_cell_total)
-                tota_of_amount = tota_of_amount + int(rest.amount)
+                # tota_of_amount = tota_of_amount + int(inv.amount_total)
                 row = row + 1
                 date_check = rest.payment_date
                 count = count + 1
 
             for inv in rest.reconciled_invoice_ids:
-
                 if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
                     print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
                     worksheet.write(row, 0, count)
 
                     worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
-                    worksheet.write(row, 2, rest.name)
+                    worksheet.write(row, 2, rest.name if name != rest.name else " ")
+
+                    name = rest.name
+
                     worksheet.write(row, 3, rest.partner_id.name)
-                    worksheet.write(row, 4, '{:,}'.format(int(rest.amount)))
+                    worksheet.write(row, 4, '{:,}'.format(int(inv.amount_total)))
                     worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
                     worksheet.write(row, 6, 'مرحل')
-                    tota_of_amount = tota_of_amount + int(rest.amount)
+                    tota_of_amount = tota_of_amount + int(inv.amount_total)
                     row = row + 1
                     date_check = rest.payment_date
                     count = count + 1
@@ -428,9 +431,9 @@ class PaymentValue(models.Model):
                     count = 1
 
                 if inv.invoice_line_ids.account_id.code == "4395":
-                    total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(rest.amount)
+                    total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(inv.amount_total)
                 if inv.invoice_line_ids.account_id.code == "4351":
-                    total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(rest.amount)
+                    total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
 
         worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
         worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)))
