@@ -277,6 +277,46 @@ class ResPartnerSeq(models.Model):
 
     student_cgpa = fields.Float("Student CGPA")
 
+    
+
+    def action_done_show_wizard_exipire(self):
+        # for ddtsh in self:
+        #     payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
+        #     if payment_first:
+        #         ddtsh.payment_number = payment_first.id
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Expiration Date'),
+        'res_model': 'exipire.value',
+        'target': 'new',
+        'view_id': self.env.ref('almaqal_student_discount.view_any_name_form_level_exipire').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }    
+
+    @api.model
+    def create(self, vals):
+        result = super(ResPartnerSeq, self).create(vals)
+        if result.college and result.year_of_acceptance_1 and result.department: 
+            sequence_res = result.env['ir.sequence'].next_by_code('res.sequence')
+            shift = 1 if result.shift == "morning" else 2
+            result.college_number = str(result.year_of_acceptance_1.name)[-2:] + str(result.college.code) + str(result.department.code) + str(shift) + str(sequence_res)
+        return result
+
+
+    def add_sequence(self):
+        for sstd in self:
+            sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
+            shift = 1 if sstd.shift == "morning" else 2
+            sstd.college_number = str(sstd.year_of_acceptance_1.name)[-2:] + str(sstd.college.code) + str(sstd.department.code) + str(shift) + str(sequence_res)
+
+
+
+class PaymentValue(models.Model):
+    _inherit = "account.payment"
+ 
+    boolean_data = fields.Boolean("رسوم هوية")
+
     def excel_for_payemnt_records(self):  
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
@@ -434,44 +474,6 @@ class ResPartnerSeq(models.Model):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }
-
-    def action_done_show_wizard_exipire(self):
-        # for ddtsh in self:
-        #     payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
-        #     if payment_first:
-        #         ddtsh.payment_number = payment_first.id
-        print("self._context##################",self._context.get("active_ids"))
-        return {'type': 'ir.actions.act_window',
-        'name': _('Change the Expiration Date'),
-        'res_model': 'exipire.value',
-        'target': 'new',
-        'view_id': self.env.ref('almaqal_student_discount.view_any_name_form_level_exipire').id,
-        'view_mode': 'form',
-        'context': {"active_id" : self._context.get("active_ids")}
-        }    
-
-    @api.model
-    def create(self, vals):
-        result = super(ResPartnerSeq, self).create(vals)
-        if result.college and result.year_of_acceptance_1 and result.department: 
-            sequence_res = result.env['ir.sequence'].next_by_code('res.sequence')
-            shift = 1 if result.shift == "morning" else 2
-            result.college_number = str(result.year_of_acceptance_1.name)[-2:] + str(result.college.code) + str(result.department.code) + str(shift) + str(sequence_res)
-        return result
-
-
-    def add_sequence(self):
-        for sstd in self:
-            sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
-            shift = 1 if sstd.shift == "morning" else 2
-            sstd.college_number = str(sstd.year_of_acceptance_1.name)[-2:] + str(sstd.college.code) + str(sstd.department.code) + str(shift) + str(sequence_res)
-
-
-
-class PaymentValue(models.Model):
-    _inherit = "account.payment"
- 
-    boolean_data = fields.Boolean("رسوم هوية")
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
