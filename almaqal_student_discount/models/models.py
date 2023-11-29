@@ -9,6 +9,13 @@ from PIL import Image
 from datetime import date, datetime, timedelta
 
 
+import base64
+import xlwt
+import io
+from lxml import etree
+from datetime import date, datetime, timedelta
+import html2text
+
 _logger = logging.getLogger(__name__)
 
 class almaqal_student_discount(models.Model):
@@ -269,6 +276,164 @@ class ResPartnerSeq(models.Model):
     _inherit = "res.partner"
 
     student_cgpa = fields.Float("Student CGPA")
+
+    def excel_for_payemnt_records(self):  
+        filename = 'جدول الاحصاء الصباحي.xls'
+        string = 'جدول الاحصاء الصباحي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string)
+        worksheet.cols_right_to_left = True
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        # worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        worksheet.col(1).width = 5000
+        worksheet.col(2).width = 5000
+        worksheet.col(3).width = 5000
+        worksheet.col(4).width = 5000
+        worksheet.col(5).width = 5000
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+
+        row = 0
+        col = 2
+        count = 1
+        
+        worksheet.write(row, 0, 'التسلسل', header_bold) #sequence
+        worksheet.write(row, 1, 'التاريخ', header_bold) #payment date
+        worksheet.write(row, 2, 'رقم الوصل', header_bold) #payment number
+        worksheet.write(row, 3, 'الاسم', header_bold) # Student Name
+        worksheet.write(row, 4, 'المبلغ', header_bold) # total amout
+        worksheet.write(row, 5, 'رقم الحساب', header_bold) # Account/invoice lines
+        worksheet.write(row, 6, 'الحالة', header_bold) # Status
+
+        row = 1
+
+        # print("selfWWWWWWWWWWWWWWWWWWWWWW",self.read_group([], ['payment_date'], ['payment_date']))
+        # groups = self.read_group([], ['payment_date'], ['payment_date'])
+        # for group in groups:
+        #     print('>>>>>>', group)
+        tota_of_amount = 0 
+        total_of_amount_with_account_4395 = 0
+        total_of_amount_with_account_4351 = 0
+        date_check = ""
+        for rest in self:
+            if rest.state == "cancelled":
+                worksheet.write(row, 0, count,main_cell_total)
+
+                worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
+                worksheet.write(row, 2, rest.name,main_cell_total)
+                worksheet.write(row, 3, rest.partner_id.name , main_cell_total)
+                worksheet.write(row, 4, '', main_cell_total)
+                worksheet.write(row, 5, '', main_cell_total)
+                worksheet.write(row, 6, "ملغي", main_cell_total)
+                tota_of_amount = tota_of_amount + int(rest.amount)
+                row = row + 1
+                date_check = rest.payment_date
+                count = count + 1
+
+            for inv in rest.reconciled_invoice_ids:
+
+                if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
+                    print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
+                    worksheet.write(row, 0, count)
+
+                    worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                    worksheet.write(row, 2, rest.name)
+                    worksheet.write(row, 3, rest.partner_id.name)
+                    worksheet.write(row, 4, '{:,}'.format(int(rest.amount)))
+                    worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
+                    worksheet.write(row, 6, 'مرحل')
+                    tota_of_amount = tota_of_amount + int(rest.amount)
+                    row = row + 1
+                    date_check = rest.payment_date
+                    count = count + 1
+                # if rest.payment_date !=  date_check or date_check != "" 
+                else:
+                    worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
+                    worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)),header_bold)
+                    tota_of_amount = 0
+                    row = row + 2
+                    date_check = ""
+                    count = 1
+
+                if inv.invoice_line_ids.account_id.code == "4395":
+                    total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(rest.amount)
+                if inv.invoice_line_ids.account_id.code == "4351":
+                    total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(rest.amount)
+
+        worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
+        worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)))
+
+        row = row + 4
+
+        worksheet.write_merge(row, row, 0, 3, "ايراد خدمات تعليمية 4351", main_cell_total_of_total)
+
+        worksheet.write_merge(row + 1, row + 1, 0, 3, "أيراد رسوم اخرى 4395", main_cell_total_of_total)
+
+
+        worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
+        worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
+                        
+
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
 
     def action_done_show_wizard_exipire(self):
         # for ddtsh in self:
