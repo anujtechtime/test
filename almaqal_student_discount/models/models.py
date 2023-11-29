@@ -409,7 +409,10 @@ class PaymentValue(models.Model):
                     worksheet.write(row, 0, count)
 
                     worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
-                    worksheet.write(row, 2, rest.name if name != rest.name else " ")
+                    if name != rest.name:
+                        worksheet.write(row, 2, rest.name)
+                    else:
+                        worksheet.write_merge(row, row - 1, 2, 2, rest.name, header_bold)
 
                     name = rest.name
 
