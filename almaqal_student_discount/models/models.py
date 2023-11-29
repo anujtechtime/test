@@ -321,7 +321,7 @@ class PaymentValue(models.Model):
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
-        worksheet = wb.add_sheet(string)
+        worksheet = wb.add_sheet(string, , cell_overwrite_ok=True)
         worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
