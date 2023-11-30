@@ -414,7 +414,7 @@ class PaymentValue(models.Model):
                     if name != rest.name:
                         worksheet.write(row, 2, rest.name)
                     else:
-                        worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
+                        worksheet.write_merge(row - 1, row, 2, 2, rest.name)
 
                     name = rest.name
 
