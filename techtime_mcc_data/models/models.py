@@ -227,6 +227,9 @@ class DataMphine(models.Model):
         worksheet.write(row, 6, 'الرقم الجامعي', header_bold)
 
         worksheet.write(row, 7, 'RFID', header_bold)
+
+        worksheet.write(row, 8, 'رقم الهوية', header_bold)
+
         row = row + 1
         for lev in  level_data:
             for shift in shift_data:
@@ -290,6 +293,8 @@ class DataMphine(models.Model):
 
                     worksheet.write(row, 6, res_partner.college_number or '', main_cell_total)
                     worksheet.write(row, 7, res_partner.rfid or '', main_cell_total)
+
+                    worksheet.write(row, 8, res_partner.batch_number or '', main_cell_total)
                     row = row + 1
                 # row = row + 1
 
