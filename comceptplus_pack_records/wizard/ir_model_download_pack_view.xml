@@ -9,7 +9,7 @@
                 <field name="comment" readonly="1"/>
                 <footer>
                     <button name="pack_act_getfile" type="object"
-                        string="تحميل الصورة برقم الهوية" class="oe_highlight"/>
+                        string="تحميل الصورة برقم" class="oe_highlight"/>
                     <button name="pack_act_getfile_batch_id" type="object"
                         string="تحميل الصورة برقم الهوية" class="oe_highlight"/>
                         
