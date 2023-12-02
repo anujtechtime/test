@@ -193,7 +193,7 @@ class DataMphine(models.Model):
                               left thin, right thin, top thin, bottom thin;\
                      pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
         
-        
+        status_yu = ""
 
         row = 1
         call = 1
