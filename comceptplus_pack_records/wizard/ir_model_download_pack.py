@@ -452,7 +452,7 @@ class ModelDownloadPack(models.TransientModel):
 
     def _get_comment(self):
         rec_ids = self.pack_find_candidates()
-        if rec_ids:cron_name
+        if rec_ids:
             files = self.env['ir.attachment'].search([
                                                 ('res_model','=',self._context['active_model']),
                                                 ('res_id','in',[x.id for x in rec_ids])
