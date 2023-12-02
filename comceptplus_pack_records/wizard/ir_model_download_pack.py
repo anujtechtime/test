@@ -345,7 +345,7 @@ class ModelDownloadPack(models.TransientModel):
                                 'res_model': self._context['active_model'],
                                 'res_id' : rec.id,
                                 'datas' : data_in.image_1920,
-                                'name': str(att1.batch) + "." + str(extension),
+                                'name': str(att1.batch_number) + "." + str(extension),
                                 })
 
                             try:
