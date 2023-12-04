@@ -207,6 +207,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='college']" position="after">
             <field name="code"/>
+            <field name="active_report"/>
         </xpath>
       </field>
     </record>

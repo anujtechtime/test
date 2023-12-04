@@ -45,6 +45,7 @@ class InheritData(models.Model):
     _inherit = 'department.department'
 
     code = fields.Integer("Code")    
+    active_report = fields.Boolean("Show In Report", default=False)
 
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
