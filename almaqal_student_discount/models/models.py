@@ -359,6 +359,7 @@ class PaymentValue(models.Model):
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
                      pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+        tttyl = xlwt.easyxf("align: horiz centre; align: vert centre")
 
         row = 0
         col = 2
@@ -423,7 +424,7 @@ class PaymentValue(models.Model):
                         if name != rest.name:
                             worksheet.write(row, 2, rest.name)
                         else:
-                            worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
+                            worksheet.write_merge(row - 1, row, 2, 2, rest.name, tttyl)
 
                         name = rest.name
 
