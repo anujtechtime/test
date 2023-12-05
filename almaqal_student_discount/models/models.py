@@ -68,7 +68,6 @@ class ResPrtner(models.Model):
     def action_create_badge_invoice(self):
         for result in self:
             instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
-            print("instamm_ment_details@@@@@@@@@@@@@@@@",instamm_ment_details)
             product_id = self.env["product.product"].search([("id",'=',3)])
             journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             count = 0
@@ -166,14 +165,9 @@ class ResPrtner(models.Model):
     @api.model
     def create(self, vals):
         result = super(ResPrtner, self).create(vals)
-        print("result##############",result)    
-        print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
-        print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
-        print("installmet_dat@@@@@@@@@@@@@@@",installmet_dat)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
-        print("failed_student@@@@@@@@@@@@@@@@",failed_student)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         if failed_student:
             result.installment_amount = failed_student.installment_amount
@@ -366,8 +360,6 @@ class PaymentValue(models.Model):
                               left thin, right thin, top thin, bottom thin;\
                      pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
 
-        tttyl = xlwt.easyxf("align: horiz centre; align: vert centre")
-
         row = 0
         col = 2
         count = 1
@@ -379,6 +371,22 @@ class PaymentValue(models.Model):
         worksheet.write(row, 4, 'المبلغ', header_bold) # total amout
         worksheet.write(row, 5, 'رقم الحساب', header_bold) # Account/invoice lines
         worksheet.write(row, 6, 'الحالة', header_bold) # Status
+
+        thislist = []
+        list_data_account_1 = 0
+        list_data_account_2 = 0
+        list_data_account_3 = 0
+        list_data_account_4 = 0
+        list_data_account_5 = 0
+        list_data_account_6 = 0
+        list_data_account_7 = 0
+        list_data_account_8 = 0
+        list_data_account_9 = 0
+        list_data_account_10 = 0
+        list_data_account_11 = 0
+
+        account_with_code = []
+
 
         row = 1
 
@@ -406,55 +414,134 @@ class PaymentValue(models.Model):
                 date_check = rest.payment_date
                 count = count + 1
 
-            for inv in rest.reconciled_invoice_ids:
+            if rest.reconciled_invoice_ids:
+                for inv in rest.reconciled_invoice_ids:
+                    if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
+                        worksheet.write(row, 0, count)
+
+                        worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                        if name != rest.name:
+                            worksheet.write(row, 2, rest.name)
+                        else:
+                            worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
+
+                        name = rest.name
+
+                        worksheet.write(row, 3, rest.partner_id.name)
+                        worksheet.write(row, 4, '{:,}'.format(int(inv.amount_total)))
+                        worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
+                        worksheet.write(row, 6, 'مرحل')
+                        tota_of_amount = tota_of_amount + int(inv.amount_total)
+                        row = row + 1
+                        date_check = rest.payment_date
+                        count = count + 1
+                        if inv.invoice_line_ids.account_id.name not in thislist:
+                            thislist.append(inv.invoice_line_ids.account_id.name)
+                            account_with_code.append(inv.invoice_line_ids.account_id.display_name)
+
+                        n = range(len(thislist))
+                        for i in n: 
+                            if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
+                                list_data_account_1 = list_data_account_1 + inv.amount_total
+
+                            if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
+                                list_data_account_2 = list_data_account_2 + inv.amount_total 
+
+                            if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
+                                list_data_account_3 = list_data_account_3 + inv.amount_total
+
+                            if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
+                                list_data_account_4 = list_data_account_4 + inv.amount_total 
+
+                            if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
+                                list_data_account_5 = list_data_account_5 + inv.amount_total   
+
+                            if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
+                                list_data_account_6 = list_data_account_6 + inv.amount_total                    
+                        
+                    # if rest.payment_date !=  date_check or date_check != "" 
+                    else:
+                        worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
+                        worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)),header_bold)
+                        tota_of_amount = 0
+                        row = row + 2
+                        date_check = ""
+                        count = 1
+
+
+                    account_active = self.env["account.account"].search([('id','=',inv.invoice_line_ids.account_id.id)])
+                    if account_active:
+                        total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(inv.amount_total)
+                # if inv.invoice_line_ids.account_id.code == "4351":
+                #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
+
+            if not rest.reconciled_invoice_ids:
                 if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
                     print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
                     worksheet.write(row, 0, count)
 
                     worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
-                    # worksheet.write(row, 2, rest.name if name != rest.name else " ")
-
                     if name != rest.name:
                         worksheet.write(row, 2, rest.name)
                     else:
-                        worksheet.write_merge(row - 1, row, 2, 2, rest.name, tttyl)
+                        worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
 
                     name = rest.name
 
                     worksheet.write(row, 3, rest.partner_id.name)
-                    worksheet.write(row, 4, '{:,}'.format(int(inv.amount_total)))
-                    worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
+                    worksheet.write(row, 4, rest.amount)
+                    worksheet.write(row, 5, " ")
                     worksheet.write(row, 6, 'مرحل')
-                    tota_of_amount = tota_of_amount + int(inv.amount_total)
+                    tota_of_amount = tota_of_amount + int(rest.amount)
                     row = row + 1
                     date_check = rest.payment_date
                     count = count + 1
-                # if rest.payment_date !=  date_check or date_check != "" 
-                else:
-                    worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
-                    worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)),header_bold)
-                    tota_of_amount = 0
-                    row = row + 2
-                    date_check = ""
-                    count = 1
-
-                if inv.invoice_line_ids.account_id.code == "4395":
-                    total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(inv.amount_total)
-                if inv.invoice_line_ids.account_id.code == "4351":
-                    total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
-
+        print("thislist@@@@@@@@@@@@@@",thislist)            
         worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
         worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)))
 
+        # row = row + 4
+
+        # worksheet.write_merge(row, row, 0, 3, "ايراد خدمات تعليمية 4351", main_cell_total_of_total)
+
+        # worksheet.write_merge(row + 1, row + 1, 0, 3, "أيراد رسوم اخرى 4395", main_cell_total_of_total)
+
+
+        # worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
+        # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
+
+
         row = row + 4
+        if list_data_account_1 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
+            row = row + 1
 
-        worksheet.write_merge(row, row, 0, 3, "ايراد خدمات تعليمية 4351", main_cell_total_of_total)
+        if list_data_account_2 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[1], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_2), main_cell_total_of_total)
+            row = row + 1
 
-        worksheet.write_merge(row + 1, row + 1, 0, 3, "أيراد رسوم اخرى 4395", main_cell_total_of_total)
+        if list_data_account_3 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[2], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_3), main_cell_total_of_total)
+            row = row + 1
 
+        if list_data_account_4 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[3], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_4), main_cell_total_of_total)
+            row = row + 1
 
-        worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
-        worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
+        if list_data_account_5 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[4], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_5), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_6 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[5], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_6), main_cell_total_of_total)
+            row = row + 1
+
                         
 
 
