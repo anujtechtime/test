@@ -312,6 +312,8 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 4, 'حالة الطالب', header_bold)
 
+            worksheet.write(row, 5, 'المبلغ المتبقي', header_bold)
+
             row = 3
             for level in level_data:
 
@@ -375,6 +377,8 @@ class techtime_payrollDepartment(models.Model):
                                 status_data  = "طالب ناجح"                            
 
                             worksheet.write(row, 4, status_data, main_cell)
+
+                            worksheet.write(row, 5, inv.amount_residual, main_cell)
 
                             row = row + 1
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
