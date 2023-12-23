@@ -400,6 +400,7 @@ class PaymentValue(models.Model):
         total_of_amount_with_account_4351 = 0
         date_check = ""
         name = ''
+        totl_amount = 0
         for rest in self:
             if rest.state == "cancelled":
                 worksheet.write(row, 0, count,main_cell_total)
@@ -432,7 +433,12 @@ class PaymentValue(models.Model):
                         worksheet.write(row, 4, '{:,}'.format(int(inv.amount_total)))
                         worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
                         worksheet.write(row, 6, 'مرحل')
-                        tota_of_amount = tota_of_amount + int(inv.amount_total)
+
+                        totl_amount = inv.amount_total
+                        if inv.amount_total > rest.amount:
+                            totl_amount = rest.amount
+                        # if inv.amount_total < rest.amount    
+                        tota_of_amount = tota_of_amount + int(totl_amount)
                         row = row + 1
                         date_check = rest.payment_date
                         count = count + 1
@@ -443,22 +449,22 @@ class PaymentValue(models.Model):
                         n = range(len(thislist))
                         for i in n: 
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
-                                list_data_account_1 = list_data_account_1 + inv.amount_total
+                                list_data_account_1 = list_data_account_1 + totl_amount
 
                             if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
-                                list_data_account_2 = list_data_account_2 + inv.amount_total 
+                                list_data_account_2 = list_data_account_2 + totl_amount 
 
                             if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
-                                list_data_account_3 = list_data_account_3 + inv.amount_total
+                                list_data_account_3 = list_data_account_3 + totl_amount
 
                             if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
-                                list_data_account_4 = list_data_account_4 + inv.amount_total 
+                                list_data_account_4 = list_data_account_4 + totl_amount 
 
                             if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
-                                list_data_account_5 = list_data_account_5 + inv.amount_total   
+                                list_data_account_5 = list_data_account_5 + totl_amount   
 
                             if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
-                                list_data_account_6 = list_data_account_6 + inv.amount_total                    
+                                list_data_account_6 = list_data_account_6 + totl_amount                    
                         
                     # if rest.payment_date !=  date_check or date_check != "" 
                     else:
@@ -472,7 +478,7 @@ class PaymentValue(models.Model):
 
                     account_active = self.env["account.account"].search([('id','=',inv.invoice_line_ids.account_id.id)])
                     if account_active:
-                        total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(inv.amount_total)
+                        total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
                 # if inv.invoice_line_ids.account_id.code == "4351":
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
 
