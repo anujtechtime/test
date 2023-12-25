@@ -431,14 +431,17 @@ class PaymentValue(models.Model):
 
                         name = rest.name
 
+                        for amont in json.loads(rest.reconciled_invoice_ids.invoice_payments_widget).get("content"):
+                            totl_amount = amont.get("amount")
+
                         worksheet.write(row, 3, rest.partner_id.name)
-                        worksheet.write(row, 4, '{:,}'.format(int(inv.amount_total)))
+                        worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
                         worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
                         worksheet.write(row, 6, 'مرحل')
 
-                        totl_amount = inv.amount_total
-                        if inv.amount_total > rest.amount:
-                            totl_amount = rest.amount
+                        # totl_amount = inv.amount_total
+                        # if inv.amount_total > rest.amount:
+                        #     totl_amount = rest.amount
                         # if inv.amount_total < rest.amount    
                         tota_of_amount = tota_of_amount + int(totl_amount)
                         row = row + 1
