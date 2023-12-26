@@ -493,7 +493,7 @@ class PaymentValue(models.Model):
 
                         name = rest.name
 
-                        for amont in json.loads(rest.reconciled_invoice_ids.invoice_payments_widget).get("content"):
+                        for amont in json.loads(inv.invoice_payments_widget).get("content"):
                             totl_amount = amont.get("amount")
 
                         worksheet.write(row, 3, rest.partner_id.name)
