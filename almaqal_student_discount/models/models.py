@@ -553,6 +553,7 @@ class PaymentValue(models.Model):
 
             if not rest.reconciled_invoice_ids:
                 _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
+                _logger.info("date_check222222222222222222222#####**%s" %date_check)
                 if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
                     print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
                     worksheet.write(row, 0, count)
