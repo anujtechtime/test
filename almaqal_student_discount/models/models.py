@@ -438,6 +438,9 @@ class PaymentValue(models.Model):
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
                             totl_amount = amont.get("amount")
 
+                        if totl_amount > rest.amount:
+                            totl_amount = rest.amount - 10000
+
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
 
