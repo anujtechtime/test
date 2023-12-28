@@ -403,6 +403,7 @@ class PaymentValue(models.Model):
         totl_amount = 0
         for rest in self:
             if rest.state == "cancelled":
+                _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
                 worksheet.write(row, 0, count,main_cell_total)
 
                 worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
@@ -420,7 +421,7 @@ class PaymentValue(models.Model):
                 for inv in rest.reconciled_invoice_ids:
                     _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
                     _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
-                    if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
+                    if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
                         worksheet.write(row, 0, count)
 
                         worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
@@ -544,7 +545,8 @@ class PaymentValue(models.Model):
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
 
             if not rest.reconciled_invoice_ids:
-                if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
+                _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
+                if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
                     print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
                     worksheet.write(row, 0, count)
 
