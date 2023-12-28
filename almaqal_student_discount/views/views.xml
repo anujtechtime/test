@@ -28,6 +28,59 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_any_name_form_level_exipire">
+        <field name="name">exipire.value.form</field>
+        <field name="model">exipire.value</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="My Form">
+                <sheet>                         
+                    <group> 
+                        <field name="date"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_change_exipire" type="object" string="Change the Expiration Date" class="oe_highlight"/>
+                        or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="ir_actions_server_sale_cart_student_value_exipire" model="ir.actions.server">
+        <field name="name">Exipiration Date Change</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_done_show_wizard_exipire()
+        </field>
+        <field name="binding_model_id" ref="sale.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="ir_actions_server_excel_for_payemnt_records" model="ir.actions.server">
+        <field name="name">Payment Excel</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_payment"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.excel_for_payemnt_records()
+        </field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+
+
+
     <record id="ir_actions_server_add_the_value_to_payment" model="ir.actions.server">
         <field name="name">Add All the Value</field>
         <field name="type">ir.actions.server</field>
@@ -154,6 +207,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='college']" position="after">
             <field name="code"/>
+            <field name="active_report"/>
         </xpath>
       </field>
     </record>

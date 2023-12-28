@@ -8,6 +8,13 @@ from pdf2image import convert_from_path
 from PIL import Image 
 from datetime import date, datetime, timedelta
 
+import json
+import base64
+import xlwt
+import io
+from lxml import etree
+from datetime import date, datetime, timedelta
+import html2text
 
 _logger = logging.getLogger(__name__)
 
@@ -38,6 +45,7 @@ class InheritData(models.Model):
     _inherit = 'department.department'
 
     code = fields.Integer("Code")    
+    active_report = fields.Boolean("Show In Report", default=False)
 
 class ResPrtner(models.Model):
     _inherit = 'sale.order'
@@ -60,7 +68,6 @@ class ResPrtner(models.Model):
     def action_create_badge_invoice(self):
         for result in self:
             instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
-            print("instamm_ment_details@@@@@@@@@@@@@@@@",instamm_ment_details)
             product_id = self.env["product.product"].search([("id",'=',3)])
             journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             count = 0
@@ -158,14 +165,9 @@ class ResPrtner(models.Model):
     @api.model
     def create(self, vals):
         result = super(ResPrtner, self).create(vals)
-        print("result##############",result)    
-        print("result.college###########",result.college,result.department,result.student, result.year)
         installmet_dat = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id),('year','=', result.year.id)],limit=1)
-        print("result.id#$$$$$$$$$$$$$$$",installmet_dat)
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
-        print("installmet_dat@@@@@@@@@@@@@@@",installmet_dat)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
-        print("failed_student@@@@@@@@@@@@@@@@",failed_student)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         if failed_student:
             result.installment_amount = failed_student.installment_amount
@@ -252,10 +254,40 @@ class ResPrtner(models.Model):
                         })
 
 
+class DataLevelValue(models.TransientModel):
+    _name = 'exipire.value'
+   
+    date = fields.Date(string="Date")
+
+
+    def action_confirm_change_exipire(self):
+        for idds in self._context.get("active_id"):
+            levels_sale_order = self.env["res.partner"].browse(int(idds))
+            levels_sale_order.date_of_expiration = self.date
+
+
+
 class ResPartnerSeq(models.Model):
     _inherit = "res.partner"
 
     student_cgpa = fields.Float("Student CGPA")
+
+    
+
+    def action_done_show_wizard_exipire(self):
+        # for ddtsh in self:
+        #     payment_first = self.env['account.payment'].search([("partner_id",'=',ddtsh.id)],order='id asc', limit=1)
+        #     if payment_first:
+        #         ddtsh.payment_number = payment_first.id
+        print("self._context##################",self._context.get("active_ids"))
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Expiration Date'),
+        'res_model': 'exipire.value',
+        'target': 'new',
+        'view_id': self.env.ref('almaqal_student_discount.view_any_name_form_level_exipire').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }    
 
     @api.model
     def create(self, vals):
@@ -279,6 +311,344 @@ class PaymentValue(models.Model):
     _inherit = "account.payment"
  
     boolean_data = fields.Boolean("رسوم هوية")
+
+    def excel_for_payemnt_records(self):  
+        filename = 'جدول الاحصاء الصباحي.xls'
+        string = 'جدول الاحصاء الصباحي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string, cell_overwrite_ok=True)
+        worksheet.cols_right_to_left = True
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Student_Report_%s.xls' % date.today()
+        rested = self.env['sale.order'].search([])
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        # worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        worksheet.col(1).width = 5000
+        worksheet.col(2).width = 5000
+        worksheet.col(3).width = 5000
+        worksheet.col(4).width = 5000
+        worksheet.col(5).width = 5000
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+        tttyl = xlwt.easyxf("align: horiz centre; align: vert centre")
+
+        row = 0
+        col = 2
+        count = 1
+        
+        worksheet.write(row, 0, 'التسلسل', header_bold) #sequence
+        worksheet.write(row, 1, 'التاريخ', header_bold) #payment date
+        worksheet.write(row, 2, 'رقم الوصل', header_bold) #payment number
+        worksheet.write(row, 3, 'الاسم', header_bold) # Student Name
+        worksheet.write(row, 4, 'المبلغ', header_bold) # total amout
+        worksheet.write(row, 5, 'رقم الحساب', header_bold) # Account/invoice lines
+        worksheet.write(row, 6, 'الحالة', header_bold) # Status
+
+        thislist = []
+        list_data_account_1 = 0
+        list_data_account_2 = 0
+        list_data_account_3 = 0
+        list_data_account_4 = 0
+        list_data_account_5 = 0
+        list_data_account_6 = 0
+        list_data_account_7 = 0
+        list_data_account_8 = 0
+        list_data_account_9 = 0
+        list_data_account_10 = 0
+        list_data_account_11 = 0
+
+        account_with_code = []
+
+
+        row = 1
+
+        # print("selfWWWWWWWWWWWWWWWWWWWWWW",self.read_group([], ['payment_date'], ['payment_date']))
+        # groups = self.read_group([], ['payment_date'], ['payment_date'])
+        # for group in groups:
+        #     print('>>>>>>', group)
+        tota_of_amount = 0 
+        total_of_amount_with_account_4395 = 0
+        total_of_amount_with_account_4351 = 0
+        date_check = ""
+        name = ''
+        totl_amount = 0
+        for rest in self:
+            if rest.state == "cancelled":
+                _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
+                worksheet.write(row, 0, count,main_cell_total)
+
+                worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
+                worksheet.write(row, 2, rest.name,main_cell_total)
+                worksheet.write(row, 3, rest.partner_id.name , main_cell_total)
+                worksheet.write(row, 4, '', main_cell_total)
+                worksheet.write(row, 5, '', main_cell_total)
+                worksheet.write(row, 6, "ملغي", main_cell_total)
+                # tota_of_amount = tota_of_amount + int(inv.amount_total)
+                row = row + 1
+                date_check = rest.payment_date
+                count = count + 1
+
+            if rest.reconciled_invoice_ids:
+                for inv in rest.reconciled_invoice_ids:
+                    _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
+                    _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
+                    if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
+                        worksheet.write(row, 0, count)
+
+                        worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                        if name != rest.name:
+                            worksheet.write(row, 2, rest.name)
+                        else:
+                            worksheet.write_merge(row - 1, row, 2, 2, rest.name, tttyl)
+
+                        name = rest.name
+
+                        _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
+                        
+
+                        for amont in json.loads(inv.invoice_payments_widget).get("content"):
+                            totl_amount = amont.get("amount")
+
+                        if rest.reconciled_invoices_count == 1:
+                            totl_amount = rest.amount
+
+                        _logger.info("totl_amount************133333333333#####**%s" %totl_amount)
+
+                        worksheet.write(row, 3, rest.partner_id.name)
+                        worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
+                        worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
+                        worksheet.write(row, 6, 'مرحل')
+
+                        # totl_amount = inv.amount_total
+                        # if inv.amount_total > rest.amount:
+                        #     totl_amount = rest.amount
+                        # if inv.amount_total < rest.amount    
+                        tota_of_amount = tota_of_amount + int(totl_amount)
+                        row = row + 1
+                        date_check = rest.payment_date
+                        count = count + 1
+                        if inv.invoice_line_ids.account_id.name not in thislist:
+                            thislist.append(inv.invoice_line_ids.account_id.name)
+                            account_with_code.append(inv.invoice_line_ids.account_id.display_name)
+
+                        n = range(len(thislist))
+                        for i in n: 
+                            if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
+                                list_data_account_1 = list_data_account_1 + totl_amount
+
+                            if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
+                                list_data_account_2 = list_data_account_2 + totl_amount 
+
+                            if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
+                                list_data_account_3 = list_data_account_3 + totl_amount
+
+                            if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
+                                list_data_account_4 = list_data_account_4 + totl_amount 
+
+                            if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
+                                list_data_account_5 = list_data_account_5 + totl_amount   
+
+                            if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
+                                list_data_account_6 = list_data_account_6 + totl_amount                    
+                        
+                    # if rest.payment_date !=  date_check or date_check != "" 
+                    else:
+                        worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
+                        worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)),header_bold)
+                        tota_of_amount = 0
+                        row = row + 2
+                        date_check = ""
+                        count = 1
+
+
+
+                        worksheet.write(row, 0, count)
+
+                        worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                        if name != rest.name:
+                            worksheet.write(row, 2, rest.name)
+                        else:
+                            worksheet.write_merge(row - 1, row, 2, 2, rest.name, tttyl)
+
+                        name = rest.name
+
+                        for amont in json.loads(inv.invoice_payments_widget).get("content"):
+                            totl_amount = amont.get("amount")
+
+                        worksheet.write(row, 3, rest.partner_id.name)
+                        worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
+                        worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
+                        worksheet.write(row, 6, 'مرحل')
+
+
+                        
+                        # totl_amount = inv.amount_total
+                        # if inv.amount_total > rest.amount:
+                            # totl_amount = rest.amount
+                        # if inv.amount_total < rest.amount    
+                        tota_of_amount = tota_of_amount + int(totl_amount)
+                        row = row + 1
+                        date_check = rest.payment_date
+                        count = count + 1
+                        if inv.invoice_line_ids.account_id.name not in thislist:
+                            thislist.append(inv.invoice_line_ids.account_id.name)
+                            account_with_code.append(inv.invoice_line_ids.account_id.display_name)
+
+                        n = range(len(thislist))
+                        for i in n: 
+                            if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
+                                list_data_account_1 = list_data_account_1 + totl_amount
+
+                            if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
+                                list_data_account_2 = list_data_account_2 + totl_amount 
+
+                            if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
+                                list_data_account_3 = list_data_account_3 + totl_amount
+
+                            if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
+                                list_data_account_4 = list_data_account_4 + totl_amount 
+
+                            if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
+                                list_data_account_5 = list_data_account_5 + totl_amount   
+
+                            if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
+                                list_data_account_6 = list_data_account_6 + totl_amount                    
+                        
+
+
+                    account_active = self.env["account.account"].search([('id','=',inv.invoice_line_ids.account_id.id)])
+                    if account_active:
+                        total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
+                # if inv.invoice_line_ids.account_id.code == "4351":
+                #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
+
+            if not rest.reconciled_invoice_ids:
+                _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
+                if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
+                    print("rest.payment_date@@@@@@@@@@@@@@@",rest.payment_date)
+                    worksheet.write(row, 0, count)
+
+                    worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                    if name != rest.name:
+                        worksheet.write(row, 2, rest.name)
+                    else:
+                        worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
+
+                    name = rest.name
+
+                    worksheet.write(row, 3, rest.partner_id.name)
+                    worksheet.write(row, 4, rest.amount)
+                    worksheet.write(row, 5, " ")
+                    worksheet.write(row, 6, 'مرحل')
+                    tota_of_amount = tota_of_amount + int(rest.amount)
+                    row = row + 1
+                    date_check = rest.payment_date
+                    count = count + 1
+        print("thislist@@@@@@@@@@@@@@",thislist)            
+        worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
+        worksheet.write(row, 4, '{:,}'.format(int(tota_of_amount)))
+
+        # row = row + 4
+
+        # worksheet.write_merge(row, row, 0, 3, "ايراد خدمات تعليمية 4351", main_cell_total_of_total)
+
+        # worksheet.write_merge(row + 1, row + 1, 0, 3, "أيراد رسوم اخرى 4395", main_cell_total_of_total)
+
+
+        # worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
+        # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
+
+
+        row = row + 4
+        if list_data_account_1 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_2 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[1], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_2), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_3 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[2], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_3), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_4 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[3], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_4), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_5 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[4], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_5), main_cell_total_of_total)
+            row = row + 1
+
+        if list_data_account_6 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[5], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_6), main_cell_total_of_total)
+            row = row + 1
+
+                        
+
+
+
+        fp = io.BytesIO()
+        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
