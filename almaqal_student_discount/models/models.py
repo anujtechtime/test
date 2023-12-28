@@ -441,6 +441,8 @@ class PaymentValue(models.Model):
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
 
+                        _logger.info("totl_amount************133333333333#####**%s" %totl_amount)
+
                         worksheet.write(row, 3, rest.partner_id.name)
                         worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
                         worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
