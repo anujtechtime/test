@@ -550,7 +550,7 @@ class PaymentValue(models.Model):
                         total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
                 # if inv.invoice_line_ids.account_id.code == "4351":
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
-
+                _logger.info("rest.inv8888888888888888888888888888882#####**%s" %inv.name)
             if not rest.reconciled_invoice_ids:
                 _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
                 if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
