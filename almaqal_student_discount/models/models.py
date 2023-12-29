@@ -466,6 +466,7 @@ class PaymentValue(models.Model):
                         thislist
                         _logger.info("thislistnnnnnnnnnnn11111111111111#####**%s" %n)
                         for i in n: 
+                            _logger.info("iiiiiiiiiiiiiiiiiii3333333333333#####**%s" %i)
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
 
@@ -531,6 +532,7 @@ class PaymentValue(models.Model):
                         
                         _logger.info("thislistnnnnnnnnnnn2222222222222222222#####**%s" %n)
                         for i in n: 
+                            _logger.info("iiiiiiiiiiiiiiiiiii#####**%s" %i)
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
 
