@@ -467,22 +467,22 @@ class PaymentValue(models.Model):
                         _logger.info("thislistnnnnnnnnnnn11111111111111#####**%s" %thislist)
                         for i in n: 
                             _logger.info("iiiiiiiiiiiiiiiiiii3333333333333#####**%s" %i)
-                            if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
+                            if (i) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
 
-                            if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
+                            if (i) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
                                 list_data_account_2 = list_data_account_2 + totl_amount 
 
-                            if (i-1) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
+                            if (i) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
                                 list_data_account_3 = list_data_account_3 + totl_amount
 
-                            if (i-1) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
+                            if (i) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
                                 list_data_account_4 = list_data_account_4 + totl_amount 
 
-                            if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
+                            if (i) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
                                 list_data_account_5 = list_data_account_5 + totl_amount   
 
-                            if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
+                            if (i) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
                                 list_data_account_6 = list_data_account_6 + totl_amount                    
                         
                     # if rest.payment_date !=  date_check or date_check != "" 
@@ -533,22 +533,22 @@ class PaymentValue(models.Model):
                         _logger.info("thislistnnnnnnnnnnn2222222222222222222#####**%s" %thislist)
                         for i in n: 
                             _logger.info("iiiiiiiiiiiiiiiiiii#####**%s" %i)
-                            if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
+                            if (i) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
 
-                            if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
+                            if (i) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
                                 list_data_account_2 = list_data_account_2 + totl_amount 
 
-                            if (i-1) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
+                            if (i) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
                                 list_data_account_3 = list_data_account_3 + totl_amount
 
-                            if (i-1) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
+                            if (i) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
                                 list_data_account_4 = list_data_account_4 + totl_amount 
 
-                            if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
+                            if (i) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
                                 list_data_account_5 = list_data_account_5 + totl_amount   
 
-                            if (i-1) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
+                            if (i) == 5 and thislist[5] and inv.invoice_line_ids.account_id.name == thislist[5]:
                                 list_data_account_6 = list_data_account_6 + totl_amount                    
                         
 
