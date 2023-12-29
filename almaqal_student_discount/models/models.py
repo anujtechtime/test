@@ -403,7 +403,7 @@ class PaymentValue(models.Model):
         name = ''
         totl_amount = 0
         for rest in self:
-            payment_amount = rest.amount
+            
             if rest.state == "cancelled":
                 _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
                 worksheet.write(row, 0, count,main_cell_total)
@@ -420,8 +420,8 @@ class PaymentValue(models.Model):
                 count = count + 1
 
             if rest.reconciled_invoice_ids:
+                payment_amount = rest.amount
                 for inv in rest.reconciled_invoice_ids:
-
                     _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
                     _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
                     if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
