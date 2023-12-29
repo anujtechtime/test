@@ -556,6 +556,25 @@ class PaymentValue(models.Model):
                 # if inv.invoice_line_ids.account_id.code == "4351":
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
                 _logger.info("payment_amount888888888888888888888888882#####**%s" %payment_amount)
+                if payment_amount > 0:
+                    worksheet.write(row, 0, count)
+
+                    worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
+                    if name != rest.name:
+                        worksheet.write(row, 2, rest.name)
+                    else:
+                        worksheet.write_merge(row - 1, row, 2, 2, rest.name, header_bold)
+
+                    name = rest.name
+
+                    worksheet.write(row, 3, rest.partner_id.name)
+                    worksheet.write(row, 4, payment_amount)
+                    worksheet.write(row, 5, " ")
+                    worksheet.write(row, 6, 'مرحل')
+                    tota_of_amount = tota_of_amount + int(payment_amount)
+                    row = row + 1
+                    date_check = rest.payment_date
+                    count = count + 1
             if not rest.reconciled_invoice_ids:
                 _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
                 if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
