@@ -407,7 +407,6 @@ class PaymentValue(models.Model):
             if rest.state == "cancelled":
                 _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
                 worksheet.write(row, 0, count,main_cell_total)
-
                 worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
                 worksheet.write(row, 2, rest.name,main_cell_total)
                 worksheet.write(row, 3, rest.partner_id.name , main_cell_total)
@@ -436,7 +435,6 @@ class PaymentValue(models.Model):
                         name = rest.name
 
                         _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
-                        
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
                             totl_amount = amont.get("amount")
@@ -642,6 +640,17 @@ class PaymentValue(models.Model):
             worksheet.write_merge(row, row, 0, 3, account_with_code[5], main_cell_total_of_total)
             worksheet.write(row, 4, '{:,}'.format(list_data_account_6), main_cell_total_of_total)
             row = row + 1
+
+
+        _logger.info("list_data_account_111111111111111#####**%s" %list_data_account_1)
+        _logger.info("list_data_account_222222222222222#####**%s" %list_data_account_2)
+        _logger.info("list_data_account_33333333333333333333#####**%s" %list_data_account_3)
+        _logger.info("list_data_account_4444444444444444444#####**%s" %list_data_account_4)    
+        _logger.info("list_data_account_5555555555555555555#####**%s" %list_data_account_5)
+
+        _logger.info("account_with_code66666666666666666666666#####**%s" %account_with_code)
+
+        
 
                         
 
