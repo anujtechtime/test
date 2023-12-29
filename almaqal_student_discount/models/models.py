@@ -444,8 +444,7 @@ class PaymentValue(models.Model):
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
 
-                        payment_amount = payment_amount - totl_amount
-                        _logger.info("payment_amountpayment_amount************133333333333#####**%s" %payment_amount)
+                        
 
                         worksheet.write(row, 3, rest.partner_id.name)
                         worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
@@ -548,7 +547,9 @@ class PaymentValue(models.Model):
                                 list_data_account_6 = list_data_account_6 + totl_amount                    
                         
 
-
+                    payment_amount = payment_amount - totl_amount
+                    _logger.info("payment_amountpayment_amount************133333333333#####**%s" %payment_amount)
+                    
                     account_active = self.env["account.account"].search([('id','=',inv.invoice_line_ids.account_id.id)])
                     if account_active:
                         total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
