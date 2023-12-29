@@ -405,7 +405,7 @@ class PaymentValue(models.Model):
         for rest in self:
             
             if rest.state == "cancelled":
-                _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
+                # _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
                 worksheet.write(row, 0, count,main_cell_total)
                 worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
                 worksheet.write(row, 2, rest.name,main_cell_total)
@@ -421,8 +421,8 @@ class PaymentValue(models.Model):
             if rest.reconciled_invoice_ids:
                 payment_amount = rest.amount
                 for inv in rest.reconciled_invoice_ids:
-                    _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
-                    _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
+                    # _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
+                    # _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
                     if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
                         worksheet.write(row, 0, count)
 
@@ -434,7 +434,7 @@ class PaymentValue(models.Model):
 
                         name = rest.name
 
-                        _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
+                        # _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
                             totl_amount = amont.get("amount")
@@ -464,7 +464,7 @@ class PaymentValue(models.Model):
                         n = range(len(thislist))
 
                         thislist
-                        _logger.info("thislistnnnnnnnnnnn11111111111111#####**%s" %n)
+                        _logger.info("thislistnnnnnnnnnnn11111111111111#####**%s" %thislist)
                         for i in n: 
                             _logger.info("iiiiiiiiiiiiiiiiiii3333333333333#####**%s" %i)
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
@@ -473,10 +473,10 @@ class PaymentValue(models.Model):
                             if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
                                 list_data_account_2 = list_data_account_2 + totl_amount 
 
-                            if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
+                            if (i-1) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
                                 list_data_account_3 = list_data_account_3 + totl_amount
 
-                            if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
+                            if (i-1) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
                                 list_data_account_4 = list_data_account_4 + totl_amount 
 
                             if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
@@ -530,7 +530,7 @@ class PaymentValue(models.Model):
 
                         n = range(len(thislist))
                         
-                        _logger.info("thislistnnnnnnnnnnn2222222222222222222#####**%s" %n)
+                        _logger.info("thislistnnnnnnnnnnn2222222222222222222#####**%s" %thislist)
                         for i in n: 
                             _logger.info("iiiiiiiiiiiiiiiiiii#####**%s" %i)
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
@@ -539,10 +539,10 @@ class PaymentValue(models.Model):
                             if (i-1) == 1 and inv.invoice_line_ids.account_id.name == thislist[1]:
                                 list_data_account_2 = list_data_account_2 + totl_amount 
 
-                            if (i-1) == 2 and thislist[2] and inv.invoice_line_ids.account_id.name == thislist[2]:
+                            if (i-1) == 2 and inv.invoice_line_ids.account_id.name == thislist[2]:
                                 list_data_account_3 = list_data_account_3 + totl_amount
 
-                            if (i-1) == 3 and thislist[3] and inv.invoice_line_ids.account_id.name == thislist[3]:
+                            if (i-1) == 3 and inv.invoice_line_ids.account_id.name == thislist[3]:
                                 list_data_account_4 = list_data_account_4 + totl_amount 
 
                             if (i-1) == 4 and thislist[4] and inv.invoice_line_ids.account_id.name == thislist[4]:
@@ -553,14 +553,14 @@ class PaymentValue(models.Model):
                         
 
                     payment_amount = payment_amount - totl_amount
-                    _logger.info("payment_amountpayment_amount************133333333333#####**%s" %payment_amount)
+                    # _logger.info("payment_amountpayment_amount************133333333333#####**%s" %payment_amount)
 
                     account_active = self.env["account.account"].search([('id','=',inv.invoice_line_ids.account_id.id)])
                     if account_active:
                         total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
                 # if inv.invoice_line_ids.account_id.code == "4351":
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
-                _logger.info("payment_amount888888888888888888888888882#####**%s" %payment_amount)
+                # _logger.info("payment_amount888888888888888888888888882#####**%s" %payment_amount)
                 if payment_amount > 0:
                     worksheet.write(row, 0, count)
 
