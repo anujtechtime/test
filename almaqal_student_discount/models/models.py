@@ -462,6 +462,9 @@ class PaymentValue(models.Model):
                             account_with_code.append(inv.invoice_line_ids.account_id.display_name)
 
                         n = range(len(thislist))
+
+                        thislist
+                        _logger.info("thislistnnnnnnnnnnn11111111111111#####**%s" %n)
                         for i in n: 
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
@@ -525,6 +528,8 @@ class PaymentValue(models.Model):
                             account_with_code.append(inv.invoice_line_ids.account_id.display_name)
 
                         n = range(len(thislist))
+                        
+                        _logger.info("thislistnnnnnnnnnnn2222222222222222222#####**%s" %n)
                         for i in n: 
                             if (i-1) == 0 and inv.invoice_line_ids.account_id.name == thislist[0]:
                                 list_data_account_1 = list_data_account_1 + totl_amount
