@@ -399,9 +399,11 @@ class PaymentValue(models.Model):
         total_of_amount_with_account_4395 = 0
         total_of_amount_with_account_4351 = 0
         date_check = ""
+        payment_amount = 0
         name = ''
         totl_amount = 0
         for rest in self:
+            payment_amount = rest.amount
             if rest.state == "cancelled":
                 _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
                 worksheet.write(row, 0, count,main_cell_total)
@@ -419,6 +421,7 @@ class PaymentValue(models.Model):
 
             if rest.reconciled_invoice_ids:
                 for inv in rest.reconciled_invoice_ids:
+
                     _logger.info("nameeeeeee************11111111111111#####**%s" %rest.name)
                     _logger.info("date_check@@@@************11111111111111#####**%s" %date_check)
                     if rest.payment_date ==  date_check or date_check == "" and rest.state == "posted":
@@ -441,6 +444,7 @@ class PaymentValue(models.Model):
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
 
+                        payment_amount = payment_amount - totl_amount
                         _logger.info("totl_amount************133333333333#####**%s" %totl_amount)
 
                         worksheet.write(row, 3, rest.partner_id.name)
@@ -550,7 +554,7 @@ class PaymentValue(models.Model):
                         total_of_amount_with_account_4395 = total_of_amount_with_account_4395 + int(totl_amount)
                 # if inv.invoice_line_ids.account_id.code == "4351":
                 #     total_of_amount_with_account_4351 = total_of_amount_with_account_4351 + int(inv.amount_total)
-                _logger.info("rest.inv8888888888888888888888888888882#####**%s" %inv.name)
+                _logger.info("payment_amount888888888888888888888888882#####**%s" %payment_amount)
             if not rest.reconciled_invoice_ids:
                 _logger.info("rest.staterest.222222222222222222222#####**%s" %rest.name)
                 if rest.state == "posted" and rest.payment_date ==  date_check or date_check == "" :
