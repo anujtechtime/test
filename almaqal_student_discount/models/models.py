@@ -434,10 +434,11 @@ class PaymentValue(models.Model):
 
                         name = rest.name
 
-                        # _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
+                        _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
-                            totl_amount = amont.get("amount")
+                            if amont.get("date") == rest.payment_date:
+                                totl_amount = amont.get("amount")
 
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
@@ -614,11 +615,6 @@ class PaymentValue(models.Model):
 
 
         # worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
-        # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
-
-
-        row = row + 4
-        if list_data_account_1 > 0:
             worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
             worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
             row = row + 1
@@ -689,6 +685,11 @@ class PaymentValue(models.Model):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }
+        # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
+
+
+        row = row + 4
+        if list_data_account_1 > 0:
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
