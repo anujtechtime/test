@@ -437,7 +437,7 @@ class PaymentValue(models.Model):
                         _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
-                            if amont.get("date") == rest.payment_date:
+                            if amont.get("account_payment_id") == rest.id:
                                 totl_amount = amont.get("amount")
 
                         if rest.reconciled_invoices_count == 1:
