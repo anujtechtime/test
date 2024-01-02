@@ -437,7 +437,8 @@ class PaymentValue(models.Model):
                         # _logger.info("rest.reconciled_invoice_ids.invoice_payments_widget************11111111111111#####**%s" %inv.invoice_payments_widget)
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
-                            totl_amount = amont.get("amount")
+                            if amont.get("account_payment_id") == rest.id:
+                                totl_amount = amont.get("amount")
 
                         if rest.reconciled_invoices_count == 1:
                             totl_amount = rest.amount
@@ -507,7 +508,11 @@ class PaymentValue(models.Model):
                         name = rest.name
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
-                            totl_amount = amont.get("amount")
+                            if amont.get("account_payment_id") == rest.id:
+                                totl_amount = amont.get("amount")
+
+                        if rest.reconciled_invoices_count == 1:
+                            totl_amount = rest.amount
 
                         worksheet.write(row, 3, rest.partner_id.name)
                         worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
