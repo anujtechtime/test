@@ -615,9 +615,9 @@ class PaymentValue(models.Model):
 
 
         # worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
-            worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
-            worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
-            row = row + 1
+        worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
+        worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
+        row = row + 1
 
         if list_data_account_2 > 0:
             worksheet.write_merge(row, row, 0, 3, account_with_code[1], main_cell_total_of_total)
