@@ -688,8 +688,8 @@ class PaymentValue(models.Model):
         # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
 
 
-        row = row + 4
-        if list_data_account_1 > 0:
+        # row = row + 4
+        # if list_data_account_1 > 0:
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
