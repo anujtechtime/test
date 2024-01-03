@@ -402,7 +402,7 @@ class PaymentValue(models.Model):
         payment_amount = 0
         name = ''
         totl_amount = 0
-        for rest in self:
+        for rest in self.sorted(key=lambda r: r.payment_date):
             
             if rest.state == "cancelled":
                 # _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
