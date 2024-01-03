@@ -402,7 +402,7 @@ class PaymentValue(models.Model):
         payment_amount = 0
         name = ''
         totl_amount = 0
-        for rest in self:
+        for rest in self.sorted(key=lambda r: r.payment_date):
             
             if rest.state == "cancelled":
                 # _logger.info("rest.staterest.state1111111111111#####**%s" %rest.name)
@@ -508,7 +508,11 @@ class PaymentValue(models.Model):
                         name = rest.name
 
                         for amont in json.loads(inv.invoice_payments_widget).get("content"):
-                            totl_amount = amont.get("amount")
+                            if amont.get("account_payment_id") == rest.id:
+                                totl_amount = amont.get("amount")
+
+                        if rest.reconciled_invoices_count == 1:
+                            totl_amount = rest.amount
 
                         worksheet.write(row, 3, rest.partner_id.name)
                         worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
@@ -615,9 +619,11 @@ class PaymentValue(models.Model):
 
 
         # worksheet.write(row, 4, '{:,}'.format(total_of_amount_with_account_4351), main_cell_total_of_total)
-        worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
-        worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
-        row = row + 1
+        row = row + 4
+        if list_data_account_1 > 0:
+            worksheet.write_merge(row, row, 0, 3, account_with_code[0], main_cell_total_of_total)
+            worksheet.write(row, 4, '{:,}'.format(list_data_account_1), main_cell_total_of_total)
+            row = row + 1
 
         if list_data_account_2 > 0:
             worksheet.write_merge(row, row, 0, 3, account_with_code[1], main_cell_total_of_total)
@@ -688,8 +694,6 @@ class PaymentValue(models.Model):
         # worksheet.write(row + 1, 4, '{:,}'.format(total_of_amount_with_account_4395), main_cell_total_of_total)
 
 
-        # row = row + 4
-        # if list_data_account_1 > 0:
     
     def change_the_value_department(self):
         _logger.info("self************11111111111111#####**%s" %self)
