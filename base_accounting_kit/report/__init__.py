@@ -24,6 +24,8 @@ from . import account_report_common_account
 from . import report_partner_ledger
 from . import report_tax
 from . import report_trial_balance
+from . import report_trial_balance_new
+from . import report_trial_balance_new_page_one
 from . import report_aged_partner
 from . import report_journal_audit
 from . import report_financial

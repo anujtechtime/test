@@ -64,6 +64,25 @@
             name="base_accounting_kit.report_trial_balance"
             file="base_accounting_kit.report_trial_balance"
     />
+
+    <report
+            id="action_report_trial_balance_new"
+            model="account.balance.report.new"
+            string="Trial Balance new"
+            report_type="qweb-pdf"
+            name="base_accounting_kit.report_trial_balance_new"
+            file="base_accounting_kit.report_trial_balance_new"
+    />
+
+    <report
+            id="action_report_trial_balance_new_page_one"
+            model="account.balance.report.new.page_one"
+            string="Trial Balance Page One"
+            report_type="qweb-pdf"
+            name="base_accounting_kit.report_trial_balance_new_page_one"
+            file="base_accounting_kit.report_trial_balance_new_page_one"
+    />
+
     <!--    # CAsh flow statements    -->
     <report
             id="action_report_cash_flow"
