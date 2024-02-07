@@ -239,6 +239,107 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+        <report
+            id="report_payment_receipt_student_almaqal_data_user"
+            model="res.partner"
+            string="Student Report"
+            report_type="qweb-pdf"
+            name="almaqal_student_discount.report_payment_receipt_student_almaqal_template_user"
+            file="almaqal_student_discount.report_payment_receipt_student_almaqal_template_user"
+            menu="True"
+        />
+
+
+
+    <record model="ir.ui.view" id="view_partner_form_user">
+            <field name="name">Student Data</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                    <form string="New Form" create="false" edit="false">
+                        <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Arabic Name"/>
+                        </h1>
+                        <h1>
+                            <field name="name_english" placeholder="e.g. English Name"/>
+                        </h1>
+
+                    </div>
+
+
+
+
+
+                  </sheet>
+                    </form>
+            </field>
+</record>
+
+<record model="ir.ui.view" id="view_partner_tree_custom_user">
+            <field name="name">view.partner.tree.custom</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                         <field name="name_english"/>
+                    </tree>
+            </field>
+</record>
+
+
+
+<record id="crm_lead_action_my_activities_tree_ddts_user" model="ir.actions.act_window.view">
+            <field name="sequence">2</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="almaqal_student_discount.view_partner_tree_custom_user"/>
+            <!-- <field name="act_window_id" ref="almaqal_student_discount.crm_stage_action_mtalks_config_data_user"/> -->
+        </record>
+
+<record id="crm_stage_action_mtalks_config_data_user" model="ir.actions.act_window">
+        <field name="name">view.partner.tree.custom</field>
+            <field name="res_model">res.partner</field>
+        <field name="view_id" ref="almaqal_student_discount.crm_lead_action_my_activities_tree_ddts_user"/>
+        
+        <!-- <field name="view_id" ref="almaqal_student_discount.view_partner_form_custom"/> -->
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new stage in your opportunity pipeline
+          </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+          </p>
+        </field>
+    </record>
+
+
+<record id="crm_lead_action_my_activities_view_tree_capwise_lead_user" model="ir.actions.act_window.view">
+            <field name="sequence">3</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="almaqal_student_discount.view_partner_form_user"/>
+            <field name="act_window_id" ref="almaqal_student_discount.crm_stage_action_mtalks_config_data_user"/>
+        </record>
+
+        
+
+
+
+        <record id="crm_lead_action_my_activities_kanban_ddts" model="ir.actions.act_window.view">
+            <field name="sequence">1</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="almaqal_student_discount.crm_stage_action_mtalks_config_data_user"/>
+        </record>
+
+
+
+<menuitem id="custom_partner_menu_user" name="Students Report" action="crm_stage_action_mtalks_config_data_user"/>
+
+
+
+
     
 
     <!-- actions opening views on models -->
