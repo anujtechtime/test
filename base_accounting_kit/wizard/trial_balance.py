@@ -36,6 +36,7 @@ class AccountBalanceReport(models.TransientModel):
 
     def _print_report(self, data):
         data = self.pre_print_report(data)
+        print("@@@@@@@@@@@@@@@@@@@@@11111111111",data)
         records = self.env[data['model']].browse(data.get('ids', []))
         return self.env.ref(
             'base_accounting_kit.action_report_trial_balance').report_action(
