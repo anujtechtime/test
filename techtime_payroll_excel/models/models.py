@@ -33,6 +33,8 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 class techtime_payrollEmployee(models.Model):
     _inherit = 'hr.employee'
 
+    first_field = fields.Char("Specialization")
+
     certificate_first = fields.Selection([
         ('certificate1', 'دكتوراه'),
         ('certificate2', 'ماجستير'),
@@ -1834,6 +1836,8 @@ class techtime_payroll_excel(models.Model):
                 worksheet.write(call, 15, 'م.الاستقطاعات', header_bold) #total deduction
 
                 worksheet.write(call, 16, 'صافي الراتب', header_bold) # Net Salary
+
+                worksheet.write(call, 17, 'التخصص الدقيق', header_bold)
                 # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
                 total_basic = 0 
                 total_wage_data = 0
@@ -2021,6 +2025,8 @@ class techtime_payroll_excel(models.Model):
 
                         if not net_saled_data:
                             worksheet.write(row, 16, '',main_cell)    
+
+                        worksheet.write(call, 17, first_field, main_cell)
 
                     row += 1
                     sequence = sequence + 1 
