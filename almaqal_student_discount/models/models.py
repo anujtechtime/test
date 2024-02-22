@@ -18,6 +18,12 @@ import html2text
 
 _logger = logging.getLogger(__name__)
 
+
+class techtime_payrollEmployee(models.Model):
+    _inherit = 'hr.employee'
+
+    first_field = fields.Char("Specialization")
+
 class almaqal_student_discount(models.Model):
     _name = 'student.grade'
     _description = 'student.grade'

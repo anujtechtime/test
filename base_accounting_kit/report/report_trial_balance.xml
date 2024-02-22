@@ -38,32 +38,69 @@
                             <tr>
                                 <th>Code</th>
                                 <th>Account</th>
-                                <th class="text-right">Debit</th>
-                                <th class="text-right">Credit</th>
-                                <th class="text-right">Balance</th>
+                                <!--<th class="text-right">Debit</th>-->
+                                <!--<th class="text-right">Credit</th>-->
+                                <th class="text-right">2023</th>
+                                <th class="text-right">2022</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="Accounts" t-as="account">
+                          <t t-set="code_value" t-value="311"/>
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="Accounts" t-as="account">
+                            <tr t-if="account['code'][:3] == '311'" >
+                              
                                 <td>
+                                  <t t-if="str(code_value) in str(account['code'])">
+                                <t t-set="total" t-value="int(total) + int(account['balance'])"/>
+                              </t>
+                                  <!--<t t-esc="account['code'][:3]"/>-->
                                     <span t-att-style="style" t-esc="account['code']"/>
                                 </td>
                                 <td>
                                     <span style="color: white;" t-esc="'..'"/>
                                     <span t-att-style="style" t-esc="account['name']"/>
                                 </td>
-                                <td class="text-right">
-                                     <span t-att-style="style" t-esc="account['debit']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-att-style="style" t-esc="account['credit']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                </td>
+                                <!--<td class="text-right">-->
+                                <!--     <span t-att-style="style" t-esc="account['debit']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>-->
+                                <!--</td>-->
+                                <!--<td class="text-right">-->
+                                <!--    <span t-att-style="style" t-esc="account['credit']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>-->
+                                <!--</td>-->
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" />
+                                </td>
+                                
+                                
                             </tr>
+                            
+                            
+                            
+                            <t t-set="code_value" t-value="account['code'][:3]"/>
+                                <t t-set="total" t-value="account['balance']"/>
+                                
+                            </t>
                         </tbody>
                     </table>
+                    
+                    
+                    <table class="table table-sm table-reports">
+                        <thead>
+                            <tr>
+                                <th>311</th>
+                                <th>Total</th>
+                                <!--<th class="text-right">Debit</th>-->
+                                <!--<th class="text-right">Credit</th>-->
+                                <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                    
                 </div>
             </t>
         </t>
