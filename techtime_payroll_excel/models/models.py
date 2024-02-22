@@ -33,7 +33,7 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 class techtime_payrollEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    first_field = fields.Char("Specialization")
+    
 
     certificate_first = fields.Selection([
         ('certificate1', 'دكتوراه'),
@@ -2026,7 +2026,7 @@ class techtime_payroll_excel(models.Model):
                         if not net_saled_data:
                             worksheet.write(row, 16, '',main_cell)    
 
-                        worksheet.write(call, 17, first_field, main_cell)
+                        worksheet.write(call, 17, material_line_id.employee_id.first_field, main_cell)
 
                     row += 1
                     sequence = sequence + 1 

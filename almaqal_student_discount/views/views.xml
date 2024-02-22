@@ -153,6 +153,21 @@
       </field>
     </record>
 
+
+    <record id="view_sale_order_hr_employee" model="ir.ui.view">
+      <field name="name">hr.employee.form.data</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='contract_id']" position="after">
+            <field name="first_field"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    
+
     <record id="view_sale_order_serach_data_m_installment_details" model="ir.ui.view">
       <field name="name">installment.details.form.data</field>
       <field name="model">installment.details</field>
