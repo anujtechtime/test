@@ -38,5 +38,5 @@ class AccountBalanceReportpageone(models.TransientModel):
         data = self.pre_print_report(data)
         records = self.env[data['model']].browse(data.get('ids', []))
         return self.env.ref(
-            'base_accounting_kit.action_report_trial_balance_new_page_one').report_action(
+            'base_accounting_kit.action_report_trial_balance_one').report_action(
             records, data=data)

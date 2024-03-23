@@ -78,8 +78,40 @@
         'wizard/tax_report.xml',
         'wizard/account_lock_date.xml',
         'wizard/trial_balance.xml',
-        'wizard/trial_balance_new.xml',
+
+        'wizard/trial_balance_new_page_3.xml',
+
+        'wizard/trial_balance_new_page_4.xml',
+
+        'wizard/trial_balance_new_page_5.xml',
+
+        'wizard/trial_balance_new_page_6.xml',
+
+        'wizard/trial_balance_new_page_7.xml',
+
+        'wizard/trial_balance_new_page_8.xml',
+
+        'wizard/trial_balance_new_page_9.xml',
+
+        'wizard/trial_balance_new_page_10.xml',
+
+        'wizard/trial_balance_new_page_11.xml',
+
+        'wizard/trial_balance_new_page_12.xml',
+
+        'wizard/trial_balance_new_page_13.xml',
+
+        'wizard/trial_balance_new_page_14.xml',
+
+        'wizard/trial_balance_new_page_15.xml',
+
+        'wizard/trial_balance_new_page_16.xml',
+
+        'wizard/trial_balance_new_page_17.xml',
+
         'wizard/trial_balance_new_page_one.xml',
+
+        'wizard/trial_balance_new_page_two.xml',
         'wizard/aged_partner.xml',
         'wizard/journal_audit.xml',
         'wizard/cash_flow_report.xml',
@@ -91,8 +123,19 @@
         'report/report_journal_audit.xml',
         'report/report_aged_partner.xml',
         'report/report_trial_balance.xml',
-        'report/report_trial_balance_new.xml',
+        'report/report_trial_balance_new_page_11.xml',
+        'report/report_trial_balance_new_page_12.xml',
+        'report/report_trial_balance_new_page_13.xml',
+        'report/report_trial_balance_new_page_eight.xml',
+        'report/report_trial_balance_new_page_five.xml',
+        'report/report_trial_balance_new_page_four.xml',
+        'report/report_trial_balance_new_page_nine.xml',
         'report/report_trial_balance_new_page_one.xml',
+        'report/report_trial_balance_new_page_seven.xml',
+        'report/report_trial_balance_new_page_six.xml',
+        'report/report_trial_balance_new_page_ten.xml',
+        'report/report_trial_balance_new_page_three.xml',
+        'report/report_trial_balance_new_page_two.xml',
         'report/report_tax.xml',
         'report/report_partner_ledger.xml',
         'report/cash_flow_report.xml',

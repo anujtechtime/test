@@ -24,8 +24,6 @@ from . import account_report_common_account
 from . import report_partner_ledger
 from . import report_tax
 from . import report_trial_balance
-from . import report_trial_balance_new
-from . import report_trial_balance_new_page_one
 from . import report_aged_partner
 from . import report_journal_audit
 from . import report_financial
@@ -34,4 +32,17 @@ from . import account_bank_book
 from . import account_cash_book
 from . import account_day_book
 from . import account_asset_report
+from . import report_trial_balance_new_page_11
+from . import report_trial_balance_new_page_12
+from . import report_trial_balance_new_page_13
+from . import report_trial_balance_new_page_eight
+from . import report_trial_balance_new_page_five
+from . import report_trial_balance_new_page_four
+from . import report_trial_balance_new_page_nine
+from . import report_trial_balance_new_page_one
+from . import report_trial_balance_new_page_seven
+from . import report_trial_balance_new_page_six
+from . import report_trial_balance_new_page_ten
+from . import report_trial_balance_new_page_three
+from . import report_trial_balance_new_page_two
 

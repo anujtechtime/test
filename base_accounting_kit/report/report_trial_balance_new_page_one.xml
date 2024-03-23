@@ -9,7 +9,7 @@
             <!--<t t-call="web.external_layout">  -->
                 <div class="page" style="margin-top : 60px !important;">
                     <h4 class="text-center">جامعة المعقل الاهلية-البصرة</h4>
-                    <h4  class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>/ الميزانية العامة كما في ٣١/كانون الاول </h4>
+                    <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>/ الميزانية العامة كما في ٣١/كانون الاول </h4>
 
 
                     <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
@@ -28,7 +28,7 @@
                             <tr t-if="account['code'][:2] == '11'">
                               
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
@@ -61,7 +61,7 @@
                     <table class="table table-sm table-reports">
                         <thead>
                             <tr>
-                                <th class="text-right"></th>
+                                <th class="text-right"/>
                                 <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
                                 <th class="text-right">مجموع</th>
                                 <th class="text-right">11</th>
@@ -87,12 +87,12 @@
                                 <t t-foreach="Accounts" t-as="account">
                             <tr t-if="account['code'][:2] == '16'">
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                               
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                    <span></span>
+                                    <span/>
                                 </td>
                                 
                                 <td class="text-right">
@@ -121,7 +121,7 @@
                         <thead>
                             <tr>
                                 <!--<th class="text-right"/>-->
-                                <th class="text-right"></th>
+                                <th class="text-right"/>
                                 <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
                                 <th class="text-right">مجموع الاجور</th>
                                 <th class="text-right">16</th>
@@ -149,12 +149,12 @@
                                 <t t-foreach="Accounts" t-as="account">
                             <tr t-if="account['code'][:2] == '18'">
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                               
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                    <span></span>
+                                    <span/>
                                 </td>
                                 
                                 <td class="text-right">
@@ -183,7 +183,7 @@
                         <thead>
                             <tr>
                                 <!--<th class="text-right"/>-->
-                                <th class="text-right"></th>
+                                <th class="text-right"/>
                                 <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
                                 <th class="text-right">مجموع الاجور</th>
                                 <th class="text-right">18</th>
@@ -210,12 +210,12 @@
                                 <t t-foreach="Accounts" t-as="account">
                             <tr t-if="account['code'][:2] == '22'">
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                               
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                    <span></span>
+                                    <span/>
                                 </td>
                                 
                                 <td class="text-right">
@@ -244,7 +244,7 @@
                         <thead>
                             <tr>
                                 <!--<th class="text-right"/>-->
-                                <th class="text-right"></th>
+                                <th class="text-right"/>
                                 <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
                                 <th class="text-right">مجموع الاجور</th>
                                 <th class="text-right">22</th>
@@ -271,12 +271,12 @@
                                 <t t-foreach="Accounts" t-as="account">
                             <tr t-if="account['code'][:2] == '26'">
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                               
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                                    <span></span>
+                                    <span/>
                                 </td>
                                 
                                 <td class="text-right">
@@ -305,7 +305,7 @@
                         <thead>
                             <tr>
                                 <!--<th class="text-right"/>-->
-                                <th class="text-right"></th>
+                                <th class="text-right"/>
                                 <th class="text-right"><span t-att-style="style" t-esc="total"/></th>
                                 <th class="text-right">مجموع الاجور</th>
                                 <th class="text-right">26</th>
