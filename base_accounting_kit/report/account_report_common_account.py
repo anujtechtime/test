@@ -31,7 +31,9 @@ class AccountCommonAccountReport(models.TransientModel):
     display_account = fields.Selection(
         [('all', 'All'), ('movement', 'With movements'),
          ('not_zero', 'With balance is not equal to 0')],
-        string='Display Accounts', required=True, default='movement')
+        string='Display Accounts', required=True, default='all')
+    date_from = fields.Date(string='Start Date', default="2020-01-01")
+    date_to = fields.Date(string='End Date', default=fields.date.today())
 
     def pre_print_report(self, data):
         data['form'].update(self.read(['display_account'])[0])
