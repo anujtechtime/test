@@ -7,6 +7,8 @@ import googletrans
 import logging
 import base64
 from pdf2image import convert_from_path
+from io import BytesIO
+from PIL import Image, ImageFilter
 from PIL import Image 
 from datetime import date, datetime, timedelta
 
@@ -144,6 +146,31 @@ class Techtest(models.Model):
                           readonly=True, default=lambda self: _('New'))
     date_of_expiration = fields.Date("Date Of  Expiration")
     image_stuent = fields.Binary("Image Student badge")
+
+    @api.model
+    def increase_image_sharpness(self, image):
+        if image:
+            # Convert base64 image to bytes
+            image_bytes = base64.b64decode(image)
+            
+            # Open the image using PIL
+            img = Image.open(BytesIO(image_bytes))
+
+            # Apply sharpening filter
+            sharpened_img = img.filter(ImageFilter.SHARPEN)
+
+            # Convert back to base64
+            buffer = BytesIO()
+            sharpened_img.save(buffer, format="png")
+            image_bytes_sharp = buffer.getvalue()
+
+            return base64.b64encode(image_bytes_sharp)
+        return False
+
+    def write(self, vals):
+        if 'image_1920' in vals:
+            vals['image_1920'] = self.increase_image_sharpness(vals['image_1920'])
+        return super(Techtest, self).write(vals)     
 
     @api.onchange('date_of_expiration','batch_number', 'name_english','name', 'college','level','year_born','batch_number')
     def _onchange_year_born(self):
@@ -287,7 +314,8 @@ class Techtest(models.Model):
         excel_file = open_target_file('New.png')
         encoded_excel = encode_file(excel_file)
 
-        self.image_stuent = encoded_excel
+        # self.image_stuent = encoded_excel
+        self.image_stuent = self.increase_image_sharpness(encoded_excel)
         return {
                      'type' : 'ir.actions.act_url',
                      'url': '/web/image?model=res.partner&field=image_stuent&id=%s&download=true'%(self.id),
