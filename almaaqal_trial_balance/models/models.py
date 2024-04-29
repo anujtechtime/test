@@ -44,7 +44,7 @@ class MrpProductWizard(models.TransientModel):
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
         worksheet = wb.add_sheet(string , cell_overwrite_ok=True)
-        # worksheet.cols_right_to_left = True
+        worksheet.cols_right_to_left = True
         header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
         cell_format = xlwt.easyxf()
         filename = 'Accounting Trial Balance %s.xls' % date.today()
@@ -86,7 +86,9 @@ class MrpProductWizard(models.TransientModel):
         rows = 1
         col = 0
 
-        worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
+        worksheet.write_merge(0, 0, 1, 7, "ميزان مرجعة تفصيلي :جامعه المعقل " or '', header_bold)
+
+        worksheet.write_merge(1, 2, 0, 1, "الدليل " or '', header_bold)
 
 
         count = 1
@@ -95,183 +97,570 @@ class MrpProductWizard(models.TransientModel):
         total_credit = 0
         total_balance = 0
         codde = 0
-        
-        for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
+
+        if self.date_start and not self.date_end:
+            print("@2@@@@@@@@@@@@@@@@@",self.date_start)
+            print("gggggggggggggggggg",self.date_end)
+            for x in range(2):
+                if x == 0:
+                    start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                    end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
+                    print("start_date@@@@@@@@@@@@@@",start_date)
+                    print("end_date@@@@@@@@@@@@",end_date)
+                    rows = 1
+                    data = 0
+                    only_debit = 0
+                    only_credit = 0
+                    groups = {}
+                    # start = str(dt.strftime('%Y/%m'))
+
+                    # given_month = int(start[5:7])
+
+                    # # Get the name of the month
+                    # month_name = calendar.month_name[given_month]
+
+
+                    worksheet.write(rows + 1 , col +2, "مدين", main_cell_total_of_total)
+                    worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
+                    # worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
+
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مدور شهر (3)", main_cell_total)
+                    # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
+
+                    account_result = {}
+                    accounts = self.env['account.account'].search([])
+                    
+
+                    tables, where_clause, where_params = self.env['account.move.line']._query_get()
+                    tables = tables.replace('"', '')
+                    if not tables:
+                        tables = 'account_move_line'
+                    wheres = [""]
+                    if where_clause.strip():
+                        wheres.append(where_clause.strip())
+                    filters = " AND ".join(wheres)
+                    # compute the balance, debit and credit for the provided accounts
+                    request = (
+                    "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
+                    " FROM " + tables + " WHERE account_id IN %s " + filters + "AND date >= '" + start_date + "' AND date < '" + end_date + "' GROUP BY account_id")
+                    params = (tuple(accounts.ids),) + tuple(where_params)
+                    self.env.cr.execute(request, params)
+                    for row in self.env.cr.dictfetchall():
+                        account_result[row.pop('id')] = row
+
+                    account_res = []
+                    groupss = {}
+                    grs = {}
+                    for account in accounts:
+                        res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
+                        currency = account.currency_id and account.currency_id or account.company_id.currency_id
+                        res['code'] = account.code
+                        res['name'] = account.name
+                        res["group_id"] = account.group_id.name
+
+                        if account.code[:3] in grs:
+                            # If the key already exists, append the item to the list
+                            grs[account.code[:3]].append(res['name'])
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            grs[account.code[:3]] = [res['name']]
+                        if account.id in account_result:
+                            res['debit'] = account_result[account.id].get('debit')
+                            res['credit'] = account_result[account.id].get('credit')
+                            res['balance'] = account_result[account.id].get('balance')
+                            account_res.append(res)   
+
+                            # if col == 0:
+                            #     worksheet.write(rows + 2 , col , res['code'][:3] , header_bold_main_header)
+                            #     worksheet.write(rows + 2 , col + 1 , res['name'] , header_bold_main_header)
+                                
+
+                            # Iterate through the list
+                        if account.code[:3] in groupss:
+                            # If the key already exists, append the item to the list
+                            groupss[account.code[:3]].append(res)
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            groupss[account.code[:3]] = [res]
+
+
+
+                            # rows = rows + 1
+                    #         print("res@@@@@@@@@@@@@@@@",res)
+                    # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
+
+                    for key, value in groupss.items():
+                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
+                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
+                        # print("value################",value)
+                        values = groupss[key]
+                        # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
+                        print("groupss@@@@@@@@@@@@@@@",groupss)
+                        if col == 0:
+                                worksheet.write(rows + 2 , col , key , header_bold_main_header)
+                                worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
+                        print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                        exit_code = 0
+                        total_debit = 0
+                        total_credit = 0
+                        total_balance = 0
+                        for ddst in values:
+                            if col == 0:
+                                worksheet.write(rows + 2 , col + 1 , ddst['name'] , header_bold_main_header)
+                            total_debit = total_debit +  ddst['debit']
+                            total_credit = total_credit + ddst['credit']
+                            total_balance = total_balance + ddst['balance']
+                        worksheet.write(rows + 2 , col + 2 , total_debit, header_bold_main_header)
+                        worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
+                        only_debit = only_debit + total_debit
+                        only_credit = only_credit + total_credit
+                        # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        rows = rows + 1
+                    
+
+
+                    worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)
+                    print("only_debit@@@@@@@@@@@@@@@@@",only_debit)
+                    col = col + 2
+
+                else:
+                    start_date =  self.date_start.replace(day=1).strftime('%Y/%m/%d')
+                    end_date =  str((self.date_start.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
+                    print("start_date@@@@@@@@@@@@@@",start_date)
+                    print("end_date@@@@@@@@@@@@",end_date)
+                    rows = 1
+                    data = 0
+                    only_debit = 0
+                    only_credit = 0
+                    only_balance = 0
+                    only_balance_debit = 0
+                    only_balance_credit = 0
+                    groups = {}
+                    # start = str(dt.strftime('%Y/%m'))
+
+                    # given_month = int(start[5:7])
+
+                    # # Get the name of the month
+                    month_name = calendar.month_name[self.date_start.month]
+
+
+                    worksheet.write(rows + 1 , col +2, "مدين ", main_cell_total_of_total)
+                    worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
+                    # worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
+
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "شهر (4)", main_cell_total)
+                    # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
+
+                    account_result = {}
+                    accounts = self.env['account.account'].search([])
+                    
+
+                    tables, where_clause, where_params = self.env['account.move.line']._query_get()
+                    tables = tables.replace('"', '')
+                    if not tables:
+                        tables = 'account_move_line'
+                    wheres = [""]
+                    if where_clause.strip():
+                        wheres.append(where_clause.strip())
+                    filters = " AND ".join(wheres)
+                    # compute the balance, debit and credit for the provided accounts
+                    request = (
+                    "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
+                    " FROM " + tables + " WHERE account_id IN %s " + filters + "AND date >= '" + start_date + "' AND date < '" + end_date + "' GROUP BY account_id")
+                    params = (tuple(accounts.ids),) + tuple(where_params)
+                    self.env.cr.execute(request, params)
+                    for row in self.env.cr.dictfetchall():
+                        account_result[row.pop('id')] = row
+
+                    account_res = []
+                    groupss = {}
+                    grs = {}
+                    for account in accounts:
+                        res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
+                        currency = account.currency_id and account.currency_id or account.company_id.currency_id
+                        res['code'] = account.code
+                        res['name'] = account.name
+                        res["group_id"] = account.group_id.name
+
+                        if account.code[:3] in grs:
+                            # If the key already exists, append the item to the list
+                            grs[account.code[:3]].append(res['name'])
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            grs[account.code[:3]] = [res['name']]
+                        if account.id in account_result:
+                            res['debit'] = account_result[account.id].get('debit')
+                            res['credit'] = account_result[account.id].get('credit')
+                            res['balance'] = account_result[account.id].get('balance')
+                            account_res.append(res)   
+
+                            # if col == 0:
+                            #     worksheet.write(rows + 2 , col , res['code'][:3] , header_bold_main_header)
+                            #     worksheet.write(rows + 2 , col + 1 , res['name'] , header_bold_main_header)
+                                
+
+                            # Iterate through the list
+                        if account.code[:3] in groupss:
+                            # If the key already exists, append the item to the list
+                            groupss[account.code[:3]].append(res)
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            groupss[account.code[:3]] = [res]
+
+
+
+                            # rows = rows + 1
+                    #         print("res@@@@@@@@@@@@@@@@",res)
+                    # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
+
+                    for key, value in groupss.items():
+                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
+                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
+                        # print("value################",value)
+                        values = groupss[key]
+                        # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
+                        print("groupss@@@@@@@@@@@@@@@",groupss)
+                        if col == 0:
+                                worksheet.write(rows + 2 , col , key , header_bold_main_header)
+                                worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
+                        print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                        exit_code = 0
+                        total_debit = 0
+                        total_credit = 0
+                        total_balance = 0
+                        for ddst in values:
+                            if col == 0:
+                                worksheet.write(rows + 2 , col + 1 , ddst['name'] , header_bold_main_header)
+                            total_debit = total_debit +  ddst['debit']
+                            total_credit = total_credit + ddst['credit']
+                            total_balance = total_balance + ddst['balance']
+                        worksheet.write(rows + 2 , col + 2 , total_debit, header_bold_main_header)
+                        worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
+                        # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        rows = rows + 1
+                        only_debit = only_debit + total_debit
+                        only_credit = only_credit + total_credit
+                        only_balance = only_balance + total_balance
+                        # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        # rows = rows + 1
+                    
+
+
+                    worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)    
+                    col = col + 2
+                
+                    rows = 1
+                    # worksheet.write_merge(rows , rows , col + 2, col + 4 , "Total Sum" , main_cell_total)
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مجموع الرصيد " , main_cell_total)
+                    worksheet.write_merge(rows , rows , col + 4, col + 5 , "الرصيد " , main_cell_total)
+
+                    worksheet.write_merge(rows -1 , rows - 1, col + 2, col + 4 , "الحركات المرحلة فقط ")
+
+                    col = col + 2
+
+
+
+                    worksheet.write(rows + 1 , col , "مدين " , main_cell_total_of_total)
+                    worksheet.write(rows + 1 , col + 1 , "دائن ", main_cell_total_of_total)
+                    worksheet.write(rows + 1 , col + 2 , "مدين ", main_cell_total_of_total)
+                    worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
+
+
+                    start = str(self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d'))
+                    end = str((self.date_start.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
+
+                    # compute the balance, debit and credit for the provided accounts
+                    request = (
+                                "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
+                                " FROM " + tables + " WHERE account_id IN %s " + filters + "AND date >= '" + start + "' AND date < '" + end + "' GROUP BY account_id")
+                    params = (tuple(accounts.ids),) + tuple(where_params)
+                    self.env.cr.execute(request, params)
+                    for row in self.env.cr.dictfetchall():
+                        account_result[row.pop('id')] = row
+
+                    account_res = []
+                    groupss_total = {}
+                    for account in accounts:
+                        res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
+                        currency = account.currency_id and account.currency_id or account.company_id.currency_id
+                        res['code'] = account.code
+                        res['name'] = account.name
+                        if account.id in account_result:
+                            res['debit'] = account_result[account.id].get('debit')
+                            res['credit'] = account_result[account.id].get('credit')
+                            res['balance'] = account_result[account.id].get('balance')
+                            account_res.append(res)   
+
+                        if account.code[:3] in groupss_total:
+                            # If the key already exists, append the item to the list
+                            groupss_total[account.code[:3]].append(res)
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            groupss_total[account.code[:3]] = [res]
+
+
+                    for key, value in groupss_total.items():
+                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
+                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
+                        # print("value################",value)
+                        values = groupss_total[key]
+
+                        exit_code = 0
+                        total_debit = 0
+                        total_credit = 0
+                        total_balance = 0
+                        for ddstk in values:
+                            total_debit = total_debit +  ddstk['debit']
+                            total_credit = total_credit + ddstk['credit']
+                            total_balance = total_balance + ddstk['balance']
+                            # print("ddst#############",ddst)
+                            # worksheet.write(rows + 2 , col , key, header_bold_main_header)
+                            # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
+                        worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                        worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
+                        
+                        if total_balance > 0:
+                            only_balance_debit = only_balance_debit + total_balance
+                            worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
+                        if total_balance < 0:
+                            only_balance_credit = only_balance_credit + total_balance
+                            worksheet.write(rows + 2 , col + 3 , abs(total_balance), header_bold_main_header)
+                            
+                        rows = rows + 1                    
+                        only_debit = only_debit + total_debit
+                        only_credit = only_credit + total_credit
+                        
+                        
+                        # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        # rows = rows + 1
+
+                        
+
+
+                    worksheet.write(rows + 2 , col , only_debit, header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 1 , only_credit , header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 2 , only_balance_debit , header_bold_main_header)  
+                    worksheet.write(rows + 2 , col + 3 , abs(only_balance_credit) , header_bold_main_header)       
+
+                if col == 2: 
+                    worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header)  
+        else:
+            for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
+                rows = 1
+                data = 0
+                only_debit = 0
+                only_credit = 0
+                only_balance = 0 
+                only_balance_debit = 0
+                only_balance_credit = 0
+                groups = {}
+                start = str(dt.strftime('%Y/%m'))
+
+                given_month = int(start[5:7])
+
+                # Get the name of the month
+                month_name = calendar.month_name[given_month]
+
+
+                worksheet.write(rows + 1 , col +2, "مدين ", main_cell_total_of_total)
+                worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
+                worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
+
+                worksheet.write_merge(rows , rows , col + 2, col + 3 , str(start[0:7]), main_cell_total)
+                # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
+
+                account_result = {}
+                accounts = self.env['account.account'].search([])
+                
+
+                tables, where_clause, where_params = self.env['account.move.line']._query_get()
+                tables = tables.replace('"', '')
+                if not tables:
+                    tables = 'account_move_line'
+                wheres = [""]
+                if where_clause.strip():
+                    wheres.append(where_clause.strip())
+                filters = " AND ".join(wheres)
+                # compute the balance, debit and credit for the provided accounts
+                request = (
+                            "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
+                            " FROM " + tables + " WHERE account_id IN %s " + filters + "AND TO_CHAR(date, 'YY/MM') = '" + start[2:7] + "' GROUP BY account_id")
+                params = (tuple(accounts.ids),) + tuple(where_params)
+                self.env.cr.execute(request, params)
+                for row in self.env.cr.dictfetchall():
+                    account_result[row.pop('id')] = row
+
+                account_res = []
+                groupss = {}
+                grs = {}
+                for account in accounts:
+                    res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
+                    currency = account.currency_id and account.currency_id or account.company_id.currency_id
+                    res['code'] = account.code
+                    res['name'] = account.name
+                    res["group_id"] = account.group_id.name
+
+                    if account.code[:3] in grs:
+                        # If the key already exists, append the item to the list
+                        grs[account.code[:3]].append(res['name'])
+                    else:
+                        # If the key doesn't exist, create a new list with the item
+                        grs[account.code[:3]] = [res['name']]
+                    if account.id in account_result:
+                        res['debit'] = account_result[account.id].get('debit')
+                        res['credit'] = account_result[account.id].get('credit')
+                        res['balance'] = account_result[account.id].get('balance')
+                        account_res.append(res)   
+
+                        # if col == 0:
+                        #     worksheet.write(rows + 2 , col , res['code'][:3] , header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 1 , res['name'] , header_bold_main_header)
+                            
+
+                        # Iterate through the list
+                    if account.code[:3] in groupss:
+                        # If the key already exists, append the item to the list
+                        groupss[account.code[:3]].append(res)
+                    else:
+                        # If the key doesn't exist, create a new list with the item
+                        groupss[account.code[:3]] = [res]
+
+
+
+                        # rows = rows + 1
+                #         print("res@@@@@@@@@@@@@@@@",res)
+                # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
+
+                for key, value in groupss.items():
+                    print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
+                    print("kkeeeeeeeeeeeeeeeeeeeee",key)
+                    # print("value################",value)
+                    values = groupss[key]
+                    # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
+                    print("groupss@@@@@@@@@@@@@@@",groupss)
+                    if col == 0:
+                            worksheet.write(rows + 2 , col , key , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
+                    print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                    exit_code = 0
+                    total_debit = 0
+                    total_credit = 0
+                    total_balance = 0
+                    for ddst in values:
+                        if col == 0:
+                            worksheet.write(rows + 2 , col + 1 , ddst['name'] , header_bold_main_header)
+                        total_debit = total_debit +  ddst['debit']
+                        total_credit = total_credit + ddst['credit']
+                        total_balance = total_balance + ddst['balance']
+                    worksheet.write(rows + 2 , col + 2 , total_debit, header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
+                    # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                    rows = rows + 1
+                    only_debit = only_debit + total_debit
+                    only_credit = only_credit + total_credit
+                    # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                
+
+
+                worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
+                worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)
+                col = col + 2
+
+
             rows = 1
-            data = 0
-            groups = {}
-            start = str(dt.strftime('%Y/%m'))
+            worksheet.write_merge(rows , rows , col + 2, col + 3 , "مجموع الرصيد " , main_cell_total)
+            worksheet.write_merge(rows , rows , col + 4, col + 5 , "الرصيد " , main_cell_total)
 
-            given_month = int(start[5:7])
+            worksheet.write_merge(rows -1 , rows - 1, col + 2, col + 4 , "الحركات المرحلة فقط ")
 
-            # Get the name of the month
-            month_name = calendar.month_name[given_month]
+            col = col + 2
 
 
-            worksheet.write(rows + 1 , col +2, "Debit", main_cell_total_of_total)
-            worksheet.write(rows + 1 , col + 3 , "Credit", main_cell_total_of_total)
-            worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
 
-            worksheet.write_merge(rows , rows , col + 2, col + 3 , month_name, main_cell_total)
-            # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
+            worksheet.write(rows + 1 , col , "مدين " , main_cell_total_of_total)
+            worksheet.write(rows + 1 , col + 1 , "دائن ", main_cell_total_of_total)
+            worksheet.write(rows + 1 , col + 2 , "مدين ", main_cell_total_of_total)
+            worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
+            start = str(self.date_start.replace(day=1).strftime('%Y/%m/%d'))
+            end = str((self.date_end.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
 
-            account_result = {}
-            accounts = self.env['account.account'].search([])
-            
 
-            tables, where_clause, where_params = self.env['account.move.line']._query_get()
-            tables = tables.replace('"', '')
-            if not tables:
-                tables = 'account_move_line'
-            wheres = [""]
-            if where_clause.strip():
-                wheres.append(where_clause.strip())
-            filters = " AND ".join(wheres)
             # compute the balance, debit and credit for the provided accounts
             request = (
                         "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
-                        " FROM " + tables + " WHERE account_id IN %s " + filters + "AND TO_CHAR(date, 'YY/MM') = '" + start[2:7] + "' GROUP BY account_id")
+                        " FROM " + tables + " WHERE account_id IN %s " + filters + "AND date >= '" + start + "' AND date < '" + end + "' GROUP BY account_id")
             params = (tuple(accounts.ids),) + tuple(where_params)
             self.env.cr.execute(request, params)
             for row in self.env.cr.dictfetchall():
                 account_result[row.pop('id')] = row
 
             account_res = []
-            groupss = {}
-            grs = {}
+            groupss_total = {}
             for account in accounts:
                 res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
                 currency = account.currency_id and account.currency_id or account.company_id.currency_id
                 res['code'] = account.code
                 res['name'] = account.name
-                res["group_id"] = account.group_id.name
-
-                if account.code[:3] in grs:
-                    # If the key already exists, append the item to the list
-                    grs[account.code[:3]].append(res['name'])
-                else:
-                    # If the key doesn't exist, create a new list with the item
-                    grs[account.code[:3]] = [res['name']]
                 if account.id in account_result:
                     res['debit'] = account_result[account.id].get('debit')
                     res['credit'] = account_result[account.id].get('credit')
                     res['balance'] = account_result[account.id].get('balance')
                     account_res.append(res)   
 
-                    # if col == 0:
-                    #     worksheet.write(rows + 2 , col , res['code'][:3] , header_bold_main_header)
-                    #     worksheet.write(rows + 2 , col + 1 , res['name'] , header_bold_main_header)
-                        
-
-                    # Iterate through the list
-                if account.code[:3] in groupss:
+                if account.code[:3] in groupss_total:
                     # If the key already exists, append the item to the list
-                    groupss[account.code[:3]].append(res)
+                    groupss_total[account.code[:3]].append(res)
                 else:
                     # If the key doesn't exist, create a new list with the item
-                    groupss[account.code[:3]] = [res]
+                    groupss_total[account.code[:3]] = [res]
 
 
-
-                    # rows = rows + 1
-            #         print("res@@@@@@@@@@@@@@@@",res)
-            # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
-
-            for key, value in groupss.items():
+            for key, value in groupss_total.items():
                 print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
                 print("kkeeeeeeeeeeeeeeeeeeeee",key)
                 # print("value################",value)
-                values = groupss[key]
-                # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
-                print("groupss@@@@@@@@@@@@@@@",groupss)
-                if col == 0:
-                        worksheet.write(rows + 2 , col , key , header_bold_main_header)
-                        worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
-                print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                values = groupss_total[key]
+
                 exit_code = 0
                 total_debit = 0
                 total_credit = 0
                 total_balance = 0
-                for ddst in values:
-                    if col == 0:
-                        worksheet.write(rows + 2 , col + 1 , ddst['name'] , header_bold_main_header)
-                    total_debit = total_debit +  ddst['debit']
-                    total_credit = total_credit + ddst['credit']
-                    total_balance = total_balance + ddst['balance']
-                worksheet.write(rows + 2 , col + 2 , total_debit, header_bold_main_header)
-                worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
-                # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                for ddstk in values:
+                    total_debit = total_debit +  ddstk['debit']
+                    total_credit = total_credit + ddstk['credit']
+                    total_balance = total_balance + ddstk['balance']
+                    # print("ddst#############",ddst)
+                    # worksheet.write(rows + 2 , col , key, header_bold_main_header)
+                    # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
+                worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
+
+                if total_balance > 0:
+                    worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
+                    only_balance_debit = only_balance_debit + total_balance
+
+                if total_balance < 0:
+                    worksheet.write(rows + 2 , col + 3 , abs(total_balance), header_bold_main_header)
+                    only_balance_credit = only_balance_credit + total_balance
+                # else:
+                #     worksheet.write(rows + 2 , col + 2 , "", header_bold_main_header)  
+                #     worksheet.write(rows + 2 , col + 3 , "", header_bold_main_header)        
                 rows = rows + 1
-            col = col + 2
+                only_debit = only_debit + total_debit
+                only_credit = only_credit + total_credit
+                
+                # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+            
 
 
-        rows = 1
-        worksheet.write_merge(rows , rows , col + 2, col + 4 , "Total Sum" , main_cell_total)
-
-        worksheet.write_merge(rows -1 , rows - 1, col + 2, col + 4 , "Target Moves : All Posted Entries")
-
-        col = col + 2
-
-
-
-        worksheet.write(rows + 1 , col , "Debit" , main_cell_total_of_total)
-        worksheet.write(rows + 1 , col + 1 , "Credit", main_cell_total_of_total)
-        worksheet.write(rows + 1 , col + 2 , "Balance", main_cell_total_of_total)
-        start = str(self.date_start.replace(day=1).strftime('%Y/%m/%d'))
-        end = str((self.date_end.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
-
-
-        # compute the balance, debit and credit for the provided accounts
-        request = (
-                    "SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, (SUM(debit) - SUM(credit)) AS balance" + \
-                    " FROM " + tables + " WHERE account_id IN %s " + filters + "AND date >= '" + start + "' AND date < '" + end + "' GROUP BY account_id")
-        params = (tuple(accounts.ids),) + tuple(where_params)
-        self.env.cr.execute(request, params)
-        for row in self.env.cr.dictfetchall():
-            account_result[row.pop('id')] = row
-
-        account_res = []
-        groupss_total = {}
-        for account in accounts:
-            res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance']) 
-            currency = account.currency_id and account.currency_id or account.company_id.currency_id
-            res['code'] = account.code
-            res['name'] = account.name
-            if account.id in account_result:
-                res['debit'] = account_result[account.id].get('debit')
-                res['credit'] = account_result[account.id].get('credit')
-                res['balance'] = account_result[account.id].get('balance')
-                account_res.append(res)   
-
-            if account.code[:3] in groupss_total:
-                # If the key already exists, append the item to the list
-                groupss_total[account.code[:3]].append(res)
-            else:
-                # If the key doesn't exist, create a new list with the item
-                groupss_total[account.code[:3]] = [res]
-
-
-        for key, value in groupss_total.items():
-            print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
-            print("kkeeeeeeeeeeeeeeeeeeeee",key)
-            # print("value################",value)
-            values = groupss_total[key]
-
-            exit_code = 0
-            total_debit = 0
-            total_credit = 0
-            total_balance = 0
-            for ddstk in values:
-                total_debit = total_debit +  ddstk['debit']
-                total_credit = total_credit + ddstk['credit']
-                total_balance = total_balance + ddstk['balance']
-                # print("ddst#############",ddst)
-                # worksheet.write(rows + 2 , col , key, header_bold_main_header)
-                # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
-            worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
-            worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
-            worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
-            rows = rows + 1
+            worksheet.write(rows + 2 , col , only_debit, header_bold_main_header)
+            worksheet.write(rows + 2 , col + 1 , only_credit , header_bold_main_header)
+            worksheet.write(rows + 2 , col + 2 , only_balance_debit , header_bold_main_header)
+            worksheet.write(rows + 2 , col + 3 , abs(only_balance_credit) , header_bold_main_header)
+        if col == 2: 
+            worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header) 
         # worksheet.write(rows + 2 , col + 2 , res['debit'])
         # worksheet.write(rows + 2 , col + 3 , res['credit'])
         # worksheet.write(rows + 2 , col + 4 , res['balance'])
