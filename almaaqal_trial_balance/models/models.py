@@ -98,6 +98,11 @@ class MrpProductWizard(models.TransientModel):
         total_balance = 0
         codde = 0
 
+        if self.date_start.month == 1:
+            self.date_end = self.date_start
+        if self.date_start.month == 2:
+            self.date_end = self.date_start  
+            self.date_start = self.date_start.replace(month=1)  
         if self.date_start and not self.date_end:
             print("@2@@@@@@@@@@@@@@@@@",self.date_start)
             print("gggggggggggggggggg",self.date_end)
@@ -112,19 +117,19 @@ class MrpProductWizard(models.TransientModel):
                     only_debit = 0
                     only_credit = 0
                     groups = {}
-                    # start = str(dt.strftime('%Y/%m'))
+                    start = str(self.date_start.strftime('%Y/%m'))
 
-                    # given_month = int(start[5:7])
+                    given_month = int(start[5:7]) - 1
 
-                    # # Get the name of the month
-                    # month_name = calendar.month_name[given_month]
+                    # Get the name of the month
+                    month_name = calendar.month_name[given_month]
 
 
                     worksheet.write(rows + 1 , col +2, "مدين", main_cell_total_of_total)
                     worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
                     # worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
 
-                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مدور شهر (3)", main_cell_total)
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مدور شهر (%s)" % int(given_month), main_cell_total)
                     # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
 
                     account_result = {}
@@ -249,7 +254,7 @@ class MrpProductWizard(models.TransientModel):
                     worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
                     # worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
 
-                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "شهر (4)", main_cell_total)
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "شهر (%s)" % self.date_start.month, main_cell_total)
                     # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
 
                     account_result = {}
