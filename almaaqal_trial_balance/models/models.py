@@ -688,7 +688,7 @@ class MrpProductWizard(models.TransientModel):
                 # worksheet.write(col ,0 , coll.college or '', main_cell_total)
                 # worksheet.write(col ,1 , ddept.department or '', main_cell_total)
                     
-                    
+        self.date_end = False      
 
         fp = io.BytesIO()
         wb.save(fp)
