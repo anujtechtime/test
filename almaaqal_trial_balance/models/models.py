@@ -452,6 +452,10 @@ class MrpProductWizard(models.TransientModel):
                 if col == 2: 
                     worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header)  
         else:
+            tables, where_clause, where_params = self.env['account.move.line']._query_get()
+            tables = tables.replace('"', '')
+            if not tables:
+                tables = 'account_move_line'
             for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
                 rows = 1
                 data = 0
