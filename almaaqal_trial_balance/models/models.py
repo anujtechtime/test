@@ -104,14 +104,10 @@ class MrpProductWizard(models.TransientModel):
             self.date_end = self.date_start  
             self.date_start = self.date_start.replace(month=1)  
         if self.date_start and not self.date_end:
-            print("@2@@@@@@@@@@@@@@@@@",self.date_start)
-            print("gggggggggggggggggg",self.date_end)
             for x in range(2):
                 if x == 0:
                     start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
                     end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
-                    print("start_date@@@@@@@@@@@@@@",start_date)
-                    print("end_date@@@@@@@@@@@@",end_date)
                     rows = 1
                     data = 0
                     only_debit = 0
@@ -154,6 +150,7 @@ class MrpProductWizard(models.TransientModel):
                         account_result[row.pop('id')] = row
 
                     account_res = []
+                    groupsse = {}
                     groupss = {}
                     grs = {}
                     for account in accounts:
@@ -190,21 +187,12 @@ class MrpProductWizard(models.TransientModel):
 
 
 
-                            # rows = rows + 1
-                    #         print("res@@@@@@@@@@@@@@@@",res)
-                    # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
 
                     for key, value in groupss.items():
-                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
-                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
-                        # print("value################",value)
                         values = groupss[key]
-                        # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
-                        print("groupss@@@@@@@@@@@@@@@",groupss)
                         if col == 0:
-                                worksheet.write(rows + 2 , col , key , header_bold_main_header)
-                                worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
-                        print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                            worksheet.write(rows + 2 , col , key , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
                         exit_code = 0
                         total_debit = 0
                         total_credit = 0
@@ -215,27 +203,41 @@ class MrpProductWizard(models.TransientModel):
                             total_debit = total_debit +  ddst['debit']
                             total_credit = total_credit + ddst['credit']
                             total_balance = total_balance + ddst['balance']
+
+
+                        if key in groupsse:
+                            # If the key already exists, append the item to the list
+                            groupsse[key].append(total_balance)
+                        else:
+                            # If the key doesn't exist, create a new list with the item
+                            groupsse[key] = [total_balance]
+                        print("groupsse################",groupsse)
+
                         if total_balance > 0:    
                             worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)
+                            only_debit = only_debit + total_balance
+
                         if total_balance < 0:       
-                            worksheet.write(rows + 2 , col + 3 , total_balance , header_bold_main_header)
-                        only_debit = only_debit + total_debit
-                        only_credit = only_credit + total_credit
+                            worksheet.write(rows + 2 , col + 3 , abs(total_balance) , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                            only_credit = only_credit + abs(total_balance)
+                        if total_balance == 0:
+                            worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
+                        # only_debit = only_debit + total_debit
+                        # only_credit = only_credit + total_credit
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
                         rows = rows + 1
                     
 
-
                     worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
                     worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)
-                    print("only_debit@@@@@@@@@@@@@@@@@",only_debit)
                     col = col + 2
 
                 else:
                     start_date =  self.date_start.replace(day=1).strftime('%Y/%m/%d')
                     end_date =  str((self.date_start.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
-                    print("start_date@@@@@@@@@@@@@@",start_date)
-                    print("end_date@@@@@@@@@@@@",end_date)
                     rows = 1
                     data = 0
                     only_debit = 0
@@ -317,21 +319,12 @@ class MrpProductWizard(models.TransientModel):
 
 
 
-                            # rows = rows + 1
-                    #         print("res@@@@@@@@@@@@@@@@",res)
-                    # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
 
                     for key, value in groupss.items():
-                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
-                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
-                        # print("value################",value)
                         values = groupss[key]
-                        # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
-                        print("groupss@@@@@@@@@@@@@@@",groupss)
                         if col == 0:
-                                worksheet.write(rows + 2 , col , key , header_bold_main_header)
-                                worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
-                        print("values@@@@@@@@@@@@@@@@@@@@@@",values)
+                            worksheet.write(rows + 2 , col , key , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
                         exit_code = 0
                         total_debit = 0
                         total_credit = 0
@@ -346,13 +339,13 @@ class MrpProductWizard(models.TransientModel):
                         worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
                         rows = rows + 1
+
                         only_debit = only_debit + total_debit
                         only_credit = only_credit + total_credit
                         only_balance = only_balance + total_balance
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
                         # rows = rows + 1
                     
-
 
                     worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
                     worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)    
@@ -375,7 +368,7 @@ class MrpProductWizard(models.TransientModel):
                     worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
 
 
-                    start = str(self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d'))
+                    start = str(self.date_start.replace(day=1).strftime('%Y/%m/%d'))
                     end = str((self.date_start.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
 
                     # compute the balance, debit and credit for the provided accounts
@@ -409,35 +402,84 @@ class MrpProductWizard(models.TransientModel):
 
 
                     for key, value in groupss_total.items():
-                        print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
-                        print("kkeeeeeeeeeeeeeeeeeeeee",key)
-                        # print("value################",value)
                         values = groupss_total[key]
 
                         exit_code = 0
                         total_debit = 0
                         total_credit = 0
                         total_balance = 0
+                        print("RRRRRRRRRRRRRRRRRRRRRR",key)
+                        print("values@@@@@@@@@@@@@@@@",values)
                         for ddstk in values:
                             total_debit = total_debit +  ddstk['debit']
                             total_credit = total_credit + ddstk['credit']
                             total_balance = total_balance + ddstk['balance']
-                            # print("ddst#############",ddst)
                             # worksheet.write(rows + 2 , col , key, header_bold_main_header)
                             # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
-                        worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
-                        worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
+                        print("@@@@@@@@@@@@@@@@@@",rows)
+                        print("@@@@@@@@@@@@@@@@@@1111111111111",col)
+                        # ssssssssssssssssss    
+                        balance_cal = int(groupsse[key][0])    
+                        if balance_cal > 0:
+                            worksheet.write(rows + 2 , col , total_debit + balance_cal, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
+
+                            only_balance_debit = only_balance_debit + total_debit + balance_cal
+                            worksheet.write(rows + 2 , col + 2 , total_debit + balance_cal - total_credit, header_bold_main_header)
+                            only_debit = only_debit + total_balance
+                            worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header) 
+
+                        if balance_cal < 0:    
+                            worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , total_credit + abs(balance_cal), header_bold_main_header)
+
+
+                            only_balance_credit = only_balance_credit + total_credit + abs(balance_cal)
+                            worksheet.write(rows + 2 , col + 3 , total_credit + abs(balance_cal) - total_debit, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
+                            only_credit = only_credit + abs(total_balance)
+
+                        if balance_cal == 0:    
+                            worksheet.write(rows + 2 , col , "0", header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
+                        # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        # rows = rows + 1
+
+                        # only_debit = only_debit + total_debit
+                        # only_credit = only_credit + total_credit
+                        # only_balance = only_balance + total_balance
+                        # # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
+                        # # rows = rows + 1
+                    
+                        # print("groupsse@@@@@@@@@@@@@@@@@",groupsse)
+                        # dddddddddddd
+
+
+                        # worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                        # worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
                         
-                        if total_balance > 0:
-                            only_balance_debit = only_balance_debit + total_balance
-                            worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
-                        if total_balance < 0:
-                            only_balance_credit = only_balance_credit + total_balance
-                            worksheet.write(rows + 2 , col + 3 , abs(total_balance), header_bold_main_header)
+                        # if total_balance > 0:
+                        #     only_balance_debit = only_balance_debit + total_balance
+                        #     worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
+                        #     only_debit = only_debit + total_balance
+                        #     worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)  
+
+                        # if total_balance < 0:
+                        #     only_balance_credit = only_balance_credit + total_balance
+                        #     worksheet.write(rows + 2 , col + 3 , abs(total_balance), header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                        #     only_credit = only_credit + abs(total_balance)
+
+
+                        # if total_balance == 0:
+                        #     worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
                             
                         rows = rows + 1                    
-                        only_debit = only_debit + total_debit
-                        only_credit = only_credit + total_credit
+                        # only_debit = only_debit + total_debit
+                        # only_credit = only_credit + total_credit
                         
                         
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
@@ -454,10 +496,6 @@ class MrpProductWizard(models.TransientModel):
                 if col == 2: 
                     worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header)  
         else:
-            tables, where_clause, where_params = self.env['account.move.line']._query_get()
-            tables = tables.replace('"', '')
-            if not tables:
-                tables = 'account_move_line'
             for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
                 rows = 1
                 data = 0
@@ -690,7 +728,7 @@ class MrpProductWizard(models.TransientModel):
                 # worksheet.write(col ,0 , coll.college or '', main_cell_total)
                 # worksheet.write(col ,1 , ddept.department or '', main_cell_total)
                     
-        self.date_end = False      
+                    
 
         fp = io.BytesIO()
         wb.save(fp)
