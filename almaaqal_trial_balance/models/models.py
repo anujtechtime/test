@@ -215,8 +215,10 @@ class MrpProductWizard(models.TransientModel):
                             total_debit = total_debit +  ddst['debit']
                             total_credit = total_credit + ddst['credit']
                             total_balance = total_balance + ddst['balance']
-                        worksheet.write(rows + 2 , col + 2 , total_debit, header_bold_main_header)
-                        worksheet.write(rows + 2 , col + 3 , total_credit , header_bold_main_header)
+                        if total_balance > 0:    
+                            worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
+                        if total_balance < 0:       
+                            worksheet.write(rows + 2 , col + 3 , total_balance , header_bold_main_header)
                         only_debit = only_debit + total_debit
                         only_credit = only_credit + total_credit
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
