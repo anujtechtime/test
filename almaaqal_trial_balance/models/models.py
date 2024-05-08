@@ -162,7 +162,9 @@ class MrpProductWizard(models.TransientModel):
 
                         if account.code[:3] in grs:
                             # If the key already exists, append the item to the list
-                            grs[account.code[:3]].append(res['name'])
+                            grs[account.code[:3]].append(res['group_id'])
+                            if res['group_id'] == False:
+                                grs[account.code[:3]] = [res['name']]
                         else:
                             # If the key doesn't exist, create a new list with the item
                             grs[account.code[:3]] = [res['name']]
@@ -192,14 +194,16 @@ class MrpProductWizard(models.TransientModel):
                         values = groupss[key]
                         if col == 0:
                             worksheet.write(rows + 2 , col , key , header_bold_main_header)
-                            worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
+                            print("key@@@@@@@@@@@@@@@@",key)
+                            print("grs[key][-1]@@@@@@@@@@@@@@@",grs[key][-1])
+                            worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
                         exit_code = 0
                         total_debit = 0
                         total_credit = 0
                         total_balance = 0
                         for ddst in values:
                             if col == 0:
-                                worksheet.write(rows + 2 , col + 1 , ddst['name'] , header_bold_main_header)
+                                worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
                             total_debit = total_debit +  ddst['debit']
                             total_credit = total_credit + ddst['credit']
                             total_balance = total_balance + ddst['balance']
@@ -211,7 +215,6 @@ class MrpProductWizard(models.TransientModel):
                         else:
                             # If the key doesn't exist, create a new list with the item
                             groupsse[key] = [total_balance]
-                        print("groupsse################",groupsse)
 
                         if total_balance > 0:    
                             worksheet.write(rows + 2 , col + 2 , total_balance, header_bold_main_header)
@@ -408,17 +411,12 @@ class MrpProductWizard(models.TransientModel):
                         total_debit = 0
                         total_credit = 0
                         total_balance = 0
-                        print("RRRRRRRRRRRRRRRRRRRRRR",key)
-                        print("values@@@@@@@@@@@@@@@@",values)
                         for ddstk in values:
                             total_debit = total_debit +  ddstk['debit']
                             total_credit = total_credit + ddstk['credit']
                             total_balance = total_balance + ddstk['balance']
                             # worksheet.write(rows + 2 , col , key, header_bold_main_header)
                             # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
-                        print("@@@@@@@@@@@@@@@@@@",rows)
-                        print("@@@@@@@@@@@@@@@@@@1111111111111",col)
-                        # ssssssssssssssssss    
                         balance_cal = int(groupsse[key][0])    
                         if balance_cal > 0:
                             worksheet.write(rows + 2 , col , total_debit + balance_cal, header_bold_main_header)
@@ -583,16 +581,11 @@ class MrpProductWizard(models.TransientModel):
                 # print("grsgrsgrsgrsgrsgrsgrsgrs",grs)
 
                 for key, value in groupss.items():
-                    print(f"Valuessssssss: {key}, Lengthdddddddddd: {len(value)}")
-                    print("kkeeeeeeeeeeeeeeeeeeeee",key)
-                    # print("value################",value)
+
                     values = groupss[key]
-                    # print("@@@@@@@@@@@@@@@@@@@@@@@@",groupss.index(key))
-                    print("groupss@@@@@@@@@@@@@@@",groupss)
                     if col == 0:
                             worksheet.write(rows + 2 , col , key , header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , grs[key] , header_bold_main_header)
-                    print("values@@@@@@@@@@@@@@@@@@@@@@",values)
                     exit_code = 0
                     total_debit = 0
                     total_credit = 0
