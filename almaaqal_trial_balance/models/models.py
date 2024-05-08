@@ -159,15 +159,16 @@ class MrpProductWizard(models.TransientModel):
                         res['code'] = account.code
                         res['name'] = account.name
                         res["group_id"] = account.group_id.name
+                        print("res@@@@@@@@@@@@@@@@@@",res)
 
                         if account.code[:3] in grs:
                             # If the key already exists, append the item to the list
                             grs[account.code[:3]].append(res['group_id'])
                             if res['group_id'] == False:
-                                grs[account.code[:3]] = [res['name']]
+                                grs[account.code[:3]] = [res['group_id']]
                         else:
                             # If the key doesn't exist, create a new list with the item
-                            grs[account.code[:3]] = [res['name']]
+                            grs[account.code[:3]] = [res['group_id']]
                         if account.id in account_result:
                             res['debit'] = account_result[account.id].get('debit')
                             res['credit'] = account_result[account.id].get('credit')
@@ -187,7 +188,7 @@ class MrpProductWizard(models.TransientModel):
                             # If the key doesn't exist, create a new list with the item
                             groupss[account.code[:3]] = [res]
 
-
+                    print("grs@@@@@@@@@@@@@@@@",grs)
 
 
                     for key, value in groupss.items():
@@ -195,7 +196,7 @@ class MrpProductWizard(models.TransientModel):
                         if col == 0:
                             worksheet.write(rows + 2 , col , key , header_bold_main_header)
                             print("key@@@@@@@@@@@@@@@@",key)
-                            print("grs[key][-1]@@@@@@@@@@@@@@@",grs[key][-1])
+                            print("grs[key][-1]@@@@@@@@@@@@@@@",grs[key])
                             worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
                         exit_code = 0
                         total_debit = 0
