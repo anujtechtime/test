@@ -18,7 +18,7 @@
 
 
 
-        <record id="view_res_partner_data_inherit" model="ir.ui.view">
+<!--         <record id="view_res_partner_data_inherit" model="ir.ui.view">
             <field name="name">res.partner.form.val</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="techtime_student_excel.view_sales_order_filter_sale_res_partner"/>
@@ -36,7 +36,7 @@
 
                 
             </field>
-        </record>
+        </record> -->
 
 
         <record model="ir.ui.view" id="graduation_source_tree">
@@ -121,6 +121,16 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="techtime_student_excel.view_sales_order_filter_sale_res_partner"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='State_of_school_graduated_from']" position="after">
+                    <field name="graduation_source" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='nationalty']" position="replace">
+                    <field name="nationalty_source" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
+                    <field name="second_nationality_source" options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}"/>
+
+                    
+                </xpath>
     <xpath expr="//page" position="after">
                 <page string="Status Change Log">
                 <group>
