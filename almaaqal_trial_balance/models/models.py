@@ -239,7 +239,8 @@ class MrpProductWizard(models.TransientModel):
                     worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
                     worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)
                     col = col + 2
-
+                    only_debit_for_sum = only_debit
+                    only_credit_for_sum = only_credit
                 else:
                     start_date =  self.date_start.replace(day=1).strftime('%Y/%m/%d')
                     end_date =  str((self.date_start.replace(day=1) + relativedelta(months=1)).strftime('%Y/%m/%d'))
@@ -355,7 +356,10 @@ class MrpProductWizard(models.TransientModel):
                     worksheet.write(rows + 2 , col + 2 , only_debit, header_bold_main_header)
                     worksheet.write(rows + 2 , col + 3 , only_credit , header_bold_main_header)    
                     col = col + 2
-                
+                    only_debit_for_sum = only_debit_for_sum + only_debit
+                    only_credit_for_sum = only_credit_for_sum + only_credit
+                    print("only_debit_for_sum@@@@@@@@@@@@@",only_debit_for_sum)
+                    print("only_credit_for_sum@@@@@@@@@@@@",only_credit_for_sum)
                     rows = 1
                     # worksheet.write_merge(rows , rows , col + 2, col + 4 , "Total Sum" , main_cell_total)
                     worksheet.write_merge(rows , rows , col + 2, col + 3 , "مجموع الرصيد " , main_cell_total)
@@ -439,13 +443,16 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
 
-                        if balance_cal == 0 and total_debit > 0 and total_credit > 0:    
+                        if balance_cal == 0 and total_debit > 0 and total_credit > 0:  
+                            only_debit = only_debit + total_debit
+                            only_credit = only_credit + total_credit  
                             worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , total_credit, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
 
-                        if balance_cal == 0 and total_debit == 0 and total_credit == 0:    
+                        if balance_cal == 0 and total_debit == 0 and total_credit == 0:   
+
                             worksheet.write(rows + 2 , col , "0", header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
@@ -494,8 +501,8 @@ class MrpProductWizard(models.TransientModel):
                         
 
 
-                    worksheet.write(rows + 2 , col , only_debit, header_bold_main_header)
-                    worksheet.write(rows + 2 , col + 1 , only_credit , header_bold_main_header)
+                    worksheet.write(rows + 2 , col , only_debit_for_sum, header_bold_main_header)
+                    worksheet.write(rows + 2 , col + 1 , only_credit_for_sum , header_bold_main_header)
                     worksheet.write(rows + 2 , col + 2 , only_balance_debit , header_bold_main_header)  
                     worksheet.write(rows + 2 , col + 3 , abs(only_balance_credit) , header_bold_main_header)       
 
