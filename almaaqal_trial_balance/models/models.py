@@ -197,13 +197,14 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col , key , header_bold_main_header)
                             print("key@@@@@@@@@@@@@@@@",key)
                             print("grs[key][-1]@@@@@@@@@@@@@@@",grs[key])
-                            worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
+                            if grs[key][-1] != False:
+                                worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
                         exit_code = 0
                         total_debit = 0
                         total_credit = 0
                         total_balance = 0
                         for ddst in values:
-                            if col == 0:
+                            if col == 0  and grs[key][-1] != False:
                                 worksheet.write(rows + 2 , col + 1 , grs[key][-1] , header_bold_main_header)
                             total_debit = total_debit +  ddst['debit']
                             total_credit = total_credit + ddst['credit']
