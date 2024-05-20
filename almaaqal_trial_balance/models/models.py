@@ -226,9 +226,9 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 3 , abs(total_balance) , header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
-                        if total_balance == 0:
-                            worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
-                            worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
+                        # if total_balance == 0:
+                        #     worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
                         # only_debit = only_debit + total_debit
                         # only_credit = only_credit + total_credit
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
@@ -438,11 +438,11 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
 
-                        if balance_cal == 0:    
-                            worksheet.write(rows + 2 , col , "0", header_bold_main_header)
-                            worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
-                            worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
-                            worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
+                        # if balance_cal == 0:    
+                        #     worksheet.write(rows + 2 , col , "0", header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
+                        #     worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
                         # rows = rows + 1
 
