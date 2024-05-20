@@ -226,9 +226,9 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 3 , abs(total_balance) , header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
-                        # if total_balance == 0:
-                        #     worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
-                        #     worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
+                        if total_balance == 0:
+                            worksheet.write(rows + 2 , col + 2 , "" , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "" , header_bold_main_header)    
                         # only_debit = only_debit + total_debit
                         # only_credit = only_credit + total_credit
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
@@ -418,23 +418,19 @@ class MrpProductWizard(models.TransientModel):
                             total_balance = total_balance + ddstk['balance']
                             # worksheet.write(rows + 2 , col , key, header_bold_main_header)
                             # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
-
                         balance_cal = int(groupsse[key][0])    
-                        _logger.info("groupsse[key][0]************2222222222222222#####**%s" %groupsse[key][0])
-                        if balance_cal > 0 or total_debit > 0:
-                            _logger.info("total_debit************333333333333333333#####**%s" %total_debit)  
-                            worksheet.write(rows + 2 , col + 1, total_debit + balance_cal, header_bold_main_header)
-                            # worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
+                        if balance_cal > 0:
+                            worksheet.write(rows + 2 , col , total_debit + balance_cal, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
 
                             only_balance_debit = only_balance_debit + total_debit + balance_cal
                             worksheet.write(rows + 2 , col + 2 , total_debit + balance_cal - total_credit, header_bold_main_header)
                             only_debit = only_debit + total_balance
                             worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header) 
 
-                        if balance_cal < 0 or total_credit > 0:    
-                            _logger.info("total_credit************11111111111111#####**%s" %total_credit)
-                            # worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
-                            worksheet.write(rows + 2 , col , total_credit + abs(balance_cal), header_bold_main_header)
+                        if balance_cal < 0:    
+                            worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , total_credit + abs(balance_cal), header_bold_main_header)
 
 
                             only_balance_credit = only_balance_credit + total_credit + abs(balance_cal)
@@ -442,13 +438,17 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
 
-                            
-                        _logger.info("balance_cal************11111111111111#####**%s" %balance_cal)
-                        # if balance_cal == 0:    
-                        #     worksheet.write(rows + 2 , col , "0", header_bold_main_header)
-                        #     worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
-                        #     worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
-                        #     worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
+                        if balance_cal == 0 and total_debit > 0 and total_credit > 0:    
+                            worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , total_credit, header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)
+
+                        if balance_cal == 0 and total_debit == 0 and total_credit == 0:    
+                            worksheet.write(rows + 2 , col , "0", header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
+                            worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header)    
                         # worksheet.write(rows + 2 , col + 4 , total_balance, header_bold_main_header)
                         # rows = rows + 1
 
