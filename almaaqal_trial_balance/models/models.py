@@ -418,8 +418,9 @@ class MrpProductWizard(models.TransientModel):
                             total_balance = total_balance + ddstk['balance']
                             # worksheet.write(rows + 2 , col , key, header_bold_main_header)
                             # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
+                            
                         balance_cal = int(groupsse[key][0])    
-                        _logger.info("balance_cal************2222222222222222#####**%s" %balance_cal)
+                        _logger.info("groupsse[key][0]************2222222222222222#####**%s" %groupsse[key][0])
                         if balance_cal > 0 or total_debit > 0:
                             worksheet.write(rows + 2 , col , total_debit + balance_cal, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
