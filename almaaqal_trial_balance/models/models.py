@@ -419,7 +419,7 @@ class MrpProductWizard(models.TransientModel):
                             # worksheet.write(rows + 2 , col , key, header_bold_main_header)
                             # worksheet.write(rows + 2 , col + 1 , ddst['name'], header_bold_main_header)
                         balance_cal = int(groupsse[key][0])    
-                        if balance_cal >= 0 and total_debit > 0:
+                        if balance_cal > 0:
                             worksheet.write(rows + 2 , col , total_debit + balance_cal, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , total_credit , header_bold_main_header)
 
@@ -428,7 +428,7 @@ class MrpProductWizard(models.TransientModel):
                             only_debit = only_debit + total_balance
                             worksheet.write(rows + 2 , col + 3 , "0" , header_bold_main_header) 
 
-                        if balance_cal <= 0 and total_credit > 0:    
+                        if balance_cal < 0:    
                             worksheet.write(rows + 2 , col , total_debit, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 1 , total_credit + abs(balance_cal), header_bold_main_header)
 
@@ -437,7 +437,8 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 3 , total_credit + abs(balance_cal) - total_debit, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
-
+                        _logger.info("total_credit************11111111111111#####**%s" %total_credit)    
+                        _logger.info("valuess************11111111111111#####**%s" %values)
                         # if balance_cal == 0:    
                         #     worksheet.write(rows + 2 , col , "0", header_bold_main_header)
                         #     worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
