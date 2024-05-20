@@ -437,8 +437,9 @@ class MrpProductWizard(models.TransientModel):
                             worksheet.write(rows + 2 , col + 3 , total_credit + abs(balance_cal) - total_debit, header_bold_main_header)
                             worksheet.write(rows + 2 , col + 2 , "0" , header_bold_main_header)
                             only_credit = only_credit + abs(total_balance)
+                            
                         _logger.info("total_credit************11111111111111#####**%s" %total_credit)    
-                        _logger.info("valuess************11111111111111#####**%s" %values)
+                        _logger.info("balance_cal************11111111111111#####**%s" %balance_cal)
                         # if balance_cal == 0:    
                         #     worksheet.write(rows + 2 , col , "0", header_bold_main_header)
                         #     worksheet.write(rows + 2 , col + 1 , "0", header_bold_main_header)
