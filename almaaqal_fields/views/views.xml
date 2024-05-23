@@ -98,6 +98,17 @@
             <form string="My Form">
                 <sheet>                         
                     <group> 
+                        <field name="transferred_to_us"/>
+                        <field name="chckbox_data_2"/>
+                        <field name="transfer_shift" />
+                        <field name="chckbox_data"/>
+                        <field name="boolean_one"/>
+                        <field name="boolean_two"/>
+                        <field name="boolean_three"/>
+                        <field name="boolean_four"/>
+                        <field name="Status"/>
+                            
+
                         <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                         <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
                         <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />

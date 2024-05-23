@@ -25,6 +25,19 @@ class ResPart(models.Model):
 class DataLevelStatus(models.TransientModel):
     _name = 'status.change'
 
+
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    transferred_to_us = fields.Boolean("Transferred To Us ") 
+    transfer_shift = fields.Boolean("Transferred Shift ")
+    chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
+
+    chckbox_data_2 = fields.Boolean("نقل من جامعة")
+
+    boolean_one = fields.Boolean(string="أبناء الهيئة التدريسية", tracking=True)
+    boolean_two = fields.Boolean(string="أبناء أصحاب الشهادات العليا في وزارات أخرى", tracking=True)
+    boolean_three = fields.Boolean(string="الوافدين", tracking=True)
+    boolean_four = fields.Boolean(string="السجناء السياسيين", tracking=True)
+
     res_part_2 = fields.Many2one("res.partner")   
     notes_data = fields.Text("Notes", track_visibility=True)
     data_date_value = fields.Date("Date", track_visibility=True)
@@ -38,7 +51,19 @@ class DataLevelStatus(models.TransientModel):
             levels_sale_order = self.env["res.partner"].browse(int(idds))
             print("levels_sale_order@@@@@@@@@@@@@@",levels_sale_order)
             self.res_part_2 = levels_sale_order.id
-            levels_sale_order.remark_data_change_2  = (4, self.id)
+            levels_sale_order.remark_data_change_2  = [(4, self.id)]
+
+
+
+            levels_sale_order.Status = self.Status
+            levels_sale_order.transferred_to_us = self.transferred_to_us
+            levels_sale_order.transfer_shift = self.transfer_shift
+            levels_sale_order.chckbox_data = self.chckbox_data
+            levels_sale_order.chckbox_data_2 = self.chckbox_data_2
+            levels_sale_order.boolean_one = self.boolean_one
+            levels_sale_order.boolean_two = self.boolean_two
+            levels_sale_order.boolean_three = self.boolean_three
+            levels_sale_order.boolean_four = self.boolean_four
             print("levels_sale_order.remark_data_change_2@@@@@@@@@@",levels_sale_order.remark_data_change_2)
      
 
