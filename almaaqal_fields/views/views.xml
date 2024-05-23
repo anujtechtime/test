@@ -117,7 +117,7 @@
                     </group>
                 </sheet>
                 <footer>
-                    <button name="action_confirm_change_level" type="object" string="Change the Level value" class="oe_highlight"/>
+                    <button name="action_confirm_change_level" type="object" string="Change the Status" class="oe_highlight"/>
                         or
                     <button special="cancel" string="Cancel"/>
                 </footer>
