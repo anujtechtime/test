@@ -12,7 +12,7 @@ class ResPart(models.Model):
     graduation_source = fields.Many2one("graduation.source", string="Graduation Source")
     nationalty_source = fields.Many2one("nationality.source", string="Nationality")
     second_nationality_source = fields.Many2one("nationality.source", string="Second Nationality")
-    remark_data_change_2 = fields.Many2one("status.change",store = True)
+    remark_data_change_2 = fields.One2many("status.change","res_part_2",store = True)
 
 
     def action_done_show_wizard_level_status(self):
