@@ -2,6 +2,10 @@
 
 from odoo import models, fields, api , _
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 class ResPart(models.Model):
     _inherit = "res.partner"
 
@@ -52,6 +56,7 @@ class DataLevelStatus(models.TransientModel):
                 levels_sale_order = self.env["res.partner"].browse(int(idds))
                 print("levels_sale_order@@@@@@@@@@@@@@",levels_sale_order)
                 ddts.res_part_2 = levels_sale_order.id
+                _logger.info("ddts************11111111111111#####**%s" %ddts)
 
 
                 levels_sale_order.remark_data_change_2  = [(4, ddts.id)]
