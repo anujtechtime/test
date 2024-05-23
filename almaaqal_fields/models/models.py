@@ -45,27 +45,30 @@ class DataLevelStatus(models.TransientModel):
     attachment = fields.Many2many("ir.attachment",  string="Attachment")
 
     def action_confirm_change_level(self):
-        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
-        for idds in self._context.get("active_id"):
-            print("idds@@@@@@@@@@@@@@@@@",idds)
-            levels_sale_order = self.env["res.partner"].browse(int(idds))
-            print("levels_sale_order@@@@@@@@@@@@@@",levels_sale_order)
-            self.res_part_2 = levels_sale_order.id
-            levels_sale_order.remark_data_change_2  = [(4, self.id)]
+        # print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
+        for ddts in self:
+            for idds in ddts._context.get("active_id"):
+                print("idds@@@@@@@@@@@@@@@@@",idds)
+                levels_sale_order = self.env["res.partner"].browse(int(idds))
+                print("levels_sale_order@@@@@@@@@@@@@@",levels_sale_order)
+                ddts.res_part_2 = levels_sale_order.id
+
+
+                levels_sale_order.remark_data_change_2  = [(4, ddts.id)]
 
 
 
-            levels_sale_order.Status = self.Status
-            levels_sale_order.transferred_to_us = self.transferred_to_us
-            levels_sale_order.transfer_shift = self.transfer_shift
-            levels_sale_order.chckbox_data = self.chckbox_data
-            levels_sale_order.chckbox_data_2 = self.chckbox_data_2
-            levels_sale_order.boolean_one = self.boolean_one
-            levels_sale_order.boolean_two = self.boolean_two
-            levels_sale_order.boolean_three = self.boolean_three
-            levels_sale_order.boolean_four = self.boolean_four
-            print("levels_sale_order.remark_data_change_2@@@@@@@@@@",levels_sale_order.remark_data_change_2)
-     
+                levels_sale_order.Status = ddts.Status
+                levels_sale_order.transferred_to_us = ddts.transferred_to_us
+                levels_sale_order.transfer_shift = ddts.transfer_shift
+                levels_sale_order.chckbox_data = ddts.chckbox_data
+                levels_sale_order.chckbox_data_2 = ddts.chckbox_data_2
+                levels_sale_order.boolean_one = ddts.boolean_one
+                levels_sale_order.boolean_two = ddts.boolean_two
+                levels_sale_order.boolean_three = ddts.boolean_three
+                levels_sale_order.boolean_four = ddts.boolean_four
+                print("levels_sale_order.remark_data_change_2@@@@@@@@@@",levels_sale_order.remark_data_change_2)
+         
 
 class TechtimeNewWork(models.Model):
     _name = 'graduation.source'
