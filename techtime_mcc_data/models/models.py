@@ -127,7 +127,7 @@ class DataHrEmployee(models.Model):
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
-    remark_data_change = fields.One2many("level.value","res_part",store = True)
+    remark_data_change = fields.Many2many("level.value",store = True)
 
     rfid = fields.Char("RFID")
 
@@ -874,41 +874,39 @@ class DataLevelValueData(models.TransientModel):
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
 
     def action_confirm_change_level(self):
-        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
-        for idds in self._context.get("active_id"):
-            print("idds@@@@@@@@@@@@@@@@@",idds)
-            levels_sale_order = self.env["res.partner"].browse(int(idds))
-            # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
-            _logger.info("eeeeeeeeeeeeeeeeeeee************11111111111111#####**%s" %self.id)
-            # levels_sale_order.remark_data_change  = (4, self.id)
-            self.res_part = levels_sale_order.id
-            if self.level:
-                levels_sale_order.level = self.level
-                # levels_sale_order.partner_id.level = self.level
+        for ddts in self:
+            for idds in ddts._context.get("active_id"):
+                levels_sale_order = self.env["res.partner"].browse(int(idds))
+                # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
+                levels_sale_order.remark_data_change  = [(4, ddts.id)]
+                ddts.res_part = levels_sale_order.id
+                if ddts.level:
+                    levels_sale_order.level = ddts.level
+                    # levels_sale_order.partner_id.level = self.level
 
-            if self.year:    
-                levels_sale_order.year = self.year
-                # levels_sale_order.partner_id.year = self.year
+                if ddts.year:    
+                    levels_sale_order.year = ddts.year
+                    # levels_sale_order.partner_id.year = self.year
 
-            if self.Status:    
-                levels_sale_order.Status = self.Status
-                # levels_sale_order.partner_id.Status = self.Status
-                
-            if self.contact_type:
-                levels_sale_order.contact_type = self.contact_type
-            if self.notes_data:
-                levels_sale_order.notes_data = self.notes_data
-            if self.data_date_value:
-                levels_sale_order.data_date_value = self.data_date_value
-            if self.sequence_num:
-                levels_sale_order.sequence_num = self.sequence_num
+                if ddts.Status:    
+                    levels_sale_order.Status = ddts.Status
+                    # levels_sale_order.partner_id.Status = self.Status
+                    
+                if ddts.contact_type:
+                    levels_sale_order.contact_type = ddts.contact_type
+                if ddts.notes_data:
+                    levels_sale_order.notes_data = ddts.notes_data
+                if ddts.data_date_value:
+                    levels_sale_order.data_date_value = ddts.data_date_value
+                if ddts.sequence_num:
+                    levels_sale_order.sequence_num = ddts.sequence_num
 
-            if self.attachment:
-                levels_sale_order.attachment =  [(6, 0, self.attachment.mapped("id"))]
-                # for pdf in self.attachment:
-                #     attachments.append(pdf.id)
+                if ddts.attachment:
+                    levels_sale_order.attachment =  [(6, 0, ddts.attachment.mapped("id"))]
+                    # for pdf in self.attachment:
+                    #     attachments.append(pdf.id)
 
-                levels_sale_order.message_post(attachment_ids=self.attachment.mapped("id"))           
+                    levels_sale_order.message_post(attachment_ids=self.attachment.mapped("id"))           
 
 class ContractmDateAccount(models.Model):
 
