@@ -13,6 +13,8 @@ class RespartnerLive(models.Model):
 
     attachment_six = fields.Binary('Attachment')
     attachment_name_six = fields.Char('Attachment Name')
+
+    transferred_college = fields.Boolean("Transferred College")
     
 
 
