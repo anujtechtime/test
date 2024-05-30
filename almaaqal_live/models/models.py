@@ -9,7 +9,7 @@ class RespartnerLive(models.Model):
     attachment_live = fields.Binary('Attachment')
     attachment_name_live = fields.Char('Attachment Name')
 
-    boolean_six = fields.Boolean("ب كتاب")
+    boolean_six = fields.Boolean("كتاب التصويب")
 
     attachment_six = fields.Binary('Attachment')
     attachment_name_six = fields.Char('Attachment Name')

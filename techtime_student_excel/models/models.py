@@ -42,17 +42,6 @@ class DataStatusValue(models.TransientModel):
             levels_sale_order.Status = self.Status
             levels_sale_order.partner_id.Status = self.Status
         # for ddts in self:
-        #     ddts.level =  self.level
-
-    @api.model
-    def default_get(self, field_list):
-        res = super(DataStatusValue, self).default_get(field_list)
-        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@2",self._context.get("active_id"))
-        for idds in self._context.get("active_id"):
-            print("idds@@@@@@@@@@@@@@@@@",idds)
-        return res        
-
-
 
 class DataLevelValue(models.TransientModel):
     _name = 'level.value'
@@ -78,25 +67,6 @@ class DataLevelValue(models.TransientModel):
         # for ddts in self:
         #     ddts.level =  self.level
 
-    @api.model
-    def default_get(self, field_list):
-        res = super(DataLevelValue, self).default_get(field_list)
-        print("res@@@@@@@@@@@@@@@@@@@@@@@@@@2",self._context.get("active_id"))
-        for idds in self._context.get("active_id"):
-            print("idds@@@@@@@@@@@@@@@@@",idds)
-            # levels_sale_order = self.env["sale.order"].browse(int(idds))
-            # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
-            # levels_sale_order.level = self.level
-            # levels_sale_order.update({
-            #     'level': self.level,
-            # })
-        # company = self.env.company
-        # res.update({
-        #     'company_id': company.id,
-        #     'period_lock_date': company.period_lock_date,
-        #     'fiscalyear_lock_date': company.fiscalyear_lock_date,
-        # })
-        return res        
 
 
 class TechtimeStudentData(models.Model):

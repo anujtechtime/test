@@ -189,6 +189,23 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+
+        <record id="ir_actions_server_sale_change_log_data" model="ir.actions.server">
+        <field name="name">Update old Change logs</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_done_show_change_log_update()
+        </field>
+        <field name="binding_model_id" ref="sale.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+    
+
           
     <!-- actions opening views on models -->
 <!--
