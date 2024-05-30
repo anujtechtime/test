@@ -30,46 +30,48 @@ class ResPart(models.Model):
             lev = ""
             print("self.env['level.value']@@@@@@@@@@@@@",chg)
             for message in messages:
-                if message.tracking_value_ids.field == "sequence_num":
-                    change_logs = chg.env['level.value'].sudo().create({
-                        "sequence_num" : message.tracking_value_ids.new_value_char
-                        })
-                    print("change_logs@@@@@@@@@@@@",change_logs)
-                if message.tracking_value_ids.field == "data_date_value":
-                    change_logs.update({
-                        "data_date_value" : message.tracking_value_ids.new_value_datetime
-                        })
+                if len(message.tracking_value_ids) < 2:
+                    if message.tracking_value_ids.field == "sequence_num":
+                        change_logs = chg.env['level.value'].sudo().create({
+                            "sequence_num" : message.tracking_value_ids.new_value_char
+                            })
+                        print("change_logs@@@@@@@@@@@@",change_logs)
+                    if change_logs:    
+                        if message.tracking_value_ids.field == "data_date_value":
+                            change_logs.update({
+                                "data_date_value" : message.tracking_value_ids.new_value_datetime
+                                })
 
-                if message.tracking_value_ids.field == "notes_data":
-                    change_logs.update({
-                        "notes_data" : message.tracking_value_ids.new_value_text
-                        })    
+                        if message.tracking_value_ids.field == "notes_data":
+                            change_logs.update({
+                                "notes_data" : message.tracking_value_ids.new_value_text
+                                })    
 
-                if message.tracking_value_ids.field == "year":
-                    change_logs.update({
-                        "year" : message.tracking_value_ids.new_value_integer
-                        })        
-                if message.tracking_value_ids.field == "level":
-                    if message.tracking_value_ids.new_value_char == 'المرحلة الاولى':
-                        lev = 'leve1'
-                    if message.tracking_value_ids.new_value_char == 'المرحلة الثانية':
-                        lev = 'level2'
-                    if message.tracking_value_ids.new_value_char == 'المرحلة الثالثة':
-                        lev = 'level3'
-                    if message.tracking_value_ids.new_value_char == 'المرحلة الرابعة':
-                        lev = 'level4'
-                    if message.tracking_value_ids.new_value_char == 'المرحلة الخامسة':
-                        lev =='level5'
-                    change_logs.update({
-                        "level" : lev
-                        })   
-                if attachment_ids:
-                    change_logs.update({
-                        "attachment" : [(4, attachment_ids.id)]
-                        })                     
-                    
-            if change_logs:
-                chg.write({'remark_data_change': [(4, change_logs.id)]})
+                        # if message.tracking_value_ids.field == "year":
+                        #     change_logs.update({
+                        #         "year" : message.tracking_value_ids.new_value_integer
+                        #         })        
+                        if message.tracking_value_ids.field == "level":
+                            if message.tracking_value_ids.new_value_char == 'المرحلة الاولى':
+                                lev = 'leve1'
+                            if message.tracking_value_ids.new_value_char == 'المرحلة الثانية':
+                                lev = 'level2'
+                            if message.tracking_value_ids.new_value_char == 'المرحلة الثالثة':
+                                lev = 'level3'
+                            if message.tracking_value_ids.new_value_char == 'المرحلة الرابعة':
+                                lev = 'level4'
+                            if message.tracking_value_ids.new_value_char == 'المرحلة الخامسة':
+                                lev =='level5'
+                            change_logs.update({
+                                "level" : lev
+                                })   
+                        if attachment_ids:
+                            change_logs.update({
+                                "attachment" : [(4, attachment_ids.id)]
+                                })                     
+                            
+                if change_logs:
+                    chg.write({'remark_data_change': [(4, change_logs.id)]})
 
     def action_done_show_wizard_level_status(self):
         return {'type': 'ir.actions.act_window',
