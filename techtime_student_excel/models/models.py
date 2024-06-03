@@ -108,9 +108,9 @@ class TechtimeStudentexcel(models.Model):
     _inherit = 'sale.order'
 
 
-    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
-    transferred_to_us = fields.Boolean("Transferred To Us ") 
-    transfer_shift = fields.Boolean("Transferred Shift ")
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", related="partner_id.Status")
+    transferred_to_us = fields.Boolean("Transferred To Us ", related="partner_id.transferred_to_us") 
+    transfer_shift = fields.Boolean("Transferred Shift ", related="partner_id.transfer_shift")
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
  
 
