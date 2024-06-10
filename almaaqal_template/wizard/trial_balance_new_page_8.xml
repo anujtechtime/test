@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_report_balance_view_new_page_8" model="ir.ui.view">
+        <field name="name">Trial Balance New</field>
+        <field name="model">account.balance.report.new.page_8</field>
+        <field name="inherit_id" ref="account.account_common_report_view"/>
+        <field name="arch" type="xml">
+            <data>
+            <!-- <field name="journal_ids" position="replace"/> -->
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="display_account" widget="radio"/>
+                    <newline/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="action_account_balance_menu_new_page_8" model="ir.actions.act_window">
+        <field name="name">Trial Balance new</field>
+        <field name="res_model">account.balance.report.new.page_8</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_balance_view_new_page_8"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_account" />
+    </record>
+
+    <menuitem id="menu_Balance_report_new_page8"
+              name="Trial Balance Page 8st"
+              sequence="7"
+              action="action_account_balance_menu_new_page_8"
+              parent="base_accounting_kit.account_reports_audit"/>
+
+</odoo>

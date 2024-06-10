@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_trial_balance_new_page_seven">
+       <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+            <!--<t t-call="web.external_layout">  -->
+                <div class="page" style="margin-top : 60px !important;">
+                    <h4 class="text-center">ميزان المراجعة للسنة المنتهية 2022/12/31</h4>
+                    <!--<h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>/ الميزانية العامة كما في ٣١/كانون الاول </h4>-->
+
+
+                    <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
+                        <thead>
+                            <tr>
+                                <th class="text-right">دائن </th>
+                                <th class="text-right">مدين</th>
+                                <th class="text-right">اسم الحساب</th>
+                                <th class="text-right">رقم الدليل المحاسبي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <t t-set="code_value" t-value="11"/>
+                                <t t-set="total_group_debit" t-value="0"/>
+                                <t t-set="total_group_credit" t-value="0"/>
+                                <t t-set="count" t-value="0"/>
+                                
+                                <t t-foreach="Accounts.items()" t-as="account">
+                                <!--<t t-if="not account_code or account_code == account['code'][:3]">-->
+                                  
+                                <!--  <t t-set="count" t-value="count + 1"/>-->
+                                <!--  <t t-set="total_group_debit" t-value="total_group_debit + account['debit']"/>-->
+                                <!--  <t t-set="total_group_credit" t-value="total_group_credit + account['credit']"/>-->
+                                <!--  <t t-set="account_name" t-value="account"/>-->
+                                  
+                                <!--  </t>-->
+                                  
+                                <!--  <t t-if="account_code != account['code'][:3]">-->
+                                  
+                                <!--  <t t-set="count" t-value="0"/>-->
+                                <!--  <t t-set="total_group_debit" t-value="0"/>-->
+                                <!--  <t t-set="total_group_credit" t-value="0"/>-->
+                                  
+                                <!--  </t>-->
+                                  
+                                  
+                                <!--<t t-set="account_code" t-value="account['code'][:3]"/>-->
+                                <!--<t t-esc="account['group_id']"/>-->
+                                <!--<t t-esc="count"/>-->
+                                <!--<t t-esc="total_group_debit"/>-->
+                                <!--<t t-esc="total_group_credit"/>-->
+                            <tr>
+                              
+                                <td class="text-right">
+                                    <span  t-att-style="style" t-esc="account[1]['sum_credit']"  t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                    <t t-set="total_group_credit" t-value="total_group_credit + account[1]['sum_credit']"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="account[1]['sum_debit']" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                    <t t-set="total_group_debit" t-value="total_group_debit + account[1]['sum_debit']"/>
+                                    
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="account[0]"/>
+                                </td>
+                              
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="account[1]['code']"/>
+                                </td>
+                                
+                                
+                                
+                            </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    
+                    <table class="table table-sm table-reports">
+                        <thead>
+                            <tr>
+                                <th class="text-right"><span t-att-style="style" t-esc="total_group_credit" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></th>
+                                <th class="text-right"><span t-att-style="style" t-esc="total_group_debit" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></th>
+                                <th class="text-right">total</th>
+                                <th class="text-right">code</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                    
+
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

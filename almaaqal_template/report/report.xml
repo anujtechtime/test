@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    # Financial report    -->
+
+    <report
+            id="action_report_trial_balance_one"
+            model="account.balance.report"
+            string="Trial Balance"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_one"
+            file="almaaqal_template.report_trial_balance_new_page_one"
+    />
+
+<report
+            id="action_report_trial_balance_2"
+            model="account.balance.report"
+            string="Trial Balance"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_two"
+            file="almaaqal_template.report_trial_balance_new_page_two"
+    />
+
+    <report
+            id="action_report_trial_balance_3"
+            model="account.balance.report"
+            string="Trial Balance 3"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_three"
+            file="almaaqal_template.report_trial_balance_new_page_three"
+    />
+    <report
+            id="action_report_trial_balance_4"
+            model="account.balance.report"
+            string="Trial Balance 4"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_four"
+            file="almaaqal_template.report_trial_balance_new_page_four"
+    />
+    <report
+            id="action_report_trial_balance_5"
+            model="account.balance.report"
+            string="Trial Balance 5"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_five"
+            file="almaaqal_template.report_trial_balance_new_page_five"
+    />
+    <report
+            id="action_report_trial_balance_6"
+            model="account.balance.report"
+            string="Trial Balance 6"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_six"
+            file="almaaqal_template.report_trial_balance_new_page_six"
+    />
+    <report
+            id="action_report_trial_balance_7"
+            model="account.balance.report"
+            string="Trial Balance 7"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_seven"
+            file="almaaqal_template.report_trial_balance_new_page_seven"
+    />
+    <report
+            id="action_report_trial_balance_8"
+            model="account.balance.report"
+            string="Trial Balance 8"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_new_page_eight"
+            file="almaaqal_template.report_trial_balance_new_page_eight"
+    />
+    <report
+            id="action_report_trial_balance_9"
+            model="account.balance.report"
+            string="Trial Balance 9"
+            report_type="qweb-pdf"
+            name="almaaqal_template.report_trial_balance_9"
+            file="almaaqal_template.report_trial_balance_9"
+    />
+
+</odoo>
