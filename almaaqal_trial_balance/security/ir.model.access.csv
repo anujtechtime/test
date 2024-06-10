@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_almaaqal_trial_balance_almaaqal_trial_balance,almaaqal_trial_balance.almaaqal_trial_balance,model_almaaqal_trial_balance_almaaqal_trial_balance,base.group_user,1,1,1,1
