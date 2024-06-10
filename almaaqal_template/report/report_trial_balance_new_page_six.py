@@ -27,7 +27,7 @@ from odoo.exceptions import UserError
 
 
 class ReportTrialBalancepagesix(models.AbstractModel):
-    _name = 'report.base_accounting_kit.report_trial_balance_new_page_six'
+    _name = 'report.almaaqal_template.report_trial_balance_new_page_six'
     _description = 'Trial Balance Report New'
 
     def _get_accounts(self, accounts, display_account):
