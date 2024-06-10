@@ -3,7 +3,7 @@
 #
 #    Cybrosys Technologies Pvt. Ltd.
 #
-#    Copyright (C) 2019-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
+#    Copyright (C) 2019-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
 #    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
 #
 #    You can modify it under the terms of the GNU LESSER
@@ -20,19 +20,14 @@
 #
 #############################################################################
 
-from odoo import api, fields, models
+from . import report_trial_balance_new_page_eight
+from . import report_trial_balance_new_page_five
+from . import report_trial_balance_new_page_four
+from . import report_trial_balance_new_page_nine
+from . import report_trial_balance_new_page_one
+from . import report_trial_balance_new_page_seven
+from . import report_trial_balance_new_page_six
+from . import report_trial_balance_new_page_ten
+from . import report_trial_balance_new_page_three
+from . import report_trial_balance_new_page_two
 
-
-class AccountCommonAccountReport(models.TransientModel):
-    _name = 'account.common.account.report'
-    _description = 'Account Common Account Report'
-    _inherit = "account.common.report"
-
-    display_account = fields.Selection(
-        [('all', 'All'), ('movement', 'With movements'),
-         ('not_zero', 'With balance is not equal to 0')],
-        string='Display Accounts', required=True, default='movement')
-
-    def pre_print_report(self, data):
-        data['form'].update(self.read(['display_account'])[0])
-        return data

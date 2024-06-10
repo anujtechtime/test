@@ -45,7 +45,7 @@
                             <!--      Total Income       -->
                             <div class="col-md-3">
                                 <div class="tile wide invoice box-2">
-                                    <div class="">
+                                    <div class="header">
                                         <div class="main-title">Total Income</div>
                                         <div id="monthly_income">
                                             <div class="left">
@@ -65,7 +65,7 @@
                             <!--              Total Expense              -->
                             <div class="col-md-3">
                                 <div class="tile wide invoice box-3">
-                                    <div class="">
+                                    <div class="header">
                                         <div class="main-title">Total Expenses</div>
                                         <div id="monthly_expense">
                                             <div class="left">
@@ -85,7 +85,7 @@
                             <!--            Unreconciled items             -->
                             <div class="col-md-3">
                                 <div class="tile wide invoice box-4">
-                                    <div class="">
+                                    <div class="header">
                                         <div class="main-title">Unreconciled items</div>
                                         <div id="monthly_unreconciled">
                                             <div class="left">
@@ -216,7 +216,20 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="col-md-4" id="col-graph">
+                        <div class="card">
+                            <div class="card-body p-0" style=" height: 287px; overflow-y: auto; ">
+                                <div class="card-header" style=" padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; ">
+                                    <h3 class="custom-h3 card-title">
+                                        <b>BANK AND CASH BALANCE</b>
+                                    </h3>
+                                </div>
+                                <div class="card-body p-0" style=" height: 100px; " id="bank_balance_body_hide">
+                                    <ul id="current_bank_balance"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4" id="col-graph">
                         <div class="card">
                             <div class="card-header">
@@ -240,20 +253,6 @@
                                             <canvas id="canvas1" height="250px" width="400px"></canvas>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" id="col-graph">
-                        <div class="card">
-                            <div class="card-body p-0" style=" height: 287px; overflow-y: auto; ">
-                                <div class="card-header" style=" padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; ">
-                                    <h3 class="custom-h3 card-title">
-                                        <b>BANK AND CASH BALANCE</b>
-                                    </h3>
-                                </div>
-                                <div class="card-body p-0" style=" height: 100px; " id="bank_balance_body_hide">
-                                    <ul id="current_bank_balance"></ul>
                                 </div>
                             </div>
                         </div>

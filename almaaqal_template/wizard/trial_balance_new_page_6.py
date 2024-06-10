@@ -20,19 +20,23 @@
 #
 #############################################################################
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
-class AccountCommonAccountReport(models.TransientModel):
-    _name = 'account.common.account.report'
-    _description = 'Account Common Account Report'
-    _inherit = "account.common.report"
+class AccountBalanceReportpage6(models.TransientModel):
+    _inherit = "account.common.account.report"
+    _name = 'account.balance.report.new.page_6'
+    _description = 'Trial Balance Report New'
 
-    display_account = fields.Selection(
-        [('all', 'All'), ('movement', 'With movements'),
-         ('not_zero', 'With balance is not equal to 0')],
-        string='Display Accounts', required=True, default='movement')
+    journal_ids = fields.Many2many('account.journal',
+                                   'account_balance_report_new_page_6_journal_rel',
+                                   'account_id', 'journal_id',
+                                   string='Journals', required=True,
+                                   default=[])
 
-    def pre_print_report(self, data):
-        data['form'].update(self.read(['display_account'])[0])
-        return data
+    def _print_report(self, data):
+        data = self.pre_print_report(data)
+        records = self.env[data['model']].browse(data.get('ids', []))
+        return self.env.ref(
+            'base_accounting_kit.action_report_trial_balance_6').report_action(
+            records, data=data)
