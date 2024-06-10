@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'report/report.xml',
         'report/report_trial_balance_new_page_eight.xml',
         'report/report_trial_balance_new_page_five.xml',
         'report/report_trial_balance_new_page_four.xml',
