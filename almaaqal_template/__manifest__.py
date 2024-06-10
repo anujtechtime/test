@@ -34,7 +34,6 @@
         'report/report_trial_balance_new_page_one.xml',
         'report/report_trial_balance_new_page_seven.xml',
         'report/report_trial_balance_new_page_six.xml',
-        'report/report_trial_balance_new_page_ten.xml',
         'report/report_trial_balance_new_page_three.xml',
         'report/report_trial_balance_new_page_two.xml',
         'wizard/trial_balance_new_page_3.xml',
