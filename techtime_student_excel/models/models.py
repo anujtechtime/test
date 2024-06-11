@@ -6,7 +6,6 @@ import pytz
 import threading
 from collections import OrderedDict, defaultdict
 from datetime import date, datetime, timedelta
-from psycopg2 import sql
 from geopy.geocoders import Nominatim
 import xml.dom.minidom
 from bs4 import BeautifulSoup

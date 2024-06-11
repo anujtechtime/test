@@ -9,7 +9,6 @@ from collections import OrderedDict, defaultdict
 import re
 
 from datetime import date, datetime, timedelta
-from psycopg2 import sql
 from geopy.geocoders import Nominatim
 import xml.dom.minidom
 import calendar
