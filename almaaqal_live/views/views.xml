@@ -1,0 +1,88 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_live.list">
+      <field name="name">almaaqal_live list</field>
+      <field name="model">almaaqal_live.almaaqal_live</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+        <record id="view_res_partner_data_inherit_live" model="ir.ui.view">
+            <field name="name">res.partner.form.val</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="techtime_student_excel.view_sales_order_filter_sale_res_partner"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='boolean_three']" position="after">
+                    <!-- <field name="attachment_ids_three"  widget="many2many_binoary" attrs="{'invisible': [('boolean_three', '=', False)]}"/> -->
+                    <field name="attachment_live" filename="attachment_name_live" attrs="{'invisible': [('boolean_three', '=', False)]}"/>
+
+                    <field name="boolean_six"/>
+                    <field name="attachment_six" filename="attachment_name_six" attrs="{'invisible': [('boolean_six', '=', False)]}"/>
+
+
+
+                </xpath>
+
+<!--                 <xpath expr="//field[@name='transferred_to_us']" position="before">
+                    <field name="transferred_college"/>
+                </xpath> -->
+
+                
+                
+            </field>
+        </record>
+
+
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_live.action_window">
+      <field name="name">almaaqal_live window</field>
+      <field name="res_model">almaaqal_live.almaaqal_live</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_live.action_server">
+      <field name="name">almaaqal_live server</field>
+      <field name="model_id" ref="model_almaaqal_live_almaaqal_live"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_live" id="almaaqal_live.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_live.menu_1" parent="almaaqal_live.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_live.menu_2" parent="almaaqal_live.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_live.menu_1_list" parent="almaaqal_live.menu_1"
+              action="almaaqal_live.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_live" parent="almaaqal_live.menu_2"
+              action="almaaqal_live.action_server"/>
+-->
+  </data>
+</odoo>
