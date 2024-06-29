@@ -120,16 +120,25 @@ class DataLevelStatus(models.TransientModel):
                 levels_sale_order.remark_data_change_2  = [(4, ddts.id)]
 
 
+                if ddts.Status:
+                    levels_sale_order.Status = ddts.Status
+                if ddts.transferred_to_us:    
+                    levels_sale_order.transferred_to_us = ddts.transferred_to_us
 
-                levels_sale_order.Status = ddts.Status
-                levels_sale_order.transferred_to_us = ddts.transferred_to_us
-                levels_sale_order.transfer_shift = ddts.transfer_shift
-                levels_sale_order.chckbox_data = ddts.chckbox_data
-                levels_sale_order.chckbox_data_2 = ddts.chckbox_data_2
-                levels_sale_order.boolean_one = ddts.boolean_one
-                levels_sale_order.boolean_two = ddts.boolean_two
-                levels_sale_order.boolean_three = ddts.boolean_three
-                levels_sale_order.boolean_four = ddts.boolean_four
+                if ddts.transfer_shift:
+                    levels_sale_order.transfer_shift = ddts.transfer_shift
+                if ddts.chckbox_data:
+                    levels_sale_order.chckbox_data = ddts.chckbox_data
+                if ddts.chckbox_data_2:
+                    levels_sale_order.chckbox_data_2 = ddts.chckbox_data_2
+                if ddts.boolean_one:
+                    levels_sale_order.boolean_one = ddts.boolean_one
+                if ddts.boolean_two:
+                    levels_sale_order.boolean_two = ddts.boolean_two
+                if ddts.boolean_three:
+                    levels_sale_order.boolean_three = ddts.boolean_three
+                if ddts.boolean_four:
+                    levels_sale_order.boolean_four = ddts.boolean_four
                 print("levels_sale_order.remark_data_change_2@@@@@@@@@@",levels_sale_order.remark_data_change_2)
          
 
