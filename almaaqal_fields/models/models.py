@@ -6,10 +6,10 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-class PayrollPay(models.Model):
-    _inherit = "hr.payroll"
+# class PayrollPay(models.Model):
+#     _inherit = "hr.payroll"
 
-    iban = fields.Char("IBAN" , related="employee_id.iban")
+#     iban = fields.Char("IBAN" , related="employee_id.iban")
 
 class ResPart(models.Model):
     _inherit = "res.partner"
