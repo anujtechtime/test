@@ -21,6 +21,7 @@ class ResPart(models.Model):
     data_one = fields.Many2one("new.work", string="نافذة القبول")
     academic_branch = fields.Char("Academi Branch")
     rfid = fields.Char("RFID")
+    transferred_college = fields.Boolean("Transferred College")
 
     d_date = fields.Date("#Date", track_visibility=True)
  
