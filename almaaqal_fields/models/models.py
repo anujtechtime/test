@@ -16,6 +16,7 @@ class ResPart(models.Model):
     data_one = fields.Many2one("new.work", string="نافذة القبول")
     academic_branch = fields.Char("Academi Branch")
     rfid = fields.Char("RFID")
+    transferred_college = fields.Boolean("Transferred College")
 
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
