@@ -6,6 +6,11 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+class PayrollPay(models.Model):
+    _inherit = "hr.payroll"
+
+    iban = fields.Char("IBAN" , related="employee_id.iban")
+
 class ResPart(models.Model):
     _inherit = "res.partner"
 
@@ -13,6 +18,14 @@ class ResPart(models.Model):
     nationalty_source = fields.Many2one("nationality.source", string="Nationality")
     second_nationality_source = fields.Many2one("nationality.source", string="Second Nationality")
     remark_data_change_2 = fields.Many2many("status.change",store = True)
+    data_one = fields.Many2one("new.work", string="نافذة القبول")
+    academic_branch = fields.Char("Academi Branch")
+    rfid = fields.Char("RFID")
+
+    d_date = fields.Date("#Date", track_visibility=True)
+ 
+    n_notes = fields.Text("#Notes", track_visibility=True)
+    s_sequence = fields.Char("#Sequence", track_visibility=True)
 
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
@@ -84,7 +97,7 @@ class ResPart(models.Model):
         }
 
 
-class DataLevelStatus(models.TransientModel):
+class DataLevelStatus(models.Model):
     _name = 'status.change'
 
 
@@ -118,6 +131,22 @@ class DataLevelStatus(models.TransientModel):
 
 
                 levels_sale_order.remark_data_change_2  = [(4, ddts.id)]
+
+                if ddts.data_date_value:
+                    levels_sale_order.d_date = ddts.data_date_value
+
+                if ddts.notes_data:    
+                    levels_sale_order.n_notes = ddts.notes_data
+
+                if ddts.sequence_num:    
+                    levels_sale_order.s_sequence = ddts.sequence_num
+                # levels_sale_order.a_attachment = ddts.attachment
+
+                if ddts.attachment:
+                    levels_sale_order.attachment =  [(6, 0, ddts.attachment.mapped("id"))]
+                    # for pdf in self.attachment:
+                    #     attachments.append(pdf.id)
+                    levels_sale_order.message_post(attachment_ids=ddts.attachment.mapped("id")) 
 
 
                 if ddts.Status:
