@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'techtime_student_excel','payroll'],
+    'depends': ['base', 'techtime_student_excel','payroll', 'hr_payroll_account_community'],
 
     # always loaded
     'data': [
