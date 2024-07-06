@@ -17,6 +17,10 @@ class ResPart(models.Model):
     academic_branch = fields.Char("Academi Branch")
     rfid = fields.Char("RFID")
     transferred_college = fields.Boolean("Transferred College")
+    d_date = fields.Date("#Date", track_visibility=True)
+ 
+    n_notes = fields.Text("#Notes", track_visibility=True)
+    s_sequence = fields.Char("#Sequence", track_visibility=True)
 
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
@@ -124,7 +128,16 @@ class DataLevelStatus(models.Model):
                 levels_sale_order.remark_data_change_2  = [(4, ddts.id)]
 
 
+                levels_sale_order.d_date = ddts.data_date_value
+                levels_sale_order.n_notes = ddts.notes_data
+                levels_sale_order.s_sequence = ddts.sequence_num
+                # levels_sale_order.a_attachment = ddts.attachment
 
+                levels_sale_order.attachment =  [(6, 0, ddts.attachment.mapped("id"))]
+                # for pdf in self.attachment:
+                #     attachments.append(pdf.id)
+
+                levels_sale_order.message_post(attachment_ids=ddts.attachment.mapped("id")) 
                 levels_sale_order.Status = ddts.Status
                 levels_sale_order.transferred_to_us = ddts.transferred_to_us
                 levels_sale_order.transfer_shift = ddts.transfer_shift
