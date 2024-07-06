@@ -13,6 +13,9 @@ class ResPart(models.Model):
     nationalty_source = fields.Many2one("nationality.source", string="Nationality")
     second_nationality_source = fields.Many2one("nationality.source", string="Second Nationality")
     remark_data_change_2 = fields.Many2many("status.change",store = True)
+    data_one = fields.Many2one("new.work", string="نافذة القبول")
+    academic_branch = fields.Char("Academi Branch")
+    rfid = fields.Char("RFID")
 
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
@@ -84,7 +87,7 @@ class ResPart(models.Model):
         }
 
 
-class DataLevelStatus(models.TransientModel):
+class DataLevelStatus(models.Model):
     _name = 'status.change'
 
 
