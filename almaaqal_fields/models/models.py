@@ -13,6 +13,9 @@ class ResPart(models.Model):
     nationalty_source = fields.Many2one("nationality.source", string="Nationality")
     second_nationality_source = fields.Many2one("nationality.source", string="Second Nationality")
     remark_data_change_2 = fields.Many2many("status.change",store = True)
+
+    remark_data_change_level = fields.Many2many("persistent.model",store = True)
+
     data_one = fields.Many2one("new.work", string="نافذة القبول")
     academic_branch = fields.Char("Academi Branch")
     rfid = fields.Char("RFID")
@@ -91,10 +94,67 @@ class ResPart(models.Model):
         'context': {"active_id" : self._context.get("active_ids")}
         }
 
+    def action_done_show_wizard_persistent_model(self):
+        return {'type': 'ir.actions.act_window',
+        'name': _('Change the Level Value'),
+        'res_model': 'persistent.model',
+        'target': 'new',
+        'view_id': self.env.ref('almaaqal_fields.view_any_name_form_persistent_model').id,
+        'view_mode': 'form',
+        'context': {"active_id" : self._context.get("active_ids")}
+        }    
+
 class PersistentModel(models.Model):
     _name = 'persistent.model'
     _description = 'Persistent Model'
     _inherit = 'level.value'
+
+    res_part = fields.Many2one("res.partner")   
+    notes_data = fields.Text("Notes", track_visibility=True)
+    data_date_value = fields.Date("Date", track_visibility=True)
+    sequence_num = fields.Char("Sequence", track_visibility=True)
+    attachment = fields.Many2many("ir.attachment",  string="Attachment")
+
+    Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
+
+    def action_confirm_change(self):
+        for ddts in self:
+            for idds in ddts._context.get("active_id"):
+                levels_sale_order = self.env["res.partner"].browse(int(idds))
+                # print("levels_sale_order@@@@@@@@@@@@@@@@@@@@@@@@",levels_sale_order)
+                levels_sale_order.remark_data_change_level  = [(4, ddts.id)]
+                ddts.res_part = levels_sale_order.id
+                if ddts.level:
+                    levels_sale_order.level = ddts.level
+                    # levels_sale_order.partner_id.level = self.level
+
+                if ddts.year:    
+                    levels_sale_order.year = ddts.year
+                    # levels_sale_order.partner_id.year = self.year
+
+                if ddts.Status:    
+                    levels_sale_order.Status = ddts.Status
+                    # levels_sale_order.partner_id.Status = self.Status
+                    
+                if ddts.contact_type:
+                    levels_sale_order.contact_type = ddts.contact_type
+                if ddts.notes_data:
+                    levels_sale_order.notes_data = ddts.notes_data
+                if ddts.data_date_value:
+                    levels_sale_order.data_date_value = ddts.data_date_value
+                if ddts.sequence_num:
+                    levels_sale_order.sequence_num = ddts.sequence_num
+
+                if ddts.attachment:
+                    levels_sale_order.attachment =  [(6, 0, ddts.attachment.mapped("id"))]
+                    # for pdf in self.attachment:
+                    #     attachments.append(pdf.id)
+
+                    levels_sale_order.message_post(attachment_ids=self.attachment.mapped("id")) 
+
+
+    
 
 class DataLevelStatus(models.Model):
     _name = 'status.change'
