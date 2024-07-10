@@ -91,6 +91,10 @@ class ResPart(models.Model):
         'context': {"active_id" : self._context.get("active_ids")}
         }
 
+class PersistentModel(models.Model):
+    _name = 'persistent.model'
+    _description = 'Persistent Model'
+    _inherit = 'level.value'
 
 class DataLevelStatus(models.Model):
     _name = 'status.change'

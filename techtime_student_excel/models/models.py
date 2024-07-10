@@ -43,7 +43,7 @@ class DataStatusValue(models.TransientModel):
             levels_sale_order.partner_id.Status = self.Status
         # for ddts in self:
 
-class DataLevelValue(models.TransientModel):
+class DataLevelValue(models.Model):
     _name = 'level.value'
    
 

@@ -860,7 +860,7 @@ class CrmTeamDateAccount(models.Model):
     qty_received = fields.Float("Received Qty", related="product_qty", inverse='_inverse_qty_received', compute_sudo=True, store=True, digits='Product Unit of Measure')
 
 
-class DataLevelValueData(models.TransientModel):
+class DataLevelValueData(models.Model):
     _inherit = 'level.value'
 
 
