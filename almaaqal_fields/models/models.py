@@ -43,7 +43,7 @@ class ResPart(models.Model):
             for message in messages:
                 if len(message.tracking_value_ids) < 2:
                     if message.tracking_value_ids.field == "sequence_num":
-                        change_logs = chg.env['level.value'].sudo().create({
+                        change_logs = chg.env['persistent.model'].sudo().create({
                             "sequence_num" : message.tracking_value_ids.new_value_char
                             })
                         print("change_logs@@@@@@@@@@@@",change_logs)
