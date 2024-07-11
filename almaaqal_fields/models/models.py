@@ -82,7 +82,7 @@ class ResPart(models.Model):
                                 })                     
                             
                 if change_logs:
-                    chg.write({'remark_data_change': [(4, change_logs.id)]})
+                    chg.write({'remark_data_change_level': [(4, change_logs.id)]})
 
     def action_done_show_wizard_level_status(self):
         return {'type': 'ir.actions.act_window',
