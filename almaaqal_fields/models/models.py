@@ -209,7 +209,7 @@ class DataLevelStatus(models.Model):
 
     batch_namee = fields.Many2one("batch.name", string="اسم الدفعه")
     attempt = fields.Many2one("attempt.attempt", string="الدور")
-    year_of_collage_graduation = fields.Char("سنه التخرج ")
+    year_of_collage_graduation = fields.Many2one("collage.graduation", string="سنه التخرج ")
 
 
     def action_confirm_change_level(self):
