@@ -196,6 +196,11 @@ class DataLevelStatus(models.Model):
     sequence_num = fields.Char("Sequence", track_visibility=True)
     attachment = fields.Many2many("ir.attachment",  string="Attachment")
 
+    batch_namee = fields.Many2one("batch.name", string="اسم الدفعه")
+    attempt = fields.Many2one("attempt.attempt", string="الدور")
+    year_of_collage_graduation = fields.Char("سنه التخرج ")
+
+
     def action_confirm_change_level(self):
         # print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
         for ddts in self:

@@ -214,6 +214,11 @@
                         <field name="boolean_three"/>
                         <field name="boolean_four"/>
                         <field name="Status"/>
+
+                        <field name="batch_namee" attrs="{'invisible': [('Status', '!=', 'graduation')]}"/>
+                        <field name="attempt" attrs="{'invisible': [('Status', '!=', 'graduation')]}"/>
+                        <field name="year_of_collage_graduation" attrs="{'invisible': [('Status', '!=', 'graduation')]}"/>
+                            
                             
 
                         <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
