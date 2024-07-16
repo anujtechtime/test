@@ -226,6 +226,12 @@ class DataLevelStatus(models.Model):
 
                 levels_sale_order.message_post(attachment_ids=ddts.attachment.mapped("id")) 
                 levels_sale_order.Status = ddts.Status
+
+
+                levels_sale_order.batch_namee = ddts.batch_namee.id
+                levels_sale_order.attempt = ddts.attempt.id
+                levels_sale_order.year_of_collage_graduation = ddts.year_of_collage_graduation
+
                 levels_sale_order.transferred_to_us = ddts.transferred_to_us
                 levels_sale_order.transfer_shift = ddts.transfer_shift
                 levels_sale_order.chckbox_data = ddts.chckbox_data
