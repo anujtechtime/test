@@ -65,6 +65,66 @@
               action="almaaqal_fields.graduation_source_tree_action_windownew_work"/>
 
 
+        
+        <record model="ir.ui.view" id="batch_name_tree">
+          <field name="name">اسم الدفعه</field>
+          <field name="model">batch.name</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="batch_name_tree_action_windownew_work">
+          <field name="name">اسم الدفعه</field>
+          <field name="res_model">batch.name</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="اسم الدفعه" id="aktco_sale_menu_1_list_dst_batch_name" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.batch_name_tree_action_windownew_work"/>  
+
+
+
+
+
+
+
+
+
+        <record model="ir.ui.view" id="attempt_attempt_tree">
+          <field name="name">الدور</field>
+          <field name="model">attempt.attempt</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="attempt_attempt_tree_action_windownew_work">
+          <field name="name">الدور</field>
+          <field name="res_model">attempt.attempt</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="الدور" id="aktco_sale_menu_1_list_dst_attempt_attempt" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.attempt_attempt_tree_action_windownew_work"/>  
+
+
         <record model="ir.ui.view" id="nationality_source_tree">
           <field name="name">Nationality Source</field>
           <field name="model">nationality.source</field>

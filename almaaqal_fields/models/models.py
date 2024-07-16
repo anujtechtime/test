@@ -25,6 +25,10 @@ class ResPart(models.Model):
     n_notes = fields.Text("#Notes", track_visibility=True)
     s_sequence = fields.Char("#Sequence", track_visibility=True)
 
+    batch_namee = fields.Many2one("batch.name", string="اسم الدفعه")
+    attempt = fields.Many2one("attempt.attempt", string="الدور")
+    year_of_collage_graduation = fields.Char("سنه التخرج ")
+
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
         for chg in self:
@@ -103,6 +107,20 @@ class ResPart(models.Model):
         'view_mode': 'form',
         'context': {"active_id" : self._context.get("active_ids")}
         }    
+
+
+class BatchModel(models.Model):
+    _name = 'batch.name'
+    _description = 'اسم الدفعه'
+
+    name = fields.Char("اسم الدفعه")
+
+class AttemptModel(models.Model):
+    _name = 'attempt.attempt'
+    _description = 'الدور'
+
+    name = fields.Char("الدور")    
+
 
 class PersistentModel(models.Model):
     _name = 'persistent.model'
