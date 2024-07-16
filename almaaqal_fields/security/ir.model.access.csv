@@ -5,7 +5,10 @@ access_level_value,level.value,techtime_student_excel.model_level_value,base.gro
 access_status_change,status.change,model_status_change,base.group_user,1,1,1,1
 access_persistent_model,persistent.model,model_persistent_model,base.group_user,1,1,1,1
 access_batch_name,batch.name,model_batch_name,base.group_user,1,1,1,1
-access_attempt_attempt,attempt_attempt,model_attempt_attempt,base.group_user,1,1,1,1
+access_attempt_attempt,attempt.attempt,model_attempt_attempt,base.group_user,1,1,1,1
+access_collage_graduation,collage.graduation,model_collage_graduation,base.group_user,1,1,1,1
+
+
 
 
 
