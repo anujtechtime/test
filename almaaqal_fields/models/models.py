@@ -27,7 +27,9 @@ class ResPart(models.Model):
 
     batch_namee = fields.Many2one("batch.name", string="اسم الدفعه")
     attempt = fields.Many2one("attempt.attempt", string="الدور")
-    year_of_collage_graduation = fields.Char("سنه التخرج ")
+    year_of_collage_graduation = fields.Many2one("collage.graduation", string="سنه التخرج ")
+
+    
 
     def action_done_show_change_log_update(self):
         # self.ensure_one()  # Ensure the method is called on a single record
@@ -119,7 +121,16 @@ class AttemptModel(models.Model):
     _name = 'attempt.attempt'
     _description = 'الدور'
 
-    name = fields.Char("الدور")    
+    name = fields.Char("الدور")
+
+class CollGradtModel(models.Model):
+    _name = 'collage.graduation'
+    _description = 'سنه التخرج'
+
+    name = fields.Char("سنه التخرج")        
+
+
+    
 
 
 class PersistentModel(models.Model):
@@ -230,7 +241,7 @@ class DataLevelStatus(models.Model):
 
                 levels_sale_order.batch_namee = ddts.batch_namee.id
                 levels_sale_order.attempt = ddts.attempt.id
-                levels_sale_order.year_of_collage_graduation = ddts.year_of_collage_graduation
+                levels_sale_order.year_of_collage_graduation = ddts.year_of_collage_graduation.id
 
                 levels_sale_order.transferred_to_us = ddts.transferred_to_us
                 levels_sale_order.transfer_shift = ddts.transfer_shift
