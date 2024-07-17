@@ -189,8 +189,8 @@ class DataLevelStatus(models.Model):
     _name = 'status.change'
 
 
-    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
-    transferred_to_us = fields.Boolean("Transferred To Us ") 
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','طالب حالي '),('succeeded','ناجح '),('failed','راسب '),('transferred_from_us','نقل من جامعتنا '),('graduated','متخرج ')], string="حالة الطالب ")
+    transferred_to_us = fields.Boolean("نقل الئ الجامعة ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
 
@@ -202,10 +202,10 @@ class DataLevelStatus(models.Model):
     boolean_four = fields.Boolean(string="السجناء السياسيين", tracking=True)
 
     res_part_2 = fields.Many2one("res.partner")   
-    notes_data = fields.Text("Notes", track_visibility=True)
-    data_date_value = fields.Date("Date", track_visibility=True)
-    sequence_num = fields.Char("Sequence", track_visibility=True)
-    attachment = fields.Many2many("ir.attachment",  string="Attachment")
+    notes_data = fields.Text("الملاحظات ", track_visibility=True)
+    data_date_value = fields.Date("التاريخ", track_visibility=True)
+    sequence_num = fields.Char("التسلسل ", track_visibility=True)
+    attachment = fields.Many2many("ir.attachment",  string="المرفقات ")
 
     batch_namee = fields.Many2one("batch.name", string="اسم الدفعه")
     attempt = fields.Many2one("attempt.attempt", string="الدور")
