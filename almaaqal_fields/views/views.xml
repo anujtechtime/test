@@ -242,9 +242,9 @@
                         <field name="boolean_four"/>
                         <field name="Status"/>
 
-                        <field name="batch_namee" attrs="{'invisible': [('Status', '!=', 'graduated')]}"/>
-                        <field name="attempt" attrs="{'invisible': [('Status', '!=', 'graduated')]}"/>
-                        <field name="year_of_collage_graduation" attrs="{'invisible': [('Status', '!=', 'graduated')]}" required="1"/>
+                        <field name="batch_namee" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
+                        <field name="attempt" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
+                        <field name="year_of_collage_graduation" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
                             
                             
 
