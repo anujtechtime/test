@@ -9,9 +9,9 @@ _logger = logging.getLogger(__name__)
 class ResPart(models.Model):
     _inherit = "res.partner"
 
-    graduation_source = fields.Many2one("graduation.source", string="Graduation Source")
-    nationalty_source = fields.Many2one("nationality.source", string="Nationality")
-    second_nationality_source = fields.Many2one("nationality.source", string="Second Nationality")
+    graduation_source = fields.Many2one("graduation.source", string="جهة التخرج ")
+    nationalty_source = fields.Many2one("nationality.source", string="الجنسية ")
+    second_nationality_source = fields.Many2one("nationality.source", string="الجنسيه الثانويه ")
     remark_data_change_2 = fields.Many2many("status.change",store = True)
 
     remark_data_change_level = fields.Many2many("persistent.model",store = True)
@@ -19,7 +19,7 @@ class ResPart(models.Model):
     data_one = fields.Many2one("new.work", string="نافذة القبول")
     academic_branch = fields.Char("Academi Branch")
     rfid = fields.Char("RFID")
-    transferred_college = fields.Boolean("Transferred College")
+    transferred_college = fields.Boolean("نقل من الجامعه ")
     d_date = fields.Date("#Date", track_visibility=True)
  
     n_notes = fields.Text("#Notes", track_visibility=True)
@@ -256,15 +256,15 @@ class DataLevelStatus(models.Model):
 
 class TechtimeNewWork(models.Model):
     _name = 'graduation.source'
-    _description = 'graduation.source'
+    _description = 'نافذة القبول'
 
     name = fields.Char("نافذة القبول")      
 
 class TechtimeNationality(models.Model):
     _name = 'nationality.source'
-    _description = 'nationality.source'
+    _description = 'الجنسية '
 
-    name = fields.Char("Name")      
+    name = fields.Char("الجنسية ")      
 
 
 # class almaaqal_fields(models.Model):

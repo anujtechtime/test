@@ -173,7 +173,7 @@
 
 
         
-        <menuitem name="سنه التخرج" id="aktco_sale_menu_1_list_dst_collage_graduation" parent="contacts.res_partner_menu_contacts"
+        <menuitem name="جهة التخرج " id="aktco_sale_menu_1_list_dst_collage_graduation" parent="contacts.res_partner_menu_contacts"
               action="almaaqal_fields.collage_graduation_source_tree_action_windownew_work"/>        
 
 
