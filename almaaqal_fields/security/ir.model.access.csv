@@ -1,6 +1,15 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_graduation_source,graduation.source,model_graduation_source,base.group_user,1,1,1,1
 access_nationality_source,nationality.source,model_nationality_source,base.group_user,1,1,1,1
+access_level_value,level.value,techtime_student_excel.model_level_value,base.group_user,1,1,1,1
 access_status_change,status.change,model_status_change,base.group_user,1,1,1,1
+access_persistent_model,persistent.model,model_persistent_model,base.group_user,1,1,1,1
+access_batch_name,batch.name,model_batch_name,base.group_user,1,1,1,1
+access_attempt_attempt,attempt.attempt,model_attempt_attempt,base.group_user,1,1,1,1
+access_collage_graduation,collage.graduation,model_collage_graduation,base.group_user,1,1,1,1
+
+
+
+
 
 

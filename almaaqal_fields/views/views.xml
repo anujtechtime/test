@@ -65,6 +65,66 @@
               action="almaaqal_fields.graduation_source_tree_action_windownew_work"/>
 
 
+        
+        <record model="ir.ui.view" id="batch_name_tree">
+          <field name="name">اسم الدفعه</field>
+          <field name="model">batch.name</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="batch_name_tree_action_windownew_work">
+          <field name="name">اسم الدفعه</field>
+          <field name="res_model">batch.name</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="اسم الدفعه" id="aktco_sale_menu_1_list_dst_batch_name" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.batch_name_tree_action_windownew_work"/>  
+
+
+
+
+
+
+
+
+
+        <record model="ir.ui.view" id="attempt_attempt_tree">
+          <field name="name">الدور</field>
+          <field name="model">attempt.attempt</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="attempt_attempt_tree_action_windownew_work">
+          <field name="name">الدور</field>
+          <field name="res_model">attempt.attempt</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="الدور" id="aktco_sale_menu_1_list_dst_attempt_attempt" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.attempt_attempt_tree_action_windownew_work"/>  
+
+
         <record model="ir.ui.view" id="nationality_source_tree">
           <field name="name">Nationality Source</field>
           <field name="model">nationality.source</field>
@@ -88,7 +148,81 @@
 
         
         <menuitem name="Nationality" id="aktco_sale_menu_1_list_dst_nationality" parent="contacts.res_partner_menu_contacts"
-              action="almaaqal_fields.nationality_source_tree_action_windownew_work"/>  
+              action="almaaqal_fields.nationality_source_tree_action_windownew_work"/> 
+
+
+        <record model="ir.ui.view" id="collage_graduation_source_tree">
+          <field name="name">سنه التخرج</field>
+          <field name="model">collage.graduation</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="collage_graduation_source_tree_action_windownew_work">
+          <field name="name">سنه التخرج</field>
+          <field name="res_model">collage.graduation</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="جهة التخرج " id="aktco_sale_menu_1_list_dst_collage_graduation" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.collage_graduation_source_tree_action_windownew_work"/>        
+
+
+        
+        
+
+
+        <record model="ir.ui.view" id="view_any_name_form_persistent_model">
+        <field name="name">persistent.model.form</field>
+        <field name="model">persistent.model</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="My Form">
+                <sheet>                         
+                    <group> 
+                        <field name="level"/>
+                        <field name="year"/>
+                        <field name="Status" invisible="1"/>
+                <field name="contact_type" invisible="1"/>
+                    <field name="notes_data"/>
+                <field name="data_date_value"/>
+                <field name="sequence_num"/>
+                <field name="attachment" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_change" type="object" string="Change the Level value" class="oe_highlight"/>
+                        or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="ir_actions_server_sale_cart_student_persistent_model" model="ir.actions.server">
+        <field name="name">Level Details Change.</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_done_show_wizard_persistent_model()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
 
 <record model="ir.ui.view" id="view_any_name_form_status_change">
         <field name="name">status.change.form</field>
@@ -107,6 +241,11 @@
                         <field name="boolean_three"/>
                         <field name="boolean_four"/>
                         <field name="Status"/>
+
+                        <field name="batch_namee" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
+                        <field name="attempt" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
+                        <field name="year_of_collage_graduation" attrs="{'invisible': [('Status', '!=', 'graduated')], 'required': [('Status', '=', 'graduated')]}"/>
+                            
                             
 
                         <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
@@ -143,6 +282,35 @@
                     
                 </xpath>
     <xpath expr="//page" position="after">
+                <page string="Change Logs">
+                <group>
+            <field name="remark_data_change_level" nolabel="1">
+                                <tree string="Sale Order" editable="bottom">
+                                    <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                                    
+                                </tree>
+                                <form string="Sale Order">
+                                    <group col="4">
+                                        <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                    
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+
                 <page string="Status Change Log">
                 <group>
             <field name="remark_data_change_2" nolabel="1">
