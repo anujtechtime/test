@@ -1,0 +1,228 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_certificate.list">
+      <field name="name">almaaqal_certificate list</field>
+      <field name="model">almaaqal_certificate.almaaqal_certificate</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record model="ir.ui.view" id="almaaqal_certificate_tree">
+          <field name="name">Certificate </field>
+          <field name="model">almaaqal.certificate</field>
+          <field name="arch" type="xml">
+            <tree>
+                <!-- Status -->       
+
+                <field name="number"/>
+                <field name="date"/>
+                <field name="type_d"/>
+                <field name="name_in_arabic"/>
+
+                <field name="grade_year" widget="many2many_tags"/>
+
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_any_name_form_almaaqal_certificate_t">
+        <field name="name">Cartificate</field>
+        <field name="model">almaaqal.certificate</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Certificate">
+                <header>
+                    <field name="Status" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>                         
+                    <group> 
+                        <group>
+                            <field name="number"/>
+                            <field name="date"/>
+                            <field name="type_d"/>
+                            <field name="name_in_arabic"/>
+                            <field name="name_in_english"/>
+                        </group>
+                        <group>
+                            <field name="college"/>
+                            <field name="department"/>
+                            <field name="grade"/>
+                            <field name="graduation_sequence"/>
+                            <field name="year_name_graduation_year"/>
+                        </group>
+                    </group>
+
+                    <notebook colspan="4">
+                        <page string="Grade">
+                            <group>
+                                <field name="grade_year" nolabel="1">
+                                <tree string="Year">
+                                    <field name="college_in_english" />
+                                    <field name="college_in_arabic"/>
+
+                                    <field name="department_in_english"/>
+                                    <field name="department_in_arabic"/>
+                                    <field name="year_of_graduation"/>
+
+                                    <field name="notes_in_arabic"/>
+                                    <field name="notes_in_english"/>
+                                    <field name="subject" widget="many2many_tags"/>
+                                    
+                                </tree>
+                                <form string="Year">
+                                    <group>
+                                        <group>
+                                        <field name="college_in_english" />
+                                        <field name="college_in_arabic"/>
+                                        <field name="department_in_english"/>
+                                        <field name="department_in_arabic"/>
+                                        </group>
+                                        <group>
+                                        <field name="year_of_graduation"/>
+                                        <field name="notes_in_arabic"/>
+                                        <field name="notes_in_english"/>
+                                        </group>
+                                    </group>
+                                    <notebook colspan="4">
+                                        <page string="Subject">
+
+                                        <field name="subject" nolabel="1">
+                                            <tree string="Subject">
+                                                <field name="subject_arabic"/>
+                                                <field name="subject_english"/>
+                                                <field name="subject_units"/>
+                                                <field name="subject_grade"/>
+                                                
+                                            </tree>
+                                            <form string="Subject">
+                                                <group col="4">
+                                                    <field name="subject_arabic"/>
+                                                    <field name="subject_english"/>
+                                                    <field name="subject_units"/>
+                                                    <field name="subject_grade"/>
+                                                </group>
+                                            </form>
+                                        </field>
+                                    </page>
+                                </notebook>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Notes">
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!--                 1. College in English
+                2. College in Arabic
+                3. Department in English
+                4. Department in Arabic
+                5. Year
+                6. Grades
+                    a. Subject Units
+                    b. Subject Name in Arabic
+                    c. Subject Name in English
+                    d. Grade (ex: 88)
+                7. Notes -->
+
+
+        <record model="ir.actions.act_window" id="almaaqal_certificate_tree_action_windownew_work">
+          <field name="name">Certificate </field>
+          <field name="res_model">almaaqal.certificate</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_certificate.almaaqal_certificate_tree_action_windownew_work"/>  
+
+
+
+<!-- <group>
+            <field name="remark_data_change_level" nolabel="1">
+                                <tree string="Sale Order" editable="bottom">
+                                    <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                                    
+                                </tree>
+                                <form string="Sale Order">
+                                    <group col="4">
+                                        <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                    
+                                    </group>
+                                </form>
+                            </field>
+                        </group> -->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_certificate.action_window">
+      <field name="name">almaaqal_certificate window</field>
+      <field name="res_model">almaaqal_certificate.almaaqal_certificate</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_certificate.action_server">
+      <field name="name">almaaqal_certificate server</field>
+      <field name="model_id" ref="model_almaaqal_certificate_almaaqal_certificate"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_certificate" id="almaaqal_certificate.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_certificate.menu_1" parent="almaaqal_certificate.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_certificate.menu_2" parent="almaaqal_certificate.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_certificate.menu_1_list" parent="almaaqal_certificate.menu_1"
+              action="almaaqal_certificate.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_certificate" parent="almaaqal_certificate.menu_2"
+              action="almaaqal_certificate.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,174 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_grade.list">
+      <field name="name">almaaqal_grade list</field>
+      <field name="model">almaaqal_grade.almaaqal_grade</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+        <record model="ir.ui.view" id="almaaqal_grade_tree">
+          <field name="name">Almaaqal Grade </field>
+          <field name="model">almaaqal.grade</field>
+          <field name="arch" type="xml">
+            <tree>
+                <field name="college_in_english"/>
+                <field name="college_in_arabic"/>
+                <field name="department_in_english"/>
+                <field name="department_in_arabic"/>
+                <field name="year_of_graduation"/>
+                <field name="exam_number_for_reference"/>
+                <field name="student_name_in_english"/>
+                <field name="student_name_in_arabic"/>
+                <field name="average"/>
+                <field name="notes_in_arabic"/>
+                <field name="notes_in_english"/>
+                <field name="subject" widget="many2many_tags"/>
+
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_any_name_form_almaaqal_grade">
+        <field name="name">Grade</field>
+        <field name="model">almaaqal.grade</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Grade">
+                <group>
+                    <group>
+                    <field name="college_in_english" />
+                    <field name="college_in_arabic"/>
+                    <field name="department_in_english"/>
+                    <field name="department_in_arabic"/>
+                    </group>
+                    <group>
+                        <field name="average"/>
+                    <field name="year_of_graduation"/>
+                    <field name="notes_in_arabic"/>
+                    <field name="notes_in_english"/>
+                    </group>
+                </group>
+                <notebook colspan="4">
+                    <page string="Subject">
+
+                    <field name="subject" nolabel="1">
+                        <tree string="Subject">
+                            <field name="subject_arabic"/>
+                            <field name="subject_english"/>
+                            <field name="subject_units"/>
+                            <field name="subject_grade"/>
+                            
+                        </tree>
+                        <form string="Subject">
+                            <group col="4">
+                                <field name="subject_arabic"/>
+                                <field name="subject_english"/>
+                                <field name="subject_units"/>
+                                <field name="subject_grade"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+            </form>
+        </field>
+    </record>
+
+
+
+        <record model="ir.actions.act_window" id="almaaqal_grade_tree_action_windownew_work">
+          <field name="name">Grade </field>
+          <field name="res_model">almaaqal.grade</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="Grade " id="aktco_sale_menu_1_list_dst_almaaqal_grade" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_grade.almaaqal_grade_tree_action_windownew_work"/>  
+
+
+
+        <record model="ir.ui.view" id="subject_subject_tree">
+          <field name="name">Subject</field>
+          <field name="model">subject.subject</field>
+          <field name="arch" type="xml">
+            <tree>
+                <field name="subject_arabic"/>
+                <field name="subject_english"/>
+                <field name="subject_units"/>
+                <field name="subject_grade"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="subject_subject_tree_action_windownew_work">
+          <field name="name">Subject </field>
+          <field name="res_model">subject.subject</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="Subject" id="aktco_sale_menu_1_list_dst_subject_subject" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_grade.subject_subject_tree_action_windownew_work"/>  
+
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_grade.action_window">
+      <field name="name">almaaqal_grade window</field>
+      <field name="res_model">almaaqal_grade.almaaqal_grade</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_grade.action_server">
+      <field name="name">almaaqal_grade server</field>
+      <field name="model_id" ref="model_almaaqal_grade_almaaqal_grade"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_grade" id="almaaqal_grade.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_grade.menu_1" parent="almaaqal_grade.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_grade.menu_2" parent="almaaqal_grade.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_grade.menu_1_list" parent="almaaqal_grade.menu_1"
+              action="almaaqal_grade.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_grade" parent="almaaqal_grade.menu_2"
+              action="almaaqal_grade.action_server"/>
+-->
+  </data>
+</odoo>
