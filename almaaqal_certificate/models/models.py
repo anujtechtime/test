@@ -3,10 +3,10 @@
 from odoo import models, fields, api, _
 
 class CertiPartner(models.Model):
-	_inherit = "res.partner"
+    _inherit = "res.partner"
 
-	grade = fields.Float("Grade")
-	graduation_sequence = fields.Integer("Graduation Sequence")
+    grade = fields.Float("Grade")
+    graduation_sequence = fields.Integer("Graduation Sequence")
 
 
 class AlmaaqalCertificate(models.Model):
@@ -26,7 +26,7 @@ class AlmaaqalCertificate(models.Model):
     department = fields.Many2one("department.department", related="name_in_arabic.department")
     grade = fields.Float("Grade", related="name_in_arabic.grade")
     graduation_sequence = fields.Integer("Graduation Sequence", related="name_in_arabic.graduation_sequence")
-    year_name_graduation_year = fields.Char("Year Name Graduation year" , related="name_in_arabic.year_of_collage_graduation")  
+    year_name_graduation_year = fields.Many2one("collage.graduation", string="Year Name Graduation year" , related="name_in_arabic.year_of_collage_graduation")  
     notes = fields.Text("Notes", related="name_in_arabic.notes")
 
     grade_year = fields.Many2many("almaaqal.grade", string="Grade")
