@@ -4,7 +4,7 @@
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
             <t t-call="web.external_layout">
-                <t t-set="o" t-value="o.with_context(lang=o.name_in_arabic.lang)" />
+                <!-- <t t-set="o" t-value="o.with_context(lang=o.name_in_arabic.lang)" /> -->
                 <!-- <t t-set="information_block">
                     <strong t-if="o.address_id == o.partner_invoice_id">Invoice and shipping address:</strong>
                     <div t-if="o.partner_invoice_id">
@@ -21,8 +21,8 @@
                     </t>
                 </t> -->
                 <t t-set="address">
-                    <div t-field="o.name_in_arabic"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+<!--                     <div t-field="o.name_in_arabic"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> -->
                 </t>
                 <div class="page">
                     <div class="oe_structure"/>
@@ -34,10 +34,7 @@
 
                     <div id="informations" class="row mt32 mb32">
                         <div t-if="o" >
-                            <p>نود اعلامكم بان <span t-field="o.name_in_arabic"/> صورته اعلاه هو أحد خريجي جامعة المعقل <span t-field="o.college"/><span t-field="o.year_name_graduation_year"/> الدراسة </p>
-                            <p>study type للعام الدراسي <span t-field="o.year_name_graduation_year"/> وقد منح شهادة البكالوريوس في depatyment(trial) بعد ان اجتاز</p> 
-                            <p>بنجاح الامتحانات التخرج للعام المذكور وبمعدل <span t-field="o.grade"/> ول<span t-field="o.grade_year"/>دراسية بموجب </p>
-                            <p>الامر الجامعي ذي العدد ٢٣/١٢٣ في ١٣/٧/٢٠٢٤</p>
+                            نؤيد لكم بان <span t-field="o.student_name_in_arabic"/> الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   <span t-field="o.department_in_arabic"/>/ <span t-field="o.college_in_english"/>/الدراسة <span t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="year_of_graduation"/>  وقد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_en"/>  وبمعدل <span t-field="o.average"/>   ل<span t-field="o.study_year_name_ar"/>  دراسية  بموجب الامر الجامعي ذي العدد <span t-field="o.University_order_number"/>  في <span t-field="University_order_date"/>
                         </div>
                     </div>
 
@@ -144,7 +141,7 @@
 <template id="report_almaaqal_certificate">
     <t t-call="web.html_container">
         <t t-foreach="docs" t-as="doc">
-            <t t-call="almaaqal_certificate.report_almaaqal_certificates" t-lang="doc.name_in_arabic.lang"/>
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates"/>
         </t>
     </t>
 </template>

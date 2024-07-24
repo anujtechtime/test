@@ -321,7 +321,7 @@
         <report 
             string="Arabic No Grades" 
             id="action_report_almaaqal_certificate"
-            model="almaaqal.certificate"
+            model="almaaqal.grade"
             name="almaaqal_certificate.report_almaaqal_certificate"
             file="almaaqal_certificate.report_almaaqal_certificate"
             report_type="qweb-pdf"
