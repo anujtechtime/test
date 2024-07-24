@@ -64,6 +64,20 @@ class AlmaaqalCertificate(models.Model):
 
         print("grade_year@@@@@@@@@@@@@@@@@@",self.grade_year)
 
+    @api.model
+    def create(self, vals):
+        if 'student' in vals:
+            student_v  = self.env["res.partner"].search([("id",'=',vals['student'])])
+            vals['name_in_arabic'] = student_v.name
+            vals['name_in_english'] = student_v.name_english
+            vals['college'] = student_v.college.college
+            vals['department'] = student_v.department.department
+            vals['grade'] = student_v.grade
+            vals['graduation_sequence'] = student_v.graduation_sequence
+            vals['year_name_graduation_year'] = student_v.year_of_collage_graduation.name
+            vals['notes'] = student_v.notes
+        return super(AlmaaqalCertificate, self).create(vals)    
+
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
         if 'student' in vals:
