@@ -20,19 +20,91 @@
           <field name="model">almaaqal.grade</field>
           <field name="arch" type="xml">
             <tree>
+                <field name="exam_number_for_reference"/>
                 <field name="college_in_english"/>
                 <field name="college_in_arabic"/>
+                <field name="study_type_arabic"/>
+                <field name="study_type_english"/>
+                <field name="certificate_name_department_AR"/>
+                <field name="certificate_name_department_EN"/>
+                <field name="University_order_number"/>
+                <field name="University_order_date"/>
                 <field name="department_in_english"/>
                 <field name="department_in_arabic"/>
+                <field name="stage_year"/>
                 <field name="year_of_graduation"/>
-                <field name="exam_number_for_reference"/>
                 <field name="student_name_in_english"/>
                 <field name="student_name_in_arabic"/>
+                <field name="nationality_ar"/>
+                <field name="nationality_en"/>
                 <field name="average"/>
-                <field name="notes_in_arabic"/>
-                <field name="notes_in_english"/>
-                <field name="subject" widget="many2many_tags"/>
-
+                <field name="average_in_words_en"/>
+                <field name="average_in_words_ar"/>
+                <field name="attempt_en"/>
+                <field name="attempt_ar"/>
+                <field name="study_notes_in_arabic"/>
+                <field name="study_notes_in_english"/>
+                <field name="study_year_name_ar"/>
+                <field name="study_year_name_en"/>
+                <field name="subject_1_arabic"/>
+                <field name="subject_1_english"/>
+                <field name="subject_1_units"/>
+                <field name="subject_1_grade"/>
+                <field name="subject_2_arabic"/>
+                <field name="subject_2_english"/>
+                <field name="subject_2_units"/>
+                <field name="subject_2_grade"/>
+                <field name="subject_3_arabic"/>
+                <field name="subject_3_english"/>
+                <field name="subject_3_units"/>
+                <field name="subject_3_grade"/>
+                <field name="subject_4_arabic"/>
+                <field name="subject_4_english"/>
+                <field name="subject_4_units"/>
+                <field name="subject_5_arabic"/>
+                <field name="subject_5_english"/>
+                <field name="subject_5_units"/>
+                <field name="subject_5_grade"/>
+                <field name="subject_6_arabic"/>
+                <field name="subject_6_english"/>
+                <field name="subject_6_units"/>
+                <field name="subject_6_grade"/>
+                <field name="subject_7_arabic"/>
+                <field name="subject_7_english"/>
+                <field name="subject_7_units"/>
+                <field name="subject_7_grade"/>
+                <field name="subject_8_arabic"/>
+                <field name="subject_8_english"/>
+                <field name="subject_8_units"/>
+                <field name="subject_8_grade"/>
+                <field name="subject_9_arabic"/>
+                <field name="subject_9_english"/>
+                <field name="subject_9_units"/>
+                <field name="subject_9_grade"/>
+                <field name="subject_10_arabic"/>
+                <field name="subject_10_english"/>
+                <field name="subject_10_units"/>
+                <field name="subject_10_grade"/>
+                <field name="subject_11_arabic"/>
+                <field name="subject_11_english"/>
+                <field name="subject_11_units"/>
+                <field name="subject_11_grade"/>
+                <field name="subject_12_arabic"/>
+                <field name="subject_12_english"/>
+                <field name="subject_12_units"/>
+                <field name="subject_12_grade"/>
+                <field name="subject_13_arabic"/>
+                <field name="subject_13_english"/>
+                <field name="subject_13_units"/>
+                <field name="subject_13_grade"/>
+                <field name="subject_14_arabic"/>
+                <field name="subject_14_english"/>
+                <field name="subject_14_units"/>
+                <field name="subject_14_grade"/>
+                <field name="subject_15_arabic"/>
+                <field name="subject_15_english"/>
+                <field name="subject_15_units"/>
+                <field name="subject_15_grade"/>
             </tree>
           </field>
         </record>
@@ -45,38 +117,103 @@
             <form string="Grade">
                 <group>
                     <group>
-                    <field name="college_in_english" />
-                    <field name="college_in_arabic"/>
-                    <field name="department_in_english"/>
-                    <field name="department_in_arabic"/>
+                        <field name="exam_number_for_reference"/>
+                        <field name="college_in_english"/>
+                        <field name="college_in_arabic"/>
+                        <field name="study_type_arabic"/>
+                        <field name="study_type_english"/>
+                        <field name="certificate_name_department_AR"/>
+                        <field name="certificate_name_department_EN"/>
+                        <field name="University_order_number"/>
+                        <field name="University_order_date"/>
+                        <field name="department_in_english"/>
+                        <field name="department_in_arabic"/>
+                        <field name="stage_year"/>
+                        <field name="year_of_graduation"/>
                     </group>
                     <group>
+                        <field name="student_name_in_english"/>
+                        <field name="student_name_in_arabic"/>
+                        <field name="nationality_ar"/>
+                        <field name="nationality_en"/>
                         <field name="average"/>
-                    <field name="year_of_graduation"/>
-                    <field name="notes_in_arabic"/>
-                    <field name="notes_in_english"/>
+                        <field name="average_in_words_en"/>
+                        <field name="average_in_words_ar"/>
+                        <field name="attempt_en"/>
+                        <field name="attempt_ar"/>
+                        <field name="study_notes_in_arabic"/>
+                        <field name="study_notes_in_english"/>
+                        <field name="study_year_name_ar"/>
+                        <field name="study_year_name_en"/>
                     </group>
                 </group>
                 <notebook colspan="4">
                     <page string="Subject">
-
-                    <field name="subject" nolabel="1">
-                        <tree string="Subject">
-                            <field name="subject_arabic"/>
-                            <field name="subject_english"/>
-                            <field name="subject_units"/>
-                            <field name="subject_grade"/>
-                            
-                        </tree>
-                        <form string="Subject">
-                            <group col="4">
-                                <field name="subject_arabic"/>
-                                <field name="subject_english"/>
-                                <field name="subject_units"/>
-                                <field name="subject_grade"/>
-                            </group>
-                        </form>
-                    </field>
+                        <group>
+                            <group>
+                            <field name="subject_1_arabic"/>
+                            <field name="subject_1_english"/>
+                            <field name="subject_1_units"/>
+                            <field name="subject_1_grade"/>
+                            <field name="subject_2_arabic"/>
+                            <field name="subject_2_english"/>
+                            <field name="subject_2_units"/>
+                            <field name="subject_2_grade"/>
+                            <field name="subject_3_arabic"/>
+                            <field name="subject_3_english"/>
+                            <field name="subject_3_units"/>
+                            <field name="subject_3_grade"/>
+                            <field name="subject_4_arabic"/>
+                            <field name="subject_4_english"/>
+                            <field name="subject_4_units"/>
+                            <field name="subject_5_arabic"/>
+                            <field name="subject_5_english"/>
+                            <field name="subject_5_units"/>
+                            <field name="subject_5_grade"/>
+                            <field name="subject_6_arabic"/>
+                            <field name="subject_6_english"/>
+                            <field name="subject_6_units"/>
+                            <field name="subject_6_grade"/>
+                            <field name="subject_7_arabic"/>
+                            <field name="subject_7_english"/>
+                            <field name="subject_7_units"/>
+                            <field name="subject_7_grade"/>
+                        </group>
+                        <group>
+                            <field name="subject_8_arabic"/>
+                            <field name="subject_8_english"/>
+                            <field name="subject_8_units"/>
+                            <field name="subject_8_grade"/>
+                            <field name="subject_9_arabic"/>
+                            <field name="subject_9_english"/>
+                            <field name="subject_9_units"/>
+                            <field name="subject_9_grade"/>
+                            <field name="subject_10_arabic"/>
+                            <field name="subject_10_english"/>
+                            <field name="subject_10_units"/>
+                            <field name="subject_10_grade"/>
+                            <field name="subject_11_arabic"/>
+                            <field name="subject_11_english"/>
+                            <field name="subject_11_units"/>
+                            <field name="subject_11_grade"/>
+                            <field name="subject_12_arabic"/>
+                            <field name="subject_12_english"/>
+                            <field name="subject_12_units"/>
+                            <field name="subject_12_grade"/>
+                            <field name="subject_13_arabic"/>
+                            <field name="subject_13_english"/>
+                            <field name="subject_13_units"/>
+                            <field name="subject_13_grade"/>
+                            <field name="subject_14_arabic"/>
+                            <field name="subject_14_english"/>
+                            <field name="subject_14_units"/>
+                            <field name="subject_14_grade"/>
+                            <field name="subject_15_arabic"/>
+                            <field name="subject_15_english"/>
+                            <field name="subject_15_units"/>
+                            <field name="subject_15_grade"/>
+                        </group>
+                    </group>
                 </page>
             </notebook>
             </form>
@@ -94,7 +231,7 @@
 
 
         
-        <menuitem name="Grade " id="aktco_sale_menu_1_list_dst_almaaqal_grade" parent="contacts.res_partner_menu_contacts"
+        <menuitem name="Grade " id="aktco_sale_menu_1_list_dst_almaaqal_grade"
               action="almaaqal_grade.almaaqal_grade_tree_action_windownew_work"/>  
 
 
@@ -124,8 +261,8 @@
 
 
         
-        <menuitem name="Subject" id="aktco_sale_menu_1_list_dst_subject_subject" parent="contacts.res_partner_menu_contacts"
-              action="almaaqal_grade.subject_subject_tree_action_windownew_work"/>  
+<!--         <menuitem name="Subject" id="aktco_sale_menu_1_list_dst_subject_subject" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_grade.subject_subject_tree_action_windownew_work"/>   -->
 
 
 
