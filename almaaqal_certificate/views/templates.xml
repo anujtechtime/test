@@ -94,8 +94,8 @@
                     </div>
                     <div id="informations" class="row mt32 mb32">
                     <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
-                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="certificate_name_department_AR"/>  بتقدير <span t-field="average_in_words_en"/>  وبمعدل ل <span t-field="study_year_name_ar"/>  دراسية  في <span t-field="attempt_en"/>  للدراسة <span t-field="study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
-                    <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="college_in_arabic"/> جامعة المعقل  </p>
+                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_en"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_en"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
+                    <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="o.college_in_arabic"/> جامعة المعقل  </p>
                         </div>
                     </div>    
                     <div id="informations" class="row mt32 mb32" >                            
