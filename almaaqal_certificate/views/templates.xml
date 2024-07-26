@@ -1,138 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <data>
+
+
+
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
-            <t t-call="web.external_layout">
-                <!-- <t t-set="o" t-value="o.with_context(lang=o.name_in_arabic.lang)" /> -->
-                <!-- <t t-set="information_block">
-                    <strong t-if="o.address_id == o.partner_invoice_id">Invoice and shipping address:</strong>
-                    <div t-if="o.partner_invoice_id">
-                        <strong t-if="o.address_id != o.partner_invoice_id">Invoice address: </strong>
-                        <div t-field="o.partner_invoice_id" 
-                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                        <p t-if="o.partner_invoice_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_invoice_id.vat"/></p>
-                    </div>
-                    <t t-if="o.address_id != o.partner_invoice_id">
-                        <strong>Shipping address :</strong>
-                        <div t-field="o.address_id" 
-                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                        <p t-if="o.address_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.address_id.vat"/></p>
-                    </t>
-                </t> -->
-                <t t-set="address">
-<!--                     <div t-field="o.name_in_arabic"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> -->
-                </t>
+            <t t-call="web.external_layout_clean">
                 <div class="page">
                     <div class="oe_structure"/>
-
-                    <h1>
-                        <span >Repair Order #:</span>
-                        <!-- <span t-field="o.name"/> -->
-                    </h1>
-
-                    <div id="informations" class="row mt32 mb32">
-                        <div t-if="o" >
-                            نؤيد لكم بان <span t-field="o.student_name_in_arabic"/> الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   <span t-field="o.department_in_arabic"/>/ <span t-field="o.college_in_english"/>/الدراسة <span t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="o.year_of_graduation"/>  وقد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_en"/>  وبمعدل <span t-field="o.average"/>   ل<span t-field="o.study_year_name_ar"/>  دراسية  بموجب الامر الجامعي ذي العدد <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/>
+                    <div class="row mt32 mb32 ">
+                      <div class="col-12 text-center" style="margin-top: 50px;">
+                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
+                        <h4 class="mt32 mb32 text-center">الى /</h4>
                         </div>
                     </div>
-
-                    <!-- <table class="table table-sm o_main_table">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th class="text-right">Quantity</th>
-                                <t t-if="o.invoice_method != 'none'">
-                                    <th class="text-right">Unit Price</th>
-                                    <th class="text-center">Tax</th>
-                                    <th class="text-right">Price</th>
-                                </t>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-if="o.operations">
-                                <tr class="bg-200 o_line_section"><td colspan="5"><strong>Parts</strong></td></tr>
-                                <tr t-foreach="o.operations" t-as="line">
-                                    <td>
-                                        <p t-if="line.type == 'add'"><i>(Add)</i> <span t-field="line.name" /></p>
-                                        <p t-if="line.type == 'remove'">(<i>Remove</i>) <span t-field="line.name"/></p>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="line.product_uom_qty"/>
-                                        <span groups="uom.group_uom" t-field="line.product_uom.name"/>
-                                    </td>
-                                    <t t-if="(line.repair_id.invoice_method != 'none')">
-                                        <td class="text-right">
-                                            <span t-field="line.price_unit"/>
-                                        </td>
-                                        <td class="text-center">
-                                            <span t-esc="','.join(map( lambda x: x.name, line.tax_id))"/>
-                                        </td>
-                                        <td class="text-right o_price_total">
-                                            <span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
-                                       </td>
-                                    </t>
-                                </tr>
-                            </t>
-                            <t t-if="o.fees_lines">
-                                <tr class="bg-200 o_line_section"><td colspan="5"><strong>Operations</strong></td></tr>
-                                <tr t-foreach="o.fees_lines" t-as="fees">
-                                    <td>
-                                        <span t-field="fees.name"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="fees.product_uom_qty"/>
-                                        <span groups="uom.group_uom" t-field="fees.product_uom.name"/>
-                                    </td>
-                                    <t t-if="(fees.repair_id.invoice_method != 'none')">
-                                        <td class="text-right">
-                                            <span t-field="fees.price_unit"/>
-                                        </td>
-                                        <td class="text-center">
-                                            <span t-esc="','.join(map( lambda x: x.name, fees.tax_id))"/>
-                                        </td>
-                                        <td class="text-right o_price_total">
-                                            <span t-field="fees.price_subtotal"
-                                                t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
-                                       </td>
-                                    </t>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table> -->
-
-                    <!-- <div id="total" class="row justify-content-end">
-                        <div class="col-4">
-                            <table class="table table-sm">
-                                <t t-if="o.invoice_method !='none'">
-                                    <tr class="border-black o_subtotal">
-                                        <td><strong>Total Without Taxes</strong></td>
-                                        <td class="text-right">
-                                            <span t-field="o.amount_untaxed"
-                                                t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Taxes</td>
-                                        <td class="text-right o_price_total">
-                                            <span t-field="o.amount_tax"
-                                                t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-black o_total">
-                                        <td><strong>Total</strong></td>
-                                        <td class="text-right o_price_total">
-                                            <span t-field="o.amount_total"
-                                                t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </table>
+                    <div id="informations" class="row mt32 mb32">
+                        <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
+                            نؤيد لكم بان <span t-field="o.student_name_in_arabic"/> الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / <span t-field="o.department_in_arabic"/> <span t-field="o.college_in_english"/>/الدراسة <span t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="o.year_of_graduation"/>  وقد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_ar"/>  وبمعدل <span t-field="o.average"/>   ل  دراسية  بموجب الامر الجامعي ذي العدد <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/>
                         </div>
-                    </div> -->
-
-                    <!-- <p t-field="o.quotation_notes"/> -->
+                    </div>    
+                    <div id="informations" class="row mt32 mb32" >                            
+                        <div class="col-4" style="margin-top: 200px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. محمد جاسم الأسدي</li>
+                            <li>مساعد رئيس الجامعة</li>
+                            <li>للشؤون العلمية</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                        <div class="col-4" style="margin-top: 270px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. علي مظلوم</li>
+                            <li>عميد الكلية</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                        <div class="col-4" style="margin-top: 270px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. بدر نعمة عكال النجار</li>
+                            <li>رئيس الجامعة</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                    </div>
+                    <div id="informations" class="row mt32 mb32" >
+                            <div class="col-4">
+                              <ul class="text-center list-unstyled">
+                                <li>أ.د. بدر نعمة عكاك الشبوان</li>
+                                <li>رئيس الجامعة</li>
+                                <li>٢٠٢٤/</li>
+                              </ul>
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                    <div id="informations" class="row mt32 mb32" >                        
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <ul class="text-center list-unstyled">
+                                <li>ملاحظة// الوثيقة خالية من الشطب والتعديل</li>
+                              </ul>
+                            </div> 
+                    </div>
                     <div class="oe_structure"/>
                 </div>
             </t>
@@ -145,5 +78,85 @@
         </t>
     </t>
 </template>
+
+
+
+<template id="report_almaaqal_certificates_female">
+        <t t-set="o" t-value="doc"/>
+            <t t-call="web.external_layout_clean">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row mt32 mb32 ">
+                      <div class="col-12 text-center" style="margin-top: 50px;">
+                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
+                        <h4 class="mt32 mb32 text-center">الى /</h4>
+                        </div>
+                    </div>
+                    <div id="informations" class="row mt32 mb32">
+                    <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
+                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="certificate_name_department_AR"/>  بتقدير <span t-field="average_in_words_en"/>  وبمعدل ل <span t-field="study_year_name_ar"/>  دراسية  في <span t-field="attempt_en"/>  للدراسة <span t-field="study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
+                    <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="college_in_arabic"/> جامعة المعقل  </p>
+                        </div>
+                    </div>    
+                    <div id="informations" class="row mt32 mb32" >                            
+                        <div class="col-4" style="margin-top: 200px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. محمد جاسم الأسدي</li>
+                            <li>مساعد رئيس الجامعة</li>
+                            <li>للشؤون العلمية</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                        <div class="col-4" style="margin-top: 270px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. علي مظلوم</li>
+                            <li>عميد الكلية</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                        <div class="col-4" style="margin-top: 270px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ.د. بدر نعمة عكال النجار</li>
+                            <li>رئيس الجامعة</li>
+                            <li>٢٠٢٤</li>
+                          </ul>
+                        </div>
+                    </div>
+                    <div id="informations" class="row mt32 mb32" >
+                            <div class="col-4">
+                              <ul class="text-center list-unstyled">
+                                <li>أ.د. بدر نعمة عكاك الشبوان</li>
+                                <li>رئيس الجامعة</li>
+                                <li>٢٠٢٤/</li>
+                              </ul>
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                    <div id="informations" class="row mt32 mb32" >                        
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <ul class="text-center list-unstyled">
+                                <li>ملاحظة// الوثيقة خالية من الشطب والتعديل</li>
+                              </ul>
+                            </div> 
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+</template>
+
+<template id="report_almaaqal_certificate_female">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates_female"/>
+        </t>
+    </t>
+</template>
+
+
 </data>
 </odoo>

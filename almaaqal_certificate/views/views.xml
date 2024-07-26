@@ -319,11 +319,20 @@
 
 
         <report 
-            string="Arabic No Grades" 
+            string="Arabic No Grades Male" 
             id="action_report_almaaqal_certificate"
             model="almaaqal.grade"
             name="almaaqal_certificate.report_almaaqal_certificate"
             file="almaaqal_certificate.report_almaaqal_certificate"
+            report_type="qweb-pdf"
+            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
+        />
+        <report 
+            string="Arabic No Grades Female" 
+            id="action_report_almaaqal_certificate_female"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_female"
+            file="almaaqal_certificate.report_almaaqal_certificate_female"
             report_type="qweb-pdf"
             print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
         />
