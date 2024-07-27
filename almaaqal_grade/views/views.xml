@@ -47,65 +47,127 @@
                 <field name="study_notes_in_english"/>
                 <field name="study_year_name_ar"/>
                 <field name="study_year_name_en"/>
+                <field name="Graduate_Sequence"/>
+                <field name="The_average_of_the_first_student_in_the_class"/>
+                <field name="Total_number_of_graduates"/>
                 <field name="subject_1_arabic"/>
                 <field name="subject_1_english"/>
                 <field name="subject_1_units"/>
                 <field name="subject_1_grade"/>
+                <field name="Subject_1_Grade_Written_AR"/> 
+                <field name="Subject_1_Grade_Written_EN"/>
+                <field name="Subject_1_Semester"/>
+
                 <field name="subject_2_arabic"/>
                 <field name="subject_2_english"/>
                 <field name="subject_2_units"/>
                 <field name="subject_2_grade"/>
+                <field name="Subject_2_Grade_Written_AR"/> 
+                <field name="Subject_2_Grade_Written_EN"/>
+                <field name="Subject_2_Semester"/>
+
                 <field name="subject_3_arabic"/>
                 <field name="subject_3_english"/>
                 <field name="subject_3_units"/>
                 <field name="subject_3_grade"/>
+                <field name="Subject_3_Grade_Written_AR"/> 
+                <field name="Subject_3_Grade_Written_EN"/>
+                <field name="Subject_3_Semester"/>
+
                 <field name="subject_4_arabic"/>
                 <field name="subject_4_english"/>
                 <field name="subject_4_units"/>
+                <field name="Subject_4_Grade_Written_AR"/> 
+                <field name="Subject_4_Grade_Written_EN"/>
+                <field name="Subject_4_Semester"/>
+
                 <field name="subject_5_arabic"/>
                 <field name="subject_5_english"/>
                 <field name="subject_5_units"/>
                 <field name="subject_5_grade"/>
+                <field name="Subject_5_Grade_Written_AR"/> 
+                <field name="Subject_5_Grade_Written_EN"/>
+                <field name="Subject_5_Semester"/>
+
                 <field name="subject_6_arabic"/>
                 <field name="subject_6_english"/>
                 <field name="subject_6_units"/>
                 <field name="subject_6_grade"/>
+                <field name="Subject_6_Grade_Written_AR"/> 
+                <field name="Subject_6_Grade_Written_EN"/>
+                <field name="Subject_6_Semester"/>
+
                 <field name="subject_7_arabic"/>
                 <field name="subject_7_english"/>
                 <field name="subject_7_units"/>
                 <field name="subject_7_grade"/>
+                <field name="Subject_7_Grade_Written_AR"/> 
+                <field name="Subject_7_Grade_Written_EN"/>
+                <field name="Subject_7_Semester"/>
+
                 <field name="subject_8_arabic"/>
                 <field name="subject_8_english"/>
                 <field name="subject_8_units"/>
                 <field name="subject_8_grade"/>
+                <field name="Subject_8_Grade_Written_AR"/> 
+                <field name="Subject_8_Grade_Written_EN"/>
+                <field name="Subject_8_Semester"/>
+
                 <field name="subject_9_arabic"/>
                 <field name="subject_9_english"/>
                 <field name="subject_9_units"/>
                 <field name="subject_9_grade"/>
+                <field name="Subject_9_Grade_Written_AR"/> 
+                <field name="Subject_9_Grade_Written_EN"/>
+                <field name="Subject_9_Semester"/>
+
                 <field name="subject_10_arabic"/>
                 <field name="subject_10_english"/>
                 <field name="subject_10_units"/>
                 <field name="subject_10_grade"/>
+                <field name="Subject_10_Grade_Written_AR"/> 
+                <field name="Subject_10_Grade_Written_EN"/>
+                <field name="Subject_10_Semester"/>
+
                 <field name="subject_11_arabic"/>
                 <field name="subject_11_english"/>
                 <field name="subject_11_units"/>
                 <field name="subject_11_grade"/>
+                <field name="Subject_11_Grade_Written_AR"/> 
+                <field name="Subject_11_Grade_Written_EN"/>
+                <field name="Subject_11_Semester"/>
+
                 <field name="subject_12_arabic"/>
                 <field name="subject_12_english"/>
                 <field name="subject_12_units"/>
                 <field name="subject_12_grade"/>
+                <field name="Subject_12_Grade_Written_AR"/> 
+                <field name="Subject_12_Grade_Written_EN"/>
+                <field name="Subject_12_Semester"/>
+
                 <field name="subject_13_arabic"/>
                 <field name="subject_13_english"/>
                 <field name="subject_13_units"/>
                 <field name="subject_13_grade"/>
+                <field name="Subject_13_Grade_Written_AR"/> 
+                <field name="Subject_13_Grade_Written_EN"/>
+                <field name="Subject_13_Semester"/>
+
                 <field name="subject_14_arabic"/>
                 <field name="subject_14_english"/>
                 <field name="subject_14_units"/>
                 <field name="subject_14_grade"/>
+                <field name="Subject_14_Grade_Written_AR"/> 
+                <field name="Subject_14_Grade_Written_EN"/>
+                <field name="Subject_14_Semester"/>
+
                 <field name="subject_15_arabic"/>
                 <field name="subject_15_english"/>
                 <field name="subject_15_units"/>
                 <field name="subject_15_grade"/>
+                <field name="Subject_15_Grade_Written_AR"/> 
+                <field name="Subject_15_Grade_Written_EN"/>
+                <field name="Subject_15_Semester"/>
             </tree>
           </field>
         </record>
@@ -131,11 +193,11 @@
                         <field name="department_in_arabic"/>
                         <field name="stage_year"/>
                         <field name="year_of_graduation"/>
+                        <field name="student_name_in_english"/>
+                        <field name="student_name_in_arabic"/>
                     </group>
                     <group>
                         <field name="gender"/>
-                        <field name="student_name_in_english"/>
-                        <field name="student_name_in_arabic"/>
                         <field name="nationality_ar"/>
                         <field name="nationality_en"/>
                         <field name="average"/>
@@ -147,6 +209,9 @@
                         <field name="study_notes_in_english"/>
                         <field name="study_year_name_ar"/>
                         <field name="study_year_name_en"/>
+                        <field name="Graduate_Sequence"/>
+                        <field name="The_average_of_the_first_student_in_the_class"/>
+                        <field name="Total_number_of_graduates"/>
                     </group>
                 </group>
                 <notebook colspan="4">
@@ -157,63 +222,122 @@
                             <field name="subject_1_english"/>
                             <field name="subject_1_units"/>
                             <field name="subject_1_grade"/>
+                            <field name="Subject_1_Grade_Written_AR"/> 
+                            <field name="Subject_1_Grade_Written_EN"/>
+                            <field name="Subject_1_Semester"/>
+
                             <field name="subject_2_arabic"/>
                             <field name="subject_2_english"/>
                             <field name="subject_2_units"/>
                             <field name="subject_2_grade"/>
+                            <field name="Subject_2_Grade_Written_AR"/> 
+                            <field name="Subject_2_Grade_Written_EN"/>
+                            <field name="Subject_2_Semester"/>
+
                             <field name="subject_3_arabic"/>
                             <field name="subject_3_english"/>
                             <field name="subject_3_units"/>
                             <field name="subject_3_grade"/>
+                            <field name="Subject_3_Grade_Written_AR"/> 
+                            <field name="Subject_3_Grade_Written_EN"/>
+                            <field name="Subject_3_Semester"/>
+
                             <field name="subject_4_arabic"/>
                             <field name="subject_4_english"/>
                             <field name="subject_4_units"/>
+                            <field name="Subject_4_Grade_Written_AR"/> 
+                            <field name="Subject_4_Grade_Written_EN"/>
+                            <field name="Subject_4_Semester"/>
+
                             <field name="subject_5_arabic"/>
                             <field name="subject_5_english"/>
                             <field name="subject_5_units"/>
                             <field name="subject_5_grade"/>
+                            <field name="Subject_5_Grade_Written_AR"/> 
+                            <field name="Subject_5_Grade_Written_EN"/>
+                            <field name="Subject_5_Semester"/>
+
                             <field name="subject_6_arabic"/>
                             <field name="subject_6_english"/>
                             <field name="subject_6_units"/>
                             <field name="subject_6_grade"/>
+                            <field name="Subject_6_Grade_Written_AR"/> 
+                            <field name="Subject_6_Grade_Written_EN"/>
+                            <field name="Subject_6_Semester"/>
+
                             <field name="subject_7_arabic"/>
                             <field name="subject_7_english"/>
                             <field name="subject_7_units"/>
                             <field name="subject_7_grade"/>
-                        </group>
-                        <group>
+                            <field name="Subject_7_Grade_Written_AR"/> 
+                            <field name="Subject_7_Grade_Written_EN"/>
+                            <field name="Subject_7_Semester"/>
+
                             <field name="subject_8_arabic"/>
                             <field name="subject_8_english"/>
                             <field name="subject_8_units"/>
                             <field name="subject_8_grade"/>
+                        </group>
+                        <group>
+                            <field name="Subject_8_Grade_Written_AR"/> 
+                            <field name="Subject_8_Grade_Written_EN"/>
+                            <field name="Subject_8_Semester"/>
+
                             <field name="subject_9_arabic"/>
                             <field name="subject_9_english"/>
                             <field name="subject_9_units"/>
                             <field name="subject_9_grade"/>
+                            <field name="Subject_9_Grade_Written_AR"/> 
+                            <field name="Subject_9_Grade_Written_EN"/>
+                            <field name="Subject_9_Semester"/>
+
                             <field name="subject_10_arabic"/>
                             <field name="subject_10_english"/>
                             <field name="subject_10_units"/>
                             <field name="subject_10_grade"/>
+                            <field name="Subject_10_Grade_Written_AR"/> 
+                            <field name="Subject_10_Grade_Written_EN"/>
+                            <field name="Subject_10_Semester"/>
+
                             <field name="subject_11_arabic"/>
                             <field name="subject_11_english"/>
                             <field name="subject_11_units"/>
                             <field name="subject_11_grade"/>
+                            <field name="Subject_11_Grade_Written_AR"/> 
+                            <field name="Subject_11_Grade_Written_EN"/>
+                            <field name="Subject_11_Semester"/>
+
                             <field name="subject_12_arabic"/>
                             <field name="subject_12_english"/>
                             <field name="subject_12_units"/>
                             <field name="subject_12_grade"/>
+                            <field name="Subject_12_Grade_Written_AR"/> 
+                            <field name="Subject_12_Grade_Written_EN"/>
+                            <field name="Subject_12_Semester"/>
+
                             <field name="subject_13_arabic"/>
                             <field name="subject_13_english"/>
                             <field name="subject_13_units"/>
                             <field name="subject_13_grade"/>
+                            <field name="Subject_13_Grade_Written_AR"/> 
+                            <field name="Subject_13_Grade_Written_EN"/>
+                            <field name="Subject_13_Semester"/>
+
                             <field name="subject_14_arabic"/>
                             <field name="subject_14_english"/>
                             <field name="subject_14_units"/>
                             <field name="subject_14_grade"/>
+                            <field name="Subject_14_Grade_Written_AR"/> 
+                            <field name="Subject_14_Grade_Written_EN"/>
+                            <field name="Subject_14_Semester"/>
+
                             <field name="subject_15_arabic"/>
                             <field name="subject_15_english"/>
                             <field name="subject_15_units"/>
                             <field name="subject_15_grade"/>
+                            <field name="Subject_15_Grade_Written_AR"/> 
+                            <field name="Subject_15_Grade_Written_EN"/>
+                            <field name="Subject_15_Semester"/>
                         </group>
                     </group>
                 </page>
