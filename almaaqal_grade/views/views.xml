@@ -31,6 +31,7 @@
                 <field name="University_order_date"/>
                 <field name="department_in_english"/>
                 <field name="department_in_arabic"/>
+                <field name="gender"/>
                 <field name="stage_year"/>
                 <field name="year_of_graduation"/>
                 <field name="student_name_in_english"/>
@@ -132,6 +133,7 @@
                         <field name="year_of_graduation"/>
                     </group>
                     <group>
+                        <field name="gender"/>
                         <field name="student_name_in_english"/>
                         <field name="student_name_in_arabic"/>
                         <field name="nationality_ar"/>

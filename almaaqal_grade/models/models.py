@@ -15,6 +15,8 @@ class AlmaaqalGrade(models.Model):
     study_type_arabic = fields.Char("Study Type AR")
     study_type_english = fields.Char("Study Type EN")
 
+    gender = fields.Char("Gender")
+
 
     certificate_name_department_AR = fields.Char("Certificate Name/Department AR")
     certificate_name_department_EN = fields.Char("Certificate Name/Department EN")
