@@ -2,7 +2,17 @@
 <odoo>
 <data>
 
+<!-- -ممتاز (Excellent): 90.00 - 100.00
 
+-جيد جدا (Very Good): 80.00 - 89.99 
+
+-جيد (Good): 70.00 - 79.99 
+
+-متوسط (Average): 60.00 - 69.99 
+
+-مقبول (Pass): 50.00 - 59.99 
+
+-راسب (Fail): Below 50.00 -->
 
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
@@ -15,9 +25,43 @@
                         <h4 class="mt32 mb32 text-center">الى /</h4>
                         </div>
                     </div>
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'-راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'-مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'-متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'-جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                    </t>
+<!--                     -ممتاز (Excellent): 90.00 - 100.00
+
+                    -جيد جدا (Very Good): 80.00 - 89.99 
+
+                    -جيد (Good): 70.00 - 79.99 
+
+                    -متوسط (Average): 60.00 - 69.99 
+
+                    -مقبول (Pass): 50.00 - 59.99 
+
+                    -راسب (Fail): Below 50.00
+ -->
+
                     <div id="informations" class="row mt32 mb32">
                         <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
-                            نؤيد لكم بان <span t-field="o.student_name_in_arabic"/> الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / <span t-field="o.department_in_arabic"/> <span t-field="o.college_in_english"/>/الدراسة <span t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="o.year_of_graduation"/>  وقد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_ar"/>  وبمعدل <span t-field="o.average"/>   ل  دراسية  بموجب الامر الجامعي ذي العدد <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/>
+                            نؤيد لكم بان <span t-field="o.student_name_in_arabic"/> الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / <span t-field="o.department_in_arabic"/> <span t-field="o.college_in_english"/>/الدراسة <span t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="o.year_of_graduation"/>  وقد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-esc="average_word"/>  وبمعدل <span t-field="o.average"/>   ل  دراسية  بموجب الامر الجامعي ذي العدد <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/>
                         </div>
                     </div>    
                     <div id="informations" class="row mt32 mb32" >                            
@@ -29,14 +73,14 @@
                             <li>٢٠٢٤</li>
                           </ul>
                         </div>
-                        <div class="col-4" style="margin-top: 270px;">
+                        <div class="col-4" style="margin-top: 200px;">
                           <ul class="text-center list-unstyled">
                             <li>أ.د. علي مظلوم</li>
                             <li>عميد الكلية</li>
                             <li>٢٠٢٤</li>
                           </ul>
                         </div>
-                        <div class="col-4" style="margin-top: 270px;">
+                        <div class="col-4" style="margin-top: 200px;">
                           <ul class="text-center list-unstyled">
                             <li>أ.د. بدر نعمة عكال النجار</li>
                             <li>رئيس الجامعة</li>
@@ -92,14 +136,36 @@
                         <h4 class="mt32 mb32 text-center">الى /</h4>
                         </div>
                     </div>
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'-راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'-مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'-متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'-جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                    </t>
+
                     <div id="informations" class="row mt32 mb32">
                     <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
-                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <span t-field="o.average_in_words_en"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_en"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
+                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <t t-esc="average_word"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_ar"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
                     <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="o.college_in_arabic"/> جامعة المعقل  </p>
                         </div>
                     </div>    
                     <div id="informations" class="row mt32 mb32" >                            
-                        <div class="col-4" style="margin-top: 200px;">
+                        <div class="col-4" style="margin-top: 170px;">
                           <ul class="text-center list-unstyled">
                             <li>أ.د. محمد جاسم الأسدي</li>
                             <li>مساعد رئيس الجامعة</li>
@@ -107,14 +173,14 @@
                             <li>٢٠٢٤</li>
                           </ul>
                         </div>
-                        <div class="col-4" style="margin-top: 270px;">
+                        <div class="col-4" style="margin-top: 170px;">
                           <ul class="text-center list-unstyled">
                             <li>أ.د. علي مظلوم</li>
                             <li>عميد الكلية</li>
                             <li>٢٠٢٤</li>
                           </ul>
                         </div>
-                        <div class="col-4" style="margin-top: 270px;">
+                        <div class="col-4" style="margin-top: 170px;">
                           <ul class="text-center list-unstyled">
                             <li>أ.د. بدر نعمة عكال النجار</li>
                             <li>رئيس الجامعة</li>
@@ -156,6 +222,1411 @@
         </t>
     </t>
 </template>
+
+
+
+
+<template id="report_almaaqal_certificates_with_grade_female">
+        <t t-set="o" t-value="doc"/>
+            <t t-call="web.external_layout_clean">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row mt32 mb32 ">
+                      <div class="col-12 text-center" style="margin-top: 50px;">
+                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
+                        <h4 class="mt32 mb32 text-center">الى /</h4>
+                        </div>
+                    </div>
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'-راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'-مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'-متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'-جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                    </t>
+
+                    <div id="informations" class="row mt32 mb32">
+                    <div class="col-12 text-right" style="line-height: 3; " t-if="o">
+                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <t t-esc="average_word"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_ar"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
+                    <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="o.college_in_arabic"/> جامعة المعقل  </p>
+                        </div>
+                    </div>    
+                    <style>
+                      table, th, td {
+                          border: 1px solid grey !important;
+                          text-align : right;
+                        }
+                        
+                        th:first-child {
+                            border-top: none;
+                        }
+                    </style>
+                    
+                    <table style="direction: rtl; width : 100%; border-top: none;">
+                    <thead>
+                      <div class="text-center" >
+                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    
+                    
+                    
+                     <table style="direction: rtl; width : 100%; border-top : 1px solid grey !important; ">
+                    <thead>
+                      <div class="text-center" style="margin-top : 180px;">
+                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    
+                    
+                    <div id="informations" class="row mt32 mb32" >
+                            <div class="col-4">
+                            
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4 text-right">
+                                <span>ملاحظات:</span>
+                            </div>
+                        </div>
+                    <div id="informations" class="row mt32 mb32" >                        
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <ul class="text-right list-unstyled">
+                        <li>(٪ درجة النجاح الصغرى: ( 50 <br/>
+
+                                سنوات الرسوب: لا يوجد</li>
+                              </ul>
+                            </div> 
+                    </div>
+
+
+                    <div id="informations" class="row mt32 mb32" >                            
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. علي مظلوم</li>
+                            <li>عميد الكلية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>م. د. مروان منصور نعيم</li>
+                            <li>أمين مجلس الجامعة</li>
+                            <li>مدير التسجيل</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. م. د. محمد جاسم الأسدي</li>
+                            <li>مساعد رئيس الجامعة للشؤون العلمية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. بدر نعمة عكاش</li>
+                            <li>رئيس الجامعة</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+</template>
+
+<template id="report_almaaqal_certificate_with_grade_female">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates_with_grade_female"/>
+        </t>
+    </t>
+</template>
+
+
+
+
+<template id="report_almaaqal_certificates_with_grade_male">
+        <t t-set="o" t-value="doc"/>
+            <t t-call="web.external_layout_clean">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row mt32 mb32 ">
+                      <div class="col-12 text-center" style="margin-top: 50px;">
+                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
+                        <h4 class="mt32 mb32 text-center">الى /</h4>
+                        </div>
+                    </div>
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'-راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'-مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'-متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'-جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                    </t>
+
+                    <div id="informations" class="row mt32 mb32">
+                    <div class="col-12 text-right" style="line-height: 3; " t-if="o">
+
+                        نؤيد لكم بان  السيد <span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورته اعلاه  قد منح شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <t t-esc="average_word"/>  وبمعدل <span t-field="o.average_in_words_en"/> ل <span t-field="o.study_year_name_ar"/>  دراسية  في (attempt in the last year)  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/>
+                        
+                        <p>ادناه الدرجات اللتي حصل عليها خلال دراسته في <span t-field="o.college_in_arabic"/>جامعة المعقل</p>
+
+
+                        </div>
+                    </div>    
+                    <style>
+                      table, th, td {
+                          border: 1px solid grey !important;
+                          text-align : right;
+                        }
+                        
+                        th:first-child {
+                            border-top: none;
+                        }
+                    </style>
+                    
+                    <table style="direction: rtl; width : 100%; border-top: none;">
+                    <thead>
+                      <div class="text-center" >
+                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    
+                    
+                    
+                     <table style="direction: rtl; width : 100%; border-top : 1px solid grey !important; ">
+                    <thead>
+                      <div class="text-center" style="margin-top : 180px;">
+                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+                                    <td>
+                                        <span t-field="o.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="o.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span t-field="o.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    
+                    
+                    <div id="informations" class="row mt32 mb32" >
+                            <div class="col-4">
+                            
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4 text-right">
+                                <span>ملاحظات:</span>
+                            </div>
+                        </div>
+                    <div id="informations" class="row mt32 mb32" >                        
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <ul class="text-right list-unstyled">
+                        <li>(٪ درجة النجاح الصغرى: ( 50 <br/>
+
+                                سنوات الرسوب: لا يوجد</li>
+                              </ul>
+                            </div> 
+                    </div>
+
+
+                    <div id="informations" class="row mt32 mb32" >                            
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. علي مظلوم</li>
+                            <li>عميد الكلية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>م. د. مروان منصور نعيم</li>
+                            <li>أمين مجلس الجامعة</li>
+                            <li>مدير التسجيل</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. م. د. محمد جاسم الأسدي</li>
+                            <li>مساعد رئيس الجامعة للشؤون العلمية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. بدر نعمة عكاش</li>
+                            <li>رئيس الجامعة</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+</template>
+
+<template id="report_almaaqal_certificate_with_grade_male">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates_with_grade_male"/>
+        </t>
+    </t>
+</template>
+
+
+
+
+
 
 
 </data>

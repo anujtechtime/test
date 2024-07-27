@@ -337,6 +337,30 @@
             print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
         />
 
+
+        <report 
+            string="Arabic With Grades Male" 
+            id="action_report_almaaqal_certificate_with_grade_male"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_with_grade_male"
+            file="almaaqal_certificate.report_almaaqal_certificate_with_grade_male"
+            report_type="qweb-pdf"
+            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+        <report 
+            string="Arabic With Grades Female" 
+            id="action_report_almaaqal_certificate_with_grade_female"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_with_grade_female"
+            file="almaaqal_certificate.report_almaaqal_certificate_with_grade_female"
+            report_type="qweb-pdf"
+            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+
+        
+
 <!-- <group>
             <field name="remark_data_change_level" nolabel="1">
                                 <tree string="Sale Order" editable="bottom">
