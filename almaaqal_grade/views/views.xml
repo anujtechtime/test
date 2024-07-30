@@ -14,6 +14,11 @@
       </field>
     </record>
 -->
+    <template id="assets_backend" name="almaaqal_grade assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/almaaqal_grade/static/src/css/custom_styles.css"/>
+        </xpath>
+    </template>
 
         <record model="ir.ui.view" id="almaaqal_grade_tree">
           <field name="name">Almaaqal Grade </field>
