@@ -17,7 +17,7 @@
     <template id="assets_backend" name="almaaqal_grade assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/almaaqal_grade/static/src/css/custom_styles.css"/>
-            <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
         </xpath>
     </template>
 
