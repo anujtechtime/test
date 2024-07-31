@@ -17,34 +17,34 @@
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
             <t t-call="web.external_layout_clean">
-                <div class="page">
+                <div class="page custom-font-class" style="font-size : 16px;  font-family: 'Times New Roman', serif !important; ">
                     <div class="oe_structure"/>
                     <div class="row mt32 mb32 ">
-                      <div class="col-12 text-center" style="margin-top: 50px;">
-                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
+                      <div class="col-12 text-center" style="margin-top: 50px; font-size : 18px !important;">
+                        <h4 class="mt32 mb32 text-center" >(وثيقة تخرج)</h4><br/>
                         <h4 class="mt32 mb32 text-center">الى /</h4>
                         </div>
                     </div>
                     <t t-if="float(o.average) &lt; 50">
-                        <t t-set="average_word" t-value="'-راسب'"/>
+                        <t t-set="average_word" t-value="'راسب'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
-                        <t t-set="average_word" t-value="'-مقبول'"/>
+                        <t t-set="average_word" t-value="'مقبول'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
-                        <t t-set="average_word" t-value="'-متوسط'"/>
+                        <t t-set="average_word" t-value="'متوسط'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
-                        <t t-set="average_word" t-value="'-جيد'"/>
+                        <t t-set="average_word" t-value="'جيد'"/>
                     </t>
                     <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
-                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                        <t t-set="average_word" t-value="'جيد جدا'"/>
                     </t>
                     <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
-                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                        <t t-set="average_word" t-value="'ممتاز'"/>
                     </t>
 <!--                     -ممتاز (Excellent): 90.00 - 100.00
 
@@ -60,40 +60,51 @@
  -->
 
                     <div id="informations" class="row mt32 mb32">
-                        <div class="col-12 text-right" style="line-height: 3; margin-top : 70px;" t-if="o">
-                                   السيد  نؤيد لكم بان (<span style="font-size: 16px; font-weight: 600;" t-field="o.student_name_in_arabic"/>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / <span style="font-size: 16px; font-weight: 600;" t-field="o.college_in_arabic"/>/ <span t-field="o.department_in_arabic"/>/الدراسة <span style="font-size: 16px; font-weight: 600;" t-field="o.study_type_arabic"/> للعام الدراسي <span t-field="o.year_of_graduation"/> (<span style="font-size: 16px; font-weight: 600;" t-field="o.attempt_ar"/>).   وقد منح شهادة  <span t-field="o.certificate_name_department_AR"/>    بتقدير(<span style="font-size: 16px; font-weight: 600;" t-esc="average_word"/>)  وبمعدل  (<span t-field="o.average"/> %)ل<span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  <span t-field="o.University_order_number"/>  في   . <span style="text-left" t-field="o.University_order_date"/>
+                       <div class="col-12" style="line-height: 3; margin-top : 70px; direction : rtl ; text-align: justify; font-family: 'Times New Roman', serif;" t-if="o"> &#160; &#160; &#160; &#160; &#160; &#160;
+                            نؤيد لكم بان السيد (<span style="font-size: 16px; font-weight: 600;" t-field="o.student_name_in_arabic"/>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
+                            <span style="font-size: 16px; font-weight: 600;" t-field="o.college_in_arabic"/>  / 
+                            <span t-field="o.department_in_arabic"/>  /  الدراسة 
+                            <span style="font-size: 16px; font-weight: 600;" t-field="o.study_type_arabic"/> للعام الدراسي 
+                            <span t-field="o.year_of_graduation"/>  (<span style="font-size: 16px; font-weight: 600;" t-field="o.attempt_ar"/>).   وقد منح شهادة  
+                            <span t-field="o.certificate_name_department_AR"/>    بتقدير (<span style="font-size: 16px; font-weight: 600;" t-esc="average_word"/>)  وبمعدل  (
+                            <span t-field="o.average"/> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
+                            <span t-field="o.University_order_number"/>  في   <span t-field="o.University_order_date"/>.
                         </div>
+
                     </div>    
-                    <div id="informations" class="row mt32 mb32" >                            
-                        <div class="col-4" style="margin-top: 200px;">
-                          <ul class="text-center list-unstyled">
-                            <li>أ.د. محمد جاسم الأسدي</li>
-                            <li>مساعد رئيس الجامعة</li>
-                            <li>للشؤون العلمية</li>
-                            <li>٢٠٢٤</li>
+                    <div id="informations" class="row mt32 mb32">                            
+                        <div class="col-4" style="margin-top: 150px;">
+                          <ul class="text-center list-unstyled" style="font-family: 'Arial', sans-serif !important;">
+                            <li  style="font-weight: 600 !important;">أ.م.د محمد جاسم الاسدي</li>
+                            <li  style="font-weight: 600 !important;">مساعد رئيس الجامعة  </li>
+                            <li  style="font-weight: 600 !important;">للشؤون العلمية</li>
+                            <li style="font-weight: 600 !important;">2024 /&#160;&#160; /&#160;&#160;</li>
+                          </ul>
+                        
+                        </div>
+                        <div class="col-4" style="margin-top: 150px;">
+                          <ul class="text-center list-unstyled" >
+                            <li  style="font-weight: 600 !important;">أ.م.د علي مظلوم</li>
+                            <li style="font-weight: 600 !important;">عميد الكلية</li>
+                            <li style="font-weight: 600 !important;">2024 /&#160;&#160; /&#160;&#160;</li>
                           </ul>
                         </div>
-                        <div class="col-4" style="margin-top: 200px;">
+                        <div class="col-4" style="margin-top: 150px;">
+                            
                           <ul class="text-center list-unstyled">
-                            <li>أ.د. علي مظلوم</li>
-                            <li>عميد الكلية</li>
-                            <li>٢٠٢٤</li>
-                          </ul>
-                        </div>
-                        <div class="col-4" style="margin-top: 200px;">
-                          <ul class="text-center list-unstyled">
-                            <li>أ.د. بدر نعمة عكال النجار</li>
-                            <li>رئيس الجامعة</li>
-                            <li>٢٠٢٤</li>
+                            <li  style="font-weight: 600 !important;">م.د مروان منصور نعيم</li>
+                            <li style="font-weight: 600 !important;">امين مجلس الجامعة </li>
+                            <li style="font-weight: 600 !important;">مدير التسجيل</li>
+                            <li style="font-weight: 600 !important;">2024 /&#160;&#160; /&#160;&#160;</li>
                           </ul>
                         </div>
                     </div>
-                    <div id="informations" class="row mt32 mb32" >
+                    <div id="informations" class="row mt32 mb32">
                             <div class="col-4">
                               <ul class="text-center list-unstyled">
-                                <li>أ.د. بدر نعمة عكاك الشبوان</li>
-                                <li>رئيس الجامعة</li>
-                                <li>٢٠٢٤/</li>
+                                <li  style="font-weight: 600 !important;">أ. د بدر  نعمة عكاش البدران</li>
+                                <li style="font-weight: 600 !important;">رئيس الجامعة </li>
+                            <li style="font-weight: 600 !important;">2024 /&#160;&#160; /&#160;&#160;</li>
                               </ul>
                             </div>
                             <div class="col-4"> 
@@ -101,12 +112,12 @@
                             <div class="col-4">
                             </div>
                         </div>
-                    <div id="informations" class="row mt32 mb32" >                        
+                    <div id="informations" class="row mt32 mb32">                        
                             <div class="col-6">
                             </div>
                             <div class="col-6">
-                              <ul class="text-center list-unstyled">
-                                <li>ملاحظة// الوثيقة خالية من الشطب والتعديل</li>
+                              <ul class="text-center list-unstyled" >
+                                <li style="font-weight: 600 !important;">ملاحظة//- <span  style=" font-weight: normal !important;"> الوثيقة خالية من الشطب والتعديل </span>   </li>
                               </ul>
                             </div> 
                     </div>
