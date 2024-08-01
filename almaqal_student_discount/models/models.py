@@ -185,7 +185,6 @@ class ResPrtner(models.Model):
                 'sale_installment_id' : result.id,
                 # "invoice_id" : invoice_id.id
                 })  
-            result.year = False 
         count = 0        
         if not failed_student and installmet_dat:
             _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
