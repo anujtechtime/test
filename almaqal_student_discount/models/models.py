@@ -180,7 +180,7 @@ class ResPrtner(models.Model):
             for i in failed_student.sale_installment_line_ids:
                 installment = result.sale_installment_line_ids.create({
                 'number' : i.number,
-                'payment_date' : i.payment_date + relativedelta(year=1),
+                'payment_date' : i.payment_date + relativedelta(years=1),
                 'amount_installment' : i.amount_installment,
                 'description': 'Installment Payment',
                 'sale_installment_id' : result.id,
