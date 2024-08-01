@@ -104,6 +104,7 @@ class almaqal_templates(models.Model):
                     'sale_installment_id' : self._origin.id,
                     # "invoice_id" : invoice_id.id
                     })
+                self.year = False    
                 return {'warning': { 
                     'title': "Warning", 
                     'message': 'This Student is failed.', 
