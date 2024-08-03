@@ -65,6 +65,65 @@
               action="almaaqal_fields.graduation_source_tree_action_windownew_work"/>
 
 
+        <record model="ir.ui.view" id="name_school_tree">
+          <field name="name">المدرسه التي تخرج منها</field>
+          <field name="model">name.school</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="name_school_tree_action_windownew_work">
+          <field name="name">المدرسه التي تخرج منها window</field>
+          <field name="res_model">name.school</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="المدرسه التي تخرج منها" id="aktco_sale_menu_1_name_school" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.name_school_tree_action_windownew_work"/>
+
+
+
+        
+        <record model="ir.ui.view" id="state_school_tree">
+          <field name="name">المحافظه</field>
+          <field name="model">state.school</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="state_school_tree_action_windownew_work">
+          <field name="name">المحافظه window</field>
+          <field name="res_model">state.school</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        
+        <menuitem name="المحافظه" id="aktco_sale_menu_1_list_state_school" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_fields.state_school_tree_action_windownew_work"/>      
+
+
+
+              
+              
+
+
         
         <record model="ir.ui.view" id="batch_name_tree">
           <field name="name">اسم الدفعه</field>
