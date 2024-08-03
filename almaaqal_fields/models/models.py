@@ -35,8 +35,8 @@ class ResPart(models.Model):
     ID_Unified_Number =  fields.Char("رقم الهويه الموحده")
     ID_Unified_Number_date = fields.Date("تاريخ اصدار الهوي ه الموحده")
 
-    name_of_school_graduated_from = fields.Char("Name of school graduated from", tracking=True)
-    State_of_school_graduated_from = fields.Char("State of school graduated from", tracking=True)
+    name_of_school_graduated_from_1 = fields.Many2one("name.school",string="Name of school graduated from", tracking=True)
+    State_of_school_graduated_from_1 = fields.Many2one("state.school", string="State of school graduated from", tracking=True)
 
     
 
