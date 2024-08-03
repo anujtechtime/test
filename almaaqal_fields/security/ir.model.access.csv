@@ -7,6 +7,9 @@ access_persistent_model,persistent.model,model_persistent_model,base.group_user,
 access_batch_name,batch.name,model_batch_name,base.group_user,1,1,1,1
 access_attempt_attempt,attempt.attempt,model_attempt_attempt,base.group_user,1,1,1,1
 access_collage_graduation,collage.graduation,model_collage_graduation,base.group_user,1,1,1,1
+access_name_school,name.school,model_name_school,base.group_user,1,1,1,1
+access_state_school,state.school,model_state_school,base.group_user,1,1,1,1
+
 
 
 

@@ -29,6 +29,17 @@ class ResPart(models.Model):
     attempt = fields.Many2one("attempt.attempt", string="الدور")
     year_of_collage_graduation = fields.Many2one("collage.graduation", string="سنه التخرج ")
 
+    student_Lack_of_information  = fields.Boolean("نقص في معلومات الطلبه")
+    Mother_Name_in_AR = fields.Char("Mother Name in AR")
+    Mother_Name_in_EN = fields.Char("Mother Name in EN")
+    ID_Unified_Number =  fields.Char("رقم الهويه الموحده")
+    ID_Unified_Number_date = fields.Date("تاريخ اصدار الهوي ه الموحده")
+
+    name_of_school_graduated_from_1 = fields.Many2one("name.school",string="Name of school graduated from", tracking=True)
+    State_of_school_graduated_from_1 = fields.Many2one("state.school", string="State of school graduated from", tracking=True)
+
+    
+
     
 
     def action_done_show_change_log_update(self):
@@ -130,6 +141,17 @@ class CollGradtModel(models.Model):
     name = fields.Char("سنه التخرج")        
 
 
+class NameSchool(models.Model):
+    _name = 'name.school'
+    _description = 'المدرسه التي تخرج منها '
+
+    name = fields.Char("المدرسه التي تخرج منها ")
+
+class StateSchool(models.Model):
+    _name = 'state.school'
+    _description = 'المحافظه'
+
+    name = fields.Char("المحافظه")
     
 
 
