@@ -319,7 +319,7 @@
 
 
         <report 
-            string="Arabic No Grades Male" 
+            string="Arabic No Grades" 
             id="action_report_almaaqal_certificate"
             model="almaaqal.grade"
             name="almaaqal_certificate.report_almaaqal_certificate"
@@ -327,37 +327,16 @@
             report_type="qweb-pdf"
             print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
         />
-        <report 
-            string="Arabic No Grades Female" 
-            id="action_report_almaaqal_certificate_female"
-            model="almaaqal.grade"
-            name="almaaqal_certificate.report_almaaqal_certificate_female"
-            file="almaaqal_certificate.report_almaaqal_certificate_female"
-            report_type="qweb-pdf"
-            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
-        />
-
 
         <report 
-            string="Arabic With Grades Male" 
-            id="action_report_almaaqal_certificate_with_grade_male"
+            string="Arabic With Grades" 
+            id="action_report_almaaqal_certificate_with_grade"
             model="almaaqal.grade"
-            name="almaaqal_certificate.report_almaaqal_certificate_with_grade_male"
-            file="almaaqal_certificate.report_almaaqal_certificate_with_grade_male"
+            name="almaaqal_certificate.report_almaaqal_certificate_with_grade"
+            file="almaaqal_certificate.report_almaaqal_certificate_with_grade"
             report_type="qweb-pdf"
-            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
+            print_report_name="'Arabic with Grades - %s' % (object.exam_number_for_reference)"
         />
-
-        <report 
-            string="Arabic With Grades Female" 
-            id="action_report_almaaqal_certificate_with_grade_female"
-            model="almaaqal.grade"
-            name="almaaqal_certificate.report_almaaqal_certificate_with_grade_female"
-            file="almaaqal_certificate.report_almaaqal_certificate_with_grade_female"
-            report_type="qweb-pdf"
-            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
-        />
-
 
         
 

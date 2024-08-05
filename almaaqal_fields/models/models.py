@@ -155,9 +155,6 @@ class CollGradtModel(models.Model):
     name = fields.Char("سنه التخرج")        
 
 
-    
-
-
 class PersistentModel(models.Model):
     _name = 'persistent.model'
     _description = 'Persistent Model'
