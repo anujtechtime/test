@@ -42,7 +42,9 @@
                 <field name="department_in_arabic"/>
                 <field name="gender"/>
                 <field name="stage_year"/>
-                <field name="dean_collage_name_arabic"/>
+                <!-- <field name="dean_collage_name_arabic"/> -->
+                <field name="subject_to_arabic"/>
+                <field name="subject_to_english"/>
 
                 <field name="dean_collage_name_english"/>
                 <field name="year_of_graduation"/>
@@ -190,6 +192,10 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Grade">
+                <header>
+                    <field name="Status" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
                 <group>
                     <group>
                         <field name="exam_number_for_reference"/>
@@ -209,8 +215,8 @@
                         <field name="student_name_in_arabic"/>
                     </group>
                     <group>
-                        <field name="dean_collage_name_arabic"/>
-                        <field name="dean_collage_name_english"/>
+                        <field name="subject_to_arabic"/>
+                        <field name="subject_to_english"/>
                         <field name="gender"/>
                         <field name="nationality_ar"/>
                         <field name="nationality_en"/>
@@ -356,6 +362,7 @@
                     </group>
                 </page>
             </notebook>
+            </sheet>
             </form>
         </field>
     </record>

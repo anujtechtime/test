@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _ 
+from datetime import date
 
 
 class AlmaaqalGrade(models.Model):
     _name = 'almaaqal.grade'
     _description = 'Almaaqal Grade'
+
+
+    Status = fields.Selection([('draft','Draft'),('posted','Posted')], string="Status")
 
     exam_number_for_reference =  fields.Char("Exam Number")
 
@@ -17,6 +21,8 @@ class AlmaaqalGrade(models.Model):
 
     gender = fields.Char("Gender")
 
+    subject_to_arabic = fields.Char("Subject to Arabic")
+    subject_to_english = fields.Char("Subject to English")
 
     certificate_name_department_AR = fields.Char("Certificate Name/Department AR")
     certificate_name_department_EN = fields.Char("Certificate Name/Department EN")
@@ -186,6 +192,13 @@ class AlmaaqalGrade(models.Model):
     Subject_15_Grade_Written_EN = fields.Char("Subject 15 Grade Written EN")
     Subject_15_Semester  = fields.Char("Subject 15 Semester")
 
+    posted_date = fields.Date("Posted Date")
+
+
+    @api.onchange('Status')
+    def _on_change_Status(self):
+        if self.Status == 'posted':
+            self.posted_date = date.today()
 
     
 class Subject(models.Model):
