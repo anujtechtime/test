@@ -24,7 +24,8 @@ class AlmaaqalGrade(models.Model):
     University_order_number = fields.Char("University order number")
     University_order_date = fields.Date("University order date")
 
-    dean_collage_name = fields.Char("Dean Collage Name")
+    dean_collage_name_arabic = fields.Char("Dean Collage Name AR")
+    dean_collage_name_english = fields.Char("Dean Collage Name EN")
 
     department_in_english =  fields.Char("Department in EN")
     department_in_arabic =  fields.Char("Department in AR")

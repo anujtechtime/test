@@ -42,7 +42,9 @@
                 <field name="department_in_arabic"/>
                 <field name="gender"/>
                 <field name="stage_year"/>
-                <field name="dean_collage_name"/>
+                <field name="dean_collage_name_arabic"/>
+
+                <field name="dean_collage_name_english"/>
                 <field name="year_of_graduation"/>
                 <field name="student_name_in_english"/>
                 <field name="student_name_in_arabic"/>
@@ -207,7 +209,8 @@
                         <field name="student_name_in_arabic"/>
                     </group>
                     <group>
-                        <field name="dean_collage_name"/>
+                        <field name="dean_collage_name_arabic"/>
+                        <field name="dean_collage_name_english"/>
                         <field name="gender"/>
                         <field name="nationality_ar"/>
                         <field name="nationality_en"/>
