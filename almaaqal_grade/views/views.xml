@@ -193,7 +193,7 @@
         <field name="arch" type="xml">
             <form string="Grade">
                 <header>
-                    <field name="Status" widget="statusbar" statusbar_visible="draft,posted"/>
+                    <field name="Status" widget="statusbar"  statusbar_visible="draft,posted" options="{'clickable':1}"/>
                 </header>
                 <sheet>
                 <group>

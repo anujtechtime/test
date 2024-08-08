@@ -183,13 +183,14 @@ class ResPrtner(models.Model):
                 dates = payemnt_date
                 target_date = i.payment_date
                 differences = [abs(target_date - date) for date in dates]
-                nearest_index = differences.index(min(differences))
-                nearest_date = dates[nearest_index]
-                print(nearest_date)
+                if differences:
+                    nearest_index = differences.index(min(differences))
+                    nearest_date = dates[nearest_index]
+                    print(nearest_date)
 
                 installment = result.sale_installment_line_ids.create({
                 'number' : i.number,
-                'payment_date' : nearest_date,
+                'payment_date' : nearest_date if nearest_date else i.payment,
                 'amount_installment' : i.amount_installment,
                 'description': 'Installment Payment',
                 'sale_installment_id' : result.id,
