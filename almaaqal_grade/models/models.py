@@ -199,7 +199,7 @@ class AlmaaqalGrade(models.Model):
 
     # @api.onchange('Status')
     def buuton_status_change(self):
-        self.Status = 'posted':
+        self.Status = 'posted'
         self.posted_date = date.today()
 
     def buuton_status_change_draft(self):
