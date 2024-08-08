@@ -191,9 +191,23 @@
         <field name="model">almaaqal.grade</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Grade">
+            <form string="Grade" attrs="{'readonly': [('Status', '=', 'posted')]}">
                 <header>
-                    <field name="Status" widget="statusbar"  statusbar_visible="draft,posted" options="{'clickable':1}"/>
+                <button name="buuton_status_change"
+                    string="Post"
+                    type="object"
+                    confirm="Are you sure you want change Status to POSTED Status?"
+                    states="draft"
+                />
+
+                <button name="buuton_status_change_draft"
+                    string="Draft"
+                    type="object"
+                    confirm="Are you sure you want change Status to DRAFT Status?"
+                    states="posted"
+                />
+
+                    <field name="Status" widget="statusbar"  statusbar_visible="draft,posted"/>
                 </header>
                 <sheet>
                 <group>

@@ -19,6 +19,8 @@ class AlmaaqalGrade(models.Model):
     study_type_arabic = fields.Char("Study Type AR")
     study_type_english = fields.Char("Study Type EN")
 
+    serial = fields.Char("Serial")
+
     gender = fields.Char("Gender")
 
     subject_to_arabic = fields.Char("Subject to Arabic")
@@ -195,11 +197,14 @@ class AlmaaqalGrade(models.Model):
     posted_date = fields.Date("Posted Date")
 
 
-    @api.onchange('Status')
-    def _on_change_Status(self):
-        if self.Status == 'posted':
-            self.posted_date = date.today()
+    # @api.onchange('Status')
+    def buuton_status_change(self):
+        self.Status = 'posted':
+        self.posted_date = date.today()
 
+    def buuton_status_change_draft(self):
+        self.Status = 'draft'
+        self.posted_date = False
     
 class Subject(models.Model):
     _name = "subject.subject"
