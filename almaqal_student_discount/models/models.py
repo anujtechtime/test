@@ -177,15 +177,26 @@ class ResPrtner(models.Model):
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         if failed_student:
             result.installment_amount = failed_student.installment_amount
+            payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
+
             for i in failed_student.sale_installment_line_ids:
+                dates = payemnt_date
+                target_date = i.payment_date
+                differences = [abs(target_date - date) for date in dates]
+                if differences:
+                    nearest_index = differences.index(min(differences))
+                    nearest_date = dates[nearest_index]
+                    print(nearest_date)
+
                 installment = result.sale_installment_line_ids.create({
                 'number' : i.number,
-                'payment_date' : i.payment_date,
+                'payment_date' : nearest_date if nearest_date else i.payment,
                 'amount_installment' : i.amount_installment,
                 'description': 'Installment Payment',
                 'sale_installment_id' : result.id,
                 # "invoice_id" : invoice_id.id
                 })  
+                payemnt_date.remove(nearest_date)
         count = 0        
         if not failed_student and installmet_dat:
             _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
