@@ -206,6 +206,10 @@ class AlmaaqalGrade(models.Model):
     def buuton_status_change_draft(self):
         self.Status = 'draft'
         self.posted_date = False
+
+    def remove_underscores(self, text):
+        """Remove underscores from the given text."""
+        return text.replace('_', '')    
     
 class Subject(models.Model):
     _name = "subject.subject"
