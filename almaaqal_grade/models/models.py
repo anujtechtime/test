@@ -210,6 +210,14 @@ class AlmaaqalGrade(models.Model):
     def remove_underscores(self, text):
         """Remove underscores from the given text."""
         return text.replace('_', '')    
+
+    def print_pdf(self):
+        return {'type': 'ir.actions.act_url',
+               'url': '/web/binary/download_docx_report/%s' % self.id,
+               'target': 'self',
+               'res_id': self.id,
+               }    
+    
     
 class Subject(models.Model):
     _name = "subject.subject"

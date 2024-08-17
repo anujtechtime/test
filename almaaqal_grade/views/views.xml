@@ -190,6 +190,22 @@
           </field>
         </record>
 
+
+        <record id="ir_actions_server_sale_almaaqal_grade_data_s" model="ir.actions.server">
+          <field name="name">Arabic No Grade (Docx)</field>
+          <field name="type">ir.actions.server</field>
+          <field name="model_id" ref="model_almaaqal_grade"/>
+          <field name="state">code</field>
+          <field name="code">
+              if records:
+                  action = records.print_pdf()
+          </field>
+          <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade"/>
+          <field name="binding_view_types">list,form</field>
+        </record>
+
+
+
         <record model="ir.ui.view" id="view_any_name_form_almaaqal_grade">
         <field name="name">Grade</field>
         <field name="model">almaaqal.grade</field>
