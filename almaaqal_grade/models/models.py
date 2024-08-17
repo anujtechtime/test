@@ -212,12 +212,13 @@ class AlmaaqalGrade(models.Model):
         return text.replace('_', '')    
 
     def print_pdf(self):
-        return {'type': 'ir.actions.act_url',
-               'url': '/web/binary/download_docx_report/%s' % self.id,
-               'target': 'self',
-               'res_id': self.id,
-               }    
-    
+        for ddt in self:
+            return {'type': 'ir.actions.act_url',
+                'url': '/web/binary/download_docx_report/%s' % ddt.id,
+                'target': 'self',
+                'res_id': ddt.id,
+                }    
+        
     
 class Subject(models.Model):
     _name = "subject.subject"
