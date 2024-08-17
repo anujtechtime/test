@@ -188,7 +188,7 @@
         </record>
 
 
-        <record id="ir_actions_server_sale_almaaqal_grade_data_s" model="ir.actions.server">
+        <!-- <record id="ir_actions_server_sale_almaaqal_grade_data_s" model="ir.actions.server">
           <field name="name">Arabic No Grade (Docx)</field>
           <field name="type">ir.actions.server</field>
           <field name="model_id" ref="almaaqal_grade.model_almaaqal_grade"/>
@@ -197,7 +197,7 @@
               if records:
                   action = records.print_pdf()
           </field>
-        </record>
+        </record> -->
 
 
         <record model="ir.ui.view" id="view_any_name_form_almaaqal_grade">
@@ -219,6 +219,11 @@
                     type="object"
                     confirm="Are you sure you want change Status to DRAFT Status?"
                     attrs="{'invisible': [('Status', '=', 'posted')]}"
+                />
+
+                 <button name="print_pdf"
+                    string="Arabic No Grade (Docx)"
+                    type="object"
                 />
 
                     <field name="Status" widget="statusbar"  statusbar_visible="draft,posted"/>
