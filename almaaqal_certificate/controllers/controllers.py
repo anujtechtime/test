@@ -57,7 +57,7 @@ class Binary(http.Controller):
         para1.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         # para1.paragraph_format.left_indent = Pt(172)
 
-        para2 = document1.add_paragraph('الى/ {record.subject_to_arabic}')
+        para2 = document1.add_paragraph(f'الى/ {record.subject_to_arabic}')
         para2.paragraph_format.space_before = Pt(60)
         para2.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         # para2.paragraph_format.left_indent = Pt(180)
