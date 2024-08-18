@@ -1,0 +1,439 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_certificate.list">
+      <field name="name">almaaqal_certificate list</field>
+      <field name="model">almaaqal_certificate.almaaqal_certificate</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record model="ir.ui.view" id="almaaqal_certificate_tree">
+          <field name="name">Certificate </field>
+          <field name="model">almaaqal.certificate</field>
+          <field name="arch" type="xml">
+            <tree>
+                <!-- Status -->       
+
+                <field name="number"/>
+                <field name="date"/>
+                <field name="type_d"/>
+                <field name="name_in_arabic"/>
+
+                <field name="grade_year" widget="many2many_tags"/>
+
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="almaaqal_certificate_kanban_view">
+            <field name="name">almaaqal.certificate.kanban</field>
+            <field name="model">almaaqal.certificate</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                    <field name="id"/>
+                    <field name="name_in_arabic"/>
+                    <field name="date"/>
+                    <field name="type_d"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                                <t t-if="!record.name_in_arabic.raw_value">
+
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
+                                        <img class="o_kanban_image_inner_pic" t-if="record.name_in_arabic.raw_value" t-att-alt="record.name_in_arabic.value" t-att-src="kanban_image('res.partner', 'image_128', record.name_in_arabic.raw_value)"/>
+                                    </div>
+                                    <div class="o_kanban_image d-md-none" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
+                                        <img class="o_kanban_image_inner_pic" t-if="record.name_in_arabic.raw_value" t-att-alt="record.name_in_arabic.value" t-att-src="kanban_image('res.partner', 'image_128', record.name_in_arabic.raw_value)"/>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="placeholder" t-value="'/base/static/img/company_image.png'"/>
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('res.partner', 'image_128', record.id.raw_value, placeholder)})" role="img"/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading"><field name="name_in_arabic"/></strong>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+                                        <li t-if="record.date.raw_value"><field name="date"/></li>
+                                        <li t-if="record.type_d.raw_value"><field name="type_d"/></li>
+
+                                        <li t-if="record.name_in_arabic.raw_value"><field name="name_in_arabic"/></li>
+                                        
+                                    </ul>
+                                    <!-- <div class="oe_kanban_partner_links"/> -->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_any_name_form_almaaqal_certificate_t">
+        <field name="name">Cartificate</field>
+        <field name="model">almaaqal.certificate</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Certificate">
+                <header>
+                    <field name="Status" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>                         
+                    <group> 
+                        <group>
+                            <field name="student"  context="{'display_number_exam': True}"/>
+                            <field name="number"/>
+                            <field name="date"/>
+                            <field name="type_d"/>
+                            <field name="name_in_arabic"/>
+                            <field name="name_in_english"/>
+                        </group>
+                        <group>
+                            <field name="college"/>
+                            <field name="department"/>
+                            <field name="grade"/>
+                            <field name="graduation_sequence"/>
+                            <field name="year_name_graduation_year"/>
+                        </group>
+                    </group>
+
+                    <notebook colspan="4">
+                        <page string="Grade">
+                            <group>
+                                <field name="grade_year" nolabel="1">
+                                <tree string="Year">
+                                    <field name="exam_number_for_reference"/>
+                                    <field name="college_in_english"/>
+                                    <field name="college_in_arabic"/>
+                                    <field name="study_type_arabic"/>
+                                    <field name="study_type_english"/>
+                                    <field name="certificate_name_department_AR"/>
+                                    <field name="certificate_name_department_EN"/>
+                                    <field name="University_order_number"/>
+                                    <field name="University_order_date"/>
+                                    <field name="department_in_english"/>
+                                    <field name="department_in_arabic"/>
+                                    <field name="stage_year"/>
+                                    <field name="year_of_graduation"/>
+                                    <field name="student_name_in_english"/>
+                                    <field name="student_name_in_arabic"/>
+                                    <field name="nationality_ar"/>
+                                    <field name="nationality_en"/>
+                                    <field name="average"/>
+                                    <field name="average_in_words_en"/>
+                                    <field name="average_in_words_ar"/>
+                                    <field name="attempt_en"/>
+                                    <field name="attempt_ar"/>
+                                    <field name="study_notes_in_arabic"/>
+                                    <field name="study_notes_in_english"/>
+                                    <field name="study_year_name_ar"/>
+                                    <field name="study_year_name_en"/>
+                                    
+                                </tree>
+                                <form string="Grade">
+                                <group>
+                                    <group>
+                                        <field name="exam_number_for_reference"/>
+                                        <field name="college_in_english"/>
+                                        <field name="college_in_arabic"/>
+                                        <field name="study_type_arabic"/>
+                                        <field name="study_type_english"/>
+                                        <field name="certificate_name_department_AR"/>
+                                        <field name="certificate_name_department_EN"/>
+                                        <field name="University_order_number"/>
+                                        <field name="University_order_date"/>
+                                        <field name="department_in_english"/>
+                                        <field name="department_in_arabic"/>
+                                        <field name="stage_year"/>
+                                        <field name="year_of_graduation"/>
+                                    </group>
+                                    <group>
+                                        <field name="student_name_in_english"/>
+                                        <field name="student_name_in_arabic"/>
+                                        <field name="nationality_ar"/>
+                                        <field name="nationality_en"/>
+                                        <field name="average"/>
+                                        <field name="average_in_words_en"/>
+                                        <field name="average_in_words_ar"/>
+                                        <field name="attempt_en"/>
+                                        <field name="attempt_ar"/>
+                                        <field name="study_notes_in_arabic"/>
+                                        <field name="study_notes_in_english"/>
+                                        <field name="study_year_name_ar"/>
+                                        <field name="study_year_name_en"/>
+                                    </group>
+                                </group>
+                                <notebook colspan="4">
+                                    <page string="Subject">
+                                        <group>
+                                            <group>
+                                            <field name="subject_1_arabic"/>
+                                            <field name="subject_1_english"/>
+                                            <field name="subject_1_units"/>
+                                            <field name="subject_1_grade"/>
+                                            <field name="subject_2_arabic"/>
+                                            <field name="subject_2_english"/>
+                                            <field name="subject_2_units"/>
+                                            <field name="subject_2_grade"/>
+                                            <field name="subject_3_arabic"/>
+                                            <field name="subject_3_english"/>
+                                            <field name="subject_3_units"/>
+                                            <field name="subject_3_grade"/>
+                                            <field name="subject_4_arabic"/>
+                                            <field name="subject_4_english"/>
+                                            <field name="subject_4_units"/>
+                                            <field name="subject_5_arabic"/>
+                                            <field name="subject_5_english"/>
+                                            <field name="subject_5_units"/>
+                                            <field name="subject_5_grade"/>
+                                            <field name="subject_6_arabic"/>
+                                            <field name="subject_6_english"/>
+                                            <field name="subject_6_units"/>
+                                            <field name="subject_6_grade"/>
+                                            <field name="subject_7_arabic"/>
+                                            <field name="subject_7_english"/>
+                                            <field name="subject_7_units"/>
+                                            <field name="subject_7_grade"/>
+                                        </group>
+                                        <group>
+                                            <field name="subject_8_arabic"/>
+                                            <field name="subject_8_english"/>
+                                            <field name="subject_8_units"/>
+                                            <field name="subject_8_grade"/>
+                                            <field name="subject_9_arabic"/>
+                                            <field name="subject_9_english"/>
+                                            <field name="subject_9_units"/>
+                                            <field name="subject_9_grade"/>
+                                            <field name="subject_10_arabic"/>
+                                            <field name="subject_10_english"/>
+                                            <field name="subject_10_units"/>
+                                            <field name="subject_10_grade"/>
+                                            <field name="subject_11_arabic"/>
+                                            <field name="subject_11_english"/>
+                                            <field name="subject_11_units"/>
+                                            <field name="subject_11_grade"/>
+                                            <field name="subject_12_arabic"/>
+                                            <field name="subject_12_english"/>
+                                            <field name="subject_12_units"/>
+                                            <field name="subject_12_grade"/>
+                                            <field name="subject_13_arabic"/>
+                                            <field name="subject_13_english"/>
+                                            <field name="subject_13_units"/>
+                                            <field name="subject_13_grade"/>
+                                            <field name="subject_14_arabic"/>
+                                            <field name="subject_14_english"/>
+                                            <field name="subject_14_units"/>
+                                            <field name="subject_14_grade"/>
+                                            <field name="subject_15_arabic"/>
+                                            <field name="subject_15_english"/>
+                                            <field name="subject_15_units"/>
+                                            <field name="subject_15_grade"/>
+                                        </group>
+                                    </group>
+                                </page>
+                            </notebook>
+                            </form>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Notes">
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!--                 1. College in English
+                2. College in Arabic
+                3. Department in English
+                4. Department in Arabic
+                5. Year
+                6. Grades
+                    a. Subject Units
+                    b. Subject Name in Arabic
+                    c. Subject Name in English
+                    d. Grade (ex: 88)
+                7. Notes -->
+
+
+        <record model="ir.actions.act_window" id="almaaqal_certificate_tree_action_windownew_work">
+          <field name="name">Certificate </field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">almaaqal.certificate</field>
+          <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+<!--         <record id="action_partner_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'res_partner_search_mode': 'customer'}</field>
+            <field name="search_view_id" ref="view_res_partner_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new customer in your address book
+              </p><p>
+                Odoo helps you easily track all activities related to a customer.
+              </p>
+            </field>
+        </record> -->
+        <record id="action_certificate_form_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="almaaqal_certificate_kanban_view"/>
+            <field name="act_window_id" ref="almaaqal_certificate_tree_action_windownew_work"/>
+        </record>
+        <record id="action_certificate_form_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_any_name_form_almaaqal_certificate_t"/>
+            <field name="act_window_id" ref="almaaqal_certificate_tree_action_windownew_work"/>
+        </record>
+        <record id="action_certificate_tree_view1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="almaaqal_certificate_tree"/>
+            <field name="act_window_id" ref="almaaqal_certificate_tree_action_windownew_work"/>
+        </record>
+
+
+
+        
+        <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate"
+              action="almaaqal_certificate.almaaqal_certificate_tree_action_windownew_work"/>  
+
+
+        
+        <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
+            <field name="name">Arabic no Grade (Docx) male  Report</field> 
+            <field name="type">ir.actions.report</field>
+            <field name="model">almaaqal.grade</field>
+            <field name="report_name">py3o_grade_info</field>
+            <field name="report_type">py3o</field>
+            <field name="py3o_filetype">odt</field>
+            <field name="module">almaaqal_certificate</field>
+            <field name="py3o_template_fallback">demo/res_user.odt</field>
+            <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="almaaqal_grade_report_py3o_female" model="ir.actions.report">
+            <field name="name">Arabic no Grade (Docx) Female  Report</field> 
+            <field name="type">ir.actions.report</field>
+            <field name="model">almaaqal.grade</field>
+            <field name="report_name">py3o_grade_female_info</field>
+            <field name="report_type">py3o</field>
+            <field name="py3o_filetype">odt</field>
+            <field name="module">almaaqal_certificate</field>
+            <field name="py3o_template_fallback">demo/res_user_female.odt</field>
+            <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <report 
+            string="Arabic No Grades" 
+            id="action_report_almaaqal_certificate"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate"
+            file="almaaqal_certificate.report_almaaqal_certificate"
+            report_type="qweb-pdf"
+            print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+        <report 
+            string="Arabic With Grades" 
+            id="action_report_almaaqal_certificate_with_grade"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_with_grade"
+            file="almaaqal_certificate.report_almaaqal_certificate_with_grade"
+            report_type="qweb-pdf"
+            print_report_name="'Arabic with Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+        
+
+<!-- <group>
+            <field name="remark_data_change_level" nolabel="1">
+                                <tree string="Sale Order" editable="bottom">
+                                    <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                                    
+                                </tree>
+                                <form string="Sale Order">
+                                    <group col="4">
+                                        <field name="level"  options="{'no_quick_create': True, 'no_create_edit' : True, 'no_open':True}" />
+                                    <field name="notes_data" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+
+                                    <field name="data_date_value" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="sequence_num" options="{'no_quick_create': True, 'no_create_edit' : True , 'no_open':True}" />
+                                    <field name="create_date"/>
+                                    <field name="attachment" widget="many2many_binary"/>
+                    
+                                    </group>
+                                </form>
+                            </field>
+                        </group> -->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_certificate.action_window">
+      <field name="name">almaaqal_certificate window</field>
+      <field name="res_model">almaaqal_certificate.almaaqal_certificate</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_certificate.action_server">
+      <field name="name">almaaqal_certificate server</field>
+      <field name="model_id" ref="model_almaaqal_certificate_almaaqal_certificate"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_certificate" id="almaaqal_certificate.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_certificate.menu_1" parent="almaaqal_certificate.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_certificate.menu_2" parent="almaaqal_certificate.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_certificate.menu_1_list" parent="almaaqal_certificate.menu_1"
+              action="almaaqal_certificate.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_certificate" parent="almaaqal_certificate.menu_2"
+              action="almaaqal_certificate.action_server"/>
+-->
+  </data>
+</odoo>

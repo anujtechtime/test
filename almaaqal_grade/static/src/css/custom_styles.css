@@ -1,0 +1,14 @@
+/* your_module_name/static/src/css/custom_styles.css */
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+.custom-font-class {
+    font-family: 'CustomFont', sans-serif;
+}
