@@ -196,6 +196,7 @@ class AlmaaqalGrade(models.Model):
     Subject_15_Semester  = fields.Char("Subject 15 Semester")
 
     posted_date = fields.Date("Posted Date")
+    average_word_word = fields.Char("average_word_word")
 
     @api.onchange('average')
     def _onchange_average_word(self):
