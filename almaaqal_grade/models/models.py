@@ -198,6 +198,57 @@ class AlmaaqalGrade(models.Model):
     posted_date = fields.Date("Posted Date")
     average_word_word = fields.Char("average_word_word")
 
+
+    @api.model
+    def create(self, vals):
+        if 'average' in vals:
+            if float(vals['average']) < 50:
+                vals['average_word_word'] = 'راسب'
+            
+
+            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
+                vals['average_word_word'] = 'مقبول'
+            
+
+            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
+                vals['average_word_word'] = 'متوسط'
+            
+
+            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
+                vals['average_word_word'] = 'جيد'
+            
+            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
+                vals['average_word_word'] = 'جيد جدا'
+            
+            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
+                vals['average_word_word'] = 'ممتاز'
+        return super(AlmaaqalGrade, self).create(vals)    
+
+    def write(self, vals):
+        print("vals@@@@@@@@@@@@@@@@",vals)
+        if 'average' in vals:
+            if float(vals['average']) < 50:
+                vals['average_word_word'] = 'راسب'
+            
+
+            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
+                vals['average_word_word'] = 'مقبول'
+            
+
+            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
+                vals['average_word_word'] = 'متوسط'
+            
+
+            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
+                vals['average_word_word'] = 'جيد'
+            
+            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
+                vals['average_word_word'] = 'جيد جدا'
+            
+            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
+                vals['average_word_word'] = 'ممتاز'
+        return super(AlmaaqalGrade, self).write(vals)
+
     @api.onchange('average')
     def _onchange_average_word(self):
         if float(self.average) < 50:
