@@ -220,7 +220,7 @@
                     string="Change To Draft"
                     type="object"
                     confirm="Are you sure you want change Status to DRAFT Status?"
-                    attrs="{'invisible': [('Status', '=', 'posted')]}"
+                    attrs="{'invisible': [('Status', '=', 'draft')]}"
                 />
 
                  <button name="print_pdf"
@@ -269,6 +269,7 @@
                         <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
                         <field name="The_average_of_the_first_student_in_the_class"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
                         <field name="Total_number_of_graduates"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                        <field name="average_word_word" invisible="1"/>
                     </group>
                 </group>
                 <notebook colspan="4">

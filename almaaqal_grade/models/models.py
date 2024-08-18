@@ -197,6 +197,29 @@ class AlmaaqalGrade(models.Model):
 
     posted_date = fields.Date("Posted Date")
 
+    @api.onchange('average')
+    def _onchange_average_word(self):
+        if float(self.average) < 50:
+            self.average_word_word = 'راسب'
+        
+
+        if float(self.average) < 60 and float(self.average) > 49.99:
+            self.average_word_word = 'مقبول'
+        
+
+        if float(self.average) < 70 and float(self.average) > 59.99:
+            self.average_word_word = 'متوسط'
+        
+
+        if float(self.average) < 80 and float(self.average) > 69.99:
+            self.average_word_word = 'جيد'
+        
+        if float(self.average) < 90 and float(self.average) > 79.99:
+            self.average_word_word = 'جيد جدا'
+        
+        if float(self.average) < 100 and float(self.average) > 89.99:
+            self.average_word_word = 'ممتاز'
+                    
 
     # @api.onchange('Status')
     def buuton_status_change(self):

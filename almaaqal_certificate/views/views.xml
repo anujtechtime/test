@@ -317,6 +317,19 @@
               action="almaaqal_certificate.almaaqal_certificate_tree_action_windownew_work"/>  
 
 
+        
+        <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
+            <field name="name">Arabic no Grade (Docx)  Report</field> 
+            <field name="type">ir.actions.report</field>
+            <field name="model">almaaqal.grade</field>
+            <field name="report_name">py3o_grade_info</field>
+            <field name="report_type">py3o</field>
+            <field name="py3o_filetype">odt</field>
+            <field name="module">almaaqal_certificate</field>
+            <field name="py3o_template_fallback">demo/res_user.odt</field>
+            <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
+            <field name="binding_type">report</field>
+        </record>
 
         <report 
             string="Arabic No Grades" 
