@@ -21,9 +21,9 @@ class Binary(http.Controller):
 
         print("record@@@@@@@@@@@@@@",record)
 
-        document1.style = document1.styles['Body Text']
-        document1.style.font.size = 12
-        document1.style.font.name = 'Times New Roman'
+        # document1.style = document1.styles['Body Text']
+        # document1.style.font.size = 12
+        # document1.style.font.name = 'Times New Roman'
         # document1.add_run(boldText).bold = True
         # document1.add_run(dataText)
         print("self################3",self)
