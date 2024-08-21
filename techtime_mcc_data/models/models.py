@@ -517,7 +517,7 @@ class DataMphine(models.Model):
 
                             total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
 
-                            last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id'))
+                            last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id')) + len(failed.mapped('id')) + len(transferred_from_us.mapped('id')) - len(transferred_to_us.mapped('id')) + len(field_one_1.mapped('id')) - len(fields_one_2.mapped('id'))
 
                             total_of_all = len(currecnt_status_data.mapped('id')) - last_three_status
 
