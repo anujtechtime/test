@@ -402,6 +402,7 @@ class DataMphine(models.Model):
         lev_1 = ''
         shift_name = ''
         total_field_one_1 = 0
+        total_fields_one_2 = 0
 
         department = self.env["department.department"].search([])
         for dept in department:
