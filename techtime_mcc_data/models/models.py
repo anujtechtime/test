@@ -401,6 +401,7 @@ class DataMphine(models.Model):
         shift_data = ['morning', 'afternoon']
         lev_1 = ''
         shift_name = ''
+        total_field_one_1 = 0
 
         department = self.env["department.department"].search([])
         for dept in department:
