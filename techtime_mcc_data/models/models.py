@@ -531,7 +531,7 @@ class DataMphine(models.Model):
                             total_of_data_one = 0
                             colld = 13
                             for ddts in data_one:
-                                data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.Status == "currecnt_student")  
+                                data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.fields_one_2 == True and picking.transferred_to_us == True and picking.Status == "currecnt_student")  
                                 worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
                                 total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
                                 colld = colld + 1
