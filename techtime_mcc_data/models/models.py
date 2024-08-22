@@ -531,40 +531,17 @@ class DataMphine(models.Model):
                             total_of_data_one = 0
                             colld = 13
                             for ddts in data_one:
-                                # data_one_data_currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "currecnt_student" and picking.data_one.id == ddts.id)
-
-                                data_one_data_status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status2" and picking.data_one.id == ddts.id)
-
-                                data_one_data_status_4_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status3" and picking.data_one.id == ddts.id)
-
-
-                                data_one_data_status_5_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status1" and picking.data_one.id == ddts.id)
-                                data_one_data_failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "failed" and picking.data_one.id == ddts.id)
-
-                                data_one_data_transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transferred_to_us == True and picking.data_one.id == ddts.id) 
-                                data_one_data_transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transfer_shift == True and picking.data_one.id == ddts.id)
-                                data_one_data_field_one_1 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.field_one_1 == True and picking.data_one.id == ddts.id) 
-                                data_one_data_fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.fields_one_2 == True and picking.data_one.id == ddts.id)
-
-
-
                                 data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.Status == "currecnt_student")  
-                                
-
-                                data_one_data_last_three_status = len(data_one_data_status_2_data.mapped('id')) + len(data_one_data_status_4_data.mapped('id')) + len(data_one_data_status_5_data.mapped('id')) + len(data_one_data_failed.mapped('id')) + len(data_one_data_transferred_from_us.mapped('id')) - len(data_one_data_transferred_to_us.mapped('id')) + len(data_one_data_field_one_1.mapped('id')) - len(data_one_data_fields_one_2.mapped('id'))
-
-                                total_of_all_data_one_data = len(data_one_data.mapped('id')) - data_one_data_last_three_status
-
-
-                                worksheet.write(row, colld, total_of_all_data_one_data, main_cell_total) #data_one
+                                # data_one_data_fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.fields_one_2 == True and picking.transferred_to_us == True and picking.Status == "currecnt_student" and picking.transfer_shift == False)  
+                                worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
                                 total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
                                 colld = colld + 1
 
-                            gender_male_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'male')
+                            gender_male_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'male' and picking.Status == "currecnt_student")
                             worksheet.write(row, colld, len(gender_male_data.mapped("id")), main_cell_total)
                             total_gender_male_data = total_gender_male_data + len(gender_male_data.mapped("id"))
 
-                            gender_female_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'female') 
+                            gender_female_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.gender == 'female' and  picking.Status == "currecnt_student") 
                             worksheet.write(row, colld + 1, len(gender_female_data.mapped("id")), main_cell_total)
 
                             total_gender_female_data = total_gender_female_data + len(gender_female_data.mapped("id"))
