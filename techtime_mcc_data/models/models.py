@@ -533,7 +533,7 @@ class DataMphine(models.Model):
                             for ddts in data_one:
                                 # data_one_data_currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "currecnt_student" and picking.data_one.id == ddts.id)
 
-                                data_one_dat_status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status2" and picking.data_one.id == ddts.id)
+                                data_one_data_status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status2" and picking.data_one.id == ddts.id)
 
                                 data_one_data_status_4_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status3" and picking.data_one.id == ddts.id)
 
