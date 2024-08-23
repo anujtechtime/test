@@ -6,6 +6,7 @@ from datetime import date
 
 class AlmaaqalGrade(models.Model):
     _name = 'almaaqal.grade'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Almaaqal Grade'
 
 

@@ -313,13 +313,13 @@
 
 
         
-        <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate"
+<!--         <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate"
               action="almaaqal_certificate.almaaqal_certificate_tree_action_windownew_work"/>  
 
-
+ -->
         
         <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
-            <field name="name">Arabic no Grade (Docx) male  Report</field> 
+            <field name="name">Arabic no Grade (Docx)  Report</field> 
             <field name="type">ir.actions.report</field>
             <field name="model">almaaqal.grade</field>
             <field name="report_name">py3o_grade_info</field>
@@ -331,7 +331,7 @@
             <field name="binding_type">report</field>
         </record>
 
-        <record id="almaaqal_grade_report_py3o_female" model="ir.actions.report">
+<!--         <record id="almaaqal_grade_report_py3o_female" model="ir.actions.report">
             <field name="name">Arabic no Grade (Docx) Female  Report</field> 
             <field name="type">ir.actions.report</field>
             <field name="model">almaaqal.grade</field>
@@ -342,7 +342,7 @@
             <field name="py3o_template_fallback">demo/res_user_female.odt</field>
             <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
             <field name="binding_type">report</field>
-        </record>
+        </record> -->
 
 
         <report 

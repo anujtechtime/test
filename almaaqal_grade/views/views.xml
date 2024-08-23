@@ -198,6 +198,18 @@
                   action = records.print_pdf()
           </field>
         </record> -->
+
+        <record id="view_almaaqal_grade_filter" model="ir.ui.view">
+            <field name="name">almaaqal.grade.select</field>
+            <field name="model">almaaqal.grade</field>
+            <field name="arch" type="xml">
+                <search string="Search Procurement">
+                    <field name="student_name_in_english"/>
+                        <field name="student_name_in_arabic"/>
+                    
+                </search>
+            </field>
+        </record>
         
 
         
@@ -223,10 +235,10 @@
                     attrs="{'invisible': [('Status', '=', 'draft')]}"
                 />
 
-                 <button name="print_pdf"
+                 <!-- <button name="print_pdf"
                     string="Arabic No Grade (Docx)"
                     type="object"
-                />
+                /> -->
 
                     <field name="Status" widget="statusbar"  statusbar_visible="draft,posted"/>
                 </header>
@@ -401,6 +413,12 @@
                 </page>
             </notebook>
             </sheet>
+            <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
