@@ -235,6 +235,13 @@
                     attrs="{'invisible': [('Status', '!=', 'posted')]}"
                 />
 
+                <button name="buuton_status_change_final_approved"
+                    string="Change To Final Approved"
+                    type="object"
+                    confirm="Are you sure you want change Status to Final Approved Status?"
+                    attrs="{'invisible': [('Status', '!=', 'posted')]}"
+                />
+
                  <!-- <button name="print_pdf"
                     string="Arabic No Grade (Docx)"
                     type="object"
