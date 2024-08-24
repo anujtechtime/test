@@ -10,7 +10,7 @@ class AlmaaqalGrade(models.Model):
     _description = 'Almaaqal Grade'
 
 
-    Status = fields.Selection([('draft','Draft'),('posted','Posted')], string="Status", default="draft")
+    Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft")
     
 
     exam_number_for_reference =  fields.Char("Exam Number")
