@@ -198,6 +198,18 @@
                   action = records.print_pdf()
           </field>
         </record> -->
+
+        <record id="view_almaaqal_grade_filter" model="ir.ui.view">
+            <field name="name">almaaqal.grade.select</field>
+            <field name="model">almaaqal.grade</field>
+            <field name="arch" type="xml">
+                <search string="Search Procurement">
+                    <field name="student_name_in_english"/>
+                        <field name="student_name_in_arabic"/>
+                    
+                </search>
+            </field>
+        </record>
         
 
         
@@ -207,68 +219,75 @@
         <field name="model">almaaqal.grade</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Grade" attrs="{'readonly': [('Status', '=', 'posted')]}">
+            <form string="Grade">
                 <header>
                 <button name="buuton_status_change"
                     string="Change To Post"
                     type="object"
                     confirm="Are you sure you want change Status to POSTED Status?"
-                    attrs="{'invisible': [('Status', '=', 'posted')]}"
+                    attrs="{'invisible': [('Status', '!=', 'draft')]}"
                 />
 
                 <button name="buuton_status_change_draft"
                     string="Change To Draft"
                     type="object"
                     confirm="Are you sure you want change Status to DRAFT Status?"
-                    attrs="{'invisible': [('Status', '=', 'draft')]}"
+                    attrs="{'invisible': [('Status', '!=', 'posted')]}"
                 />
 
-                 <button name="print_pdf"
+                <button name="buuton_status_change_final_approved"
+                    string="Change To Final Approved"
+                    type="object"
+                    confirm="Are you sure you want change Status to Final Approved Status?"
+                    attrs="{'invisible': [('Status', '!=', 'posted')]}"
+                />
+
+                 <!-- <button name="print_pdf"
                     string="Arabic No Grade (Docx)"
                     type="object"
-                />
+                /> -->
 
-                    <field name="Status" widget="statusbar"  statusbar_visible="draft,posted"/>
+                    <field name="Status" widget="statusbar"  statusbar_visible="draft,posted,final_approved"/>
                 </header>
                 <sheet>
                 <group>
                     <group>
-                        <field name="exam_number_for_reference"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="college_in_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="college_in_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_type_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_type_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="certificate_name_department_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="certificate_name_department_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="University_order_number"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="University_order_date"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="department_in_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="department_in_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="stage_year"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="year_of_graduation"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="student_name_in_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="student_name_in_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                        <field name="exam_number_for_reference"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="college_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="college_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_type_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_type_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="certificate_name_department_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="certificate_name_department_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="University_order_number"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="University_order_date"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="department_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="department_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="stage_year"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="year_of_graduation"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="student_name_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="student_name_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                     </group>
                     <group>
-                    <field name="serial"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                    <field name="posted_date"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="subject_to_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="subject_to_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="gender"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="nationality_ar"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="nationality_en"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="average"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="average_in_words_en"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="average_in_words_ar"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="attempt_en"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="attempt_ar"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_notes_in_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_notes_in_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_year_name_ar"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="study_year_name_en"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="The_average_of_the_first_student_in_the_class"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                        <field name="Total_number_of_graduates"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                    <field name="serial"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                    <field name="posted_date"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="subject_to_arabic"/>
+                        <field name="subject_to_english"/>
+                        <field name="gender"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="nationality_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="nationality_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average_in_words_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average_in_words_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="attempt_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="attempt_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_notes_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_notes_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_year_name_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_year_name_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="The_average_of_the_first_student_in_the_class"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="Total_number_of_graduates"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="average_word_word" invisible="1"/>
                     </group>
                 </group>
@@ -276,131 +295,137 @@
                     <page string="Subject">
                         <group>
                             <group>
-                            <field name="subject_1_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_1_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_1_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_1_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_1_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_1_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_1_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_1_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_1_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_1_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_1_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_1_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_1_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_1_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_2_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_2_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_2_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_2_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_2_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_2_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_2_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_2_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_2_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_2_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_2_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_2_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_2_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_2_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_3_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_3_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_3_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_3_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_3_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_3_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_3_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_3_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_3_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_3_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_3_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_3_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_3_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_3_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_4_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_4_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_4_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_4_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_4_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_4_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_4_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_4_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_4_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_4_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_4_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_4_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_5_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_5_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_5_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_5_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_5_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_5_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_5_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_5_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_5_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_5_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_5_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_5_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_5_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_5_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_6_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_6_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_6_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_6_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_6_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_6_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_6_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_6_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_6_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_6_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_6_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_6_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_6_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_6_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_7_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_7_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_7_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_7_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_7_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_7_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_7_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_7_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_7_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_7_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_7_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_7_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_7_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_7_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_8_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_8_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_8_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_8_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_8_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_8_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_8_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_8_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         </group>
                         <group>
-                            <field name="Subject_8_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_8_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_8_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="Subject_8_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_8_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_8_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_9_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_9_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_9_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_9_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_9_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_9_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_9_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_9_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_9_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_9_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_9_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_9_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_9_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_9_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_10_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_10_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_10_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_10_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_10_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_10_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_10_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_10_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_10_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_10_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_10_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_10_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_10_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_10_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_11_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_11_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_11_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_11_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_11_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_11_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_11_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_11_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_11_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_11_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_11_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_11_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_11_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_11_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_12_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_12_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_12_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_12_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_12_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_12_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_12_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_12_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_12_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_12_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_12_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_12_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_12_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_12_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_13_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_13_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_13_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_13_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_13_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_13_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_13_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_13_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_13_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_13_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_13_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_13_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_13_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_13_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_14_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_14_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_14_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_14_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_14_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_14_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_14_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_14_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_14_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_14_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_14_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_14_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_14_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_14_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
 
-                            <field name="subject_15_arabic"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_15_english"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_15_units"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="subject_15_grade"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_15_Grade_Written_AR"  attrs="{'readonly': [('Status', '=', 'posted')]}"/> 
-                            <field name="Subject_15_Grade_Written_EN"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
-                            <field name="Subject_15_Semester"  attrs="{'readonly': [('Status', '=', 'posted')]}"/>
+                            <field name="subject_15_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_15_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_15_units"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="subject_15_grade"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_15_Grade_Written_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/> 
+                            <field name="Subject_15_Grade_Written_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                            <field name="Subject_15_Semester"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         </group>
                     </group>
                 </page>
             </notebook>
             </sheet>
+            <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

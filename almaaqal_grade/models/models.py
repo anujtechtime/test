@@ -6,10 +6,11 @@ from datetime import date
 
 class AlmaaqalGrade(models.Model):
     _name = 'almaaqal.grade'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Almaaqal Grade'
 
 
-    Status = fields.Selection([('draft','Draft'),('posted','Posted')], string="Status", default="draft")
+    Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft")
     
 
     exam_number_for_reference =  fields.Char("Exam Number")
@@ -281,6 +282,9 @@ class AlmaaqalGrade(models.Model):
     def buuton_status_change_draft(self):
         self.Status = 'draft'
         self.posted_date = False
+
+    def buuton_status_change_final_approved(self):
+        self.Status = 'final_approved'
 
     def remove_underscores(self, text):
         """Remove underscores from the given text."""
