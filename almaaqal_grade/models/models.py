@@ -372,7 +372,7 @@ class ArabicSummaryReport(models.AbstractModel):
             'Graduate_Sequence' : docs.Graduate_Sequence,
             'The_average_of_the_first_student_in_the_class' : docs.The_average_of_the_first_student_in_the_class,
             'Total_number_of_graduates' : docs.Total_number_of_graduates,
-            'subject' : (6, 0, [docs.subject.ids]) ,
+            'subject' : (6, 0, [docs.subject.ids if docs.subject else False]) ,
             })
         
         return {
