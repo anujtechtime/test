@@ -17,7 +17,7 @@
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
            <t t-call="web.external_layout_clean">
-                <div class="page custom-font-class" style="font-size : 28px;  font-family: 'Times New Roman', serif !important; height: 1050px;position:relative;margin-top:0px;overflow:visible !important;">
+                <div class="page custom-font-class" style="font-size : 28px;  font-family: 'Times New Roman', serif !important; height: 1090px;position:relative;margin-top:0px;overflow:visible !important; ">
                   <style type="text/css">
                   
                   /* Arvo */
@@ -25,49 +25,48 @@
                     font-family: 'Arvo';
                     font-style: normal;
                     font-weight: 700;
-                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/ARIAL.TTF);
+                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf) format('truetype');
                   }
                   
-                   <!--format('truetype')-->
                   </style>
                   
     
                     <div class="oe_structure"/>
                     
-   <div style="position:absolute ;top:0px;z-index:9999,overflow: visible ; height:200px;">
+   <div style="position:absolute ;top:120px;z-index:9999,overflow: visible ; height:200px;">
  
-                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
+                            <div  class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
                             
-                              <t t-if="o.posted_date">
+                              <t t-if="o.posted_date" >
                               <span t-field="o.serial"/>
-                              </t><t t-else=""><span style="color:white;">space</span></t>
+                              </t><t t-else="" ><span style="color:white;">space</span></t>
                           
                               
                               </div>
 
                              <div style="height:0px;width:20px;"/>
                              
-                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:80px;font-size:18px">
+                            <div  class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:70px;font-size:18px">
                               <t t-if="o.posted_date">
-                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y   %m    %d')"/>
+                              <span style="direction:rtl;"  t-esc="o.posted_date.strftime('%Y %m %d')"/>
                               </t>
-                              <t t-if="o.posted_date"/>
-                               <t t-else=""><span style="color:white;">space</span></t>
+                              <t t-if="o.posted_date"></t>
+                               <t t-else="" ><span style="color:white;">space</span></t>
                             </div>
                            
                      </div>
-                     <div style="height:100px;width:20px;"/>
+                     <div style="height:110px;width:20px;"></div>
                                         
-                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:0px;margin-bottom:0px; padding:0px;">
-                            <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:100px;margin-bottom:0px; padding:0px;">
+                            <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"></div>
                             <div style="text-align: center;width: 500px;position:relative;">
 
                               <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: center; align-items: center;">
                             <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900;">وثيقة تخرج</h4>
-                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900; margin-top: 10px;">الى/ <span t-field="o.subject_to_arabic"/></h4>
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900; margin-top: 10px;">الى/ <span t-field="o.subject_to_arabic"></span></h4>
                           </div>
                             </div>
-                            <div style="border: 2px solid white;width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                            <div style="border: 2px solid white;width: 185px; height: 220px;margin-top:0px;margin-left:20px;"></div>
                           </div>
 
 
@@ -96,29 +95,28 @@
 
                     <div id="informations" class="row  mb32" style="margin-top:80px;">
                       <t t-if="o.gender == 'ذكر'">
-                      
-                      <div class="col-12" style="line-height: 2; text-align: justify; direction: rtl; text-align-last: justify; word-spacing: 3px;  font-family:Arvo; " t-if="o"> 
-                       <p>              نؤيد لكم بان السيد (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
+                        <div class="col-12" style="line-height: 2;  direction : rtl ; text-align: justify; font-family:Arvo; " t-if="o">            
+                          نؤيد لكم بان السيد (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
                          <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
                           <span t-field="o.department_in_arabic"/> /  الدراسة 
                          <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.study_type_arabic"/></strong> للعام الدراسي 
                           <span t-field="o.year_of_graduation"/>  (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.attempt_ar"/></strong>).   وقد منح شهادة  
                           <span t-field="o.certificate_name_department_AR"/>    بتقدير (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-esc="average_word"/></strong>)  وبمعدل  (
-                         <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
-                          <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;" t-esc="o.University_order_date.strftime('%Y/%m/%d')"/>.
-                          </p>
+                         <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الا مر الجامعي ذي العدد  
+                          <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;"  t-esc="o.University_order_date.strftime('%Y/%m/%d')" />.
                       </div>
+  
                       </t>
                     <t t-if="o.gender == 'انثى' or o.gender == 'أنثى'">
-                      <div class="col-12" style="line-height: 2;  direction : rtl ; justify-content:center; font-family: Arvo;" t-if="o">            
+                      <div class="col-12" style="line-height: 2;  direction : rtl ; text-align: justify; font-family: Arvo;" t-if="o">            
                         نؤيد لكم بان السيدة (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورتها اعلاه هي احدى خريجي جامعة المعقل   / 
                        <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
                         <span t-field="o.department_in_arabic"/> /  الدراسة 
                        <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.study_type_arabic"/></strong> للعام الدراسي 
                         <span t-field="o.year_of_graduation"/>  (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.attempt_ar"/></strong>).   وقد منحت شهادة  
                         <span t-field="o.certificate_name_department_AR"/>    بتقدير (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-esc="average_word"/></strong>)  وبمعدل  (
-                       <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
-                        <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;" t-esc="o.University_order_date.strftime('%Y/%m/%d')"/>.
+                       <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الا مر الجامعي ذي العدد  
+                        <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;"  t-esc="o.University_order_date.strftime('%Y/%m/%d')" />.
                     </div>
 
                     </t>

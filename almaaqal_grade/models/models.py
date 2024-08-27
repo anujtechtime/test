@@ -72,8 +72,124 @@ class AlmaaqalGrade(models.Model):
     The_average_of_the_first_student_in_the_class = fields.Char("The average of the first student in the class")
     Total_number_of_graduates  = fields.Char("Total number of graduates ")
 
+    subject = fields.One2many(comodel_name="subject.subject",inverse_name="grade_id", string="Subject")  
+
 
     # subject = fields.Many2many("subject.subject")  
+
+
+    
+
+    posted_date = fields.Date("Posted Date")
+    average_word_word = fields.Char("average_word_word")
+
+
+    @api.model
+    def create(self, vals):
+        if 'average' in vals:
+            if float(vals['average']) < 50:
+                vals['average_word_word'] = 'راسب'
+            
+
+            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
+                vals['average_word_word'] = 'مقبول'
+            
+
+            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
+                vals['average_word_word'] = 'متوسط'
+            
+
+            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
+                vals['average_word_word'] = 'جيد'
+            
+            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
+                vals['average_word_word'] = 'جيد جدا'
+            
+            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
+                vals['average_word_word'] = 'ممتاز'
+        return super(AlmaaqalGrade, self).create(vals)    
+
+    def write(self, vals):
+        print("vals@@@@@@@@@@@@@@@@",vals)
+        if 'average' in vals:
+            if float(vals['average']) < 50:
+                vals['average_word_word'] = 'راسب'
+            
+
+            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
+                vals['average_word_word'] = 'مقبول'
+            
+
+            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
+                vals['average_word_word'] = 'متوسط'
+            
+
+            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
+                vals['average_word_word'] = 'جيد'
+            
+            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
+                vals['average_word_word'] = 'جيد جدا'
+            
+            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
+                vals['average_word_word'] = 'ممتاز'
+        return super(AlmaaqalGrade, self).write(vals)
+
+    @api.onchange('average')
+    def _onchange_average_word(self):
+        if float(self.average) < 50:
+            self.average_word_word = 'راسب'
+        
+
+        if float(self.average) < 60 and float(self.average) > 49.99:
+            self.average_word_word = 'مقبول'
+        
+
+        if float(self.average) < 70 and float(self.average) > 59.99:
+            self.average_word_word = 'متوسط'
+        
+
+        if float(self.average) < 80 and float(self.average) > 69.99:
+            self.average_word_word = 'جيد'
+        
+        if float(self.average) < 90 and float(self.average) > 79.99:
+            self.average_word_word = 'جيد جدا'
+        
+        if float(self.average) < 100 and float(self.average) > 89.99:
+            self.average_word_word = 'ممتاز'
+                    
+
+    # @api.onchange('Status')
+    def buuton_status_change(self):
+        self.Status = 'posted'
+        self.posted_date = date.today()
+
+    def buuton_status_change_draft(self):
+        self.Status = 'draft'
+        self.posted_date = False
+
+    def buuton_status_change_final_approved(self):
+        self.Status = 'final_approved'
+
+    def remove_underscores(self, text):
+        """Remove underscores from the given text."""
+        return text.replace('_', '')    
+
+    def print_pdf(self):
+        for ddt in self:
+            return {'type': 'ir.actions.act_url',
+                'url': '/web/binary/download_docx_report/%s' % ddt.id,
+                'target': 'self',
+                'res_id': ddt.id,
+                }    
+        
+    
+class Subject(models.Model):
+    _name = "subject.subject"
+    _description = "Subject"
+
+    exam_number_link =  fields.Char("Exam Number")
+    stage_year = fields.Char("Year")
+    grade_id = fields.Many2one('almaaqal.grade', string='Grade Id')
 
 
     subject_1_arabic = fields.Char("Subject 1 Arabic")
@@ -196,118 +312,74 @@ class AlmaaqalGrade(models.Model):
     Subject_15_Grade_Written_EN = fields.Char("Subject 15 Grade Written EN")
     Subject_15_Semester  = fields.Char("Subject 15 Semester")
 
-    posted_date = fields.Date("Posted Date")
-    average_word_word = fields.Char("average_word_word")
-
-
     @api.model
     def create(self, vals):
-        if 'average' in vals:
-            if float(vals['average']) < 50:
-                vals['average_word_word'] = 'راسب'
-            
-
-            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
-                vals['average_word_word'] = 'مقبول'
-            
-
-            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
-                vals['average_word_word'] = 'متوسط'
-            
-
-            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
-                vals['average_word_word'] = 'جيد'
-            
-            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
-                vals['average_word_word'] = 'جيد جدا'
-            
-            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
-        return super(AlmaaqalGrade, self).create(vals)    
+        if 'exam_number_link' in vals and vals["exam_number_link"]:
+            vals['grade_id'] = self.env['almaaqal.grade'].search([("exam_number_for_reference",'=',vals["exam_number_link"])], limit=1).id
+        return super(SubjectAlm, self).create(vals)    
 
     def write(self, vals):
-        print("vals@@@@@@@@@@@@@@@@",vals)
-        if 'average' in vals:
-            if float(vals['average']) < 50:
-                vals['average_word_word'] = 'راسب'
-            
+        if 'exam_number_link' in vals and vals["exam_number_link"]:
+            vals['grade_id'] = self.env['almaaqal.grade'].search([("exam_number_for_reference",'=',vals["exam_number_link"])], limit=1).id
+        return super(SubjectAlm, self).write(vals)        
 
-            if float(vals['average']) < 60 and float(vals['average']) > 49.99:
-                vals['average_word_word'] = 'مقبول'
-            
 
-            if float(vals['average']) < 70 and float(vals['average']) > 59.99:
-                vals['average_word_word'] = 'متوسط'
-            
 
-            if float(vals['average']) < 80 and float(vals['average']) > 69.99:
-                vals['average_word_word'] = 'جيد'
-            
-            if float(vals['average']) < 90 and float(vals['average']) > 79.99:
-                vals['average_word_word'] = 'جيد جدا'
-            
-            if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
-        return super(AlmaaqalGrade, self).write(vals)
+class ArabicSummaryReport(models.AbstractModel):
+    _name = 'report.almaaqal_certificate.report_almaaqal_certificate'
+    _description = 'Holidays Summary Report'
 
-    @api.onchange('average')
-    def _onchange_average_word(self):
-        if float(self.average) < 50:
-            self.average_word_word = 'راسب'
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        print("self##############222222222222222",docids)
+        docs = self.env['almaaqal.grade'].browse(docids) 
+        # holidays = self.env['hr.leave'].browse(self.ids)
+
+        self.env["almaaqal.certificate"].create({
+            'Status' : docs.Status,
+            'exam_number_for_reference' : docs.exam_number_for_reference,
+            'college_in_english' : docs.college_in_english,
+            'college_in_arabic' : docs.college_in_arabic,
+            'study_type_arabic' : docs.study_type_arabic,
+            'study_type_english' : docs.study_type_english,
+            'serial' : docs.serial,
+            'gender' : docs.gender,
+            'subject_to_arabic' : docs.subject_to_arabic,
+            'subject_to_english' : docs.subject_to_english,
+            'certificate_name_department_AR' : docs.certificate_name_department_AR,
+            'certificate_name_department_EN' : docs.certificate_name_department_EN,
+            'University_order_number' : docs.University_order_number,
+            'University_order_date' : docs.University_order_date,
+            'dean_collage_name_arabic' : docs.dean_collage_name_arabic,
+            'dean_collage_name_english' : docs.dean_collage_name_english,
+            'department_in_english' : docs.department_in_english,
+            'department_in_arabic' : docs.department_in_arabic,
+            'stage_year' : docs.stage_year,
+            'year_of_graduation' : docs.year_of_graduation,
+            'student_name_in_english' : docs.student_name_in_english,
+            'student_name_in_arabic' : docs.student_name_in_arabic,
+            'nationality_ar' : docs.nationality_ar,
+            'nationality_en' : docs.nationality_en,
+            'average' : docs.average,
+            'average_in_words_en' : docs.average_in_words_en,
+            'average_in_words_ar' : docs.average_in_words_ar,
+            'attempt_en' : docs.attempt_en,
+            'attempt_ar' : docs.attempt_ar,
+            'study_notes_in_arabic' : docs.study_notes_in_arabic,
+            'study_notes_in_english' : docs.study_notes_in_english,
+            'study_year_name_ar' : docs.study_year_name_ar,
+            'study_year_name_en' : docs.study_year_name_en,
+            'Graduate_Sequence' : docs.Graduate_Sequence,
+            'The_average_of_the_first_student_in_the_class' : docs.The_average_of_the_first_student_in_the_class,
+            'Total_number_of_graduates' : docs.Total_number_of_graduates,
+            'subject' : (6, 0, [docs.subject.ids]) ,
+            })
         
-
-        if float(self.average) < 60 and float(self.average) > 49.99:
-            self.average_word_word = 'مقبول'
-        
-
-        if float(self.average) < 70 and float(self.average) > 59.99:
-            self.average_word_word = 'متوسط'
-        
-
-        if float(self.average) < 80 and float(self.average) > 69.99:
-            self.average_word_word = 'جيد'
-        
-        if float(self.average) < 90 and float(self.average) > 79.99:
-            self.average_word_word = 'جيد جدا'
-        
-        if float(self.average) < 100 and float(self.average) > 89.99:
-            self.average_word_word = 'ممتاز'
-                    
-
-    # @api.onchange('Status')
-    def buuton_status_change(self):
-        self.Status = 'posted'
-        self.posted_date = date.today()
-
-    def buuton_status_change_draft(self):
-        self.Status = 'draft'
-        self.posted_date = False
-
-    def buuton_status_change_final_approved(self):
-        self.Status = 'final_approved'
-
-    def remove_underscores(self, text):
-        """Remove underscores from the given text."""
-        return text.replace('_', '')    
-
-    def print_pdf(self):
-        for ddt in self:
-            return {'type': 'ir.actions.act_url',
-                'url': '/web/binary/download_docx_report/%s' % ddt.id,
-                'target': 'self',
-                'res_id': ddt.id,
-                }    
-        
-    
-class Subject(models.Model):
-    _name = "subject.subject"
-    _description = "Subject"
-
-
-    subject_arabic = fields.Char("Subject Arabic")    
-    subject_english = fields.Char("Subject English")   
-    subject_units = fields.Char("Subject Units") 
-    subject_grade = fields.Char("Subject Grade") 
+        return {
+            'doc_ids': docids,
+            'doc_model': "almaaqal.grade",
+            'docs': docs,
+        } 
 
 
 #     name = fields.Char()

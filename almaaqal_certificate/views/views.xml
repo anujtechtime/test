@@ -20,18 +20,55 @@
           <field name="model">almaaqal.certificate</field>
           <field name="arch" type="xml">
             <tree>
-                <!-- Status -->       
-
-                <field name="number"/>
-                <field name="date"/>
-                <field name="type_d"/>
-                <field name="name_in_arabic"/>
-
-                <field name="grade_year" widget="many2many_tags"/>
-
+                <field name="exam_number_for_reference"/>
+                <field name="college_in_english"/>
+                <field name="college_in_arabic"/>
+                <field name="study_type_arabic"/>
+                <field name="study_type_english"/>
+                <field name="certificate_name_department_AR"/>
+                <field name="certificate_name_department_EN"/>
+                <field name="University_order_number"/>
+                <field name="University_order_date"/>
+                <field name="department_in_english"/>
+                <field name="department_in_arabic"/>
+                <field name="gender"/>
+                <field name="stage_year"/>
+                <field name="subject_to_arabic"/>
+                <field name="subject_to_english"/>
+                <field name="dean_collage_name_english"/>
+                <field name="year_of_graduation"/>
+                <field name="student_name_in_english"/>
+                <field name="student_name_in_arabic"/>
+                <field name="nationality_ar"/>
+                <field name="nationality_en"/>
+                <field name="average"/>
+                <field name="average_in_words_en"/>
+                <field name="average_in_words_ar"/>
+                <field name="attempt_en"/>
+                <field name="attempt_ar"/>
+                <field name="study_notes_in_arabic"/>
+                <field name="study_notes_in_english"/>
+                <field name="study_year_name_ar"/>
+                <field name="study_year_name_en"/>
+                <field name="Graduate_Sequence"/>
+                <field name="The_average_of_the_first_student_in_the_class"/>
+                <field name="Total_number_of_graduates"/>
             </tree>
           </field>
         </record>
+
+        <record id="view_almaaqal_certificate_filter" model="ir.ui.view">
+            <field name="name">almaalmaaqal.certificateaqal.grade.select</field>
+            <field name="model">almaaqal.certificate</field>
+            <field name="arch" type="xml">
+                <search string="Search Procurement">
+                    <field name="student_name_in_english"/>
+                        <field name="student_name_in_arabic"/>
+                    <field name="exam_number_for_reference"/>
+                </search>
+            </field>
+        </record>
+        
 
         <record model="ir.ui.view" id="almaaqal_certificate_kanban_view">
             <field name="name">almaaqal.certificate.kanban</field>
@@ -86,171 +123,58 @@
                 <header>
                     <field name="Status" widget="statusbar" statusbar_visible="draft,posted"/>
                 </header>
-                <sheet>                         
-                    <group> 
+                <sheet>
+                <group>
+                    <group>
+                        <field name="exam_number_for_reference"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="college_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="college_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_type_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_type_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="certificate_name_department_AR"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="certificate_name_department_EN"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="University_order_number"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="University_order_date"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="department_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="department_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="stage_year"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="year_of_graduation"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="student_name_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="student_name_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                    <field name="serial"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                    <field name="posted_date"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="subject_to_arabic"/>
+                        <field name="subject_to_english"/>
+                        <field name="gender"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="nationality_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="nationality_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average_in_words_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average_in_words_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="attempt_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="attempt_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_notes_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_notes_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_year_name_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="study_year_name_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="The_average_of_the_first_student_in_the_class"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="Total_number_of_graduates"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                        <field name="average_word_word" invisible="1"/>
+                    </group>
+                </group>
+                <notebook colspan="4">
+                    <page string="Subject">
                         <group>
-                            <field name="student"  context="{'display_number_exam': True}"/>
-                            <field name="number"/>
-                            <field name="date"/>
-                            <field name="type_d"/>
-                            <field name="name_in_arabic"/>
-                            <field name="name_in_english"/>
-                        </group>
-                        <group>
-                            <field name="college"/>
-                            <field name="department"/>
-                            <field name="grade"/>
-                            <field name="graduation_sequence"/>
-                            <field name="year_name_graduation_year"/>
+                            <group>
+                                <field name="subject"/>
                         </group>
                     </group>
-
-                    <notebook colspan="4">
-                        <page string="Grade">
-                            <group>
-                                <field name="grade_year" nolabel="1">
-                                <tree string="Year">
-                                    <field name="exam_number_for_reference"/>
-                                    <field name="college_in_english"/>
-                                    <field name="college_in_arabic"/>
-                                    <field name="study_type_arabic"/>
-                                    <field name="study_type_english"/>
-                                    <field name="certificate_name_department_AR"/>
-                                    <field name="certificate_name_department_EN"/>
-                                    <field name="University_order_number"/>
-                                    <field name="University_order_date"/>
-                                    <field name="department_in_english"/>
-                                    <field name="department_in_arabic"/>
-                                    <field name="stage_year"/>
-                                    <field name="year_of_graduation"/>
-                                    <field name="student_name_in_english"/>
-                                    <field name="student_name_in_arabic"/>
-                                    <field name="nationality_ar"/>
-                                    <field name="nationality_en"/>
-                                    <field name="average"/>
-                                    <field name="average_in_words_en"/>
-                                    <field name="average_in_words_ar"/>
-                                    <field name="attempt_en"/>
-                                    <field name="attempt_ar"/>
-                                    <field name="study_notes_in_arabic"/>
-                                    <field name="study_notes_in_english"/>
-                                    <field name="study_year_name_ar"/>
-                                    <field name="study_year_name_en"/>
-                                    
-                                </tree>
-                                <form string="Grade">
-                                <group>
-                                    <group>
-                                        <field name="exam_number_for_reference"/>
-                                        <field name="college_in_english"/>
-                                        <field name="college_in_arabic"/>
-                                        <field name="study_type_arabic"/>
-                                        <field name="study_type_english"/>
-                                        <field name="certificate_name_department_AR"/>
-                                        <field name="certificate_name_department_EN"/>
-                                        <field name="University_order_number"/>
-                                        <field name="University_order_date"/>
-                                        <field name="department_in_english"/>
-                                        <field name="department_in_arabic"/>
-                                        <field name="stage_year"/>
-                                        <field name="year_of_graduation"/>
-                                    </group>
-                                    <group>
-                                        <field name="student_name_in_english"/>
-                                        <field name="student_name_in_arabic"/>
-                                        <field name="nationality_ar"/>
-                                        <field name="nationality_en"/>
-                                        <field name="average"/>
-                                        <field name="average_in_words_en"/>
-                                        <field name="average_in_words_ar"/>
-                                        <field name="attempt_en"/>
-                                        <field name="attempt_ar"/>
-                                        <field name="study_notes_in_arabic"/>
-                                        <field name="study_notes_in_english"/>
-                                        <field name="study_year_name_ar"/>
-                                        <field name="study_year_name_en"/>
-                                    </group>
-                                </group>
-                                <notebook colspan="4">
-                                    <page string="Subject">
-                                        <group>
-                                            <group>
-                                            <field name="subject_1_arabic"/>
-                                            <field name="subject_1_english"/>
-                                            <field name="subject_1_units"/>
-                                            <field name="subject_1_grade"/>
-                                            <field name="subject_2_arabic"/>
-                                            <field name="subject_2_english"/>
-                                            <field name="subject_2_units"/>
-                                            <field name="subject_2_grade"/>
-                                            <field name="subject_3_arabic"/>
-                                            <field name="subject_3_english"/>
-                                            <field name="subject_3_units"/>
-                                            <field name="subject_3_grade"/>
-                                            <field name="subject_4_arabic"/>
-                                            <field name="subject_4_english"/>
-                                            <field name="subject_4_units"/>
-                                            <field name="subject_5_arabic"/>
-                                            <field name="subject_5_english"/>
-                                            <field name="subject_5_units"/>
-                                            <field name="subject_5_grade"/>
-                                            <field name="subject_6_arabic"/>
-                                            <field name="subject_6_english"/>
-                                            <field name="subject_6_units"/>
-                                            <field name="subject_6_grade"/>
-                                            <field name="subject_7_arabic"/>
-                                            <field name="subject_7_english"/>
-                                            <field name="subject_7_units"/>
-                                            <field name="subject_7_grade"/>
-                                        </group>
-                                        <group>
-                                            <field name="subject_8_arabic"/>
-                                            <field name="subject_8_english"/>
-                                            <field name="subject_8_units"/>
-                                            <field name="subject_8_grade"/>
-                                            <field name="subject_9_arabic"/>
-                                            <field name="subject_9_english"/>
-                                            <field name="subject_9_units"/>
-                                            <field name="subject_9_grade"/>
-                                            <field name="subject_10_arabic"/>
-                                            <field name="subject_10_english"/>
-                                            <field name="subject_10_units"/>
-                                            <field name="subject_10_grade"/>
-                                            <field name="subject_11_arabic"/>
-                                            <field name="subject_11_english"/>
-                                            <field name="subject_11_units"/>
-                                            <field name="subject_11_grade"/>
-                                            <field name="subject_12_arabic"/>
-                                            <field name="subject_12_english"/>
-                                            <field name="subject_12_units"/>
-                                            <field name="subject_12_grade"/>
-                                            <field name="subject_13_arabic"/>
-                                            <field name="subject_13_english"/>
-                                            <field name="subject_13_units"/>
-                                            <field name="subject_13_grade"/>
-                                            <field name="subject_14_arabic"/>
-                                            <field name="subject_14_english"/>
-                                            <field name="subject_14_units"/>
-                                            <field name="subject_14_grade"/>
-                                            <field name="subject_15_arabic"/>
-                                            <field name="subject_15_english"/>
-                                            <field name="subject_15_units"/>
-                                            <field name="subject_15_grade"/>
-                                        </group>
-                                    </group>
-                                </page>
-                            </notebook>
-                            </form>
-                            </field>
-                        </group>
-                    </page>
-                    <page string="Notes">
-                        <group>
-                            <field name="notes"/>
-                        </group>
-                    </page>
-                </notebook>
-                </sheet>
+                </page>
+            </notebook>
+            </sheet>
             </form>
         </field>
     </record>
@@ -313,10 +237,10 @@
 
 
         
-<!--         <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate"
+        <menuitem name="Certificate " id="aktco_sale_menu_1_list_dst_almaaqal_certificate"
               action="almaaqal_certificate.almaaqal_certificate_tree_action_windownew_work"/>  
 
- -->
+
         
         <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
             <field name="name">Arabic no Grade (Docx)  Report</field> 
