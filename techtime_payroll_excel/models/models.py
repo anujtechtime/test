@@ -396,6 +396,10 @@ class techtime_payrollDepartment(models.Model):
                             row = row + 1
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
                             sequence = sequence + 1
+                            main_cell = xlwt.easyxf('font: bold off, color black;\
+                             borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                      left thin, right thin, top thin, bottom thin;\
+                             pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                         row = row + 3    
                         
 
