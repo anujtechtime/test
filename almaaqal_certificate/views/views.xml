@@ -111,8 +111,6 @@
                         <field name="average_in_words_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="attempt_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="attempt_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
-                        <field name="study_notes_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
-                        <field name="study_notes_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="study_year_name_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="study_year_name_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
