@@ -78,8 +78,6 @@ class AlmaaqalCertificate(models.Model):
 
 
 
-    study_notes_in_arabic =  fields.Char("notes in arabic")     
-    study_notes_in_english =  fields.Char("Notes in english") 
 
     study_year_name_ar = fields.Char("Study Year Name AR")  
     study_year_name_en = fields.Char("Study Year Name EN")

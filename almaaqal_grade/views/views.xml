@@ -58,8 +58,7 @@
                 <field name="average_in_words_ar"/>
                 <field name="attempt_en"/>
                 <field name="attempt_ar"/>
-                <field name="study_notes_in_arabic"/>
-                <field name="study_notes_in_english"/>
+                
                 <field name="study_year_name_ar"/>
                 <field name="study_year_name_en"/>
                 <field name="Graduate_Sequence"/>
@@ -164,8 +163,6 @@
                         <field name="average_in_words_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="attempt_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="attempt_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
-                        <field name="study_notes_in_arabic"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
-                        <field name="study_notes_in_english"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="study_year_name_ar"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="study_year_name_en"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
                         <field name="Graduate_Sequence"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
@@ -337,6 +334,8 @@
             <tree>
                 <field name="exam_number_link"/>
                 <field name="stage_year"/>
+                <field name="study_notes_in_arabic"/>
+                <field name="study_notes_in_english"/>
                 <field name="subject_1_arabic"/>
                 <field name="subject_1_english"/>
                 <field name="subject_1_units"/>

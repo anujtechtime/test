@@ -46,8 +46,6 @@
                 <field name="average_in_words_ar"/>
                 <field name="attempt_en"/>
                 <field name="attempt_ar"/>
-                <field name="study_notes_in_arabic"/>
-                <field name="study_notes_in_english"/>
                 <field name="study_year_name_ar"/>
                 <field name="study_year_name_en"/>
                 <field name="Graduate_Sequence"/>

@@ -62,8 +62,7 @@ class AlmaaqalGrade(models.Model):
 
 
 
-    study_notes_in_arabic =  fields.Char("notes in arabic")     
-    study_notes_in_english =  fields.Char("Notes in english") 
+    
 
     study_year_name_ar = fields.Char("Study Year Name AR")  
     study_year_name_en = fields.Char("Study Year Name EN")
@@ -190,6 +189,9 @@ class SubjectAlm(models.Model):
     exam_number_link =  fields.Char("Exam Number")
     stage_year = fields.Char("Year")
     grade_id = fields.Many2one('almaaqal.grade', string='Grade Id')
+
+    study_notes_in_arabic =  fields.Char("notes in arabic-stage")     
+    study_notes_in_english =  fields.Char("Notes in english-stage") 
 
 
     subject_1_arabic = fields.Char("Subject 1 Arabic")
@@ -365,8 +367,6 @@ class ArabicSummaryReport(models.AbstractModel):
             'average_in_words_ar' : docs.average_in_words_ar,
             'attempt_en' : docs.attempt_en,
             'attempt_ar' : docs.attempt_ar,
-            'study_notes_in_arabic' : docs.study_notes_in_arabic,
-            'study_notes_in_english' : docs.study_notes_in_english,
             'study_year_name_ar' : docs.study_year_name_ar,
             'study_year_name_en' : docs.study_year_name_en,
             'Graduate_Sequence' : docs.Graduate_Sequence,
