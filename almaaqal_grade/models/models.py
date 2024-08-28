@@ -183,7 +183,7 @@ class AlmaaqalGrade(models.Model):
                 }    
         
     
-class Subject(models.Model):
+class SubjectAlm(models.Model):
     _name = "subject.subject"
     _description = "Subject"
 
