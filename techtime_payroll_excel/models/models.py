@@ -351,8 +351,13 @@ class techtime_payrollDepartment(models.Model):
 
                             if status == "currecnt_student":
                                 status_data  = "طالب حالي"
+         
                             if status == "status1":
                                 status_data  = "ترقين قيد"
+                                main_cell = xlwt.easyxf('font: bold off, color black;\
+                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                          left thin, right thin, top thin, bottom thin;\
+                                 pattern: pattern solid, fore_color yellow; align: horiz centre; font: bold 1,height 240;')
                             if status == "status2":
                                 status_data  = "طالب غير مباشر"
 
@@ -364,15 +369,27 @@ class techtime_payrollDepartment(models.Model):
 
                             if status == "succeeded":
                                 status_data  = "طالب ناجح"
+                                main_cell = xlwt.easyxf('font: bold off, color black;\
+                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                          left thin, right thin, top thin, bottom thin;\
+                                 pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
                                 
                             if status == "failed":
                                 status_data  = "طالب راسب"
+                                main_cell = xlwt.easyxf('font: bold off, color black;\
+                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                          left thin, right thin, top thin, bottom thin;\
+                                 pattern: pattern solid, fore_color red; align: horiz centre; font: bold 1,height 240;')
                                 
                             if status == "transferred_from_us":
                                 status_data  = "طالب منتقل من الجامعة"     
 
                             if status == "graduated":
-                                status_data  = "طالب ناجح"                            
+                                status_data  = "طالب ناجح"       
+                                main_cell = xlwt.easyxf('font: bold off, color black;\
+                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                          left thin, right thin, top thin, bottom thin;\
+                                 pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')                     
 
                             worksheet.write(row, 4, status_data, main_cell)
 
