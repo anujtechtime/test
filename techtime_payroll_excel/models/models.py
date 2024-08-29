@@ -811,6 +811,8 @@ class techtime_payroll_excel(models.Model):
         reded_every_thing_total = 0
         basded_every_thing_total = 0
         total_ded_every_thing_total = 0
+        total_ded1_every_thing_total = 0
+        total_ded2_every_thing_total = 0
         net_saled_every_thing_total = 0
 
         department_data = self.env["hr.department"].search([("parent_id",'=',False)])
