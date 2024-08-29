@@ -1837,6 +1837,9 @@ class techtime_payroll_excel(models.Model):
             reded_total = 0
             basded_total = 0
             total_ded_total = 0
+            total_ded1_total = 0
+            total_ded2_total = 0
+
             net_saled_total = 0
             total_day_all_total = 0
             total_aeaa_total = 0
@@ -1860,7 +1863,7 @@ class techtime_payroll_excel(models.Model):
                 
 
                 worksheet.write_merge(call - 1, call - 1, 5, 10, 'المستحقات', header_bold_extra_tag)
-                worksheet.write_merge(call - 1, call - 1, 11, 15, 'الاستقطاعات', header_bold_extra)
+                worksheet.write_merge(call - 1, call - 1, 11, 17, 'الاستقطاعات', header_bold_extra)
 
                 # worksheet.write(call, 1, 'رقم القصاصة', header_bold)  # refernce 
                 # worksheet.write(call, 1, 'Payslip Name', border_color_2)
@@ -1907,9 +1910,12 @@ class techtime_payroll_excel(models.Model):
                 
                 worksheet.write(call, 14, 'استقطاع التقاعد', header_bold) #REDED
                 worksheet.write(call, 15, 'جامعة البصرة', header_bold) #BASDED
-                worksheet.write(call, 16, 'م.الاستقطاعات', header_bold) #total deduction
+                worksheet.write(call, 16, 'م.تنفيذ البصره', header_bold) #total deduction
+                worksheet.write(call, 17, 'استقطاع ايراد سلف', header_bold) #total deduction
 
-                worksheet.write(call, 17, 'صافي الراتب', header_bold) # Net Salary
+                worksheet.write(call, 18, 'م.الاستقطاعات', header_bold) #total deduction
+
+                worksheet.write(call, 19, 'صافي الراتب', header_bold) # Net Salary
 
                 
                 # v.onboard_date >= (datetime.today().date().replace(day=1) - relativedelta(months=1)) and v.onboard_date <= (datetime.today().date() - relativedelta(months=1))
@@ -1924,6 +1930,8 @@ class techtime_payroll_excel(models.Model):
                 reded = 0
                 basded = 0
                 total_ded_data = 0
+                total_ded1_data = 0
+                total_ded2_data = 0
                 net_saled_data = 0
                 total_day_all_data = 0
                 total_aeaa_data = 0
@@ -2085,21 +2093,37 @@ class techtime_payroll_excel(models.Model):
                         if not basded:
                             worksheet.write(row, 15, '',main_cell)
 
-                        if iit.code == "TTD":    
+                        if iit.code == "ded":    
                             worksheet.write(row, 16, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            total_ded1_data = total_ded1_data + iit.total
+                            total_ded1_total = total_ded1_total + iit.total
+                            
+                        if not total_ded_data:
+                            worksheet.write(row, 16, '',main_cell)
+                            
+                        if iit.code == "ded222":    
+                            worksheet.write(row, 17, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            total_ded2_data = total_ded2_data + iit.total
+                            total_ded2_total = total_ded2_total + iit.total
+                            
+                        if not total_ded_data:
+                            worksheet.write(row, 17, '',main_cell)        
+
+                        if iit.code == "TTD":    
+                            worksheet.write(row, 18, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             total_ded_data = total_ded_data + iit.total
                             total_ded_total = total_ded_total + iit.total
                             
                         if not total_ded_data:
-                            worksheet.write(row, 16, '',main_cell)
+                            worksheet.write(row, 18, '',main_cell)
 
                         if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
-                            worksheet.write(row, 17, "{:,.2f}".format(float(iit.total)) or '',main_cell)
+                            worksheet.write(row, 19, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             net_saled_data = net_saled_data + iit.total
                             net_saled_total = net_saled_total + iit.total
 
                         if not net_saled_data:
-                            worksheet.write(row, 17, '',main_cell)    
+                            worksheet.write(row, 19, '',main_cell)    
 
                         
 
@@ -2138,9 +2162,11 @@ class techtime_payroll_excel(models.Model):
 
                 worksheet.write(row, 14, "{:,.2f}".format(reded),main_cell_total) #REDED
                 worksheet.write(row, 15, "{:,.2f}".format(basded),main_cell_total) #BASDED
-                worksheet.write(row, 16, "{:,.2f}".format(total_ded_data),main_cell_total) #total deduction
+                worksheet.write(row, 16, "{:,.2f}".format(total_ded1_data),main_cell_total) #total deduction
+                worksheet.write(row, 17, "{:,.2f}".format(total_ded2_data),main_cell_total) #total deduction
+                worksheet.write(row, 18, "{:,.2f}".format(total_ded_data),main_cell_total) #total deduction
 
-                worksheet.write(row, 17, "{:,.2f}".format(net_saled_data),main_cell_total) # Net Salary
+                worksheet.write(row, 19, "{:,.2f}".format(net_saled_data),main_cell_total) # Net Salary
                 call = row + 3
                 row += 4
 
@@ -2171,8 +2197,10 @@ class techtime_payroll_excel(models.Model):
             worksheet.write(row - 1, 13, "{:,.2f}".format(tax_total),main_cell_total_of_total) #tax
             worksheet.write(row - 1, 14, "{:,.2f}".format(reded_total),main_cell_total_of_total) #REDED
             worksheet.write(row - 1, 15, "{:,.2f}".format(basded_total),main_cell_total_of_total) #BASDED
-            worksheet.write(row - 1, 16, "{:,.2f}".format(total_ded_total),main_cell_total_of_total) #total deduction
-            worksheet.write(row - 1, 17, "{:,.2f}".format(net_saled_total),main_cell_total_of_total) # Net Salary
+            worksheet.write(row - 1, 16, "{:,.2f}".format(total_ded1_total),main_cell_total_of_total) #total deduction
+            worksheet.write(row - 1, 17, "{:,.2f}".format(total_ded2_total),main_cell_total_of_total) #total deduction
+            worksheet.write(row - 1, 18, "{:,.2f}".format(total_ded_total),main_cell_total_of_total) #total deduction
+            worksheet.write(row - 1, 19, "{:,.2f}".format(net_saled_total),main_cell_total_of_total) # Net Salary
 
             call = row + 2 + 1
             row += 3 + 1
