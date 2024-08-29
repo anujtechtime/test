@@ -1863,7 +1863,7 @@ class techtime_payroll_excel(models.Model):
                 
 
                 worksheet.write_merge(call - 1, call - 1, 5, 10, 'المستحقات', header_bold_extra_tag)
-                worksheet.write_merge(call - 1, call - 1, 11, 17, 'الاستقطاعات', header_bold_extra)
+                worksheet.write_merge(call - 1, call - 1, 11, 18, 'الاستقطاعات', header_bold_extra)
 
                 # worksheet.write(call, 1, 'رقم القصاصة', header_bold)  # refernce 
                 # worksheet.write(call, 1, 'Payslip Name', border_color_2)
@@ -2098,7 +2098,7 @@ class techtime_payroll_excel(models.Model):
                             total_ded1_data = total_ded1_data + iit.total
                             total_ded1_total = total_ded1_total + iit.total
                             
-                        if not total_ded_data:
+                        if not total_ded1_data:
                             worksheet.write(row, 16, '',main_cell)
                             
                         if iit.code == "ded222":    
@@ -2106,7 +2106,7 @@ class techtime_payroll_excel(models.Model):
                             total_ded2_data = total_ded2_data + iit.total
                             total_ded2_total = total_ded2_total + iit.total
                             
-                        if not total_ded_data:
+                        if not total_ded2_data:
                             worksheet.write(row, 17, '',main_cell)        
 
                         if iit.code == "TTD":    
