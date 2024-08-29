@@ -66,6 +66,52 @@
                 </search>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="almaaqal_certificate_kanban_view">
+            <field name="name">almaaqal.certificate.kanban</field>
+            <field name="model">almaaqal.certificate</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+
+                    <field name="student_name_in_arabic"/>
+                    <field name="exam_number_for_reference"/>
+                    <field name="college_in_english"/>
+                    <field name="college_in_arabic"/>
+                    <field name="subject_to_arabic"/>
+                    <field name="subject_to_english"/>
+                    <field name="create_date"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban"> 
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading"><field name="student_name_in_arabic"/></strong>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+
+                                        <li t-if="record.student_name_in_arabic.raw_value"><field name="student_name_in_arabic"/></li>
+                                        <li t-if="record.exam_number_for_reference.raw_value"><field name="exam_number_for_reference"/></li>
+                                        <li t-if="record.college_in_arabic.raw_value"><field name="college_in_arabic"/></li>
+
+                                        <li t-if="record.college_in_english.raw_value"><field name="college_in_english"/></li>
+                                        <li t-if="record.subject_to_arabic.raw_value"><field name="subject_to_arabic"/></li>
+                                        <li t-if="record.subject_to_english.raw_value"><field name="subject_to_english"/></li>
+
+                                        <li t-if="record.create_date.raw_value"><field name="create_date"/></li>
+
+                                        
+
+                                        
+                                    </ul>
+                                    <!-- <div class="oe_kanban_partner_links"/> -->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
         
 
         
@@ -151,7 +197,7 @@
           <field name="name">Certificate </field>
           <field name="type">ir.actions.act_window</field>
           <field name="res_model">almaaqal.certificate</field>
-          <field name="view_mode">tree,form</field>
+          <field name="view_mode">kanban,tree,form</field>
         </record>
 
 <!--         <record id="action_partner_form" model="ir.actions.act_window">
@@ -174,6 +220,12 @@
             <field eval="2" name="sequence"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_any_name_form_almaaqal_certificate_t"/>
+            <field name="act_window_id" ref="almaaqal_certificate_tree_action_windownew_work"/>
+        </record>
+        <record id="action_certificate_form_view1" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="almaaqal_certificate_kanban_view"/>
             <field name="act_window_id" ref="almaaqal_certificate_tree_action_windownew_work"/>
         </record>
         <record id="action_certificate_tree_view1" model="ir.actions.act_window.view">
