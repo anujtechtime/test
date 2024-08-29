@@ -820,7 +820,7 @@ class techtime_payroll_excel(models.Model):
         call = 1
 
         worksheet.write_merge(call - 1, call - 1, 4, 9, 'المستحقات', header_bold_extra_tag)
-        worksheet.write_merge(call - 1, call - 1, 10, 14, 'الاستقطاعات', header_bold_extra)
+        worksheet.write_merge(call - 1, call - 1, 10, 16, 'الاستقطاعات', header_bold_extra)
 
         worksheet.write(call, 1, 'عدد الايام المستقطعة', header_bold) #day deduction
         worksheet.write(call, 2, 'مبلغ الايام المستقطعة', header_bold) #day deduction amount
