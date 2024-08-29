@@ -851,7 +851,10 @@ class techtime_payroll_excel(models.Model):
         worksheet.write(call, 13, 'استقطاعات جامعة البصرة ل I2', header_bold) #BASDED
         worksheet.write(call, 14, 'مجموع الاستقطاعات', header_bold) #total deduction
 
-        worksheet.write(call, 15, 'صافي الراتب', header_bold) # Net Salary
+        worksheet.write(call, 15, 'م.تنفيذ البصره', header_bold) #total deduction
+        worksheet.write(call, 16, 'استقطاع ايراد سلف', header_bold) #total deduction
+
+        worksheet.write(call, 17, 'صافي الراتب', header_bold) # Net Salary
         for depp in  department_data:
             # print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
             
@@ -898,6 +901,8 @@ class techtime_payroll_excel(models.Model):
             reded_total = 0
             basded_total = 0
             total_ded_total = 0
+            total_ded1_total = 0
+            total_ded2_total = 0
             net_saled_total = 0
             total_day_all_total = 0
             total_aeaa_total = 0
@@ -920,6 +925,8 @@ class techtime_payroll_excel(models.Model):
                 reded = 0
                 basded = 0
                 total_ded_data = 0
+                total_ded1_data = 0
+                total_ded2_data = 0
                 net_saled_data = 0
                 total_day_all_data = 0
                 total_aeaa_data = 0
@@ -1059,6 +1066,17 @@ class techtime_payroll_excel(models.Model):
                             # worksheet.write(row, 19, "{:,.2f}".format(float(iit.total)) or '')
                             total_ded_data = total_ded_data + iit.total
                             # total_ded_total = total_ded_total + iit.total
+
+                        if iit.code == "ded":    
+                            # worksheet.write(row, 19, "{:,.2f}".format(float(iit.total)) or '')
+                            total_ded1_data = total_ded1_data + iit.total
+                            # total_ded_total = total_ded_total + iit.total
+                            
+
+                        if iit.code == "ded222":    
+                            # worksheet.write(row, 19, "{:,.2f}".format(float(iit.total)) or '')
+                            total_ded2_data = total_ded2_data + iit.total
+                            # total_ded_total = total_ded_total + iit.total        
                             
                         if iit.code == "NET2" or iit.code == "GROSS" or iit.code == "NTS" or iit.code == "NETS" or iit.code == "NTTS":    
                             # worksheet.write(row, 20, "{:,.2f}".format(float(iit.total)) or '')
@@ -1124,6 +1142,9 @@ class techtime_payroll_excel(models.Model):
                 reded_total = reded_total + reded
                 basded_total = basded_total + basded
                 total_ded_total = total_ded_total + total_ded_data
+
+                total_ded1_total = total_ded1_total + total_ded1_data
+                total_ded2_total = total_ded2_total + total_ded2_data
                 net_saled_total = net_saled_total + net_saled_data
 
             # worksheet.write(row, 0, "المجموع الكلي") #day deduction
@@ -1167,7 +1188,12 @@ class techtime_payroll_excel(models.Model):
             worksheet.write(row, 13, "{:,.2f}".format(basded_total),main_cell) #BASDED
             worksheet.write(row, 14, "{:,.2f}".format(total_ded_total),main_cell) #total deduction
 
-            worksheet.write(row, 15, "{:,.2f}".format(net_saled_total),main_cell) # Net Salary
+            worksheet.write(row, 15, "{:,.2f}".format(total_ded1_total),main_cell) #total deduction
+            worksheet.write(row, 16, "{:,.2f}".format(total_ded2_total),main_cell) #total deduction
+
+
+
+            worksheet.write(row, 17, "{:,.2f}".format(net_saled_total),main_cell) # Net Salary
 
             day_deduction_every_thing_total = day_deduction_every_thing_total + day_deduction_total
             day_deduction_amount_every_thing_total = day_deduction_amount_every_thing_total + day_deduction_amount_total
@@ -1183,6 +1209,10 @@ class techtime_payroll_excel(models.Model):
             reded_every_thing_total = reded_every_thing_total + reded_total
             basded_every_thing_total = basded_every_thing_total + basded_total
             total_ded_every_thing_total = total_ded_every_thing_total + total_ded_total
+
+            total_ded1_every_thing_total = total_ded1_every_thing_total + total_ded1_total
+            total_ded2_every_thing_total = total_ded2_every_thing_total + total_ded2_total
+
             net_saled_every_thing_total = net_saled_every_thing_total + net_saled_total
             call = row + 2 + 1
             row += 3
@@ -1232,7 +1262,12 @@ class techtime_payroll_excel(models.Model):
         worksheet.write(row, 13, "{:,.2f}".format(basded_every_thing_total),main_cell_total_of_total) #BASDED
         worksheet.write(row, 14, "{:,.2f}".format(total_ded_every_thing_total),main_cell_total_of_total) #total deduction
 
-        worksheet.write(row, 15, "{:,.2f}".format(net_saled_every_thing_total),main_cell_total_of_total) # Net Salary
+        worksheet.write(row, 15, "{:,.2f}".format(total_ded1_every_thing_total),main_cell_total_of_total) #total deduction
+        worksheet.write(row, 16, "{:,.2f}".format(total_ded2_every_thing_total),main_cell_total_of_total) #total deduction
+
+        
+
+        worksheet.write(row, 17, "{:,.2f}".format(net_saled_every_thing_total),main_cell_total_of_total) # Net Salary
 
 
         fp = io.BytesIO()
