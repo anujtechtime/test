@@ -81,6 +81,7 @@ class AlmaaqalGrade(models.Model):
 
     posted_date = fields.Date("Posted Date",  tracking=True)
     average_word_word = fields.Char("average_word_word",  tracking=True)
+    remark = fields.Many2many("grade.remark", string="Remark", tracking=True)
 
 
     @api.model
