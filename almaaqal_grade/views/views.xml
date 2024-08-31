@@ -124,6 +124,24 @@
                     attrs="{'invisible': [('Status', '!=', 'posted')]}"
                 />
 
+                <button name="print_arabic_no_grade_pdf"
+                    string="Arabic No Grade (PDF)"
+                    type="object"
+                    confirm="Are you sure you want to print Arbic No Grade (PDF)?"
+                />
+
+                <button name="print_arabic_with_grade"
+                    string="Arabic With Grade (PDF)"
+                    type="object"
+                    confirm="Are you sure you want to print Arbic With Grade (PDF)?"
+                />
+
+                <!-- <button name="print_arabic_no_grade_docs"
+                    string="Arabic No Grade (Docs)"
+                    type="object"
+                    confirm="Are you sure you want to print Arbic No Grade (Docs)?"
+                /> -->
+
                  <!-- <button name="print_pdf"
                     string="Arabic No Grade (Docx)"
                     type="object"
@@ -470,9 +488,32 @@
 
 
         
-        <menuitem name="Subject" id="aktco_sale_menu_1_list_dst_subject_subject" parent="almaaqal_grade.aktco_sale_menu_1_list_dst_almaaqal_grade"
-              action="almaaqal_grade.subject_subject_tree_action_windownew_work"/>  
+<!--         <menuitem name="Subject" id="aktco_sale_menu_1_list_dst_subject_subject" parent="almaaqal_grade.aktco_sale_menu_1_list_dst_almaaqal_grade"
+              action="almaaqal_grade.subject_subject_tree_action_windownew_work"/>   -->
 
+                <record model="ir.ui.view" id="grade_remark_tree">
+          <field name="name">Remark</field>
+          <field name="model">grade.remark</field>
+          <field name="arch" type="xml">
+            <tree>
+                <!-- <field name="attachment_ids" /> -->
+                <field name="attachment_file" widget="binary" filename="attachment_filename"/>
+
+                <field name="user_id"/>
+                <field name="create_date"/>
+            </tree>
+          </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="grade_remark_tree_action_windownew_work">
+          <field name="name">Remark </field>
+          <field name="res_model">grade.remark</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+ 
 
 
     <!-- actions opening views on models -->

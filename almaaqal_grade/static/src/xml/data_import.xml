@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+        <t t-extend="ListView.buttons">
+            <t t-jquery=".o_list_button_add" t-operation="after">
+                <t t-if="widget and widget.modelName and widget.modelName == 'almaaqal.grade'">
+
+                    
+                        <!-- <t t-esc="widget.record"/> -->
+
+                        <button type="button" class="btn btn-secondary o_button_import_subject" id="o_button_import_subject">
+                            Import Subjects
+                        </button>
+
+
+
+                </t>
+            </t>
+        </t>
+    </templates>
+
+<!-- 
+    <t t-name="DropdownMenu.MenuItems">
+    <t t-if="widget.items.length !== 0">
+        <t t-set="group" t-value="0"/>
+        <t t-foreach="widget.items" t-as="item">
+            <div t-if="group !== item.groupNumber" role="separator" class="dropdown-divider" data-removable="1"/>
+            <div t-attf-class="o_menu_item"
+                t-att-data-value="" data-id="item.id">
+                <a role="menuitemcheckbox" t-att-aria-checked="item.isActive" href="#" t-attf-class="dropdown-item#{item.isActive ? ' selected ' : ''}">
+                    <t t-esc="item.description"/>
+                    <span t-if="item.isRemovable" t-att-data-value="" data-id="item.id" class="o_trash_button" > <span class="fa fa-trash-o"></span> </span>
+                    <span t-if="item.hasOptions" t-att-data-value="" data-id="item.id" class="o_submenu_switcher">
+                        <span t-att-class="widget.openItems[item.id] ? 'fa fa-caret-down' : 'fa fa-caret-right'"></span>
+                    </span>
+                </a>
+                <ul t-if="item.hasOptions &amp;&amp; widget.openItems[item.id]" class="list-unstyled">
+                    <t t-set="subgroup" t-value="0"/>
+                    <t t-foreach="item.options" t-as="option">
+                        <li t-if="subgroup !== option.groupId" role="separator" class="dropdown-divider" data-removable="1"/>
+                        <li class="o_item_option"
+                            t-att-data-item_id="item.id" t-att-data-option_id="option.optionId">
+                            <a role="menuitemcheckbox" t-att-aria-label="item.currentOptionIds.has(option.optionId)" href="#" t-attf-class="dropdown-item#{item.currentOptionIds.has(option.optionId) ? ' selected': ''} pl-5"><t t-esc="option.description"/></a>
+                        </li>
+                        <t t-set="subgroup" t-value="option.groupId"/>
+                    </t>
+                </ul>
+            </div>
+            <t t-set="group" t-value="item.groupNumber"/>
+        </t>
+    </t>
+</t> -->

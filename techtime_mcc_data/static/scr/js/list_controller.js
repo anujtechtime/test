@@ -49,6 +49,7 @@ var ListController = BasicController.extend({
         'click #form_click_data_level_type' : '_onButtonClickedFormValueYear',
         'click #form_click_data_year_acceptance' : '_onButtonClickedFormValueYear',
         'click #form_click_data_new_data' : '_onButtonClickedFormValueYear',
+        'click #o_button_import_subject' : '_onButtonClickedOpenSubject',
 
         
     }),
@@ -325,6 +326,26 @@ var ListController = BasicController.extend({
             }, 1000);
     },
 
+    /**
+     * @private
+     * @param {OdooEvent} ev
+     */
+    _onButtonClickedOpenSubject: function(ev) {
+        console.log("self@@@@@@@@@@@@@@@@",this);
+        var action = {
+            title: _t('Subject Import'),
+            name : "Subject Import",
+            type: 'ir.actions.act_window',
+            res_model: 'subject.subject',
+            view_mode: 'tree',
+            views: [[false, 'list']],
+            target: 'current', // 'new' if you want to open in a new window
+        }
+
+        var self = this;
+        self.do_action(action);
+
+    },
 
 
 

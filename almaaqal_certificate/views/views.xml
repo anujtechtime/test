@@ -88,7 +88,6 @@
                                     <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
                                     <ul>
 
-                                        <li t-if="record.student_name_in_arabic.raw_value"><field name="student_name_in_arabic"/></li>
                                         <li t-if="record.exam_number_for_reference.raw_value"><field name="exam_number_for_reference"/></li>
                                         <li t-if="record.college_in_arabic.raw_value"><field name="college_in_arabic"/></li>
 
@@ -256,21 +255,9 @@
             <field name="binding_type">report</field>
         </record>
 
-<!--         <record id="almaaqal_grade_report_py3o_female" model="ir.actions.report">
-            <field name="name">Arabic no Grade (Docx) Female  Report</field> 
-            <field name="type">ir.actions.report</field>
-            <field name="model">almaaqal.grade</field>
-            <field name="report_name">py3o_grade_female_info</field>
-            <field name="report_type">py3o</field>
-            <field name="py3o_filetype">odt</field>
-            <field name="module">almaaqal_certificate</field>
-            <field name="py3o_template_fallback">demo/res_user_female.odt</field>
-            <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
-            <field name="binding_type">report</field>
-        </record> -->
 
 
-        <report 
+        <!-- <report 
             string="Arabic No Grades" 
             id="action_report_almaaqal_certificate"
             model="almaaqal.grade"
@@ -290,7 +277,7 @@
             print_report_name="'Arabic with Grades - %s' % (object.exam_number_for_reference)"
         />
 
-        
+         -->
 
 <!-- <group>
             <field name="remark_data_change_level" nolabel="1">
