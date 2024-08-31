@@ -261,7 +261,7 @@ class AlmaaqalGrade(models.Model):
 
     def print_arabic_with_grade(self):
         # Generate PDF report
-        report = self.env.ref('almaaqal_certificate.report_almaaqal_certificate_with_grade')
+        report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade')
         print("self@@@@@@@@@@@@@",self.ids)
 
         pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
@@ -332,7 +332,7 @@ class AlmaaqalGrade(models.Model):
             # 'subject' : (6, 0, [docs.subject.ids if docs.subject else False]) ,
             })
 
-        return self.env.ref('almaaqal_certificate.report_almaaqal_certificate_with_grade').report_action(self)    
+        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade').report_action(self)    
 
 
 class RemarkGrade(models.Model):
