@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api, _ 
 from datetime import date
-
+import base64
 
 class AlmaaqalGrade(models.Model):
     _name = 'almaaqal.grade'
