@@ -175,7 +175,7 @@ class ResPrtner(models.Model):
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
-        elif failed_student:
+        if failed_student:
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
@@ -198,7 +198,7 @@ class ResPrtner(models.Model):
                 })  
                 payemnt_date.remove(nearest_date)
         count = 0        
-        elif not failed_student and installmet_dat:
+        if not failed_student and installmet_dat:
             _logger.info("instamm_ment_detailsinstamm_ment_details11111111111111#####**%s" %instamm_ment_details)
             if instamm_ment_details:
                 result.installment_amount = instamm_ment_details.installment
@@ -230,7 +230,7 @@ class ResPrtner(models.Model):
                         result.amount = ('{:,}'.format(i.amount_installment))
                         count = count + 1        
 
-        elif installmet_dat:
+        if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
             # for datts in installmet_dat.sale_installment_line_ids:
             # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
