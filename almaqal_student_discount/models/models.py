@@ -171,7 +171,7 @@ class ResPrtner(models.Model):
     @api.model
     def create(self, vals):
         result = super(ResPrtner, self).create(vals)
-        duplicate_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("year","=",result.partner_id.year.id)], limit=1)
+        duplicate_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("year","=",result.year.id)], limit=1)
         if duplicate_student:
             return {'warning': { 
                     'title': "Warning", 
