@@ -203,6 +203,8 @@ class AlmaaqalGrade(models.Model):
             'mimetype': 'application/pdf'
         })
 
+        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+            
 
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
@@ -211,7 +213,7 @@ class AlmaaqalGrade(models.Model):
             'college_in_arabic' : self.college_in_arabic,
             'study_type_arabic' : self.study_type_arabic,
             'study_type_english' : self.study_type_english,
-            'serial' : self.serial,
+            'serial' : serial,
             'gender' : self.gender,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
@@ -247,7 +249,8 @@ class AlmaaqalGrade(models.Model):
         remard_id = self.remark.create({
             "attachment_filename" : "Arabic No Grade.pdf",
             "attachment_file" : pdf_base64,
-            "user_id" : self.env.user.id
+            "user_id" : self.env.user.id,
+            "serial" : serial,
             })
         self.remark = [(4, remard_id.id)]
         # report._get_report_values(self.ids)
@@ -280,12 +283,16 @@ class AlmaaqalGrade(models.Model):
             'mimetype': 'application/pdf'
         })
 
+
+        serial = self.env['ir.sequence'].next_by_code('arabic.withgrade')
+
         print("CCCCCCCCCCCCCCCC",self.env.user)
 
         remard_id = self.remark.create({
             "attachment_filename" : "Arabic With Grade.pdf",
             "attachment_file" : pdf_base64,
-            "user_id" : self.env.user.id
+            "user_id" : self.env.user.id,
+            'serial' : serial,
             })
         self.remark = [(4, remard_id.id)]
         # report._get_report_values(self.ids)
@@ -302,7 +309,7 @@ class AlmaaqalGrade(models.Model):
             'college_in_arabic' : self.college_in_arabic,
             'study_type_arabic' : self.study_type_arabic,
             'study_type_english' : self.study_type_english,
-            'serial' : self.serial,
+            'serial' : serial,
             'gender' : self.gender,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
@@ -348,6 +355,8 @@ class RemarkGrade(models.Model):
 
     user_id = fields.Many2one("res.users", string="User")
     serial = fields.Char("Serial")
+
+
 
 
 
