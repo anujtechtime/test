@@ -14,6 +14,28 @@
       </field>
     </record>
 -->
+
+<record id="arabic_withgrade_model" model="ir.sequence">
+    <field name="name">Arabic Withgrade Sequence</field>
+    <field name="code">arabic.withgrade</field>
+    <field name="prefix">G</field>
+    <field name="padding">5</field>
+    <field name="number_next_actual">1</field>
+    <field name="number_increment">1</field>
+    <field name="number_last"</field>
+</record>
+
+<record id="arabic_nograde_model" model="ir.sequence">
+    <field name="name">Arabic Nograde Sequence</field>
+    <field name="code">arabic.nograde</field>
+    <field name="prefix">NG</field>
+    <field name="padding">5</field>
+    <field name="number_next_actual">1</field>
+    <field name="number_increment">1</field>
+    <field name="number_last"</field>
+</record>
+
+
     <template id="assets_backend" name="almaaqal_grade assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/almaaqal_grade/static/src/css/custom_styles.css"/>
@@ -107,7 +129,7 @@
                     string="Change To Post"
                     type="object"
                     confirm="Are you sure you want change Status to POSTED Status?"
-                    attrs="{'invisible': [('Status', '!=', 'draft')]}"
+                    attrs="{'invisible': [('Status', '=', 'posted')]}"
                 />
 
                 <button name="buuton_status_change_draft"
@@ -128,12 +150,14 @@
                     string="Arabic No Grade (PDF)"
                     type="object"
                     confirm="Are you sure you want to print Arbic No Grade (PDF)?"
+                    attrs="{'invisible': [('Status', '=', 'draft')]}"
                 />
 
                 <button name="print_arabic_with_grade"
                     string="Arabic With Grade (PDF)"
                     type="object"
                     confirm="Are you sure you want to print Arbic With Grade (PDF)?"
+                    attrs="{'invisible': [('Status', '=', 'draft')]}"
                 />
 
                 <!-- <button name="print_arabic_no_grade_docs"
@@ -240,6 +264,7 @@
           <field name="arch" type="xml">
             <tree>
                 <field name="exam_number_link"/>
+                <field name="stage"/>
                 <field name="stage_year"/>
                 <field name="study_notes_in_arabic"/>
                 <field name="study_notes_in_english"/>
@@ -385,11 +410,10 @@
           <field name="model">grade.remark</field>
           <field name="arch" type="xml">
             <tree>
-                <!-- <field name="attachment_ids" /> -->
                 <field name="attachment_file" widget="binary" filename="attachment_filename"/>
-
                 <field name="user_id"/>
                 <field name="create_date"/>
+                <field name="serial"/>
             </tree>
           </field>
         </record>

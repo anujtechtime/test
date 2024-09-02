@@ -347,6 +347,7 @@ class RemarkGrade(models.Model):
     attachment_filename = fields.Char(string="Filename")
 
     user_id = fields.Many2one("res.users", string="User")
+    serial = fields.Char("Serial")
 
 
 
@@ -357,6 +358,8 @@ class SubjectAlm(models.Model):
     exam_number_link =  fields.Char("Exam Number",  tracking=True)
     stage_year = fields.Char("Year",  tracking=True)
     grade_id = fields.Many2one('almaaqal.grade', string='Grade Id',  tracking=True)
+    stage = fields.Integer("Stage")
+
 
     study_notes_in_arabic =  fields.Char("notes in arabic-stage",  tracking=True)     
     study_notes_in_english =  fields.Char("Notes in english-stage",  tracking=True) 
