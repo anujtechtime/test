@@ -22,7 +22,7 @@
     <field name="padding">5</field>
     <field name="number_next_actual">1</field>
     <field name="number_increment">1</field>
-    <field name="number_last"</field>
+    <field name="number_last">1</field>
 </record>
 
 <record id="arabic_nograde_model" model="ir.sequence">
@@ -32,7 +32,7 @@
     <field name="padding">5</field>
     <field name="number_next_actual">1</field>
     <field name="number_increment">1</field>
-    <field name="number_last"</field>
+    <field name="number_last">1</field>
 </record>
 
 
