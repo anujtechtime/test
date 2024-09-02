@@ -10,82 +10,82 @@ class AlmaaqalGrade(models.Model):
     _description = 'Almaaqal Grade'
 
 
-    Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft")
+    Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft" ,  tracking=True)
     
 
-    exam_number_for_reference =  fields.Char("Exam Number")
+    exam_number_for_reference =  fields.Char("Exam Number",  tracking=True)
 
-    college_in_english =  fields.Char("College in EN")
-    college_in_arabic =  fields.Char("College in AR")
+    college_in_english =  fields.Char("College in EN",  tracking=True)
+    college_in_arabic =  fields.Char("College in AR",  tracking=True)
 
-    study_type_arabic = fields.Char("Study Type AR")
-    study_type_english = fields.Char("Study Type EN")
+    study_type_arabic = fields.Char("Study Type AR",  tracking=True)
+    study_type_english = fields.Char("Study Type EN",  tracking=True)
 
-    serial = fields.Char("Serial")
+    serial = fields.Char("Serial",  tracking=True)
 
-    gender = fields.Char("Gender")
+    gender = fields.Char("Gender",  tracking=True)
 
-    subject_to_arabic = fields.Char("Subject to Arabic")
-    subject_to_english = fields.Char("Subject to English")
+    subject_to_arabic = fields.Char("Subject to Arabic",  tracking=True)
+    subject_to_english = fields.Char("Subject to English",  tracking=True)
 
-    certificate_name_department_AR = fields.Char("Certificate Name/Department AR")
-    certificate_name_department_EN = fields.Char("Certificate Name/Department EN")
+    certificate_name_department_AR = fields.Char("Certificate Name/Department AR",  tracking=True)
+    certificate_name_department_EN = fields.Char("Certificate Name/Department EN",  tracking=True)
 
-    University_order_number = fields.Char("University order number")
-    University_order_date = fields.Date("University order date")
+    University_order_number = fields.Char("University order number",  tracking=True)
+    University_order_date = fields.Date("University order date",  tracking=True)
 
-    dean_collage_name_arabic = fields.Char("Dean Collage Name AR")
-    dean_collage_name_english = fields.Char("Dean Collage Name EN")
+    dean_collage_name_arabic = fields.Char("Dean Collage Name AR",  tracking=True)
+    dean_collage_name_english = fields.Char("Dean Collage Name EN",  tracking=True)
 
-    department_in_english =  fields.Char("Department in EN")
-    department_in_arabic =  fields.Char("Department in AR")
+    department_in_english =  fields.Char("Department in EN",  tracking=True)
+    department_in_arabic =  fields.Char("Department in AR",  tracking=True)
 
 
-    stage_year = fields.Char("Stage Year")
+    stage_year = fields.Char("Stage Year",  tracking=True)
 
-    year_of_graduation =  fields.Char("Year of graduation") 
+    year_of_graduation =  fields.Char("Year of graduation",  tracking=True) 
     
-    student_name_in_english =  fields.Char("Student Name in EN")
-    student_name_in_arabic =  fields.Char("Student Name in AR")
+    student_name_in_english =  fields.Char("Student Name in EN",  tracking=True)
+    student_name_in_arabic =  fields.Char("Student Name in AR",  tracking=True)
 
-    nationality_ar = fields.Char("Nationality AR")
-    nationality_en = fields.Char("Nationality EN")
+    nationality_ar = fields.Char("Nationality AR",  tracking=True)
+    nationality_en = fields.Char("Nationality EN",  tracking=True)
 
-    average =  fields.Char("Average") 
+    average =  fields.Char("Average",  tracking=True) 
 
-    average_in_words_en = fields.Char("Average in Words EN")
-    average_in_words_ar = fields.Char("Average in Words AR")
-
-
-    attempt_en = fields.Char("Attempt EN")  
-    attempt_ar = fields.Char("Attempt AR")
+    average_in_words_en = fields.Char("Average in Words EN",  tracking=True)
+    average_in_words_ar = fields.Char("Average in Words AR",  tracking=True)
 
 
+    attempt_en = fields.Char("Attempt EN",  tracking=True)  
+    attempt_ar = fields.Char("Attempt AR",  tracking=True)
 
-    study_notes_in_arabic =  fields.Char("notes in arabic")     
-    study_notes_in_english =  fields.Char("Notes in english") 
 
-    study_year_name_ar = fields.Char("Study Year Name AR")  
-    study_year_name_en = fields.Char("Study Year Name EN")
 
-    Graduate_Sequence = fields.Char("Graduate Sequence")
-    The_average_of_the_first_student_in_the_class = fields.Char("The average of the first student in the class")
-    Total_number_of_graduates  = fields.Char("Total number of graduates ")
+    study_notes_in_arabic =  fields.Char("notes in arabic",  tracking=True)     
+    study_notes_in_english =  fields.Char("Notes in english",  tracking=True) 
+
+    study_year_name_ar = fields.Char("Study Year Name AR",  tracking=True)  
+    study_year_name_en = fields.Char("Study Year Name EN",  tracking=True)
+
+    Graduate_Sequence = fields.Char("Graduate Sequence",  tracking=True)
+    The_average_of_the_first_student_in_the_class = fields.Char("The average of the first student in the class",  tracking=True)
+    Total_number_of_graduates  = fields.Char("Total number of graduates ",  tracking=True)
 
 
     # subject = fields.Many2many("subject.subject")  
 
 
-    subject_1_arabic = fields.Char("Subject 1 Arabic")
-    subject_1_english = fields.Char("Subject 1 English")
-    subject_1_units = fields.Char("Subject 1 Units")
-    subject_1_grade = fields.Char("Subject 1 Grade") 
-    Subject_1_Grade_Written_AR = fields.Char("Subject 1 Grade Written AR") 
-    Subject_1_Grade_Written_EN = fields.Char("Subject 1 Grade Written EN")
-    Subject_1_Semester  = fields.Char("Subject 1 Semester")
+    subject_1_arabic = fields.Char("Subject 1 Arabic",  tracking=True)
+    subject_1_english = fields.Char("Subject 1 English",  tracking=True)
+    subject_1_units = fields.Char("Subject 1 Units",  tracking=True)
+    subject_1_grade = fields.Char("Subject 1 Grade",  tracking=True) 
+    Subject_1_Grade_Written_AR = fields.Char("Subject 1 Grade Written AR",  tracking=True) 
+    Subject_1_Grade_Written_EN = fields.Char("Subject 1 Grade Written EN",  tracking=True)
+    Subject_1_Semester  = fields.Char("Subject 1 Semester",  tracking=True)
 
-    subject_2_arabic = fields.Char("Subject 2 Arabic")
-    subject_2_english = fields.Char("Subject 2 English")
+    subject_2_arabic = fields.Char("Subject 2 Arabic",  tracking=True)
+    subject_2_english = fields.Char("Subject 2 English",  tracking=True)
     subject_2_units = fields.Char("Subject 2 Units")
     subject_2_grade = fields.Char("Subject 2 Grade") 
     Subject_2_Grade_Written_AR = fields.Char("Subject 2 Grade Written AR") 
