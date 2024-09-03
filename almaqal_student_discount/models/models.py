@@ -638,7 +638,7 @@ class PaymentValue(models.Model):
                     count = count + 1
                 else:
                     worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
-                    worksheet.write(row, 4, '{:,}'.format(rest.amount),header_bold)
+                    worksheet.write(row, 4, '{:,}'.format(int(totl_amount)),header_bold)
                     tota_of_amount = 0
                     row = row + 2
                     date_check = ""
