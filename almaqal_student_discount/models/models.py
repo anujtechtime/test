@@ -664,7 +664,7 @@ class PaymentValue(models.Model):
                         totl_amount = rest.amount
 
                     worksheet.write(row, 3, rest.partner_id.name)
-                    worksheet.write(row, 4, '{:,}'.format(int(totl_amount)))
+                    worksheet.write(row, 4, '{:,}'.format(rest.amount))
                     worksheet.write(row, 5, inv.invoice_line_ids.account_id.code + inv.invoice_line_ids.account_id.name)
                     worksheet.write(row, 6, 'مرحل')
 
