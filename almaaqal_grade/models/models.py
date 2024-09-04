@@ -253,8 +253,6 @@ class AlmaaqalGrade(models.Model):
             "serial" : serial,
             })
         self.remark = [(4, remard_id.id)]
-        # report._get_report_values(self.ids)
-        # Post attachment to Chatter
         self.message_post(
             body="Arabic No Grade (PDF),",
             attachment_ids=[attachment.id]
@@ -506,60 +504,6 @@ class SubjectAlm(models.Model):
         return super(SubjectAlm, self).write(vals)        
 
 
-
-class ArabicSummaryReport(models.AbstractModel):
-    _name = 'report.almaaqal_certificate.report_almaaqal_certificate'
-    _description = 'Holidays Summary Report'
-
-    @api.model
-    def _get_report_values(self, docids, data=None):
-        print("self##############222222222222222",docids)
-        docs = self.env['almaaqal.grade'].browse(docids) 
-        # holidays = self.env['hr.leave'].browse(self.ids)
-
-        self.env["almaaqal.certificate"].create({
-            'Status' : docs.Status,
-            'exam_number_for_reference' : docs.exam_number_for_reference,
-            'college_in_english' : docs.college_in_english,
-            'college_in_arabic' : docs.college_in_arabic,
-            'study_type_arabic' : docs.study_type_arabic,
-            'study_type_english' : docs.study_type_english,
-            'serial' : docs.serial,
-            'gender' : docs.gender,
-            'subject_to_arabic' : docs.subject_to_arabic,
-            'subject_to_english' : docs.subject_to_english,
-            'certificate_name_department_AR' : docs.certificate_name_department_AR,
-            'certificate_name_department_EN' : docs.certificate_name_department_EN,
-            'University_order_number' : docs.University_order_number,
-            'University_order_date' : docs.University_order_date,
-            'dean_collage_name_arabic' : docs.dean_collage_name_arabic,
-            'dean_collage_name_english' : docs.dean_collage_name_english,
-            'department_in_english' : docs.department_in_english,
-            'department_in_arabic' : docs.department_in_arabic,
-            'stage_year' : docs.stage_year,
-            'year_of_graduation' : docs.year_of_graduation,
-            'student_name_in_english' : docs.student_name_in_english,
-            'student_name_in_arabic' : docs.student_name_in_arabic,
-            'nationality_ar' : docs.nationality_ar,
-            'nationality_en' : docs.nationality_en,
-            'average' : docs.average,
-            'average_in_words_en' : docs.average_in_words_en,
-            'average_in_words_ar' : docs.average_in_words_ar,
-            'attempt_en' : docs.attempt_en,
-            'attempt_ar' : docs.attempt_ar,
-            'study_year_name_ar' : docs.study_year_name_ar,
-            'study_year_name_en' : docs.study_year_name_en,
-            'Graduate_Sequence' : docs.Graduate_Sequence,
-            'The_average_of_the_first_student_in_the_class' : docs.The_average_of_the_first_student_in_the_class,
-            'Total_number_of_graduates' : docs.Total_number_of_graduates,
-            # 'subject' : (6, 0, [docs.subject.ids if docs.subject else False]) ,
-            })
-        
-        return {
-            'doc_ids': docids,
-            'doc_model': "almaaqal.grade",
-            'docs': docs,
-        } 
 
 
 #     name = fields.Char()
