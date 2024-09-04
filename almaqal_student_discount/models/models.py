@@ -646,7 +646,7 @@ class PaymentValue(models.Model):
 
 
 
-                    worksheet.write(row, 0, count)
+                    worksheet.write(row, 0, count) 
 
                     worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'))
                     if name != rest.name:
