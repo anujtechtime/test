@@ -253,7 +253,7 @@
             <field name="py3o_template_fallback">demo/res_user.odt</field>
             <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
             <field name="binding_type">report</field>
-            <field name="groups">not almaaqal_grade.group_grade_user</field>
+            <!-- <field name="groups">not almaaqal_grade.group_grade_user</field> -->
         </record>
 
 
