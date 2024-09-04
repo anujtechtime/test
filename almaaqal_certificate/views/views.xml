@@ -253,7 +253,6 @@
             <field name="py3o_template_fallback">demo/res_user.odt</field>
             <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
             <field name="binding_type">report</field>
-            <!-- <field name="groups">not almaaqal_grade.group_grade_user</field> -->
         </record>
 
 
@@ -266,7 +265,6 @@
             file="almaaqal_certificate.report_almaaqal_certificate"
             report_type="qweb-pdf"
             print_report_name="'Arabic No Grades - %s' % (object.exam_number_for_reference)"
-            groups="not almaaqal_grade.group_grade_user"
         />
 
         <report 
@@ -277,7 +275,6 @@
             file="almaaqal_certificate.report_almaaqal_certificate_with_grade"
             report_type="qweb-pdf"
             print_report_name="'Arabic with Grades - %s' % (object.exam_number_for_reference)"
-            groups="not almaaqal_grade.group_grade_user"
         />
 
         
