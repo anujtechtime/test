@@ -2,7 +2,7 @@
 <odoo>
         <record id="group_grade_user" model="res.groups">
 	        <field name="name">Grade User</field>
-	        <field name="category_id" ref="ir_module_category_data.module_category_hidden"/>
+	        <field name="category_id" ref="base.module_category_hidden"/>
 	    </record>
 
 	    <!-- Add permissions to the new group -->
