@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="group_grade_user" model="res.groups">
+	        <field name="name">Grade User</field>
+	        <field name="category_id" ref="ir_module_category_data.module_category_hidden"/>
+	    </record>
+
+	    <!-- Add permissions to the new group -->
+	    <record id="access_almaaqal_grade_manager" model="ir.model.access">
+	        <field name="name">almaaqal.grade User</field>
+	        <field name="model_id" ref="model_almaaqal_grade"/>
+	        <field name="group_id" ref="group_grade_user"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+
+</odoo>
