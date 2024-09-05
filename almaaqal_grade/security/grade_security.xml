@@ -38,11 +38,13 @@
 	        <field name="name">Grade Show Only Final Approval</field>
 	        <field name="category_id" ref="base.module_category_hidden"/>
 	    </record>
-<!-- 	    <record id="group_grade_user" model="res.groups">
-	        <field name="name">Grade User</field>
+
+
+	    <record id="group_almaaqal_grade_report_py3o" model="res.groups">
+	        <field name="name">Grade Arabic no Grade (Docx)</field>
 	        <field name="category_id" ref="base.module_category_hidden"/>
 	    </record>
- -->
+
 	    <!-- Add permissions to the new group -->
 	    <record id="access_almaaqal_grade_manager" model="ir.rule">
 	        <field name="name">Grade Final Approval Hidden</field>
