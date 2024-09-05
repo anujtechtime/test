@@ -130,6 +130,7 @@
                     type="object"
                     confirm="Are you sure you want change Status to POSTED Status?"
                     attrs="{'invisible': [('Status', '=', 'posted')]}"
+                    groups="almaaqal_grade.group_buuton_status_change"
                 />
 
                 <button name="buuton_status_change_draft"
@@ -137,6 +138,7 @@
                     type="object"
                     confirm="Are you sure you want change Status to DRAFT Status?"
                     attrs="{'invisible': [('Status', '!=', 'posted')]}"
+                    groups="almaaqal_grade.group_buuton_status_change_draft"
                 />
 
                 <button name="buuton_status_change_final_approved"
@@ -144,6 +146,7 @@
                     type="object"
                     confirm="Are you sure you want change Status to Final Approved Status?"
                     attrs="{'invisible': [('Status', '!=', 'posted')]}"
+                    groups="almaaqal_grade.group_buuton_status_change_final_approved"
                 />
 
                 <button name="print_arabic_no_grade_pdf"
@@ -151,7 +154,7 @@
                     type="object"
                     confirm="Are you sure you want to print Arbic No Grade (PDF)?"
                     attrs="{'invisible': [('Status', '=', 'draft')]}"
-                    groups="not almaaqal_grade.group_grade_user"
+                    groups="almaaqal_grade.group_print_arabic_no_grade_pdf"
                 />
 
                 <button name="print_arabic_with_grade"
@@ -159,7 +162,7 @@
                     type="object"
                     confirm="Are you sure you want to print Arbic With Grade (PDF)?"
                     attrs="{'invisible': [('Status', '=', 'draft')]}"
-                    groups="not almaaqal_grade.group_grade_user"
+                    groups="almaaqal_grade.group_print_arabic_with_grade"
                 />
 
                 <!-- <button name="print_arabic_no_grade_docs"

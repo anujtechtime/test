@@ -5,6 +5,44 @@
 	        <field name="category_id" ref="base.module_category_hidden"/>
 	    </record>
 
+	    <record id="group_buuton_status_change" model="res.groups">
+	        <field name="name">Grade Change To Post Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+
+	    <record id="group_buuton_status_change_draft" model="res.groups">
+	        <field name="name">Change To Draft</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_buuton_status_change_final_approved" model="res.groups">
+	        <field name="name">Grade Change To Final Approved Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_print_arabic_no_grade_pdf" model="res.groups">
+	        <field name="name">Grade Arabic No Grade (PDF) Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_print_arabic_with_grade" model="res.groups">
+	        <field name="name">Grade Arabic With Grade (PDF)</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_certificate_user" model="res.groups">
+	        <field name="name">Certificate User</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+<!-- 	    <record id="group_grade_user" model="res.groups">
+	        <field name="name">Grade User</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_grade_user" model="res.groups">
+	        <field name="name">Grade User</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_grade_user" model="res.groups">
+	        <field name="name">Grade User</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record> -->
+
 	    <!-- Add permissions to the new group -->
 	    <record id="access_almaaqal_grade_manager" model="ir.model.access">
 	        <field name="name">almaaqal.grade User</field>
