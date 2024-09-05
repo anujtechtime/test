@@ -48,7 +48,7 @@
 	        <field name="name">Grade Final Approval Hidden</field>
 	        <field name="domain_force">[('Status', '!=', "final_approved")]</field>
 	        <field name="model_id" ref="model_almaaqal_grade"/>
-	        <field name="group_id" ref="group_grade_user"/>
+	        <field name="groups" eval="[(4, ref('almaaqal_grade.group_grade_user'))]"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
 	        <field name="perm_create" eval="1"/>
