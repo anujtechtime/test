@@ -255,8 +255,6 @@
             <field name="binding_type">report</field>
         </record>
 
-
-
         <report 
             string="Arabic No Grades" 
             id="action_report_almaaqal_certificate"
