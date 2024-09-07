@@ -209,6 +209,7 @@ class AlmaaqalGrade(models.Model):
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
+            'tags' : "Arbic No Grade",
             'college_in_english' : self.college_in_english,
             'college_in_arabic' : self.college_in_arabic,
             'study_type_arabic' : self.study_type_arabic,
@@ -304,6 +305,7 @@ class AlmaaqalGrade(models.Model):
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
             'college_in_english' : self.college_in_english,
+            'tags' : "Arbic With Grade",
             'college_in_arabic' : self.college_in_arabic,
             'study_type_arabic' : self.study_type_arabic,
             'study_type_english' : self.study_type_english,

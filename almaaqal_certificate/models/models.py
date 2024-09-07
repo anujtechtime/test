@@ -28,6 +28,7 @@ class AlmaaqalCertificate(models.Model):
 
     Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft")
     
+    tags = fields.Char("Tags")
 
     exam_number_for_reference =  fields.Char("Exam Number")
 
