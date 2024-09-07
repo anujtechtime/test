@@ -275,6 +275,28 @@
             print_report_name="'Arabic with Grades - %s' % (object.exam_number_for_reference)"
         />
 
+        <report 
+            string="English No Grades" 
+            id="action_report_almaaqal_certificate_english"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_english"
+            file="almaaqal_certificate.report_almaaqal_certificate_english"
+            report_type="qweb-pdf"
+            print_report_name="'English No Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+        <report 
+            string="English With Grades" 
+            id="action_report_almaaqal_certificate_with_grade_english"
+            model="almaaqal.grade"
+            name="almaaqal_certificate.report_almaaqal_certificate_with_grade_english"
+            file="almaaqal_certificate.report_almaaqal_certificate_with_grade_english"
+            report_type="qweb-pdf"
+            print_report_name="'English with Grades - %s' % (object.exam_number_for_reference)"
+        />
+
+
+        
         
 
 <!-- <group>
