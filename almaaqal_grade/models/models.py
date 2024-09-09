@@ -548,6 +548,88 @@ class SubjectAlm(models.Model):
     Subject_15_Grade_Written_EN = fields.Char("Subject 15 Grade Written EN",  tracking=True)
     Subject_15_Semester  = fields.Char("Subject 15 Semester",  tracking=True)
 
+    subject_16_arabic = fields.Char("Subject 16 Arabic",  tracking=True)
+    subject_16_english = fields.Char("Subject 16 English",  tracking=True)
+    subject_16_units = fields.Char("Subject 16 Units",  tracking=True)
+    subject_16_grade = fields.Char("Subject 16 Grade",  tracking=True)
+    Subject_16_Grade_Written_AR = fields.Char("Subject 16 Grade Written AR",  tracking=True)
+    Subject_16_Grade_Written_EN = fields.Char("Subject 16 Grade Written EN",  tracking=True)
+    Subject_16_Semester  = fields.Char("Subject 16 Semester",  tracking=True)
+
+    subject_17_arabic = fields.Char("Subject 17 Arabic",  tracking=True)
+    subject_17_english = fields.Char("Subject 17 English",  tracking=True)
+    subject_17_units = fields.Char("Subject 17 Units",  tracking=True)
+    subject_17_grade = fields.Char("Subject 17 Grade",  tracking=True)
+    Subject_17_Grade_Written_AR = fields.Char("Subject 17 Grade Written AR",  tracking=True)
+    Subject_17_Grade_Written_EN = fields.Char("Subject 17 Grade Written EN",  tracking=True)
+    Subject_17_Semester  = fields.Char("Subject 17 Semester",  tracking=True)
+
+    subject_18_arabic = fields.Char("Subject 18 Arabic",  tracking=True)
+    subject_18_english = fields.Char("Subject 18 English",  tracking=True)
+    subject_18_units = fields.Char("Subject 18 Units",  tracking=True)
+    subject_18_grade = fields.Char("Subject 18 Grade",  tracking=True)
+    Subject_18_Grade_Written_AR = fields.Char("Subject 18 Grade Written AR",  tracking=True)
+    Subject_18_Grade_Written_EN = fields.Char("Subject 18 Grade Written EN",  tracking=True)
+    Subject_18_Semester  = fields.Char("Subject 18 Semester",  tracking=True)
+
+    subject_19_arabic = fields.Char("Subject 19 Arabic",  tracking=True)
+    subject_19_english = fields.Char("Subject 19 English",  tracking=True)
+    subject_19_units = fields.Char("Subject 19 Units",  tracking=True)
+    subject_19_grade = fields.Char("Subject 19 Grade",  tracking=True)
+    Subject_19_Grade_Written_AR = fields.Char("Subject 19 Grade Written AR",  tracking=True)
+    Subject_19_Grade_Written_EN = fields.Char("Subject 19 Grade Written EN",  tracking=True)
+    Subject_19_Semester  = fields.Char("Subject 19 Semester",  tracking=True)
+
+    subject_20_arabic = fields.Char("Subject 20 Arabic",  tracking=True)
+    subject_20_english = fields.Char("Subject 20 English",  tracking=True)
+    subject_20_units = fields.Char("Subject 20 Units",  tracking=True)
+    subject_20_grade = fields.Char("Subject 20 Grade",  tracking=True)
+    Subject_20_Grade_Written_AR = fields.Char("Subject 20 Grade Written AR",  tracking=True)
+    Subject_20_Grade_Written_EN = fields.Char("Subject 20 Grade Written EN",  tracking=True)
+    Subject_20_Semester  = fields.Char("Subject 20 Semester",  tracking=True)
+
+    subject_21_arabic = fields.Char("Subject 21 Arabic",  tracking=True)
+    subject_21_english = fields.Char("Subject 21 English",  tracking=True)
+    subject_21_units = fields.Char("Subject 21 Units",  tracking=True)
+    subject_21_grade = fields.Char("Subject 21 Grade",  tracking=True)
+    Subject_21_Grade_Written_AR = fields.Char("Subject 21 Grade Written AR",  tracking=True)
+    Subject_21_Grade_Written_EN = fields.Char("Subject 21 Grade Written EN",  tracking=True)
+    Subject_21_Semester  = fields.Char("Subject 21 Semester",  tracking=True)
+
+    subject_22_arabic = fields.Char("Subject 22 Arabic",  tracking=True)
+    subject_22_english = fields.Char("Subject 22 English",  tracking=True)
+    subject_22_units = fields.Char("Subject 22 Units",  tracking=True)
+    subject_22_grade = fields.Char("Subject 22 Grade",  tracking=True)
+    Subject_22_Grade_Written_AR = fields.Char("Subject 22 Grade Written AR",  tracking=True)
+    Subject_22_Grade_Written_EN = fields.Char("Subject 22 Grade Written EN",  tracking=True)
+    Subject_22_Semester  = fields.Char("Subject 22 Semester",  tracking=True)
+
+    subject_23_arabic = fields.Char("Subject 23 Arabic",  tracking=True)
+    subject_23_english = fields.Char("Subject 23 English",  tracking=True)
+    subject_23_units = fields.Char("Subject 23 Units",  tracking=True)
+    subject_23_grade = fields.Char("Subject 23 Grade",  tracking=True)
+    Subject_23_Grade_Written_AR = fields.Char("Subject 23 Grade Written AR",  tracking=True)
+    Subject_23_Grade_Written_EN = fields.Char("Subject 23 Grade Written EN",  tracking=True)
+    Subject_23_Semester  = fields.Char("Subject 23 Semester",  tracking=True)
+
+    subject_24_arabic = fields.Char("Subject 24 Arabic",  tracking=True)
+    subject_24_english = fields.Char("Subject 24 English",  tracking=True)
+    subject_24_units = fields.Char("Subject 24 Units",  tracking=True)
+    subject_24_grade = fields.Char("Subject 24 Grade",  tracking=True)
+    Subject_24_Grade_Written_AR = fields.Char("Subject 24 Grade Written AR",  tracking=True)
+    Subject_24_Grade_Written_EN = fields.Char("Subject 24 Grade Written EN",  tracking=True)
+    Subject_24_Semester  = fields.Char("Subject 24 Semester",  tracking=True)
+
+
+    subject_25_arabic = fields.Char("Subject 25 Arabic",  tracking=True)
+    subject_25_english = fields.Char("Subject 25 English",  tracking=True)
+    subject_25_units = fields.Char("Subject 25 Units",  tracking=True)
+    subject_25_grade = fields.Char("Subject 25 Grade",  tracking=True)
+    Subject_25_Grade_Written_AR = fields.Char("Subject 25 Grade Written AR",  tracking=True)
+    Subject_25_Grade_Written_EN = fields.Char("Subject 25 Grade Written EN",  tracking=True)
+    Subject_25_Semester  = fields.Char("Subject 25 Semester",  tracking=True)
+ 
+
     @api.model
     def create(self, vals):
         if 'exam_number_link' in vals and vals["exam_number_link"]:
