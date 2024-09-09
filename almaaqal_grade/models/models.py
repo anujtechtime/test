@@ -204,46 +204,10 @@ class AlmaaqalGrade(models.Model):
         })
 
         serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+        tag = "Arabic No Grade"
             
-
-        self.env["almaaqal.certificate"].create({
-            'Status' : self.Status,
-            'exam_number_for_reference' : self.exam_number_for_reference,
-            'tags' : "Arbic No Grade",
-            'college_in_english' : self.college_in_english,
-            'college_in_arabic' : self.college_in_arabic,
-            'study_type_arabic' : self.study_type_arabic,
-            'study_type_english' : self.study_type_english,
-            'serial' : serial,
-            'gender' : self.gender,
-            'subject_to_arabic' : self.subject_to_arabic,
-            'subject_to_english' : self.subject_to_english,
-            'certificate_name_department_AR' : self.certificate_name_department_AR,
-            'certificate_name_department_EN' : self.certificate_name_department_EN,
-            'University_order_number' : self.University_order_number,
-            'University_order_date' : self.University_order_date,
-            'dean_collage_name_arabic' : self.dean_collage_name_arabic,
-            'dean_collage_name_english' : self.dean_collage_name_english,
-            'department_in_english' : self.department_in_english,
-            'department_in_arabic' : self.department_in_arabic,
-            'stage_year' : self.stage_year,
-            'year_of_graduation' : self.year_of_graduation,
-            'student_name_in_english' : self.student_name_in_english,
-            'student_name_in_arabic' : self.student_name_in_arabic,
-            'nationality_ar' : self.nationality_ar,
-            'nationality_en' : self.nationality_en,
-            'average' : self.average,
-            'average_in_words_en' : self.average_in_words_en,
-            'average_in_words_ar' : self.average_in_words_ar,
-            'attempt_en' : self.attempt_en,
-            'attempt_ar' : self.attempt_ar,
-            'study_year_name_ar' : self.study_year_name_ar,
-            'study_year_name_en' : self.study_year_name_en,
-            'Graduate_Sequence' : self.Graduate_Sequence,
-            'The_average_of_the_first_student_in_the_class' : self.The_average_of_the_first_student_in_the_class,
-            'Total_number_of_graduates' : self.Total_number_of_graduates,
-            # 'subject' : (6, 0, [docs.subject.ids if docs.subject else False]) ,
-            })
+        self.create_almaaqal_certificate(serial, tag)
+        
 
         print("CCCCCCCCCCCCCCCC",self.env.user)
 
@@ -282,10 +246,15 @@ class AlmaaqalGrade(models.Model):
             'mimetype': 'application/pdf'
         })
 
+        self.message_post(
+            body="Arabic With Grade (PDF),",
+            attachment_ids=[attachment.id]
+        )
 
         serial = self.env['ir.sequence'].next_by_code('arabic.withgrade')
-
-        print("CCCCCCCCCCCCCCCC",self.env.user)
+        tag = "Arabic With Grade"
+            
+        self.create_almaaqal_certificate(serial, tag)
 
         remard_id = self.remark.create({
             "attachment_filename" : "Arabic With Grade.pdf",
@@ -294,18 +263,96 @@ class AlmaaqalGrade(models.Model):
             'serial' : serial,
             })
         self.remark = [(4, remard_id.id)]
-        # report._get_report_values(self.ids)
-        # Post attachment to Chatter
+
+        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade').report_action(self)    
+
+    def print_english_no_grade(self):
+        # Generate PDF report
+        report = self.env.ref('almaaqal_certificate. ')
+        print("self@@@@@@@@@@@@@",self.ids)
+
+        pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+
+        # Convert PDF to base64
+        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+
+        # Create attachment
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Report.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf'
+        })
+
+        serial = self.env['ir.sequence'].next_by_code('english.nograde')
+        tag = "English No Grade"
+            
+        self.create_almaaqal_certificate(serial, tag)
+        
+        remard_id = self.remark.create({
+            "attachment_filename" : "English No Grade.pdf",
+            "attachment_file" : pdf_base64,
+            "user_id" : self.env.user.id,
+            "serial" : serial,
+            })
+        self.remark = [(4, remard_id.id)]
         self.message_post(
-            body="Arabic With Grade (PDF),",
+            body="English No Grade (PDF),",
             attachment_ids=[attachment.id]
         )
 
+        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_english').report_action(self)
+        
+
+
+
+    def print_english_with_grade(self):
+        # Generate PDF report
+        report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade_english')
+
+        pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+
+        # Convert PDF to base64
+        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+
+        # Create attachment
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Report.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf'
+        })
+
+        self.message_post(
+            body="English With Grade (PDF),",
+            attachment_ids=[attachment.id]
+        )
+
+        serial = self.env['ir.sequence'].next_by_code('english.withgrade')
+        tag = "English With Grade"
+            
+        self.create_almaaqal_certificate(serial, tag)
+
+        remard_id = self.remark.create({
+            "attachment_filename" : "English With Grade.pdf",
+            "attachment_file" : pdf_base64,
+            "user_id" : self.env.user.id,
+            'serial' : serial,
+            })
+        self.remark = [(4, remard_id.id)]
+
+        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade_english').report_action(self)   
+
+    def create_almaaqal_certificate(self, serial, tag)
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
+            'tags' : tag,
             'college_in_english' : self.college_in_english,
-            'tags' : "Arbic With Grade",
             'college_in_arabic' : self.college_in_arabic,
             'study_type_arabic' : self.study_type_arabic,
             'study_type_english' : self.study_type_english,
@@ -338,10 +385,7 @@ class AlmaaqalGrade(models.Model):
             'The_average_of_the_first_student_in_the_class' : self.The_average_of_the_first_student_in_the_class,
             'Total_number_of_graduates' : self.Total_number_of_graduates,
             # 'subject' : (6, 0, [docs.subject.ids if docs.subject else False]) ,
-            })
-
-        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade').report_action(self)    
-
+            })    
 
 class RemarkGrade(models.Model):
     _name = "grade.remark"

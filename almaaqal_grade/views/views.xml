@@ -18,7 +18,7 @@
 <record id="arabic_withgrade_model" model="ir.sequence">
     <field name="name">Arabic Withgrade Sequence</field>
     <field name="code">arabic.withgrade</field>
-    <field name="prefix">G</field>
+    <field name="prefix">AWG</field>
     <field name="padding">5</field>
     <field name="number_next_actual">1</field>
     <field name="number_increment">1</field>
@@ -29,7 +29,28 @@
 <record id="arabic_nograde_model" model="ir.sequence">
     <field name="name">Arabic Nograde Sequence</field>
     <field name="code">arabic.nograde</field>
-    <field name="prefix">NG</field>
+    <field name="prefix">ANG</field>
+    <field name="padding">5</field>
+    <field name="number_next_actual">1</field>
+    <field name="number_increment">1</field>
+</record>
+
+
+<record id="english_withgrade_model" model="ir.sequence">
+    <field name="name">English Withgrade Sequence</field>
+    <field name="code">english.withgrade</field>
+    <field name="prefix">EWG</field>
+    <field name="padding">5</field>
+    <field name="number_next_actual">1</field>
+    <field name="number_increment">1</field>
+</record>
+
+
+
+<record id="english_nograde_model" model="ir.sequence">
+    <field name="name">english Nograde Sequence</field>
+    <field name="code">english.nograde</field>
+    <field name="prefix">ENG</field>
     <field name="padding">5</field>
     <field name="number_next_actual">1</field>
     <field name="number_increment">1</field>
@@ -161,6 +182,21 @@
                     string="Arabic With Grade (PDF)"
                     type="object"
                     confirm="Are you sure you want to print Arbic With Grade (PDF)?"
+                    attrs="{'invisible': [('Status', '=', 'draft')]}"
+                    groups="almaaqal_grade.group_print_arabic_with_grade"
+                />
+
+                <button name="print_english_no_grade"
+                    string="English No Grade (PDF)"
+                    type="object"
+                    confirm="Are you sure you want to print English No Grade (PDF)?"
+                    attrs="{'invisible': [('Status', '=', 'draft')]}"
+                    groups="almaaqal_grade.group_print_arabic_no_grade_pdf"
+                />
+                <button name="print_english_with_grade"
+                    string="English With Grade (PDF)"
+                    type="object"
+                    confirm="Are you sure you want to print English With Grade (PDF)?"
                     attrs="{'invisible': [('Status', '=', 'draft')]}"
                     groups="almaaqal_grade.group_print_arabic_with_grade"
                 />
