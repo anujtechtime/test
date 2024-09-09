@@ -347,7 +347,7 @@ class AlmaaqalGrade(models.Model):
 
         return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade_english').report_action(self)   
 
-    def create_almaaqal_certificate(self, serial, tag)
+    def create_almaaqal_certificate(self, serial, tag):
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
