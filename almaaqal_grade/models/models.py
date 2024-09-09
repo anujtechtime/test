@@ -568,7 +568,7 @@ class AlmaaqalGrade(models.Model):
                     'Subject_25_Grade_Written_EN' : sub.Subject_25_Grade_Written_EN,
                     'Subject_25_Semester' : sub.Subject_25_Semester,
                     })
-                subject_ids.append('subj')
+                subject_ids.append(subj.id)
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
@@ -607,6 +607,9 @@ class AlmaaqalGrade(models.Model):
             'Total_number_of_graduates' : self.Total_number_of_graduates,
             'subject' : (6, 0, subject_ids) ,
             })    
+
+        # for order in self.sale_ids:
+        # self.sale_orders = [(4, [order.id])]
 
 
 
