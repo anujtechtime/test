@@ -359,6 +359,44 @@ class AlmaaqalGrade(models.Model):
         return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade_english').report_action(self)   
 
     def create_almaaqal_certificate(self, serial, tag):
+        certi = self.env["almaaqal.certificate"].create({
+            'Status' : self.Status,
+            'exam_number_for_reference' : self.exam_number_for_reference,
+            'tags' : tag,
+            'college_in_english' : self.college_in_english,
+            'college_in_arabic' : self.college_in_arabic,
+            'study_type_arabic' : self.study_type_arabic,
+            'study_type_english' : self.study_type_english,
+            'serial' : serial,
+            'gender' : self.gender,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
+            'certificate_name_department_AR' : self.certificate_name_department_AR,
+            'certificate_name_department_EN' : self.certificate_name_department_EN,
+            'University_order_number' : self.University_order_number,
+            'University_order_date' : self.University_order_date,
+            'dean_collage_name_arabic' : self.dean_collage_name_arabic,
+            'dean_collage_name_english' : self.dean_collage_name_english,
+            'department_in_english' : self.department_in_english,
+            'department_in_arabic' : self.department_in_arabic,
+            'stage_year' : self.stage_year,
+            'year_of_graduation' : self.year_of_graduation,
+            'student_name_in_english' : self.student_name_in_english,
+            'student_name_in_arabic' : self.student_name_in_arabic,
+            'nationality_ar' : self.nationality_ar,
+            'nationality_en' : self.nationality_en,
+            'average' : self.average,
+            'average_in_words_en' : self.average_in_words_en,
+            'average_in_words_ar' : self.average_in_words_ar,
+            'attempt_en' : self.attempt_en,
+            'attempt_ar' : self.attempt_ar,
+            'study_year_name_ar' : self.study_year_name_ar,
+            'study_year_name_en' : self.study_year_name_en,
+            'Graduate_Sequence' : self.Graduate_Sequence,
+            'The_average_of_the_first_student_in_the_class' : self.The_average_of_the_first_student_in_the_class,
+            'Total_number_of_graduates' : self.Total_number_of_graduates,
+            'subject' : [(6, 0, subject_ids)] ,
+            })    
         subject_ids = []
         if self.subject:
             for sub in self.subject:
@@ -573,44 +611,7 @@ class AlmaaqalGrade(models.Model):
                     })
                 subject_ids.append(subj.id)
                 _logger.info("subject_ids************111111111111117777777777777777#####**%s" %subject_ids)
-        self.env["almaaqal.certificate"].create({
-            'Status' : self.Status,
-            'exam_number_for_reference' : self.exam_number_for_reference,
-            'tags' : tag,
-            'college_in_english' : self.college_in_english,
-            'college_in_arabic' : self.college_in_arabic,
-            'study_type_arabic' : self.study_type_arabic,
-            'study_type_english' : self.study_type_english,
-            'serial' : serial,
-            'gender' : self.gender,
-            'subject_to_arabic' : self.subject_to_arabic,
-            'subject_to_english' : self.subject_to_english,
-            'certificate_name_department_AR' : self.certificate_name_department_AR,
-            'certificate_name_department_EN' : self.certificate_name_department_EN,
-            'University_order_number' : self.University_order_number,
-            'University_order_date' : self.University_order_date,
-            'dean_collage_name_arabic' : self.dean_collage_name_arabic,
-            'dean_collage_name_english' : self.dean_collage_name_english,
-            'department_in_english' : self.department_in_english,
-            'department_in_arabic' : self.department_in_arabic,
-            'stage_year' : self.stage_year,
-            'year_of_graduation' : self.year_of_graduation,
-            'student_name_in_english' : self.student_name_in_english,
-            'student_name_in_arabic' : self.student_name_in_arabic,
-            'nationality_ar' : self.nationality_ar,
-            'nationality_en' : self.nationality_en,
-            'average' : self.average,
-            'average_in_words_en' : self.average_in_words_en,
-            'average_in_words_ar' : self.average_in_words_ar,
-            'attempt_en' : self.attempt_en,
-            'attempt_ar' : self.attempt_ar,
-            'study_year_name_ar' : self.study_year_name_ar,
-            'study_year_name_en' : self.study_year_name_en,
-            'Graduate_Sequence' : self.Graduate_Sequence,
-            'The_average_of_the_first_student_in_the_class' : self.The_average_of_the_first_student_in_the_class,
-            'Total_number_of_graduates' : self.Total_number_of_graduates,
-            'subject' : [(6, 0, subject_ids)] ,
-            })    
+                certi.subject = [(4, subj.id)]
 
         # for order in self.sale_ids:
         # self.sale_orders = [(4, [order.id])]
