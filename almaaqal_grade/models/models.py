@@ -395,7 +395,6 @@ class AlmaaqalGrade(models.Model):
             'Graduate_Sequence' : self.Graduate_Sequence,
             'The_average_of_the_first_student_in_the_class' : self.The_average_of_the_first_student_in_the_class,
             'Total_number_of_graduates' : self.Total_number_of_graduates,
-            'subject' : [(6, 0, subject_ids)] ,
             })    
         subject_ids = []
         if self.subject:
