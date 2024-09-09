@@ -131,8 +131,11 @@
             <field name="arch" type="xml">
                 <search string="Search Procurement">
                     <field name="student_name_in_english"/>
-                        <field name="student_name_in_arabic"/>
-                    
+                    <field name="student_name_in_arabic"/>
+                    <group expand="0" string="Group By" colspan="16">
+                        <filter string="Student Name In Arabic" name="student_name_in_arabic" context="{'group_by':'student_name_in_arabic'}"/>
+                        <filter string="Student Name In English" name="student_name_in_english" context="{'group_by':'student_name_in_english'}"/>
+                    </group>
                 </search>
             </field>
         </record>
