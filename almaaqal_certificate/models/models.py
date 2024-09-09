@@ -87,7 +87,7 @@ class AlmaaqalCertificate(models.Model):
     The_average_of_the_first_student_in_the_class = fields.Char("The average of the first student in the class")
     Total_number_of_graduates  = fields.Char("Total number of graduates ")
 
-    subject = fields.One2many(comodel_name="subject.subject",inverse_name="grade_id", string="Subject")  
+    subject = fields.Many2many("certificate.subject", string="Subject")  
 
 
     # subject = fields.Many2many("subject.subject")  
