@@ -457,6 +457,8 @@
                 <field name="user_id"/>
                 <field name="create_date"/>
                 <field name="serial"/>
+                <field name="subject_to_arabic"/>
+                <field name="subject_to_english"/>
             </tree>
           </field>
         </record>
