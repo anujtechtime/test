@@ -216,6 +216,8 @@ class AlmaaqalGrade(models.Model):
             "attachment_file" : pdf_base64,
             "user_id" : self.env.user.id,
             "serial" : serial,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
             })
         self.remark = [(4, remard_id.id)]
         self.message_post(
@@ -261,6 +263,8 @@ class AlmaaqalGrade(models.Model):
             "attachment_file" : pdf_base64,
             "user_id" : self.env.user.id,
             'serial' : serial,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
             })
         self.remark = [(4, remard_id.id)]
 
@@ -296,6 +300,8 @@ class AlmaaqalGrade(models.Model):
             "attachment_file" : pdf_base64,
             "user_id" : self.env.user.id,
             "serial" : serial,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
             })
         self.remark = [(4, remard_id.id)]
         self.message_post(
@@ -342,6 +348,8 @@ class AlmaaqalGrade(models.Model):
             "attachment_file" : pdf_base64,
             "user_id" : self.env.user.id,
             'serial' : serial,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
             })
         self.remark = [(4, remard_id.id)]
 
@@ -399,6 +407,8 @@ class RemarkGrade(models.Model):
 
     user_id = fields.Many2one("res.users", string="User")
     serial = fields.Char("Serial")
+    subject_to_arabic = fields.Char("Subject to arabic")
+    subject_to_english = fields.Char("Subject to english")
 
 
 

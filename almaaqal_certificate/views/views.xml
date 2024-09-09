@@ -63,10 +63,10 @@
                                 <div class="oe_kanban_details">
 
 
-                                    <div class="float-right" t-if="record.tags.raw_value == 'Arbic No Grade'">
+                                    <div class="float-right" t-if="record.tags.raw_value == 'Arabic No Grade'">
                                         <span class="fa fa-circle text-success" role="img" aria-label="File" title="File" name="tags"/>
                                     </div>
-                                    <div class="float-right" t-if="record.tags.raw_value == 'Arbic With Grade'">
+                                    <div class="float-right" t-if="record.tags.raw_value == 'Arabic With Grade'">
                                         <span class="fa fa-circle text-danger" role="img" aria-label="nofile" title="nofile" name="tags_2"/>
                                     </div>
 
