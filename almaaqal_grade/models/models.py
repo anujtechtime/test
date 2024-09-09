@@ -272,7 +272,7 @@ class AlmaaqalGrade(models.Model):
 
     def print_english_no_grade(self):
         # Generate PDF report
-        report = self.env.ref('almaaqal_certificate. ')
+        report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_english')
         print("self@@@@@@@@@@@@@",self.ids)
 
         pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
