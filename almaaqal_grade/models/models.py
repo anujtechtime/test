@@ -3,6 +3,9 @@
 from odoo import models, fields, api, _ 
 from datetime import date
 import base64
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class AlmaaqalGrade(models.Model):
     _name = 'almaaqal.grade'
@@ -569,6 +572,7 @@ class AlmaaqalGrade(models.Model):
                     'Subject_25_Semester' : sub.Subject_25_Semester,
                     })
                 subject_ids.append(subj.id)
+                _logger.info("subject_ids************111111111111117777777777777777#####**%s" %subject_ids)
         self.env["almaaqal.certificate"].create({
             'Status' : self.Status,
             'exam_number_for_reference' : self.exam_number_for_reference,
