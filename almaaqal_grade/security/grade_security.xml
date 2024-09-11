@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="group_grade_user" model="res.groups">
+	        <field name="name">Grade Hide Final Approval</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+
+	    <record id="group_buuton_status_change" model="res.groups">
+	        <field name="name">Grade Change To Post Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+
+	    <record id="group_buuton_status_change_draft" model="res.groups">
+	        <field name="name">Change To Draft</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_buuton_status_change_final_approved" model="res.groups">
+	        <field name="name">Grade Change To Final Approved Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_print_arabic_no_grade_pdf" model="res.groups">
+	        <field name="name">Grade Arabic No Grade (PDF) Button</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_print_arabic_with_grade" model="res.groups">
+	        <field name="name">Grade Arabic With Grade (PDF)</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_certificate_user" model="res.groups">
+	        <field name="name">Certificate User</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_show_final_approve_satge_record" model="res.groups">
+	        <field name="name">Grade Show All Stage record</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+	    <record id="group_show_only_final_approval_stage" model="res.groups">
+	        <field name="name">Grade Show Only Final Approval</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+
+
+	    <record id="group_almaaqal_grade_report_py3o" model="res.groups">
+	        <field name="name">Grade Arabic no Grade (Docx)</field>
+	        <field name="category_id" ref="base.module_category_hidden"/>
+	    </record>
+
+	    <!-- Add permissions to the new group -->
+	    <record id="access_almaaqal_grade_manager" model="ir.rule">
+	        <field name="name">Grade Final Approval Hidden</field>
+	        <field name="domain_force">[('Status', '!=', "final_approved")]</field>
+	        <field name="model_id" ref="model_almaaqal_grade"/>
+	        <field name="groups" eval="[(4, ref('almaaqal_grade.group_grade_user'))]"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+
+        <!-- Record Rule with Domain Filter and Groups -->
+        <record id="access_almaaqal_grade_final_approval" model="ir.rule">
+            <field name="name">Grade All Stage Show</field>
+            <field name="model_id" ref="model_almaaqal_grade"/>
+            <field name="domain_force">['|',('Status', '=', "draft"),'|',('Status', '=', "posted"),('Status', '=', "final_approved")]</field>
+            <field name="groups" eval="[(4, ref('almaaqal_grade.group_show_final_approve_satge_record'))]"/> <!-- Applies to all users in the 'User' group -->
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+         <record id="access_almaaqal_grade_only_final_approval" model="ir.rule">
+            <field name="name">Grade Only Final Approval</field>
+            <field name="model_id" ref="model_almaaqal_grade"/>
+            <field name="domain_force">[('Status', '=', "final_approved")]</field>
+            <field name="groups" eval="[(4, ref('almaaqal_grade.group_show_only_final_approval_stage'))]"/> <!-- Applies to all users in the 'User' group -->
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+
+</odoo>

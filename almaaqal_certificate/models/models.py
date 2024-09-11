@@ -26,71 +26,74 @@ class AlmaaqalCertificate(models.Model):
     _name = 'almaaqal.certificate'
     _description = 'Certificate'
 
-    student = fields.Many2one("res.partner", string="Student", context={'display_number_exam': True})
+    Status = fields.Selection([('draft','Draft'),('posted','Posted'),('final_approved','Final Approved')], string="Status", default="draft")
+    
+    tags = fields.Char("Tags")
 
-    number = fields.Char("Number")
-    date = fields.Date("Date")
-    Status = fields.Selection([('draft','Draft'),('posted','Posted')], string="Status")
+    exam_number_for_reference =  fields.Char("Exam Number")
 
-    type_d = fields.Selection([('arabic_no_grades','Arabic No Grades'),('english_no_grades','English No Grades'),('arabic_with_grades','Arabic with Grades'),('english_with_grades','English With Grades'),], string="Type") 
+    college_in_english =  fields.Char("College in EN")
+    college_in_arabic =  fields.Char("College in AR")
 
-    # Student (Connected to student module: Partner)
-    name_in_arabic =  fields.Char(string="Name in Arabic", readonly=True, store=True)
-    name_in_english = fields.Char("Name in English", readonly=True , store=True)
-    college = fields.Char(string="College", readonly=True, store=True)
-    department = fields.Char(string="Department", readonly=True, store=True)
-    grade = fields.Float("Grade", readonly=True, store=True)
-    graduation_sequence = fields.Integer("Graduation Sequence", readonly=True, store=True)
-    year_name_graduation_year = fields.Char( string="Year Name Graduation year", readonly=True, store=True)  
-    notes = fields.Text("Notes", readonly=True, store=True)
+    study_type_arabic = fields.Char("Study Type AR")
+    study_type_english = fields.Char("Study Type EN")
 
-    grade_year = fields.Many2many("almaaqal.grade", string="Grade")
+    serial = fields.Char("Serial")
 
-    @api.onchange('student')
-    def _on_change_student(self):
-        self.name_in_arabic = self.student.name
-        self.name_in_english = self.student.name_english
-        self.college = self.student.college.college
-        self.department = self.student.department.department
-        self.grade = self.student.grade
-        self.graduation_sequence = self.student.graduation_sequence
-        self.year_name_graduation_year = self.student.year_of_collage_graduation.name
-        self.notes = self.student.notes
+    gender = fields.Char("Gender")
+
+    subject_to_arabic = fields.Char("Subject to Arabic")
+    subject_to_english = fields.Char("Subject to English")
+
+    certificate_name_department_AR = fields.Char("Certificate Name/Department AR")
+    certificate_name_department_EN = fields.Char("Certificate Name/Department EN")
+
+    University_order_number = fields.Char("University order number")
+    University_order_date = fields.Date("University order date")
+
+    dean_collage_name_arabic = fields.Char("Dean Collage Name AR")
+    dean_collage_name_english = fields.Char("Dean Collage Name EN")
+
+    department_in_english =  fields.Char("Department in EN")
+    department_in_arabic =  fields.Char("Department in AR")
 
 
-        exam_no = self.env["almaaqal.grade"].search([("exam_number_for_reference","=",self.student.number_exam)])
-        if exam_no:
-            self.grade_year = [(4, exam_no.id)]
+    stage_year = fields.Char("Stage Year")
 
-        print("grade_year@@@@@@@@@@@@@@@@@@",self.grade_year)
+    year_of_graduation =  fields.Char("Year of graduation") 
+    
+    student_name_in_english =  fields.Char("Student Name in EN")
+    student_name_in_arabic =  fields.Char("Student Name in AR")
 
-    @api.model
-    def create(self, vals):
-        if 'student' in vals:
-            student_v  = self.env["res.partner"].search([("id",'=',vals['student'])])
-            vals['name_in_arabic'] = student_v.name
-            vals['name_in_english'] = student_v.name_english
-            vals['college'] = student_v.college.college
-            vals['department'] = student_v.department.department
-            vals['grade'] = student_v.grade
-            vals['graduation_sequence'] = student_v.graduation_sequence
-            vals['year_name_graduation_year'] = student_v.year_of_collage_graduation.name
-            vals['notes'] = student_v.notes
-        return super(AlmaaqalCertificate, self).create(vals)    
+    nationality_ar = fields.Char("Nationality AR")
+    nationality_en = fields.Char("Nationality EN")
 
-    def write(self, vals):
-        print("vals@@@@@@@@@@@@@@@@",vals)
-        if 'student' in vals:
-            student_v  = self.env["res.partner"].search([("id",'=',vals['student'])])
-            vals['name_in_arabic'] = student_v.name
-            vals['name_in_english'] = student_v.name_english
-            vals['college'] = student_v.college.college
-            vals['department'] = student_v.department.department
-            vals['grade'] = student_v.grade
-            vals['graduation_sequence'] = student_v.graduation_sequence
-            vals['year_name_graduation_year'] = student_v.year_of_collage_graduation.name
-            vals['notes'] = student_v.notes
-        return super(AlmaaqalCertificate, self).write(vals)    
+    average =  fields.Char("Average") 
+
+    average_in_words_en = fields.Char("Average in Words EN")
+    average_in_words_ar = fields.Char("Average in Words AR")
+
+
+    attempt_en = fields.Char("Attempt EN")  
+    attempt_ar = fields.Char("Attempt AR")
 
 
 
+
+    study_year_name_ar = fields.Char("Study Year Name AR")  
+    study_year_name_en = fields.Char("Study Year Name EN")
+
+    Graduate_Sequence = fields.Char("Graduate Sequence")
+    The_average_of_the_first_student_in_the_class = fields.Char("The average of the first student in the class")
+    Total_number_of_graduates  = fields.Char("Total number of graduates ")
+
+    subject = fields.Many2many("certificate.subject", string="Subject")  
+
+
+    # subject = fields.Many2many("subject.subject")  
+
+
+    
+
+    posted_date = fields.Date("Posted Date")
+    average_word_word = fields.Char("average_word_word")

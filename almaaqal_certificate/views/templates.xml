@@ -16,8 +16,8 @@
 
 <template id="report_almaaqal_certificates">
         <t t-set="o" t-value="doc"/>
-           <t t-call="web.external_layout_clean">
-                <div class="page custom-font-class" style="font-size : 28px;  font-family: 'Times New Roman', serif !important; height: 1050px;position:relative;margin-top:0px;overflow:visible !important;">
+            <t t-call="web.external_layout_clean">
+                <div class="page custom-font-class" style="font-size : 28px;  font-family: 'Times New Roman', serif !important; height: 1090px;position:relative;margin-top:0px;overflow:visible !important; ">
                   <style type="text/css">
                   
                   /* Arvo */
@@ -25,16 +25,14 @@
                     font-family: 'Arvo';
                     font-style: normal;
                     font-weight: 700;
-                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/ARIAL.TTF);
+                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf) format('truetype');
                   }
                   
-                   <!--format('truetype')-->
                   </style>
-                  
-    
+
                     <div class="oe_structure"/>
                     
-   <div style="position:absolute ;top:0px;z-index:9999,overflow: visible ; height:200px;">
+   <div style="position:absolute ;top:120px;z-index:9999,overflow: visible ; height:200px;">
  
                             <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
                             
@@ -47,18 +45,18 @@
 
                              <div style="height:0px;width:20px;"/>
                              
-                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:80px;font-size:18px">
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:70px;font-size:18px">
                               <t t-if="o.posted_date">
-                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y   %m    %d')"/>
+                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y %m %d')"/>
                               </t>
                               <t t-if="o.posted_date"/>
                                <t t-else=""><span style="color:white;">space</span></t>
                             </div>
                            
                      </div>
-                     <div style="height:100px;width:20px;"/>
+                     <div style="height:110px;width:20px;"/>
                                         
-                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:0px;margin-bottom:0px; padding:0px;">
+                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:100px;margin-bottom:0px; padding:0px;">
                             <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
                             <div style="text-align: center;width: 500px;position:relative;">
 
@@ -94,11 +92,10 @@
                     </t>
 
 
-                    <div id="informations" class="row  mb32" style="margin-top:80px;">
+                     <div id="informations" class="row  mb32" style="margin-top:80px;">
                       <t t-if="o.gender == 'ذكر'">
-                      
-                      <div class="col-12" style="line-height: 2; text-align: justify; direction: rtl; text-align-last: justify; word-spacing: 3px;  font-family:Arvo; " t-if="o"> 
-                       <p>              نؤيد لكم بان السيد (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
+                        <div class="col-12" style="line-height: 2; text-align : right;  direction : rtl ; text-justify: kashida; font-family:Arvo; " t-if="o">            
+                          نؤيد لكم بان السيد (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
                          <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
                           <span t-field="o.department_in_arabic"/> /  الدراسة 
                          <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.study_type_arabic"/></strong> للعام الدراسي 
@@ -106,11 +103,11 @@
                           <span t-field="o.certificate_name_department_AR"/>    بتقدير (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-esc="average_word"/></strong>)  وبمعدل  (
                          <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
                           <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;" t-esc="o.University_order_date.strftime('%Y/%m/%d')"/>.
-                          </p>
                       </div>
+  
                       </t>
                     <t t-if="o.gender == 'انثى' or o.gender == 'أنثى'">
-                      <div class="col-12" style="line-height: 2;  direction : rtl ; justify-content:center; font-family: Arvo;" t-if="o">            
+                      <div class="col-12" style="line-height: 2;  direction : rtl ; text-justify: kashida; font-family: Arvo;" t-if="o">            
                         نؤيد لكم بان السيدة (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورتها اعلاه هي احدى خريجي جامعة المعقل   / 
                        <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
                         <span t-field="o.department_in_arabic"/> /  الدراسة 
@@ -168,44 +165,247 @@
 
 
 
-<template id="report_almaaqal_certificates_with_grade">
+<template id="report_almaaqal_certificates_english">
         <t t-set="o" t-value="doc"/>
             <t t-call="web.external_layout_clean">
-                <div class="page">
+                <div class="page custom-font-class" style="font-size : 28px;  font-family: 'Times New Roman', serif !important; height: 1090px;position:relative;margin-top:0px;overflow:visible !important; ">
+                  <style type="text/css">
+                  
+                  /* Arvo */
+                  @font-face {
+                    font-family: 'Arvo';
+                    font-style: normal;
+                    font-weight: 700;
+                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf) format('truetype');
+                  }
+                  
+                  </style>
+
                     <div class="oe_structure"/>
-                    <div class="row mt32 mb32 ">
-                      <div class="col-12 text-center" style="margin-top: 50px;">
-                        <h4 class="mt32 mb32 text-center">(وثيقة تخرج)</h4><br/>
-                        <h4 class="mt32 mb32 text-center">الى /</h4>
-                        </div>
-                    </div>
+                    
+   <div style="position:absolute ;top:120px;z-index:9999,overflow: visible ; height:200px;">
+ 
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
+                            
+                              <t t-if="o.posted_date">
+                              <span t-field="o.serial"/>
+                              </t><t t-else=""><span style="color:white;">space</span></t>
+                          
+                              
+                              </div>
+
+                             <div style="height:0px;width:20px;"/>
+                             
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:70px;font-size:18px">
+                              <t t-if="o.posted_date">
+                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y %m %d')"/>
+                              </t>
+                              <t t-if="o.posted_date"/>
+                               <t t-else=""><span style="color:white;">space</span></t>
+                            </div>
+                           
+                     </div>
+                     <div style="height:110px;width:20px;"/>
+                                        
+                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:100px;margin-bottom:0px; padding:0px;">
+                            <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                            <div style="text-align: center;width: 500px;position:relative;">
+
+                              <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: center; align-items: center;">
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900;">وثيقة تخرج</h4>
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900; margin-top: 10px;">الى/ <span t-field="o.subject_to_arabic"/></h4>
+                          </div>
+                            </div>
+                            <div style="border: 2px solid white;width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                          </div>
+
+
                     <t t-if="float(o.average) &lt; 50">
-                        <t t-set="average_word" t-value="'-راسب'"/>
+                        <t t-set="average_word" t-value="'راسب'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
-                        <t t-set="average_word" t-value="'-مقبول'"/>
+                        <t t-set="average_word" t-value="'مقبول'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
-                        <t t-set="average_word" t-value="'-متوسط'"/>
+                        <t t-set="average_word" t-value="'متوسط'"/>
                     </t>
 
                     <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
-                        <t t-set="average_word" t-value="'-جيد'"/>
+                        <t t-set="average_word" t-value="'جيد'"/>
                     </t>
                     <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
-                        <t t-set="average_word" t-value="'-جيد جدا'"/>
+                        <t t-set="average_word" t-value="'جيد جدا'"/>
                     </t>
                     <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
-                        <t t-set="average_word" t-value="'-ممتاز'"/>
+                        <t t-set="average_word" t-value="'ممتاز'"/>
                     </t>
 
-                    <div id="informations" class="row mt32 mb32">
-                    <div class="col-12 text-right" style="line-height: 3; " t-if="o">
+
+                     <div id="informations" class="row  mb32" style="margin-top:80px;">
+                      <t t-if="o.gender == 'ذكر'">
+                        <div class="col-12" style="line-height: 2; text-align : right;  direction : rtl ; text-justify: kashida; font-family:Arvo; " t-if="o">            
+                          نؤيد لكم بان السيد (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورته اعلاه هو احد خريجي جامعة المعقل   / 
+                         <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
+                          <span t-field="o.department_in_arabic"/> /  الدراسة 
+                         <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.study_type_arabic"/></strong> للعام الدراسي 
+                          <span t-field="o.year_of_graduation"/>  (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.attempt_ar"/></strong>).   وقد منح شهادة  
+                          <span t-field="o.certificate_name_department_AR"/>    بتقدير (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-esc="average_word"/></strong>)  وبمعدل  (
+                         <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
+                          <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;" t-esc="o.University_order_date.strftime('%Y/%m/%d')"/>.
+                      </div>
+  
+                      </t>
+                    <t t-if="o.gender == 'انثى' or o.gender == 'أنثى'">
+                      <div class="col-12" style="line-height: 2;  direction : rtl ; text-justify: kashida; font-family: Arvo;" t-if="o">            
+                        نؤيد لكم بان السيدة (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.student_name_in_arabic"/></strong>) الملصقة صورتها اعلاه هي احدى خريجي جامعة المعقل   / 
+                       <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.college_in_arabic"/></strong><t t-if="o.department_in_arabic and o.department_in_arabic.strip()"> / </t>   
+                        <span t-field="o.department_in_arabic"/> /  الدراسة 
+                       <strong> <span style="font-size: 28px; font-weight: 900 !important;" t-field="o.study_type_arabic"/></strong> للعام الدراسي 
+                        <span t-field="o.year_of_graduation"/>  (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-field="o.attempt_ar"/></strong>).   وقد منحت شهادة  
+                        <span t-field="o.certificate_name_department_AR"/>    بتقدير (<strong><span style="font-size: 28px; font-weight: 900 !important;" t-esc="average_word"/></strong>)  وبمعدل  (
+                       <strong> <t t-esc="round(float(o.average),2)"/></strong> %)  <span t-field="o.study_year_name_ar"/> دراسية  بموجب الامر الجامعي ذي العدد  
+                        <span t-field="o.University_order_number"/>  في   <span style="direction:rtl;" t-esc="o.University_order_date.strftime('%Y/%m/%d')"/>.
+                    </div>
+
+                    </t>
+
+                    </div>    
+                
+                    <div id="informations" class="row mt32 mb32" style="padding-top:80px">
+                            <div class="col-4">
+                              <ul class="text-center list-unstyled">
+                                <li style="font-weight: 900 !important !important;">أ. د بدر  نعمة عكاش البدران</li>
+                                <li style="font-weight: 900 !important !important;">رئيس الجامعة </li>
+                                <t t-if="o.posted_date">
+                            <li style="font-weight: 900 !important !important; "><t style="direction : rtl;" t-esc="o.posted_date.strftime('%Y/%m/%d')"/></li>
+                            </t>
+                            
+                            <t t-if="not o.posted_date">
+                            <li style="font-weight: 900 !important !important;">2024 /   /  </li>
+                            </t>
+                            
+                              </ul>
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                        <div id="informations" class=" " style="position: absolute;bottom: 0;right:20px; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-end;">
+                            <div style="font-weight: 900 !important !important; text-align: right;">ملاحظة//- <span style=" font-weight: normal !important;"> الوثيقة خالية من الشطب والتعديل </span></div>
+                        </div>
+
+
+                    <div class="oe_structure"/>
+                </div>
+              
+            </t>
+
+              
+</template>
+
+<template id="report_almaaqal_certificate_english">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates_english"/>
+        </t>
+    </t>
+</template>
+
+
+
+<template id="report_almaaqal_certificates_with_grade">
+        <t t-set="o" t-value="doc"/>
+             <t t-call="web.external_layout_clean">
+              <!--height: 1090px;position:relative;margin-top:0px;overflow:visible !important; -->
+                <div class="page custom-font-class" style=" font-size : 28px;  font-family: 'Times New Roman', serif !important; ">
+                  <style type="text/css">
+                  
+                  /* Arvo */
+                  @font-face {
+                    font-family: 'Arvo';
+                    font-style: normal;
+                    font-weight: 700;
+                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf) format('truetype');
+                  }
+                  
+                  .table-break {
+                      page-break-inside: auto;
+                  }
+                  </style>
+                  
+                    <div class="oe_structure"/>
+                    
+                    <div style="position:absolute ;top:120px;z-index:9999,overflow: visible ; height:200px;">
+ 
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
+                            
+                              <t t-if="o.posted_date">
+                              <span t-field="o.serial"/>
+                              </t><t t-else=""><span style="color:white;">space</span></t>
+                          
+                              
+                              </div>
+
+                             <div style="height:0px;width:20px;"/>
+                             
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:70px;font-size:18px">
+                              <t t-if="o.posted_date">
+                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y %m %d')"/>
+                              </t>
+                              <t t-if="o.posted_date"/>
+                               <t t-else=""><span style="color:white;">space</span></t>
+                            </div>
+                           
+                     </div>
+                     <div style="height:110px;width:20px;"/>
+                                        
+                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:100px;margin-bottom:0px; padding:0px;">
+                            <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                            <div style="text-align: center;width: 500px;position:relative;">
+
+                              <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: center; align-items: center;">
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900;">وثيقة تخرج</h4>
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900; margin-top: 10px;">الى/ <span t-field="o.subject_to_arabic"/></h4>
+                          </div>
+                            </div>
+                            <div style="border: 2px solid white;width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                          </div>
+
+
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'ممتاز'"/>
+                    </t>
+
+
+                     <div id="informations" class="row  mb32" style="margin-top:80px;">
+                      <t t-if="o.gender == 'ذكر'">
+                        <div class="col-12" style="line-height: 2; text-align : right;  direction : rtl ; text-justify: kashida; font-family:Arvo; " t-if="o">
+                          
                   <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <t t-esc="average_word"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_ar"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
                     <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="o.college_in_arabic"/> جامعة المعقل  </p>
                         </div>
+                        </t>
                     </div>    
                     <style>
                       table, th, td {
@@ -218,10 +418,332 @@
                         }
                     </style>
                     
+                    <t t-set="count_d" t-value="1"/>
+                    
+                    <t t-foreach="o.subject" t-as="sub" style="page-break-inside: auto !important;">
+                      <t t-if="count_d == 2">
+                      <div style="page-break-after: always;"/>
+                        <h4 style="margin-top : 160px;"> ( السنة الدراسية <span t-field="sub.stage_year"/> (الصف الثالث  </h4>
+                    <table style="direction: rtl; width : 100%; border-top: none; margin-top : 160px;">
+                     
+                    <thead>
+                      <div class="text-center">
+                        
+                    
+                      
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <t t-if="sub.subject_1_arabic or sub.subject_1_units or sub.subject_1_grade or sub.Subject_1_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_1_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_11_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+
+                                </tr>
+                                
+                                <tr>
+                                    <t t-if="sub.subject_2_arabic or sub.subject_2_units or sub.subject_2_grade or sub.Subject_2_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_2_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_12_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_3_arabic or sub.subject_3_units or sub.subject_3_grade or sub.Subject_3_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_3_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_13_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_4_arabic or sub.subject_4_units or sub.subject_4_grade or sub.Subject_4_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_4_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_14_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_5_arabic or sub.subject_5_units or sub.subject_5_grade or sub.Subject_5_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_5_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_15_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_6_arabic or sub.subject_6_units or sub.subject_6_grade or sub.Subject_6_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_6_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_7_arabic or sub.subject_7_units or sub.subject_7_grade or sub.Subject_7_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_7_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_8_arabic or sub.subject_8_units or sub.subject_8_grade or sub.Subject_8_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_8_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_9_arabic or sub.subject_9_units or sub.subject_9_grade or sub.Subject_9_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_9_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_10_arabic or sub.subject_10_units or sub.subject_10_grade or sub.Subject_10_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_10_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="sub.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    </t>
+                    
+                    <t t-if="count_d != 2">
+
                     <table style="direction: rtl; width : 100%; border-top: none;">
                     <thead>
-                      <div class="text-center" >
-                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
+                      <div class="text-center">
+                        
+                      <h4 style="">( السنة الدراسية <span t-field="sub.stage_year"/> (الصف الثالث  </h4>
+                      
                         </div>
                             <tr>
                                 <th class="text-right" style="width : auto;">المادة</th>
@@ -237,493 +759,193 @@
                         </thead>
                         <tbody>
                                 <tr>
+                                    <t t-if="sub.subject_1_arabic or sub.subject_1_units or sub.subject_1_grade or sub.Subject_1_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_1_arabic"/>
+                                        <span t-field="sub.subject_1_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_1_units"/>
+                                        <span t-field="sub.subject_1_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_1_grade"/>
+                                        <span t-field="sub.subject_1_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_1_Grade_Written_AR"/>
+                                        <span t-field="sub.Subject_1_Grade_Written_AR"/>
                                     </td>
-
                                     <td>
-                                        <span t-field="o.subject_11_arabic"/>
+                                        <span t-field="sub.subject_11_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_11_units"/>
+                                        <span t-field="sub.subject_11_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_11_grade"/>
+                                        <span t-field="sub.subject_11_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_11_Grade_Written_AR"/>
+                                        <span t-field="sub.Subject_11_Grade_Written_AR"/>
                                     </td>
-
-                                </tr>
-                                
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_2_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_2_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_2_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_2_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_12_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_12_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_12_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_12_Grade_Written_AR"/>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_3_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_3_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_3_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_3_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_13_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_13_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_13_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_13_Grade_Written_AR"/>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_4_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_4_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_4_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_4_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_14_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_14_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_14_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_14_Grade_Written_AR"/>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_5_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_5_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_5_grade"/>
-                                    </td>
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <span t-field="o.subject_15_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_15_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_15_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_15_Grade_Written_AR"/>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_6_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_6_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_6_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_6_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_7_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_7_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_7_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_7_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_8_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_8_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_8_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_8_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_9_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_9_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_9_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_9_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_10_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_10_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_10_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_10_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    
-                                </tr>
-                                
-                                <tr>
-
-                                    <td colspan="8">
-                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
-                                    </td>
-                                    
-                                </tr>
-                        </tbody>
-                    </table> 
-                    
-                    
-                    
-                     <table style="direction: rtl; width : 100%; border-top : 1px solid grey !important; ">
-                    <thead>
-                      <div class="text-center" style="margin-top : 180px;">
-                        <h4>( السنة الدراسية <span t-field="o.stage_year"/> (الصف الثالث  </h4>
-                        </div>
-                            <tr>
-                                <th class="text-right" style="width : auto;">المادة</th>
-                                <th class="text-right">الوحدات</th>
-                                <th class="text-right">الدرجة رقمًا</th>
-                                <th class="text-right">الدرجة كتابة</th>
-
-                                <th class="text-right">المادة</th>
-                                <th class="text-right">الوحدات</th>
-                                <th class="text-right">الدرجة رقمًا</th>
-                                <th class="text-right">الدرجة كتابة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                 <tr>
-                                    <td>
-                                        <span t-field="o.subject_1_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_1_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_1_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_1_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                        <span t-field="o.subject_11_arabic"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_11_units"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.subject_11_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_11_Grade_Written_AR"/>
-                                    </td>
+                                    </t>
 
                                 </tr>
                                 
                                 <tr>
+                                    <t t-if="sub.subject_2_arabic or sub.subject_2_units or sub.subject_2_grade or sub.Subject_2_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_2_arabic"/>
+                                        <span t-field="sub.subject_2_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_2_units"/>
+                                        <span t-field="sub.subject_2_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_2_grade"/>
+                                        <span t-field="sub.subject_2_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_2_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_12_arabic"/>
+                                        <span t-field="sub.Subject_2_Grade_Written_AR"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_12_units"/>
+                                        <span t-field="sub.subject_12_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_12_grade"/>
+                                        <span t-field="sub.subject_12_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_12_Grade_Written_AR"/>
+                                        <span t-field="sub.subject_12_grade"/>
                                     </td>
+                                    <td>
+                                        <span t-field="sub.Subject_12_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
                                 </tr>
 
                                 <tr>
+                                    <t t-if="sub.subject_3_arabic or sub.subject_3_units or sub.subject_3_grade or sub.Subject_3_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_3_arabic"/>
+                                        <span t-field="sub.subject_3_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_3_units"/>
+                                        <span t-field="sub.subject_3_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_3_grade"/>
+                                        <span t-field="sub.subject_3_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_3_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_13_arabic"/>
+                                        <span t-field="sub.Subject_3_Grade_Written_AR"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_13_units"/>
+                                        <span t-field="sub.subject_13_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_13_grade"/>
+                                        <span t-field="sub.subject_13_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_13_Grade_Written_AR"/>
+                                        <span t-field="sub.subject_13_grade"/>
                                     </td>
+                                    <td>
+                                        <span t-field="sub.Subject_13_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
                                 </tr>
 
                                 <tr>
+                                    <t t-if="sub.subject_4_arabic or sub.subject_4_units or sub.subject_4_grade or sub.Subject_4_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_4_arabic"/>
+                                        <span t-field="sub.subject_4_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_4_units"/>
+                                        <span t-field="sub.subject_4_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_4_grade"/>
+                                        <span t-field="sub.subject_4_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_4_Grade_Written_AR"/>
-                                    </td>
-
-
-                                    <td>
-                                        <span t-field="o.subject_14_arabic"/>
+                                        <span t-field="sub.Subject_4_Grade_Written_AR"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_14_units"/>
+                                        <span t-field="sub.subject_14_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_14_grade"/>
+                                        <span t-field="sub.subject_14_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_14_Grade_Written_AR"/>
+                                        <span t-field="sub.subject_14_grade"/>
                                     </td>
+                                    <td>
+                                        <span t-field="sub.Subject_14_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
 
                                 </tr>
 
                                 <tr>
+                                    <t t-if="sub.subject_5_arabic or sub.subject_5_units or sub.subject_5_grade or sub.Subject_5_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_5_arabic"/>
+                                        <span t-field="sub.subject_5_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_5_units"/>
+                                        <span t-field="sub.subject_5_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_5_grade"/>
+                                        <span t-field="sub.subject_5_grade"/>
                                     </td>
                                     <td>
-                                    </td>
-
-                                    <td>
-                                        <span t-field="o.subject_15_arabic"/>
+                                        <span t-field="sub.Subject_5_Grade_Written_AR"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_15_units"/>
+                                        <span t-field="sub.subject_15_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_15_grade"/>
+                                        <span t-field="sub.subject_15_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_15_Grade_Written_AR"/>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>
-                                        <span t-field="o.subject_6_arabic"/>
+                                        <span t-field="sub.subject_15_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_6_units"/>
+                                        <span t-field="sub.Subject_15_Grade_Written_AR"/>
                                     </td>
-                                    <td>
-                                        <span t-field="o.subject_6_grade"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="o.Subject_6_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-
+                                    </t>
                                 </tr>
 
 
                                 <tr>
+                                    <t t-if="sub.subject_6_arabic or sub.subject_6_units or sub.subject_6_grade or sub.Subject_6_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_7_arabic"/>
+                                        <span t-field="sub.subject_6_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_7_units"/>
+                                        <span t-field="sub.subject_6_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_7_grade"/>
+                                        <span t-field="sub.subject_6_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_7_Grade_Written_AR"/>
+                                        <span t-field="sub.Subject_6_Grade_Written_AR"/>
                                     </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
 
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_7_arabic or sub.subject_7_units or sub.subject_7_grade or sub.Subject_7_Grade_Written_AR">
                                     <td>
+                                        <span t-field="sub.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_7_Grade_Written_AR"/>
                                     </td>
                                     <td>
                                     </td>
@@ -731,25 +953,26 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                    </td>
+                                    </t>
                                     
                                 </tr>
 
 
                                 <tr>
+                                    <t t-if="sub.subject_8_arabic or sub.subject_8_units or sub.subject_8_grade or sub.Subject_8_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_8_arabic"/>
+                                        <span t-field="sub.subject_8_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_8_units"/>
+                                        <span t-field="sub.subject_8_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_8_grade"/>
+                                        <span t-field="sub.subject_8_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_8_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
+                                        <span t-field="sub.Subject_8_Grade_Written_AR"/>
                                     </td>
                                     <td>
                                     </td>
@@ -757,24 +980,25 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                    </td>
+                                    </t>
                                     
                                 </tr>
 
                                 <tr>
+                                    <t t-if="sub.subject_9_arabic or sub.subject_9_units or sub.subject_9_grade or sub.Subject_9_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_9_arabic"/>
+                                        <span t-field="sub.subject_9_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_9_units"/>
+                                        <span t-field="sub.subject_9_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_9_grade"/>
+                                        <span t-field="sub.subject_9_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_9_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
+                                        <span t-field="sub.Subject_9_Grade_Written_AR"/>
                                     </td>
                                     <td>
                                     </td>
@@ -782,24 +1006,25 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                    </td>
+                                    </t>
                                     
                                 </tr>
 
                                 <tr>
+                                    <t t-if="sub.subject_10_arabic or sub.subject_10_units or sub.subject_10_grade or sub.Subject_10_Grade_Written_AR">
                                     <td>
-                                        <span t-field="o.subject_10_arabic"/>
+                                        <span t-field="sub.subject_10_arabic"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_10_units"/>
+                                        <span t-field="sub.subject_10_units"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.subject_10_grade"/>
+                                        <span t-field="sub.subject_10_grade"/>
                                     </td>
                                     <td>
-                                        <span t-field="o.Subject_10_Grade_Written_AR"/>
-                                    </td>
-
-                                    <td>
+                                        <span t-field="sub.Subject_10_Grade_Written_AR"/>
                                     </td>
                                     <td>
                                     </td>
@@ -807,21 +1032,27 @@
                                     </td>
                                     <td>
                                     </td>
+                                    <td>
+                                    </td>
+                                    </t>
                                     
                                 </tr>
                                 
                                 <tr>
 
                                     <td colspan="8">
-                                      <span>النتيجة :  <span t-field="o.study_notes_in_arabic"/></span>
+                                      <span>النتيجة :  <span t-field="sub.study_notes_in_arabic"/></span>
                                     </td>
                                     
                                 </tr>
                         </tbody>
                     </table> 
+                    </t>
+                    <t t-set="count_d" t-value="count_d + 1"/>
+                    </t>
                     
                     
-                    <div id="informations" class="row mt32 mb32" >
+                    <div id="informations" class="row mt32 mb32">
                             <div class="col-4">
                             
                             </div>
@@ -831,7 +1062,7 @@
                                 <span>ملاحظات:</span>
                             </div>
                         </div>
-                    <div id="informations" class="row mt32 mb32" >                        
+                    <div id="informations" class="row mt32 mb32">                        
                             <div class="col-6">
                             </div>
                             <div class="col-6">
@@ -844,7 +1075,7 @@
                     </div>
 
 
-                    <div id="informations" class="row mt32 mb32" >                            
+                    <div id="informations" class="row mt32 mb32">                            
                         <div class="col-3" style="margin-top: 170px;">
                           <ul class="text-center list-unstyled">
                             <li>أ. د. علي مظلوم</li>
@@ -880,7 +1111,9 @@
 
                     <div class="oe_structure"/>
                 </div>
+
             </t>
+
 </template>
 
 <template id="report_almaaqal_certificate_with_grade">
@@ -890,6 +1123,496 @@
         </t>
     </t>
 </template>
+
+
+
+
+
+
+<template id="report_almaaqal_certificates_with_grade_english">
+        <t t-set="o" t-value="doc"/>
+             <t t-call="web.external_layout_clean">
+              <!--height: 1090px;position:relative;margin-top:0px;overflow:visible !important; -->
+                <div class="page custom-font-class" style=" font-size : 28px;  font-family: 'Times New Roman', serif !important; ">
+                  <style type="text/css">
+                  
+                  /* Arvo */
+                  @font-face {
+                    font-family: 'Arvo';
+                    font-style: normal;
+                    font-weight: 700;
+                    src: local('Arvo'), url(/almaaqal_grade/static/src/fonts/alfont_com_arial-1.ttf) format('truetype');
+                  }
+                  
+                  .table-break {
+                      page-break-inside: auto;
+                  }
+                  </style>
+                  
+                    <div class="oe_structure"/>
+                    
+                    <div style="position:absolute ;top:120px;z-index:9999,overflow: visible ; height:200px;">
+ 
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:120px;font-size:18px;text-align:right; padding-top:0;margin-top:0 position:relative;">
+                            
+                              <t t-if="o.posted_date">
+                              <span t-field="o.serial"/>
+                              </t><t t-else=""><span style="color:white;">space</span></t>
+                          
+                              
+                              </div>
+
+                             <div style="height:0px;width:20px;"/>
+                             
+                            <div class="text-left" style="font-weight: 900 !important !important;font-family: Arvo;margin-left:70px;font-size:18px">
+                              <t t-if="o.posted_date">
+                              <span style="direction:rtl;" t-esc="o.posted_date.strftime('%Y %m %d')"/>
+                              </t>
+                              <t t-if="o.posted_date"/>
+                               <t t-else=""><span style="color:white;">space</span></t>
+                            </div>
+                           
+                     </div>
+                     <div style="height:110px;width:20px;"/>
+                                        
+                          <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-top:100px;margin-bottom:0px; padding:0px;">
+                            <div style="border: 2px solid #ccc; width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                            <div style="text-align: center;width: 500px;position:relative;">
+
+                              <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: center; align-items: center;">
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900;">وثيقة تخرج</h4>
+                            <h4 style="font-family: Arvo; font-size: 30px; font-weight: 900; margin-top: 10px;">الى/ <span t-field="o.subject_to_arabic"/></h4>
+                          </div>
+                            </div>
+                            <div style="border: 2px solid white;width: 185px; height: 220px;margin-top:0px;margin-left:20px;"/>
+                          </div>
+
+
+                    <t t-if="float(o.average) &lt; 50">
+                        <t t-set="average_word" t-value="'راسب'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 60 and float(o.average) &gt; 49.99">
+                        <t t-set="average_word" t-value="'مقبول'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 70 and float(o.average) &gt; 59.99">
+                        <t t-set="average_word" t-value="'متوسط'"/>
+                    </t>
+
+                    <t t-if="float(o.average) &lt; 80 and float(o.average) &gt; 69.99">
+                        <t t-set="average_word" t-value="'جيد'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 90 and float(o.average) &gt; 79.99">
+                        <t t-set="average_word" t-value="'جيد جدا'"/>
+                    </t>
+                    <t t-if="float(o.average) &lt; 100 and float(o.average) &gt; 89.99">
+                        <t t-set="average_word" t-value="'ممتاز'"/>
+                    </t>
+
+
+                     <div id="informations" class="row  mb32" style="margin-top:80px;">
+                      <t t-if="o.gender == 'ذكر'">
+                        <div class="col-12" style="line-height: 2; text-align : right;  direction : rtl ; text-justify: kashida; font-family:Arvo; " t-if="o">
+                          
+                  <p>  نؤيد لكم بان  السيدة<span t-field="o.student_name_in_arabic"/>  <span t-field="o.nationality_ar"/> الجنسية الملصقة صورتها اعلاه  قد منحت شهادة <span t-field="o.certificate_name_department_AR"/>  بتقدير <t t-esc="average_word"/>  وبمعدل ل <span t-field="o.study_year_name_ar"/>  دراسية  في <span t-field="o.attempt_ar"/>  للدراسة <span t-field="o.study_type_arabic"/> بموجب الامر الجامعي المرقم <span t-field="o.University_order_number"/>  في <span t-field="o.University_order_date"/> </p>
+                    <p>ادناه الدرجات اللتي حصلت عليها خلال دراستها في <span t-field="o.college_in_arabic"/> جامعة المعقل  </p>
+                        </div>
+                        </t>
+                    </div>    
+                    <style>
+                      table, th, td {
+                          border: 1px solid grey !important;
+                          text-align : right;
+                        }
+                        
+                        th:first-child {
+                            border-top: none;
+                        }
+                    </style>
+                    
+                    <t t-foreach="o.subject" t-as="sub">
+                    <table style="direction: rtl; width : 100%; border-top: none;" class="table-break">
+                    <thead>
+                      <div class="text-center">
+                        <h4 style="">( السنة الدراسية <span t-field="sub.stage_year"/> (الصف الثالث  </h4>
+                        </div>
+                            <tr>
+                                <th class="text-right" style="width : auto;">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+
+                                <th class="text-right">المادة</th>
+                                <th class="text-right">الوحدات</th>
+                                <th class="text-right">الدرجة رقمًا</th>
+                                <th class="text-right">الدرجة كتابة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <t t-if="sub.subject_1_arabic or sub.subject_1_units or sub.subject_1_grade or sub.Subject_1_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_1_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_1_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_1_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_1_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_11_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_11_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+
+                                </tr>
+                                
+                                <tr>
+                                    <t t-if="sub.subject_2_arabic or sub.subject_2_units or sub.subject_2_grade or sub.Subject_2_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_2_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_2_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_2_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_2_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_12_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_12_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_3_arabic or sub.subject_3_units or sub.subject_3_grade or sub.Subject_3_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_3_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_3_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_3_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_3_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_13_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_13_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_4_arabic or sub.subject_4_units or sub.subject_4_grade or sub.Subject_4_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_4_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_4_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_4_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_4_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_14_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_14_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_5_arabic or sub.subject_5_units or sub.subject_5_grade or sub.Subject_5_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_5_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_5_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_5_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_5_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_15_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_15_Grade_Written_AR"/>
+                                    </td>
+                                    </t>
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_6_arabic or sub.subject_6_units or sub.subject_6_grade or sub.Subject_6_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_6_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_6_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_6_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_6_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_7_arabic or sub.subject_7_units or sub.subject_7_grade or sub.Subject_7_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_7_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_7_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_7_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+
+                                <tr>
+                                    <t t-if="sub.subject_8_arabic or sub.subject_8_units or sub.subject_8_grade or sub.Subject_8_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_8_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_8_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_8_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_8_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_9_arabic or sub.subject_9_units or sub.subject_9_grade or sub.Subject_9_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_9_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_9_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_9_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_9_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <t t-if="sub.subject_10_arabic or sub.subject_10_units or sub.subject_10_grade or sub.Subject_10_Grade_Written_AR">
+                                    <td>
+                                        <span t-field="sub.subject_10_arabic"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_10_units"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.subject_10_grade"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="sub.Subject_10_Grade_Written_AR"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    </t>
+                                    
+                                </tr>
+                                
+                                <tr>
+
+                                    <td colspan="8">
+                                      <span>النتيجة :  <span t-field="sub.study_notes_in_arabic"/></span>
+                                    </td>
+                                    
+                                </tr>
+                        </tbody>
+                    </table> 
+                    </t>
+                    
+                    
+                    <div id="informations" class="row mt32 mb32">
+                            <div class="col-4">
+                            
+                            </div>
+                            <div class="col-4"> 
+                            </div>
+                            <div class="col-4 text-right">
+                                <span>ملاحظات:</span>
+                            </div>
+                        </div>
+                    <div id="informations" class="row mt32 mb32">                        
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <ul class="text-right list-unstyled">
+                        <li>(٪ درجة النجاح الصغرى: ( 50 <br/>
+
+                                سنوات الرسوب: لا يوجد</li>
+                              </ul>
+                            </div> 
+                    </div>
+
+
+                    <div id="informations" class="row mt32 mb32">                            
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. علي مظلوم</li>
+                            <li>عميد الكلية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>م. د. مروان منصور نعيم</li>
+                            <li>أمين مجلس الجامعة</li>
+                            <li>مدير التسجيل</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. م. د. محمد جاسم الأسدي</li>
+                            <li>مساعد رئيس الجامعة للشؤون العلمية</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+
+                        <div class="col-3" style="margin-top: 170px;">
+                          <ul class="text-center list-unstyled">
+                            <li>أ. د. بدر نعمة عكاش</li>
+                            <li>رئيس الجامعة</li>
+                            <li>٢٠٢٤ / ٤ / ١</li>
+                          </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="oe_structure"/>
+                </div>
+
+            </t>
+</template>
+
+<template id="report_almaaqal_certificate_with_grade_english">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="almaaqal_certificate.report_almaaqal_certificates_with_grade_english"/>
+        </t>
+    </t>
+</template>
+
 
 
 

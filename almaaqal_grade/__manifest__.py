@@ -27,9 +27,13 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'security/grade_security.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+    ],
+    'qweb': [
+        "static/src/xml/data_import.xml",
     ],
 }
