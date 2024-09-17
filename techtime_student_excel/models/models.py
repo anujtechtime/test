@@ -174,23 +174,23 @@ class TechtimeStudentexcel(models.Model):
 #             record.value2 = float(record.value) / 100
 
 
-    def action_confirm(self):
-        result = super(TechtimeStudentexcel, self).action_confirm()
+    # def action_confirm(self):
+    #     result = super(TechtimeStudentexcel, self).action_confirm()
 
-        if self.partner_id:
-            self.partner_id.update({
-                "year" : self.year.id,
-                "college" : self.college.id,
-                "department" : self.department.id,
-                "student_type" : self.student.id,
-                "shift" : self.Subject,
-                "level" : self.level,
-                "transferred_to_us" : self.transferred_to_us,
-                "transfer_shift" : self.transfer_shift,
-                "Status" : self.Status,
-                "chckbox_data" : self.chckbox_data,
-                })
-        return result
+    #     if self.partner_id:
+    #         self.partner_id.update({
+    #             "year" : self.year.id,
+    #             "college" : self.college.id,
+    #             "department" : self.department.id,
+    #             "student_type" : self.student.id,
+    #             "shift" : self.Subject,
+    #             "level" : self.level,
+    #             "transferred_to_us" : self.transferred_to_us,
+    #             "transfer_shift" : self.transfer_shift,
+    #             "Status" : self.Status,
+    #             "chckbox_data" : self.chckbox_data,
+    #             }) 
+    #     return result
 
     def action_confirm_change_contact(self):
         for ddts in self:
