@@ -274,6 +274,9 @@ class ResPrtner(models.Model):
     def ompute_partner_id(self):
         print("self.partner_id@@@@@@@@@@@@@@@",self.partner_id)
         if self.partner_id and self.year:
+            self.Status = self.partner_id.Status
+            self.transferred_to_us = self.partner_id.transferred_to_us
+            self.transfer_shift = self.partner_id.transfer_shift
             duplicate_student = self.env["sale.order"].search([("partner_id","=",self.partner_id.id),("year","=",self.year.id)], limit=1)
             print("duplicate_student@@@@@@@@@@@@@@@@@@",duplicate_student)
             if duplicate_student:
