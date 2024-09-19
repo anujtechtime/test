@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+<template id="report_student_request_of_transferring_shifts_templates">
+         <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page"> 
+          
+                  <div class="">
+                
+                <div class=" text-right" id="informations">
+                  
+              
+                <div t-if="o" class="col-12" style="text-align : center;">
+                    <strong style="color : #000000;">السيد رئيس الجامعة المحترم السيد  </strong>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : center;">
+                    <strong style="color : #000000;">عميد الكلية المحترم  </strong>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : center;">
+                    <strong style="color : #000000;">م/ طلب استضافة  </strong>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">تحية طيبة </strong>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;"> 
+
+                يرجى التفضل بالموافقة على استضافتي من الدراسة ) المسائيه  ( الى الدراسة ) الصباحية (
+                   </strong>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">
+                للعام الدراسي .2025/2024
+                 </strong>
+                </div>
+                
+
+
+                <div class="col-12" style="margin-top: 10px; text-align : right;">
+                  اسم الطالب: <span t-field="o.name"/>
+                  
+              </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="text-align : right;">
+                    <strong style="color : #000000;">القسم :</strong> <span t-field="o.department" class="m-0"/>
+                    
+                </div>
+               
+                
+                
+                
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;"> المرحلة  : </strong><span t-field="o.level" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;"> نوع الدراسة :</strong> <span t-field="o.shift" class="m-0"/>
+                    
+                </div>
+                <div t-if="o" class="col-12" style="">
+                    <strong style="color : #000000;"> التاريخ  : </strong><t t-esc="datetime.datetime.today().strftime('%B %d, %Y')"/>
+
+                    
+                </div>
+            </div>
+            </div>
+
+
+            </div>
+        </t>
+       
+        
+            
+    </template>
+
+    <template id="report_student_request_of_transferring_shifts">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.lang or o.company_id.partner_id.lang"/>
+                <t t-call="almaaqal_request_transfering.report_student_request_of_transferring_shifts_templates" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>
