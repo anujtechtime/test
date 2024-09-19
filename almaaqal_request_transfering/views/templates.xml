@@ -1,9 +1,9 @@
 <odoo>
     <data>
 <template id="report_student_request_of_transferring_shifts_templates">
-         <t t-call="web.external_layout">
+          <t t-call="web.external_layout_clean_transfer">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
-            <div class="page"> 
+            <div class="page" style="font-size : 22px;"> 
           
                   <div class="">
                 
@@ -11,47 +11,43 @@
                   
               
                 <div t-if="o" class="col-12" style="text-align : center;">
-                    <strong style="color : #000000;">السيد رئيس الجامعة المحترم السيد  </strong>
+                    السيد رئيس الجامعة المحترم السيد  
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : center;">
-                    <strong style="color : #000000;">عميد الكلية المحترم  </strong>
+                  عميد الكلية المحترم  
                 </div>
 
-                <div t-if="o" class="col-12" style="text-align : center;">
-                    <strong style="color : #000000;">م/ طلب استضافة  </strong>
-                </div>
-
-                <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">تحية طيبة </strong>
+                <div t-if="o" class="col-12" style="text-align : center; margin-top :  50px;">
+                   م/ طلب استضافة  
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;"> 
-
-                يرجى التفضل بالموافقة على استضافتي من الدراسة ) المسائيه  ( الى الدراسة ) الصباحية (
-                   </strong>
+                   تحية طيبة 
                 </div>
 
-                <div t-if="o" class="col-12" style="text-align : right;">
-                    <strong style="color : #000000;">
+                <div t-if="o" class="col-12" style="text-align : right; direction : rtl;   margin-top :  20px;">
+                  
+              يرجى التفضل بالموافقة على استضافتي من الدراسة ( المسائيه  ) الى الدراسة  ( الصباحية  )
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
                 للعام الدراسي .2025/2024
-                 </strong>
                 </div>
                 
 
 
-                <div class="col-12" style="margin-top: 10px; text-align : right;">
+                <div class="col-12" style="margin-top: 50px; text-align : right;">
                   اسم الطالب: <span t-field="o.name"/>
                   
               </div>
 
-                <div t-if="o" class="col-12" style="text-align : right;">
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
                     <strong style="color : #000000;">الكلية  : </strong><span t-field="o.college" class="m-0"/>
                     
                 </div>
                 
-                <div t-if="o" class="col-12" style="text-align : right;">
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
                     <strong style="color : #000000;">القسم :</strong> <span t-field="o.department" class="m-0"/>
                     
                 </div>
@@ -59,18 +55,44 @@
                 
                 
                 
-                <div t-if="o" class="col-12" style="">
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
                     <strong style="color : #000000;"> المرحلة  : </strong><span t-field="o.level" class="m-0"/>
                     
                 </div>
                 
-                <div t-if="o" class="col-12" style="">
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
                     <strong style="color : #000000;"> نوع الدراسة :</strong> <span t-field="o.shift" class="m-0"/>
                     
                 </div>
-                <div t-if="o" class="col-12" style="">
-                    <strong style="color : #000000;"> التاريخ  : </strong><t t-esc="datetime.datetime.today().strftime('%B %d, %Y')"/>
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
+                    <strong style="color : #000000;"> التاريخ  : </strong><t t-esc="datetime.datetime.today().strftime('%d/%m/%Y')"/>
 
+                    
+                </div>
+                
+                <div t-if="o" class="row" style="direction : rtl; margin-top :  120px;">
+
+                <div  class="col-6" style="text-align : center;">
+                  قسم الشؤون المالية
+                </div>
+                
+                <div  class="col-6" style="text-align : center;">
+                  
+                قسم شؤون الطلبة
+                </div>
+                    
+                </div>
+                
+                <div t-if="o" class="row" style="direction : rtl; margin-top :  120px;">
+
+                <div  class="col-6" style="text-align : center;">
+                  رئيس الجامعة
+                </div>
+                
+                <div  class="col-6" style="text-align : center;">
+                  
+                 عميد الكلية 
+                </div>
                     
                 </div>
             </div>
@@ -79,7 +101,6 @@
 
             </div>
         </t>
-       
         
             
     </template>

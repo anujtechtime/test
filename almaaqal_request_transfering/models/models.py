@@ -1,18 +1,35 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api, _
+import base64
 
 
-# class almaaqal_request_transfering(models.Model):
-#     _name = 'almaaqal_request_transfering.almaaqal_request_transfering'
-#     _description = 'almaaqal_request_transfering.almaaqal_request_transfering'
+class almaaqal_request_transfering(models.Model):
+    _inherit = 'res.partner'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    def print_transfer(self):
+        # Generate PDF report
+        report = self.env.ref('almaaqal_request_transfering.report_payment_receipt_request_of_transferring')
+
+        pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+
+        # Convert PDF to base64
+        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+
+        # Create attachment
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Request_of_transferring_shift.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf'
+        })
+
+        self.message_post(
+            body="Request of transferring (PDF),",
+            attachment_ids=[attachment.id]
+        )
+
+
+        return self.env.ref('almaaqal_request_transfering.report_payment_receipt_request_of_transferring').report_action(self)   
