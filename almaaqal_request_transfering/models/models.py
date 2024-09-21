@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api, _
 import base64
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError, UserError
 
 
 class almaaqal_request_transfering(models.Model):
@@ -18,7 +18,7 @@ class almaaqal_request_transfering(models.Model):
         count = 0
         for inv in sale_ord.sale_installment_line_ids:
             if count == 0 and inv.payment_status != 'paid':
-                 raise UserError(_('First Installment is unpaid! '))
+                raise ValidationError(_('First Installment is unpaid!'))
             count = count + 1
 
         # Convert PDF to base64
