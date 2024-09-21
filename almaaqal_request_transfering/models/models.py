@@ -14,7 +14,7 @@ class almaaqal_request_transfering(models.Model):
 
         pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
 
-        sale_ord = self.env["sale.order"].search([("partner_id","=",self.id),("year","=",self.year)],limit=1)
+        sale_ord = self.env["sale.order"].search([("partner_id","=",self.id),("year","=",self.year.id)],limit=1)
         count = 0
         for inv in sale_ord.sale_installment_line_ids:
             if count == 0 and inv.payment_status != 'paid':
