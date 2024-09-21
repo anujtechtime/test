@@ -18,7 +18,7 @@ class almaaqal_request_transfering(models.Model):
         count = 0
         for inv in sale_ord.sale_installment_line_ids:
             if count == 0 and inv.payment_status != 'paid':
-                raise ValidationError('First Installment is unpaid!')
+                raise ValidationError('الدفعه الاولئ غير مدفوعه!')
             count = count + 1
 
         # Convert PDF to base64
