@@ -1,0 +1,83 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_request_transfering.list">
+      <field name="name">almaaqal_request_transfering list</field>
+      <field name="model">almaaqal_request_transfering.almaaqal_request_transfering</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+<report
+            id="report_payment_receipt_request_of_transferring"
+            model="res.partner"
+            string="طلب استضافة"
+            report_type="qweb-pdf"
+            name="almaaqal_request_transfering.report_student_request_of_transferring_shifts"
+            file="almaaqal_request_transfering.report_student_request_of_transferring_shifts"
+            menu="True"
+        />
+
+    <record id="ir_actions_server_sale_cart_request_of_transferring" model="ir.actions.server">
+        <field name="name">طلب استضافة </field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.print_transfer()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_request_transfering.action_window">
+      <field name="name">almaaqal_request_transfering window</field>
+      <field name="res_model">almaaqal_request_transfering.almaaqal_request_transfering</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_request_transfering.action_server">
+      <field name="name">almaaqal_request_transfering server</field>
+      <field name="model_id" ref="model_almaaqal_request_transfering_almaaqal_request_transfering"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_request_transfering" id="almaaqal_request_transfering.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_request_transfering.menu_1" parent="almaaqal_request_transfering.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_request_transfering.menu_2" parent="almaaqal_request_transfering.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_request_transfering.menu_1_list" parent="almaaqal_request_transfering.menu_1"
+              action="almaaqal_request_transfering.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_request_transfering" parent="almaaqal_request_transfering.menu_2"
+              action="almaaqal_request_transfering.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+<template id="report_student_request_of_transferring_shifts_templates">
+          <t t-call="web.external_layout_clean_transfer">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page" style="font-size : 22px;"> 
+                <t t-set="amount" t-value="0"/>
+          
+            <t t-foreach="request.env['account.move'].sudo().search([('partner_id','=',o.id),('year','=',o.year.id)], limit=1).invoice_line_ids" t-as="inv_line">
+                <t t-if="inv_line.product_id.id == 10">
+                    <t t-set="amount" t-value="inv_line.price_subtotal"/>
+                </t>
+            </t>
+            
+                  <div class="">
+                
+                <div class=" text-right" id="informations">
+                  
+              
+                <div t-if="o" class="col-12" style="text-align : center;">
+                    السيد رئيس الجامعة المحترم السيد  
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : center;">
+                  عميد الكلية المحترم  
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : center; margin-top :  50px;">
+                   م/ طلب استضافة  
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;">
+                   تحية طيبة 
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right; direction : rtl;   margin-top :  20px;">
+                  <t t-if="o.shift == 'afternoon'">
+                  يرجى التفضل بالموافقة على استضافتي من الدراسة ( المسائيه  ) الى الدراسة  ( الصباحية  )
+
+                  </t>
+                  
+                  <t t-if="o.shift == 'morning'">
+                  يرجى التفضل بالموافقة على استضافتي من الدراسة ( الصباحية  ) الى الدراسة  ( المسائيه  )
+                  </t>
+                  
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
+                للعام الدراسي <span t-field="o.year"/>
+                </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
+                مبلغ الاستضافة : <t t-esc="amount"  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </div>
+                
+
+
+                <div class="col-12" style="margin-top: 50px; text-align : right;">
+                  اسم الطالب: <span t-field="o.name"/>
+                  
+              </div>
+
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
+                   الكلية  : <span t-field="o.college" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
+                    القسم  : <span t-field="o.department" class="m-0"/>
+                    
+                </div>
+               
+                
+                
+                
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
+                     المرحلة  : <span t-field="o.level" class="m-0"/>
+                    
+                </div>
+                
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
+                     نوع الدراسة  : <span t-field="o.shift" class="m-0"/>
+                    
+                </div>
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
+                     التاريخ  : <t t-esc="datetime.datetime.today().strftime('%d/%m/%Y')"/>
+
+                    
+                </div>
+                
+                <div t-if="o" class="row" style="direction : rtl; margin-top :  120px;">
+
+                <div  class="col-6" style="text-align : center;">
+                  قسم الشؤون المالية
+                </div>
+                
+                <div  class="col-6" style="text-align : center;">
+                  
+                قسم شؤون الطلبة
+                </div>
+                    
+                </div>
+                
+                <div t-if="o" class="row" style="direction : rtl; margin-top :  120px;">
+
+                <div  class="col-6" style="text-align : center;">
+                  رئيس الجامعة
+                </div>
+                
+                <div  class="col-6" style="text-align : center;">
+                  
+                 عميد الكلية 
+                </div>
+                    
+                </div>
+            </div>
+            </div>
+
+
+            </div>
+        </t>
+        
+            
+    </template>
+
+    <template id="report_student_request_of_transferring_shifts">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.lang or o.company_id.partner_id.lang"/>
+                <t t-call="almaaqal_request_transfering.report_student_request_of_transferring_shifts_templates" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>
