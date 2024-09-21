@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 import base64
+from odoo.exceptions import UserError
 
 
 class almaaqal_request_transfering(models.Model):
@@ -12,6 +13,13 @@ class almaaqal_request_transfering(models.Model):
         report = self.env.ref('almaaqal_request_transfering.report_payment_receipt_request_of_transferring')
 
         pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+
+        sale_ord = self.env["sale.order"].search([("partner_id","=",self.id),("year","=",self.year)],limit=1)
+        count = 0
+        for inv in sale_ord.sale_installment_line_ids:
+            if count == 0 and inv.payment_status != 'paid':
+                 raise UserError(_('First Installment is unpaid! '))
+            count = count + 1
 
         # Convert PDF to base64
         pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
