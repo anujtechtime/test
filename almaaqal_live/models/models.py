@@ -6,7 +6,7 @@ class RespartnerLive(models.Model):
     _inherit = "res.partner"
 
     # attachment_ids_three = fields.One2many('ir.attachment', 'res_id', string='Attachments')
-    attachment_live = fields.Binary('Attachment')
+    attachment_live = fields.Binary('مرفق ملف للوافدين')
     attachment_name_live = fields.Char('Attachment Name')
 
     boolean_six = fields.Boolean("كتاب التصويب")

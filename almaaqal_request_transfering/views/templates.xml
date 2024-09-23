@@ -6,7 +6,7 @@
             <div class="page" style="font-size : 22px;"> 
                 <t t-set="amount" t-value="0"/>
           
-            <t t-foreach="inv_line" t-as="request.env['account.move'].sudo().search([('partner_id','=',o.id),('year','=',o.year.id)], limit=1).invoice_line_ids">
+            <t t-foreach="request.env['account.move'].sudo().search([('partner_id','=',o.id),('year','=',o.year.id)], limit=1).invoice_line_ids" t-as="inv_line">
                 <t t-if="inv_line.product_id.id == 10">
                     <t t-set="amount" t-value="inv_line.price_subtotal"/>
                 </t>
@@ -34,16 +34,23 @@
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : right; direction : rtl;   margin-top :  20px;">
+                  <t t-if="o.shift == 'afternoon'">
+                  يرجى التفضل بالموافقة على استضافتي من الدراسة ( المسائيه  ) الى الدراسة  ( الصباحية  )
+
+                  </t>
                   
-              يرجى التفضل بالموافقة على استضافتي من الدراسة ( المسائيه  ) الى الدراسة  ( الصباحية  )
+                  <t t-if="o.shift == 'morning'">
+                  يرجى التفضل بالموافقة على استضافتي من الدراسة ( الصباحية  ) الى الدراسة  ( المسائيه  )
+                  </t>
+                  
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
-                للعام الدراسي .<span t-field="o.year"/>
+                للعام الدراسي <span t-field="o.year"/>
                 </div>
 
                 <div t-if="o" class="col-12" style="text-align : right;  margin-top :  20px;">
-                مبلغ الاستضافة : <t t-esc="amount"/>
+                مبلغ الاستضافة : <t t-esc="amount"  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                 </div>
                 
 

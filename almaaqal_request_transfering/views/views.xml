@@ -17,7 +17,7 @@
 <report
             id="report_payment_receipt_request_of_transferring"
             model="res.partner"
-            string="Request Of Trasnferring"
+            string="طلب استضافة"
             report_type="qweb-pdf"
             name="almaaqal_request_transfering.report_student_request_of_transferring_shifts"
             file="almaaqal_request_transfering.report_student_request_of_transferring_shifts"
@@ -25,7 +25,7 @@
         />
 
     <record id="ir_actions_server_sale_cart_request_of_transferring" model="ir.actions.server">
-        <field name="name">Request Of Trasnferring Shift</field>
+        <field name="name">طلب استضافة </field>
         <field name="type">ir.actions.server</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="state">code</field>
