@@ -657,7 +657,7 @@ class RemarkGrade(models.Model):
     subject_to_arabic = fields.Char("Subject to arabic")
     subject_to_english = fields.Char("Subject to english")
 
-    serial = fields.Char("Serial")
+    serial_main = fields.Char("Serial Main")
     posted_date = fields.Date("Posted Date")
 
 
