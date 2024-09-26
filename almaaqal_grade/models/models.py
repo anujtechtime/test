@@ -166,8 +166,7 @@ class AlmaaqalGrade(models.Model):
         self.Status = 'posted'
         if not self.posted_date:
             self.posted_date = date.today()
-        serial = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
-        self.serial = serial
+        
 
     def buuton_status_change_draft(self):
         self.Status = 'draft'
@@ -217,6 +216,9 @@ class AlmaaqalGrade(models.Model):
 
         print("CCCCCCCCCCCCCCCC",self.env.user)
 
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial_main
+
         remard_id = self.remark.create({
             "attachment_filename" : "Arabic No Grade.pdf",
             "attachment_file" : pdf_base64,
@@ -224,6 +226,8 @@ class AlmaaqalGrade(models.Model):
             "serial" : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
+            'serial' : serial_main,
+            'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
         self.message_post(
@@ -264,6 +268,10 @@ class AlmaaqalGrade(models.Model):
             
         self.create_almaaqal_certificate(serial, tag)
 
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial_main
+
+
         remard_id = self.remark.create({
             "attachment_filename" : "Arabic With Grade.pdf",
             "attachment_file" : pdf_base64,
@@ -271,6 +279,9 @@ class AlmaaqalGrade(models.Model):
             'serial' : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
+            'serial' : serial_main,
+            'posted_date' : self.posted_date
+            
             })
         self.remark = [(4, remard_id.id)]
 
@@ -300,7 +311,10 @@ class AlmaaqalGrade(models.Model):
         tag = "English No Grade"
             
         self.create_almaaqal_certificate(serial, tag)
-        
+
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial_main
+
         remard_id = self.remark.create({
             "attachment_filename" : "English No Grade.pdf",
             "attachment_file" : pdf_base64,
@@ -308,6 +322,8 @@ class AlmaaqalGrade(models.Model):
             "serial" : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
+            'serial' : serial_main,
+            'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
         self.message_post(
@@ -349,6 +365,10 @@ class AlmaaqalGrade(models.Model):
             
         self.create_almaaqal_certificate(serial, tag)
 
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial_main
+
+
         remard_id = self.remark.create({
             "attachment_filename" : "English With Grade.pdf",
             "attachment_file" : pdf_base64,
@@ -356,6 +376,8 @@ class AlmaaqalGrade(models.Model):
             'serial' : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
+            'serial' : serial_main,
+            'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
 
@@ -634,6 +656,9 @@ class RemarkGrade(models.Model):
     serial = fields.Char("Serial")
     subject_to_arabic = fields.Char("Subject to arabic")
     subject_to_english = fields.Char("Subject to english")
+
+    serial = fields.Char("Serial")
+    posted_date = fields.Date("Posted Date")
 
 
 
