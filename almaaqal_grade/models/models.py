@@ -193,10 +193,37 @@ class AlmaaqalGrade(models.Model):
         report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate')
         print("self@@@@@@@@@@@@@",self.ids)
 
+        
+
+        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+        tag = "Arabic No Grade"
+            
+        self.create_almaaqal_certificate(serial, tag)
+        
+
+
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial_main
+
+        remard_id = self.remark.create({
+            "attachment_filename" : "Arabic No Grade.pdf",
+            "user_id" : self.env.user.id,
+            "serial" : serial,
+            'subject_to_arabic' : self.subject_to_arabic,
+            'subject_to_english' : self.subject_to_english,
+            'serial_main' : serial_main,
+            'posted_date' : self.posted_date
+            })
+        self.remark = [(4, remard_id.id)]
+
+
         pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
 
         # Convert PDF to base64
         pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+        remard_id.update({
+            "attachment_file" : pdf_base64,
+            })
 
         # Create attachment
         attachment = self.env['ir.attachment'].create({
@@ -208,28 +235,6 @@ class AlmaaqalGrade(models.Model):
             'mimetype': 'application/pdf'
         })
 
-        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
-        tag = "Arabic No Grade"
-            
-        self.create_almaaqal_certificate(serial, tag)
-        
-
-        print("CCCCCCCCCCCCCCCC",self.env.user)
-
-        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
-        self.serial = serial_main
-
-        remard_id = self.remark.create({
-            "attachment_filename" : "Arabic No Grade.pdf",
-            "attachment_file" : pdf_base64,
-            "user_id" : self.env.user.id,
-            "serial" : serial,
-            'subject_to_arabic' : self.subject_to_arabic,
-            'subject_to_english' : self.subject_to_english,
-            'serial_main' : serial_main,
-            'posted_date' : self.posted_date
-            })
-        self.remark = [(4, remard_id.id)]
         self.message_post(
             body="Arabic No Grade (PDF),",
             attachment_ids=[attachment.id]
