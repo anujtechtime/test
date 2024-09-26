@@ -27,7 +27,8 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'security/grade_security.xml'
+        'security/grade_security.xml',
+        'views/sequence.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
