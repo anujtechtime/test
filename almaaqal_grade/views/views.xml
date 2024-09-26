@@ -35,6 +35,16 @@
     <field name="number_increment">1</field>
 </record>
 
+<record id="arabic_nograde_model_serial" model="ir.sequence">
+    <field name="name">Arabic Nograde serial Sequence</field>
+    <field name="code">arabic.nogradeserial</field>
+    <field name="prefix">/3/12</field>
+    <field name="padding">5</field>
+    <field name="number_next_actual">501</field>
+    <field name="number_increment">1</field>
+</record>
+
+
 
 <record id="english_withgrade_model" model="ir.sequence">
     <field name="name">English Withgrade Sequence</field>
@@ -240,7 +250,7 @@
                     </group>
                     <group>
                     <field name="serial"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
-                    <field name="posted_date"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>
+                    <field name="posted_date"/>
                         <field name="subject_to_arabic"/>
                         <field name="subject_to_english"/>
                         <field name="gender"  attrs="{'readonly': [('Status', '!=', 'draft')]}"/>

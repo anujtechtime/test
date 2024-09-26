@@ -165,6 +165,8 @@ class AlmaaqalGrade(models.Model):
     def buuton_status_change(self):
         self.Status = 'posted'
         self.posted_date = date.today()
+        serial = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        self.serial = serial
 
     def buuton_status_change_draft(self):
         self.Status = 'draft'
