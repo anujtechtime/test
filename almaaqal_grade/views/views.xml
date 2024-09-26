@@ -782,7 +782,7 @@
                 <field name="serial"/>
                 <field name="subject_to_arabic"/>
                 <field name="subject_to_english"/>
-                <field name="serial"/>
+                <field name="serial_main"/>
                 <field name="posted_date"/>
                 
             </tree>

@@ -226,7 +226,7 @@ class AlmaaqalGrade(models.Model):
             "serial" : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
-            'serial' : serial_main,
+            'serial_main' : serial_main,
             'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
@@ -279,7 +279,7 @@ class AlmaaqalGrade(models.Model):
             'serial' : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
-            'serial' : serial_main,
+            'serial_main' : serial_main,
             'posted_date' : self.posted_date
             
             })
@@ -322,7 +322,7 @@ class AlmaaqalGrade(models.Model):
             "serial" : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
-            'serial' : serial_main,
+            'serial_main' : serial_main,
             'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
@@ -376,7 +376,7 @@ class AlmaaqalGrade(models.Model):
             'serial' : serial,
             'subject_to_arabic' : self.subject_to_arabic,
             'subject_to_english' : self.subject_to_english,
-            'serial' : serial_main,
+            'serial_main' : serial_main,
             'posted_date' : self.posted_date
             })
         self.remark = [(4, remard_id.id)]
