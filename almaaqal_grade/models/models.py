@@ -164,7 +164,8 @@ class AlmaaqalGrade(models.Model):
     # @api.onchange('Status')
     def buuton_status_change(self):
         self.Status = 'posted'
-        self.posted_date = date.today()
+        if not self.posted_date:
+            self.posted_date = date.today()
         serial = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
         self.serial = serial
 
