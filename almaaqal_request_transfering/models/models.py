@@ -1,8 +1,24 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+
+from odoo import models, fields, api , _ 
+from odoo.exceptions import UserError, ValidationError
+import logging
 import base64
-from odoo.exceptions import ValidationError, UserError
+from pdf2image import convert_from_path
+from PIL import Image 
+from datetime import date, datetime, timedelta
+
+import json
+import base64
+import xlwt
+from dateutil.relativedelta import relativedelta
+import io
+from lxml import etree
+from datetime import date, datetime, timedelta
+import html2text
+
+_logger = logging.getLogger(__name__)
 
 
 class almaaqal_request_transfering(models.Model):
