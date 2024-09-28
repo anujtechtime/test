@@ -119,11 +119,34 @@ class almaaqal_request_transfering(models.Model):
         level = ""
         shift = ""
         year = ""
+        depp = ""
+        shift_name = ""
+
         for dep in self:
             if count == 0:
-                deptmt = dep.department.department
-                level = dep.level
+                
+                lev = dep.level
                 shift = dep.shift
+
+                if lev == 'leve1':
+                    depp = 'المرحلة الاولى'
+                if lev == 'level2':
+                    depp = 'المرحلة الثانية'
+                if lev == 'level3':
+                    depp = 'المرحلة الثالثة'
+                if lev == 'level4':
+                    depp = 'المرحلة الرابعة'
+                if lev == 'level5':
+                    depp = 'المرحلة الخامسة'
+
+                if shift == 'morning':
+                    shift_name = 'صباحي'
+                if shift == 'afternoon':    
+                    shift_name = 'مسائي'
+
+                deptmt = dep.department.department
+                level = depp
+                shift = shift_name
                 year = dep.year.year
             count = count + 1
 

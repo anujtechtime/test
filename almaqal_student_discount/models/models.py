@@ -175,6 +175,32 @@ class ResPrtner(models.Model):
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
+
+                perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id)])
+
+        multi_level = perviously_failed_student.mapped("level")
+
+        multi_level.pop(0)
+
+
+        print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
+        if result.contains_duplicate(multi_level):
+            for yrs in perviously_failed_student[1]:
+                print("yrs.year@@@@@@@@@@",yrs.year.year)
+                print("yrs.id@@@@@@@@@@",yrs.id)
+                result.installment_amount = yrs.installment_amount
+                for i in yrs.sale_installment_line_ids:
+                    installment = result.sale_installment_line_ids.create({
+                    'number' : i.number,
+                    'payment_date' : i.payment_date + relativedelta(years=1),
+                    'amount_installment' : i.amount_installment,
+                    'description': 'Installment Payment',
+                    'sale_installment_id' : result.id,
+                    # "invoice_id" : invoice_id.id
+                    })
+            return result        
+
+
         if failed_student:
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
@@ -249,6 +275,8 @@ class ResPrtner(models.Model):
             # if count == 0:
             #     result.amount = d.amount_installment
             #     count = count + 1
+
+
 
         return result
 
