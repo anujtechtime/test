@@ -176,7 +176,7 @@ class ResPrtner(models.Model):
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
 
-                perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id)])
+        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id)])
 
         multi_level = perviously_failed_student.mapped("level")
 
