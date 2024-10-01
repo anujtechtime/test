@@ -373,19 +373,24 @@ class DataMphine(models.Model):
         worksheet.write(0, 0, 'الكلية / القسم', header_bold) #Department
         worksheet.write(0, 1, 'المرحلة الدراسية', header_bold) #level
         worksheet.write(0, 2, 'نوع الدراسة', header_bold) #Shift
-        worksheet.write(0, 3, 'الطلبة المقبولين/المسجلين', header_bold)  #Current students
-        worksheet.write(0, 4, 'طالب غير مباشر', header_bold) #Status 3
-        worksheet.write(0, 5, 'الطلبة المنسحبين', header_bold) #status 4
-        worksheet.write(0, 6, 'مؤجلين  الطلبة المرقنين', header_bold) #status 2
-        worksheet.write(0, 7, 'الطلبة الراسبين', header_bold) #failed
-        worksheet.write(0, 8, 'نقل من الجامعة', header_bold) #trasferred from us
-        worksheet.write(0, 9, 'نقل الى الجامعة', header_bold) #trasferred to us
-        worksheet.write(0, 10, 'استضافة من الجامعة', header_bold) #new field
-        worksheet.write(0, 11, 'استضافة الى الجامعة', header_bold) #new field
-        worksheet.write(0, 12, 'الطلبة الفعليين', header_bold) #remaning status exept last 3 status- current students
+
+        worksheet.write(0, 3, 'All students', header_bold) #Shift
+
+
+
+        worksheet.write(0, 4, 'الطلبة المقبولين/المسجلين', header_bold)  #Current students
+        worksheet.write(0, 5, 'طالب غير مباشر', header_bold) #Status 3
+        worksheet.write(0, 6, 'الطلبة المنسحبين', header_bold) #status 4
+        worksheet.write(0, 7, 'مؤجلين  الطلبة المرقنين', header_bold) #status 2
+        worksheet.write(0, 8, 'الطلبة الراسبين', header_bold) #failed
+        worksheet.write(0, 9, 'نقل من الجامعة', header_bold) #trasferred from us
+        worksheet.write(0, 10, 'نقل الى الجامعة', header_bold) #trasferred to us
+        worksheet.write(0, 11, 'استضافة من الجامعة', header_bold) #new field
+        worksheet.write(0, 12, 'استضافة الى الجامعة', header_bold) #new field
+        worksheet.write(0, 13, 'الطلبة الفعليين', header_bold) #remaning status exept last 3 status- current students
         
 
-        colld = 13
+        colld = 14
         for ddts in data_one:
             worksheet.write(0, colld, ddts.name, header_bold) #data_one
             colld = colld + 1
@@ -414,6 +419,8 @@ class DataMphine(models.Model):
                 elif dept.department not in  ("طب الاسنان", "الصيدلة"):
                     worksheet.write_merge(row, row + 7, 0, 0, dept.department, main_cell_total)
                 total_of_currecnt = 0
+
+                total_of_all_status = 0
 
                 total_of_status_2 = 0
                 total_of_status_4 = 0
@@ -466,6 +473,8 @@ class DataMphine(models.Model):
 
                             worksheet.write(row, 2, shift_name or '', main_cell_total)
 
+                            all_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift)
+
                             currecnt_status_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "currecnt_student")
 
                             status_2_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "status2")
@@ -480,56 +489,61 @@ class DataMphine(models.Model):
                             transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transfer_shift == True)
                             print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
                             print("row@@@@@@@@@@@@@@@",row)
-                            worksheet.write(row, 3, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
+
+                            worksheet.write(row, 3, len(all_status_data.mapped('id')) or '', main_cell_total)
+
+                            total_of_all_status = total_of_all_status + len(all_status_data.mapped('id')) 
+
+                            worksheet.write(row, 4, len(currecnt_status_data.mapped('id')) or '', main_cell_total)
 
                             total_of_currecnt = total_of_currecnt + len(currecnt_status_data.mapped('id'))
 
 
-                            worksheet.write(row, 4, len(status_2_data.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 5, len(status_2_data.mapped('id')) or '', main_cell_total)
 
                             total_of_status_2 = total_of_status_2 + len(status_2_data.mapped('id'))
 
-                            worksheet.write(row, 5, len(status_4_data.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 6, len(status_4_data.mapped('id')) or '', main_cell_total)
 
                             total_of_status_4 = total_of_status_4 + len(status_4_data.mapped('id'))
-                            worksheet.write(row, 6, len(status_5_data.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 7, len(status_5_data.mapped('id')) or '', main_cell_total)
 
                             total_of_status_5 = total_of_status_5 + len(status_5_data.mapped('id'))
 
 
 
-                            worksheet.write(row, 7, len(failed.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 8, len(failed.mapped('id')) or '', main_cell_total)
 
                             total_of_failed = total_of_failed + len(failed.mapped('id'))
 
 
 
-                            worksheet.write(row, 8, len(transferred_from_us.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 9, len(transferred_from_us.mapped('id')) or '', main_cell_total)
                             total_transferred_from_us = total_transferred_from_us + len(transferred_from_us.mapped('id'))
 
-                            worksheet.write(row, 9, len(transferred_to_us.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 10, len(transferred_to_us.mapped('id')) or '', main_cell_total)
                             total_transferred_to_us = total_transferred_to_us + len(transferred_to_us.mapped('id'))
 
                             field_one_1 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.field_one_1 == True) 
-                            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 11, len(field_one_1.mapped('id')) or '', main_cell_total)
                             total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
                             
                             fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.fields_one_2 == True)
-                            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 12, len(fields_one_2.mapped('id')) or '', main_cell_total)
 
                             total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
 
-                            last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id')) + len(failed.mapped('id')) + len(transferred_from_us.mapped('id')) - len(transferred_to_us.mapped('id')) + len(field_one_1.mapped('id')) - len(fields_one_2.mapped('id'))
+                            last_three_status = len(status_2_data.mapped('id')) + len(status_4_data.mapped('id')) + len(status_5_data.mapped('id')) + len(failed.mapped('id'))
 
                             total_of_all = len(currecnt_status_data.mapped('id')) - last_three_status
 
                             total_total_of_all = total_total_of_all + total_of_all
 
 
-                            worksheet.write(row, 12, total_of_all or '', main_cell_total)
+                            worksheet.write(row, 13, total_of_all or '', main_cell_total)
 
                             total_of_data_one = 0
-                            colld = 13
+                            colld = 14
                             for ddts in data_one:
                                 data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.Status == "currecnt_student")  
                                 # data_one_data_fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.fields_one_2 == True and picking.transferred_to_us == True and picking.Status == "currecnt_student" and picking.transfer_shift == False)  
@@ -554,18 +568,21 @@ class DataMphine(models.Model):
 
                 # worksheet.write(row, 0, )
                 worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)  
-                worksheet.write(row, 3, total_of_currecnt, main_cell_total_of_total)
 
-                worksheet.write(row, 4, total_of_status_2, main_cell_total_of_total)
-                worksheet.write(row, 5, total_of_status_4, main_cell_total_of_total)
-                worksheet.write(row, 6, total_of_status_5, main_cell_total_of_total)
-                worksheet.write(row, 7, total_of_failed, main_cell_total_of_total)
-                worksheet.write(row, 8, total_transferred_from_us, main_cell_total_of_total)
-                worksheet.write(row, 9, total_transferred_to_us, main_cell_total_of_total)
-                worksheet.write(row, 10, total_field_one_1, main_cell_total_of_total)
-                worksheet.write(row, 11, total_fields_one_2, main_cell_total_of_total)
-                worksheet.write(row, 12, total_total_of_all, main_cell_total_of_total)
-                colld = 13
+                worksheet.write(row, 3, total_of_all_status, main_cell_total_of_total)
+
+                worksheet.write(row, 4, total_of_currecnt, main_cell_total_of_total)
+
+                worksheet.write(row, 5, total_of_status_2, main_cell_total_of_total)
+                worksheet.write(row, 6, total_of_status_4, main_cell_total_of_total)
+                worksheet.write(row, 7, total_of_status_5, main_cell_total_of_total)
+                worksheet.write(row, 8, total_of_failed, main_cell_total_of_total)
+                worksheet.write(row, 9, total_transferred_from_us, main_cell_total_of_total)
+                worksheet.write(row, 10, total_transferred_to_us, main_cell_total_of_total)
+                worksheet.write(row, 11, total_field_one_1, main_cell_total_of_total)
+                worksheet.write(row, 12, total_fields_one_2, main_cell_total_of_total)
+                worksheet.write(row, 13, total_total_of_all, main_cell_total_of_total)
+                colld = 14
                 for ddts in data_one:
                     ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
                     worksheet.write(row, colld,len(ttl_data_one_data.mapped("id")) , main_cell_total_of_total)
@@ -598,6 +615,9 @@ class DataMphine(models.Model):
 
             worksheet.write(row, 1, lev_1 or '', main_cell_total)
             worksheet.write(row, 2, "صباحي / مسائي" or '', main_cell_total)
+
+            all_status_data_1 = self.filtered(lambda picking:picking.level == lev)
+
             currecnt_status_data_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'currecnt_student')
 
             status_2_data_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'status2') 
@@ -610,27 +630,30 @@ class DataMphine(models.Model):
 
             transferred_to_us_1 =  self.filtered(lambda picking:picking.level == lev and picking.transferred_to_us == True)
             transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.transfer_shift == True) 
-            worksheet.write(row, 3, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
 
-            worksheet.write(row, 4, len(status_2_data_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 3, len(all_status_data_1.mapped('id')) or '', main_cell_total)
 
-            worksheet.write(row, 5, len(status_4_data_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 4, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
 
-            worksheet.write(row, 6, len(status_5_data_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 5, len(status_2_data_1.mapped('id')) or '', main_cell_total)
 
-            worksheet.write(row, 7, len(failed_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 6, len(status_4_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 7, len(status_5_data_1.mapped('id')) or '', main_cell_total)
+
+            worksheet.write(row, 8, len(failed_1.mapped('id')) or '', main_cell_total)
 
 
-            worksheet.write(row, 8, len(transferred_from_us_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 9, len(transferred_from_us_1.mapped('id')) or '', main_cell_total)
 
-            worksheet.write(row, 9, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 10, len(transferred_to_us_1.mapped('id')) or '', main_cell_total)
 
             field_one_1 =  self.filtered(lambda picking:picking.level == lev and picking.field_one_1 == True) 
-            worksheet.write(row, 10, len(field_one_1.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 11, len(field_one_1.mapped('id')) or '', main_cell_total)
             total_field_one_1 = total_field_one_1 + len(field_one_1.mapped('id'))
             
             fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.fields_one_2 == True) 
-            worksheet.write(row, 11, len(fields_one_2.mapped('id')) or '', main_cell_total)
+            worksheet.write(row, 12, len(fields_one_2.mapped('id')) or '', main_cell_total)
 
             total_fields_one_2 = total_fields_one_2 + len(fields_one_2.mapped('id'))
 
@@ -640,11 +663,11 @@ class DataMphine(models.Model):
             total_of_all_1 = len(currecnt_status_data_1.mapped('id')) - last_three_status_1
 
 
-            worksheet.write(row, 12, total_of_all_1 or '', main_cell_total)
+            worksheet.write(row, 13, total_of_all_1 or '', main_cell_total)
 
 
             total_of_data_one_1 = 0
-            colld = 13
+            colld = 14
             for ddts in data_one:
                 data_one_data_1 = self.filtered(lambda picking:picking.level == lev and picking.data_one.id == ddts.id) 
                 worksheet.write(row, colld, len(data_one_data_1.mapped("id")), main_cell_total) #data_one
@@ -677,27 +700,30 @@ class DataMphine(models.Model):
         transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
 
         worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
-        worksheet.write(row, 3, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
 
-        worksheet.write(row, 4, len(status_2_data_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 3, len(self.mapped('id')) or '', main_cell_total_of_total)
 
-        worksheet.write(row, 5, len(status_4_data_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 4, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
 
-        worksheet.write(row, 6, len(status_5_data_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 5, len(status_2_data_2.mapped('id')) or '', main_cell_total_of_total)
 
-        worksheet.write(row, 7, len(failed_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 6, len(status_4_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 7, len(status_5_data_2.mapped('id')) or '', main_cell_total_of_total)
+
+        worksheet.write(row, 8, len(failed_2.mapped('id')) or '', main_cell_total_of_total)
 
 
-        worksheet.write(row, 8, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 9, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
 
-        worksheet.write(row, 9, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 10, len(transferred_to_us_2.mapped('id')) or '', main_cell_total_of_total)
 
 
         field_one_1_2 = self.filtered(lambda picking:picking.field_one_1 == True)
-        worksheet.write(row, 10, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 11, len(field_one_1_2.mapped('id')) or '', main_cell_total_of_total)
         
         fields_one_2_2 =  self.filtered(lambda picking:picking.fields_one_2 == True)
-        worksheet.write(row, 11, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
+        worksheet.write(row, 12, len(fields_one_2_2.mapped('id')) or '', main_cell_total_of_total)
 
 
 
@@ -707,11 +733,11 @@ class DataMphine(models.Model):
         total_of_all_2 = len(currecnt_status_data_2.mapped('id')) - last_three_status_2
 
 
-        worksheet.write(row, 12, total_of_all_2 or '', main_cell_total_of_total)
+        worksheet.write(row, 13, total_of_all_2 or '', main_cell_total_of_total)
 
 
         total_of_data_one_2 = 0
-        colld = 13
+        colld = 14
         for ddts in data_one:
             data_one_data_2 = self.filtered(lambda picking:picking.data_one.id == ddts.id)
             worksheet.write(row, colld, len(data_one_data_2.mapped("id")), main_cell_total_of_total) #data_one
