@@ -323,7 +323,7 @@ class DataMphine(models.Model):
 
 
 
-def send_mis_report_sale_student_data_report(self):  
+    def send_mis_report_sale_student_data_report(self):  
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
@@ -808,10 +808,7 @@ def send_mis_report_sale_student_data_report(self):
 
 
     def get_college_data(self):
-        print("self################",self)
-        print("request@@@@@@@@@@@@@@@",request)
         dct = {}
-
         college_value = request.env["faculty.faculty"].sudo().search([])
         print("college_value@@@@@@@@@@",college_value)
         dicts = []
