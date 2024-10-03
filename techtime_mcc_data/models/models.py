@@ -323,7 +323,7 @@ class DataMphine(models.Model):
 
 
 
-    def send_mis_report_sale_student_data_report(self):  
+def send_mis_report_sale_student_data_report(self):  
         filename = 'جدول الاحصاء الصباحي.xls'
         string = 'جدول الاحصاء الصباحي.xls'
         wb = xlwt.Workbook(encoding='utf-8')
@@ -550,7 +550,7 @@ class DataMphine(models.Model):
                             total_total_of_all = total_total_of_all + total_of_all
 
 
-                            worksheet.write(row, 14, total_of_all or '', main_cell_total)
+                            worksheet.write(row, 14, len(currecnt_status_data.mapped('id')), main_cell_total)
 
                             total_of_data_one = 0
                             colld = 15
@@ -592,7 +592,7 @@ class DataMphine(models.Model):
                 worksheet.write(row, 11, total_transferred_to_us, main_cell_total_of_total)
                 worksheet.write(row, 12, total_field_one_1, main_cell_total_of_total)
                 worksheet.write(row, 13, total_fields_one_2, main_cell_total_of_total)
-                worksheet.write(row, 14, total_total_of_all, main_cell_total_of_total)
+                worksheet.write(row, 14, total_of_currecnt, main_cell_total_of_total)
                 colld = 15
                 for ddts in data_one:
                     ttl_data_one_data = self.filtered(lambda picking:picking.department.id == dept.id and picking.data_one.id == ddts.id)
@@ -678,7 +678,7 @@ class DataMphine(models.Model):
             total_of_all_1 = len(all_status_data_1.mapped('id')) - last_three_status_1
 
 
-            worksheet.write(row, 14, total_of_all_1 or '', main_cell_total)
+            worksheet.write(row, 14, len(currecnt_status_data_1.mapped('id')) or '', main_cell_total)
 
 
             total_of_data_one_1 = 0
@@ -754,7 +754,7 @@ class DataMphine(models.Model):
         total_of_all_2 = len(self.mapped('id')) - last_three_status_2
 
 
-        worksheet.write(row, 14, total_of_all_2 or '', main_cell_total_of_total)
+        worksheet.write(row, 14, len(currecnt_status_data_2.mapped('id')) or '', main_cell_total_of_total)
 
 
         total_of_data_one_2 = 0
