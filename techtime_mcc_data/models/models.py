@@ -509,7 +509,7 @@ class DataMphine(models.Model):
 
                             total_of_status_2 = total_of_status_2 + len(status_2_data.mapped('id'))
 
-                            worksheet.write(row, 6, len(status__3data.mapped('id')) or '', main_cell_total)
+                            worksheet.write(row, 6, len(status_3_data.mapped('id')) or '', main_cell_total)
 
                             total_of_status_3 = total_of_status_3 + len(status_3_data.mapped('id'))
                             worksheet.write(row, 7, len(status_5_data.mapped('id')) or '', main_cell_total)
