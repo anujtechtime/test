@@ -639,6 +639,18 @@ class PaymentValue(models.Model):
                     row = row + 1
                     date_check = rest.payment_date
                     count = count + 1
+                elif  rest.state == "cancelled" and rest.payment_date ==  date_check or date_check == "":
+                    worksheet.write(row, 0, count,main_cell_total)
+                    worksheet.write(row, 1, rest.payment_date.strftime('%m/%d/%Y'),main_cell_total)
+                    worksheet.write(row, 2, rest.name,main_cell_total)
+                    worksheet.write(row, 3, rest.partner_id.name , main_cell_total)
+                    worksheet.write(row, 4, '', main_cell_total)
+                    worksheet.write(row, 5, '', main_cell_total)
+                    worksheet.write(row, 6, "ملغي", main_cell_total)
+                    # tota_of_amount = tota_of_amount + int(inv.amount_total)
+                    row = row + 1
+                    date_check = rest.payment_date
+                    count = count + 1
                 else:
                     worksheet.write_merge(row, row, 0, 3, "المجموع الكلي", header_bold)
                     worksheet.write(row, 4, '{:,}'.format(int(totl_amount)),header_bold)
