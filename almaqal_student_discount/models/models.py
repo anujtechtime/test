@@ -188,19 +188,20 @@ class ResPrtner(models.Model):
 
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
-            for yrs in perviously_failed_student[1]:
-                print("yrs.year@@@@@@@@@@",yrs.year.year)
-                print("yrs.id@@@@@@@@@@",yrs.id)
-                result.installment_amount = yrs.installment_amount
-                for i in yrs.sale_installment_line_ids:
-                    installment = result.sale_installment_line_ids.create({
-                    'number' : i.number,
-                    'payment_date' : i.payment_date + relativedelta(years=1),
-                    'amount_installment' : i.amount_installment,
-                    'description': 'Installment Payment',
-                    'sale_installment_id' : result.id,
-                    # "invoice_id" : invoice_id.id
-                    })
+            instamm_ment_details = self.env["installment.details"].search([('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('department','=',result.partner_id.department.id)], limit=1)
+            for years in instamm_ment_details:
+                if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
+                    print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
+                    result.installment_amount = yrs.installment_amount
+                    for i in years.sale_installment_line_ids:
+                        installment = result.sale_installment_line_ids.create({
+                        'number' : i.number,
+                        'payment_date' : i.payment_date + relativedelta(years=1),
+                        'amount_installment' : i.amount_installment,
+                        'description': 'Installment Payment',
+                        'sale_installment_id' : result.id,
+                        })
+
             return result        
 
 
@@ -364,9 +365,10 @@ class ResPartnerSeq(models.Model):
 
     def add_sequence(self):
         for sstd in self:
-            sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
-            shift = 1 if sstd.shift == "morning" else 2
-            sstd.college_number = str(sstd.year_of_acceptance_1.name)[-2:] + str(sstd.college.code) + str(sstd.department.code) + str(shift) + str(sequence_res)
+            if sstd.college and sstd.year_of_acceptance_1 and sstd.department: 
+                sequence_res = self.env['ir.sequence'].next_by_code('res.sequence')
+                shift = 1 if sstd.shift == "morning" else 2
+                sstd.college_number = str(sstd.year_of_acceptance_1.name)[-2:] + str(sstd.college.code) + str(sstd.department.code) + str(shift) + str(sequence_res)
 
 
 

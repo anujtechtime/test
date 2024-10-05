@@ -731,9 +731,7 @@ class DataMphine(models.Model):
 
         worksheet.write(row, 8, len(status_5_data_2.mapped('id')) or '', main_cell_total_of_total)
 
-
         worksheet.write(row, 9, len(failed_2.mapped('id')) or '', main_cell_total_of_total)
-
 
         worksheet.write(row, 10, len(transferred_from_us_2.mapped('id')) or '', main_cell_total_of_total)
 
