@@ -190,7 +190,7 @@ class ResPrtner(models.Model):
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
-            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id)],limit=1)
+            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id)])
             for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
