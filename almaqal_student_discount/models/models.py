@@ -195,7 +195,7 @@ class ResPrtner(models.Model):
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
-                    result.installment_amount = years.installment_amount
+                    result.installment_amount = years.installment
                     for i in years.sale_installment_line_ids:
                         installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
