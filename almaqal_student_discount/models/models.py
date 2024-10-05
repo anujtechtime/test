@@ -188,11 +188,11 @@ class ResPrtner(models.Model):
 
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
-            instamm_ment_details = self.env["installment.details"].search([('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('department','=',result.partner_id.department.id)], limit=1)
-            for years in instamm_ment_details:
+            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id)],limit=1)
+            for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
-                    result.installment_amount = yrs.installment_amount
+                    result.installment_amount = years.installment_amount
                     for i in years.sale_installment_line_ids:
                         installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
