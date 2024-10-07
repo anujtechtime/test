@@ -184,13 +184,17 @@ class ResPrtner(models.Model):
         multi_level = perviously_failed_student.mapped("level")
 
         multi_level.pop(0)
-
+        student_id = 0
 
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
-            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',result.student.id)])
+            if result.student.id == 7:
+                student_id = 8
+            else:
+                student_id = result.student.id
+            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",result.level),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id)])
             for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
@@ -204,7 +208,6 @@ class ResPrtner(models.Model):
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
                         })
-
             return result        
 
 
