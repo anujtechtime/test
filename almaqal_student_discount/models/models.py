@@ -175,6 +175,7 @@ class ResPrtner(models.Model):
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
+        nearest_date = 0
         if failed_student:
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
