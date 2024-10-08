@@ -168,6 +168,9 @@ class ResPrtner(models.Model):
             if lin.order_line:
                 lin.order_line.price_unit = lin.installment_amount
 
+    def contains_duplicate(self, lst):
+        return len(lst) != len(set(lst))  
+
     @api.model
     def create(self, vals):
         result = super(ResPrtner, self).create(vals)
