@@ -191,7 +191,7 @@ class ResPrtner(models.Model):
 
                 installment = result.sale_installment_line_ids.create({
                 'number' : i.number,
-                'payment_date' : nearest_date if nearest_date else i.payment,
+                'payment_date' : nearest_date if nearest_date else i.payment_date,
                 'amount_installment' : i.amount_installment,
                 'description': 'Installment Payment',
                 'sale_installment_id' : result.id,
