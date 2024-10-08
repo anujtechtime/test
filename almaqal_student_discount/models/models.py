@@ -176,6 +176,38 @@ class ResPrtner(models.Model):
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         nearest_date = 0
+
+        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id)])
+
+        multi_level = perviously_failed_student.mapped("level")
+
+        multi_level.pop(0)
+        student_id = 0
+
+        print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
+        _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
+        if result.contains_duplicate(multi_level):
+            _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
+            if result.student.id == 7:
+                student_id = 8
+            else:
+                student_id = result.student.id
+            installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id)])
+            for years in installmet_datsstd:
+                if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
+                    _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
+                    print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
+                    result.installment_amount = years.installment
+                    for i in years.sale_installment_line_ids:
+                        installment = result.sale_installment_line_ids.create({
+                        'number' : i.number,
+                        'payment_date' : i.payment_date + relativedelta(years=1),
+                        'amount_installment' : i.amount_installment,
+                        'description': 'Installment Payment',
+                        'sale_installment_id' : result.id,
+                        })
+            return result        
+
         if failed_student:
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
