@@ -202,17 +202,19 @@ class ResPrtner(models.Model):
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
                     result.installment_amount = years.installment
                     
+
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
-                    dates = payemnt_date
-                    target_date = years.payment_date
-                    differences = [abs(target_date - date) for date in dates]
-                    if differences:
-                        nearest_index = differences.index(min(differences))
-                        nearest_date = dates[nearest_index]
-                        print(nearest_date)
+                    
 
                     for i in years.sale_installment_line_ids:
+                        dates = payemnt_date
+                        target_date = i.payment_date
+                        differences = [abs(target_date - date) for date in dates]
+                        if differences:
+                            nearest_index = differences.index(min(differences))
+                            nearest_date = dates[nearest_index]
+                            print(nearest_date)
                         installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
                         'payment_date' : nearest_date if nearest_date else i.payment_date,
