@@ -214,6 +214,16 @@ class ResPrtner(models.Model):
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
                         })
+            result.second_payment_date = datetime.today().date()
+            order_line = result.env['sale.order.line'].create({
+                'product_id': 1,
+                'price_unit': result.installment_amount,
+                'product_uom': result.env.ref('uom.product_uom_unit').id,
+                'product_uom_qty': 1,
+                'order_id': result._origin.id,
+                'name': 'sales order line',
+            })
+                        
             return result        
 
         if failed_student:
@@ -280,7 +290,7 @@ class ResPrtner(models.Model):
             'order_id': result._origin.id,
             'name': 'sales order line',
         })
-        
+
         if installmet_dat:
             print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
             result.tenure_month = installmet_dat.installment_number
