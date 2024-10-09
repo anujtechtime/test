@@ -201,10 +201,13 @@ class ResPrtner(models.Model):
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
                     result.installment_amount = years.installment
+                    subt = int(result.year.year[-4:]) - int(result.partner_id.year_of_acceptance_1.name[-4:])
+                    print("subt@@@@@@@@@@@@@@@@@",subt)
+                    _logger.info("subtsubtsubtsubtsubt@@@@@@@@@@%s" %subt)
                     for i in years.sale_installment_line_ids:
                         installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
-                        'payment_date' : i.payment_date + relativedelta(years=1),
+                        'payment_date' : i.payment_date + relativedelta(years=subt),
                         'amount_installment' : i.amount_installment,
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
