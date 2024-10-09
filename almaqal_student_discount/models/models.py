@@ -206,23 +206,16 @@ class ResPrtner(models.Model):
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
                     
-
+                    count_no = 0
                     for i in years.sale_installment_line_ids:
-                        dates = payemnt_date
-                        target_date = i.payment_date
-                        differences = [abs(target_date - date) for date in dates]
-                        if differences:
-                            nearest_index = differences.index(min(differences))
-                            nearest_date = dates[nearest_index]
-                            print(nearest_date)
                         installment = result.sale_installment_line_ids.create({
                         'number' : i.number,
-                        'payment_date' : nearest_date if nearest_date else i.payment_date,
+                        'payment_date' : payemnt_date[count_no] if payemnt_date else i.payment_date,
                         'amount_installment' : i.amount_installment,
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
                         })
-                        payemnt_date.remove(nearest_date)    
+                        count_no = count_no + 1  
             result.second_payment_date = datetime.today().date()
             order_line = result.env['sale.order.line'].create({
                 'product_id': 1,
