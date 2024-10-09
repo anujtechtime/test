@@ -186,6 +186,7 @@ class ResPrtner(models.Model):
         multi_level.pop(0)
         student_id = 0
 
+
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
@@ -266,22 +267,31 @@ class ResPrtner(models.Model):
                         result.amount = ('{:,}'.format(i.amount_installment))
                         count = count + 1        
 
-        if installmet_dat:
-            print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
-            # for datts in installmet_dat.sale_installment_line_ids:
-            # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
+        result.second_payment_date = datetime.today().date()
+        order_line = result.env['sale.order.line'].create({
+            'product_id': 1,
+            'price_unit': result.installment_amount,
+            'product_uom': result.env.ref('uom.product_uom_unit').id,
+            'product_uom_qty': 1,
+            'order_id': result._origin.id,
+            'name': 'sales order line',
+        })
+        # if installmet_dat:
+        #     print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
+        #     # for datts in installmet_dat.sale_installment_line_ids:
+        #     # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
             
-            # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
-            result.tenure_month = installmet_dat.installment_number
-            result.second_payment_date = datetime.today().date()
-            order_line = result.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': result.installment_amount,
-                'product_uom': result.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': result._origin.id,
-                'name': 'sales order line',
-            })
+        #     # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
+        #     result.tenure_month = installmet_dat.installment_number
+        #     result.second_payment_date = datetime.today().date()
+        #     order_line = result.env['sale.order.line'].create({
+        #         'product_id': 1,
+        #         'price_unit': result.installment_amount,
+        #         'product_uom': result.env.ref('uom.product_uom_unit').id,
+        #         'product_uom_qty': 1,
+        #         'order_id': result._origin.id,
+        #         'name': 'sales order line',
+        #     })
             # if count == 0:
             #     result.amount = d.amount_installment
             #     count = count + 1
