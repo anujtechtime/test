@@ -222,7 +222,7 @@ class ResPrtner(models.Model):
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
                         })
-                    payemnt_date.remove(nearest_date)    
+                        payemnt_date.remove(nearest_date)    
             result.second_payment_date = datetime.today().date()
             order_line = result.env['sale.order.line'].create({
                 'product_id': 1,
