@@ -209,6 +209,15 @@ class ResPrtner(models.Model):
                         'description': 'Installment Payment',
                         'sale_installment_id' : result.id,
                         })
+            result.second_payment_date = datetime.today().date()
+            order_line = result.env['sale.order.line'].create({
+                'product_id': 1,
+                'price_unit': result.installment_amount,
+                'product_uom': result.env.ref('uom.product_uom_unit').id,
+                'product_uom_qty': 1,
+                'order_id': result._origin.id,
+                'name': 'sales order line',
+            })            
             return result        
 
 
