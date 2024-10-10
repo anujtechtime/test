@@ -180,7 +180,7 @@ class ResPrtner(models.Model):
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         nearest_date = 0
 
-        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id)])
+        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("state","=",'sale')])
 
         multi_level = perviously_failed_student.mapped("level")
 
@@ -207,16 +207,16 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         })
                         count_no = count_no + 1  
-            result.second_payment_date = datetime.today().date()
-            order_line = result.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': result.installment_amount,
-                'product_uom': result.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': result._origin.id,
-                'name': 'sales order line',
-            })            
-            return result     
+                result.second_payment_date = datetime.today().date()
+                order_line = result.env['sale.order.line'].create({
+                    'product_id': 1,
+                    'price_unit': result.installment_amount,
+                    'product_uom': result.env.ref('uom.product_uom_unit').id,
+                    'product_uom_qty': 1,
+                    'order_id': result._origin.id,
+                    'name': 'sales order line',
+                })            
+                return result     
 
         if failed_student:
             result.installment_amount = failed_student.installment_amount
