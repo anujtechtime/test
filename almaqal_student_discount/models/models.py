@@ -184,10 +184,14 @@ class ResPrtner(models.Model):
 
         multi_level = perviously_failed_student.mapped("level")
 
-        # multi_level.pop(0) 
+        # multi_level.pop(0)
         student_id = 0
 
+
+        print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
+        _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
+            _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
             if result.student.id == 7:
                 student_id = 8
             else:
@@ -195,8 +199,14 @@ class ResPrtner(models.Model):
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id)])
             for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
+                    _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
+                    print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
                     result.installment_amount = years.installment
+                    
+
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
+
+                    
                     count_no = 0
                     for i in years.sale_installment_line_ids:
                         installment = result.sale_installment_line_ids.create({
@@ -207,16 +217,16 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         })
                         count_no = count_no + 1  
-                result.second_payment_date = datetime.today().date()
-                order_line = result.env['sale.order.line'].create({
-                    'product_id': 1,
-                    'price_unit': result.installment_amount,
-                    'product_uom': result.env.ref('uom.product_uom_unit').id,
-                    'product_uom_qty': 1,
-                    'order_id': result._origin.id,
-                    'name': 'sales order line',
-                })            
-                return result     
+            result.second_payment_date = datetime.today().date()
+            order_line = result.env['sale.order.line'].create({
+                'product_id': 1,
+                'price_unit': result.installment_amount,
+                'product_uom': result.env.ref('uom.product_uom_unit').id,
+                'product_uom_qty': 1,
+                'order_id': result._origin.id,
+                'name': 'sales order line',
+            })            
+            return result   
 
         if failed_student:
             result.installment_amount = failed_student.installment_amount
