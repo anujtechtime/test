@@ -184,7 +184,7 @@ class ResPrtner(models.Model):
 
         multi_level = perviously_failed_student.mapped("level")
 
-        # multi_level.pop(0)
+        # multi_level.pop(0) 
         student_id = 0
 
         if result.contains_duplicate(multi_level):
