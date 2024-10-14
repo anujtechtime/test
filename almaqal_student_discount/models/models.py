@@ -180,7 +180,7 @@ class ResPrtner(models.Model):
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
         nearest_date = 0
 
-        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("state","=",'sale')])
+        perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("state","!=",'cancel')])
 
         multi_level = perviously_failed_student.mapped("level")
 
