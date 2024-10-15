@@ -76,11 +76,8 @@ class AlmaaqalGrade(models.Model):
 
     subject = fields.One2many(comodel_name="subject.subject",inverse_name="grade_id", string="Subject",  tracking=True)  
 
-
     # subject = fields.Many2many("subject.subject")  
-
-
-    
+    average_word_word_en = fields.Char("Average English")
 
     posted_date = fields.Date("Posted Date",  tracking=True)
     average_word_word = fields.Char("average_word_word",  tracking=True)
@@ -92,74 +89,86 @@ class AlmaaqalGrade(models.Model):
         if 'average' in vals:
             if float(vals['average']) < 50:
                 vals['average_word_word'] = 'راسب'
-            
+                vals['average_word_word_en'] = 'Failed'
 
             if float(vals['average']) < 60 and float(vals['average']) > 49.99:
                 vals['average_word_word'] = 'مقبول'
-            
+                vals['average_word_word_en'] = 'Acceptable'
 
             if float(vals['average']) < 70 and float(vals['average']) > 59.99:
                 vals['average_word_word'] = 'متوسط'
-            
+                vals['average_word_word_en'] =  'Average'
 
             if float(vals['average']) < 80 and float(vals['average']) > 69.99:
                 vals['average_word_word'] = 'جيد'
+                vals['average_word_word_en'] = 'Good'
             
             if float(vals['average']) < 90 and float(vals['average']) > 79.99:
                 vals['average_word_word'] = 'جيد جدا'
+                vals['average_word_word_en'] = 'Very Good'
             
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
-        return super(AlmaaqalGrade, self).create(vals)    
+                vals['average_word_word'] = 'أمتياز'
+                vals['average_word_word_en'] = 'Excellent'
+        return super(AlmaaqalGrade, self).create(vals)
 
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
         if 'average' in vals:
             if float(vals['average']) < 50:
                 vals['average_word_word'] = 'راسب'
-            
+                vals['average_word_word_en'] = 'Failed'
 
             if float(vals['average']) < 60 and float(vals['average']) > 49.99:
                 vals['average_word_word'] = 'مقبول'
-            
+                vals['average_word_word_en'] = 'Acceptable'
 
             if float(vals['average']) < 70 and float(vals['average']) > 59.99:
                 vals['average_word_word'] = 'متوسط'
-            
+                vals['average_word_word_en'] =  'Average'
 
             if float(vals['average']) < 80 and float(vals['average']) > 69.99:
                 vals['average_word_word'] = 'جيد'
+                vals['average_word_word_en'] = 'Good'
             
             if float(vals['average']) < 90 and float(vals['average']) > 79.99:
                 vals['average_word_word'] = 'جيد جدا'
+                vals['average_word_word_en'] = 'Very Good'
             
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
+                vals['average_word_word'] = 'أمتياز'
+                vals['average_word_word_en'] = 'Excellent'
         return super(AlmaaqalGrade, self).write(vals)
 
     @api.onchange('average')
     def _onchange_average_word(self):
         if float(self.average) < 50:
             self.average_word_word = 'راسب'
+            self.average_word_word_en = 'Failed'
         
 
         if float(self.average) < 60 and float(self.average) > 49.99:
             self.average_word_word = 'مقبول'
+            self.average_word_word_en = 'Acceptable'
         
 
         if float(self.average) < 70 and float(self.average) > 59.99:
             self.average_word_word = 'متوسط'
+            self.average_word_word_en =  'Average'
         
 
         if float(self.average) < 80 and float(self.average) > 69.99:
             self.average_word_word = 'جيد'
+            self.average_word_word_en = 'Good'
+
         
         if float(self.average) < 90 and float(self.average) > 79.99:
             self.average_word_word = 'جيد جدا'
+            self.average_word_word_en = 'Very Good'
         
         if float(self.average) < 100 and float(self.average) > 89.99:
-            self.average_word_word = 'ممتاز'
-                    
+            self.average_word_word = 'أمتياز'
+            self.average_word_word_en = 'Excellent'                    
 
     # @api.onchange('Status')
     def buuton_status_change(self):
