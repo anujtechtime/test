@@ -21,6 +21,10 @@ class DocxReportController(ReportController):
         """
         Запускает генерацию файла отчета и возвращает его
         """
+        if converter == "pdf":
+            return super(DocxReportController, self).report_routes(
+                reportname=reportname, docids=docids, converter=converter, **data
+            )
         report = request.env["ir.actions.report"]._get_report_from_name(reportname)
         context = dict(request.env.context)
         _data = dict()
@@ -67,6 +71,8 @@ class DocxReportController(ReportController):
         """
         requestcontent = json_loads(data)
         url, type = requestcontent[0], requestcontent[1]
+        if type not in ["docx-docx", "docx-pdf"]:
+            return super(DocxReportController, self).report_download(data, token, context)
         try:
             if type in ["docx-docx", "docx-pdf"]:
                 converter = "docx" if type == "docx-docx" else "pdf"
