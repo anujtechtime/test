@@ -168,7 +168,37 @@ class AlmaaqalGrade(models.Model):
         
         if float(self.average) < 100 and float(self.average) > 89.99:
             self.average_word_word = 'أمتياز'
-            self.average_word_word_en = 'Excellent'                    
+            self.average_word_word_en = 'Excellent'  
+
+    def change_englishh_average(self):
+        for dst in self:
+            if float(dst.average) < 50:
+                dst.average_word_word = 'راسب'
+                dst.average_word_word_en = 'Failed'
+            
+
+            if float(dst.average) < 60 and float(dst.average) > 49.99:
+                dst.average_word_word = 'مقبول'
+                dst.average_word_word_en = 'Acceptable'
+            
+
+            if float(dst.average) < 70 and float(dst.average) > 59.99:
+                dst.average_word_word = 'متوسط'
+                dst.average_word_word_en =  'Average'
+            
+
+            if float(dst.average) < 80 and float(dst.average) > 69.99:
+                dst.average_word_word = 'جيد'
+                dst.average_word_word_en = 'Good'
+
+            
+            if float(dst.average) < 90 and float(dst.average) > 79.99:
+                dst.average_word_word = 'جيد جدا'
+                dst.average_word_word_en = 'Very Good'
+            
+            if float(dst.average) < 100 and float(dst.average) > 89.99:
+                dst.average_word_word = 'أمتياز'
+                dst.average_word_word_en = 'Excellent'                              
 
     # @api.onchange('Status')
     def buuton_status_change(self):
