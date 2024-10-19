@@ -110,7 +110,14 @@ class AlmaaqalGrade(models.Model):
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
-        return super(AlmaaqalGrade, self).create(vals)
+
+
+                
+        res =  super(AlmaaqalGrade, self).create(vals)
+        threedecimal = res.has_three_decimal_places(float(res.average)) 
+        if threedecimal:
+            res.average = round(float(res.average), 3)
+        return res        
 
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
@@ -138,10 +145,28 @@ class AlmaaqalGrade(models.Model):
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
-        return super(AlmaaqalGrade, self).write(vals)
+        res =  super(AlmaaqalGrade, self).write(vals)
+        threedecimal = res.has_three_decimal_places(float(res.average)) 
+        if threedecimal:
+            res.average = round(float(res.average), 3)
+        return res
+
+    def has_three_decimal_places(self, number):
+        # Convert the number to a string
+        str_num = str(number)
+        # Split the string into the integer and decimal parts
+        parts = str_num.split(".")
+        # Check if there are exactly three digits after the decimal point
+        return len(parts) == 2 and len(parts[1]) == 4
+
+    def rounding_float(self):
+        threedecimal = self.has_three_decimal_places(self.average) 
+        if threedecimal:
+            self.average = round(self.average, 3)
 
     @api.onchange('average')
     def _onchange_average_word(self):
+        threedecimal = ""
         if float(self.average) < 50:
             self.average_word_word = 'راسب'
             self.average_word_word_en = 'Failed'
@@ -169,6 +194,10 @@ class AlmaaqalGrade(models.Model):
         if float(self.average) < 100 and float(self.average) > 89.99:
             self.average_word_word = 'أمتياز'
             self.average_word_word_en = 'Excellent'  
+
+        threedecimal = self.has_three_decimal_places(float(self.average)) 
+        if threedecimal:
+            self.average = round(float(self.average), 3) 
 
     def change_englishh_average(self):
         for dst in self:
@@ -198,7 +227,11 @@ class AlmaaqalGrade(models.Model):
             
             if float(dst.average) < 100 and float(dst.average) > 89.99:
                 dst.average_word_word = 'أمتياز'
-                dst.average_word_word_en = 'Excellent'                              
+                dst.average_word_word_en = 'Excellent' 
+            threedecimal = ""    
+            threedecimal = dst.has_three_decimal_places(float(dst.average)) 
+            if threedecimal:
+                dst.average = round(float(dst.average), 3)                                 
 
     # @api.onchange('Status')
     def buuton_status_change(self):
