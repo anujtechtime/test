@@ -83,6 +83,23 @@ class AlmaaqalGrade(models.Model):
     average_word_word = fields.Char("average_word_word",  tracking=True)
     remark = fields.Many2many("grade.remark", string="Remark", tracking=True)
 
+    def has_three_decimal_places(self, number):
+        # Convert the number to a string
+        str_num = str(number)
+        # Split the string into the integer and decimal parts
+        parts = str_num.split(".")
+        # Check if there are exactly three digits after the decimal point
+        return len(parts) == 2 and len(parts[1]) == 4
+
+    def truncate_to_three_decimals(number):
+        str_num = str(number)
+        if '.' in str_num:
+            integer_part, decimal_part = str_num.split('.')
+            truncated_decimal_part = decimal_part[:3]
+            truncated_number = f"{integer_part}.{truncated_decimal_part}"
+            return float(truncated_number)
+        else:
+            return float(str_num)
 
     @api.model
     def create(self, vals):
@@ -116,7 +133,7 @@ class AlmaaqalGrade(models.Model):
         res =  super(AlmaaqalGrade, self).create(vals)
         threedecimal = res.has_three_decimal_places(float(res.average)) 
         if threedecimal:
-            res.average = round(float(res.average), 3)
+            res.average = res.truncate_to_three_decimals(float(res.average))
         return res        
 
     def write(self, vals):
@@ -148,21 +165,15 @@ class AlmaaqalGrade(models.Model):
         res =  super(AlmaaqalGrade, self).write(vals)
         threedecimal = self.has_three_decimal_places(float(self.average)) 
         if threedecimal:
-            self.average = round(float(self.average), 3)
+            self.average = self.truncate_to_three_decimals(float(self.average))
         return res
 
-    def has_three_decimal_places(self, number):
-        # Convert the number to a string
-        str_num = str(number)
-        # Split the string into the integer and decimal parts
-        parts = str_num.split(".")
-        # Check if there are exactly three digits after the decimal point
-        return len(parts) == 2 and len(parts[1]) == 4
+
 
     def rounding_float(self):
         threedecimal = self.has_three_decimal_places(self.average) 
         if threedecimal:
-            self.average = round(self.average, 3)
+            self.average = self.truncate_to_three_decimals(float(self.average))
 
     @api.onchange('average')
     def _onchange_average_word(self):
@@ -197,7 +208,7 @@ class AlmaaqalGrade(models.Model):
 
         threedecimal = self.has_three_decimal_places(float(self.average)) 
         if threedecimal:
-            self.average = round(float(self.average), 3) 
+            self.average = self.truncate_to_three_decimals(float(self.average))
 
     def change_englishh_average(self):
         for dst in self:
@@ -231,7 +242,7 @@ class AlmaaqalGrade(models.Model):
             threedecimal = ""    
             threedecimal = dst.has_three_decimal_places(float(dst.average)) 
             if threedecimal:
-                dst.average = round(float(dst.average), 3)                                 
+                dst.average = dst.truncate_to_three_decimals(float(dst.average))                               
 
     # @api.onchange('Status')
     def buuton_status_change(self):
