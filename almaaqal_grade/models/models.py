@@ -79,6 +79,8 @@ class AlmaaqalGrade(models.Model):
     # subject = fields.Many2many("subject.subject")  
     average_word_word_en = fields.Char("Average English")
 
+    old_average = fields.Char("Old average")
+
     posted_date = fields.Date("Posted Date",  tracking=True)
     average_word_word = fields.Char("average_word_word",  tracking=True)
     remark = fields.Many2many("grade.remark", string="Remark", tracking=True)
@@ -133,6 +135,7 @@ class AlmaaqalGrade(models.Model):
         res =  super(AlmaaqalGrade, self).create(vals)
         threedecimal = res.has_three_decimal_places(float(res.average)) 
         if threedecimal:
+            res.old_average = res.average
             res.average = res.truncate_to_three_decimals(float(res.average))
         return res        
 
@@ -165,6 +168,7 @@ class AlmaaqalGrade(models.Model):
         res =  super(AlmaaqalGrade, self).write(vals)
         threedecimal = self.has_three_decimal_places(float(self.average)) 
         if threedecimal:
+            self.old_average = self.average
             self.average = self.truncate_to_three_decimals(float(self.average))
         return res
 
@@ -208,6 +212,7 @@ class AlmaaqalGrade(models.Model):
 
         threedecimal = self.has_three_decimal_places(float(self.average)) 
         if threedecimal:
+            self.old_average = self.average
             self.average = self.truncate_to_three_decimals(float(self.average))
 
     def change_englishh_average(self):
@@ -242,6 +247,7 @@ class AlmaaqalGrade(models.Model):
             threedecimal = ""    
             threedecimal = dst.has_three_decimal_places(float(dst.average)) 
             if threedecimal:
+                dst.old_average = dst.average
                 dst.average = dst.truncate_to_three_decimals(float(dst.average))                               
 
     # @api.onchange('Status')
