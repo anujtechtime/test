@@ -146,9 +146,9 @@ class AlmaaqalGrade(models.Model):
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
         res =  super(AlmaaqalGrade, self).write(vals)
-        threedecimal = res.has_three_decimal_places(float(res.average)) 
+        threedecimal = self.has_three_decimal_places(float(self.average)) 
         if threedecimal:
-            res.average = round(float(res.average), 3)
+            self.average = round(float(self.average), 3)
         return res
 
     def has_three_decimal_places(self, number):
