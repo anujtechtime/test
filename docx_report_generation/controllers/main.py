@@ -57,7 +57,7 @@ class DocxReportController(ReportController):
                 'datas': docx,
                 'res_model': obj._name,
                 'res_id': obj.id,
-                'mimetype': 'application/pdf'
+                'mimetype': 'application/octet-stream'
             })
 
             self.message_post(
