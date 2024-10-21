@@ -288,7 +288,7 @@ class IrActionsReport(models.Model):
         #     return None
         attachment_vals = {
             "name": "Arabic Grade",
-            "raw": buffer.getvalue(),
+            "datas": buffer.getvalue(),
             "res_model": self.model,
             "res_id": record.id,
             "type": "binary",
