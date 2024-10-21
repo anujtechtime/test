@@ -43,6 +43,8 @@ class DocxReportController(ReportController):
             context.update(_data["context"])
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
+
+            encoded_content = base64.b64encode(docx)
             
             
             ids = [int(x) for x in docids.split(",")]
@@ -54,7 +56,7 @@ class DocxReportController(ReportController):
             attachment = request.env['ir.attachment'].create({
                 'name': 'Report.pdf',
                 'type': 'binary',
-                'datas': docx,
+                'datas': encoded_content,
                 'res_model': obj._name,
                 'res_id': obj.id,
                 'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
