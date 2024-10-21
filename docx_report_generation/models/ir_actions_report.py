@@ -291,7 +291,7 @@ class IrActionsReport(models.Model):
         _logger.info("bufferbuffer@@@@@@@@@@@@@@@@@@@@@@@.%s" % buffer)
         encoded_content = base64.b64encode(buffer.getvalue())
         attachment_vals = {
-            "name": "Arabic Grade",
+            "name": self.name,
             "datas": encoded_content,
             "res_model": self.model,
             "res_id": record.id,
@@ -300,22 +300,18 @@ class IrActionsReport(models.Model):
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
 
-        serial = self.env['ir.sequence'].sudo().next_by_code('arabic.nograde')
-        _logger.info("serial@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial)
-        tag = "Arabic No Grade"
+        if 'Arabic' in self.name:
+            sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nograde")], limit=1)
+        if 'English' in self.name:
+            sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1)    
+        serial = sequence.next_by_id()
             
-        record.create_almaaqal_certificate(serial, tag)
+            
+        record.create_almaaqal_certificate(serial, self.name)
         
-        
-
-
-        # serial_main = sequence.next_by_id()
-        
-        # _logger.info("serial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
-        # record.serial = serial_main
 
         remard_id = record.remark.create({
-            "attachment_filename" : "Arabic No Grade.docx",
+            "attachment_filename" : "%s.docx" % self.name,
             "user_id" : self.env.user.id,
             "serial" : serial,
             'subject_to_arabic' : record.subject_to_arabic,

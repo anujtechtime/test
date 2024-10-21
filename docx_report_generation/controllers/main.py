@@ -45,14 +45,15 @@ class DocxReportController(ReportController):
                 del _data["context"]["lang"]
             context.update(_data["context"])
         if converter == "docx":
-            sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
-            serial_main = sequence.next_by_id()
-        
-            _logger.info("docids@@@@@@@@@@@@@@@@@@@@@@@.%s" % docids)
-            ids = [int(x) for x in docids.split(",")]
-            obj = request.env[report.model].browse(ids)
+            if report.model == "almaaqal.grade":
+                sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
+                serial_main = sequence.next_by_id()
+            
+                _logger.info("docids@@@@@@@@@@@@@@@@@@@@@@@.%s" % docids)
+                ids = [int(x) for x in docids.split(",")]
+                obj = request.env[report.model].browse(ids)
 
-            obj.serial = serial_main
+                obj.serial = serial_main
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
 
             # encoded_content = base64.b64encode(docx)
