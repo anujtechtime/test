@@ -44,7 +44,22 @@ class DocxReportController(ReportController):
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
             
+            _logger.info("self #########################3: %s" % self)
+
             _logger.info("The DOCS #########################3: %s" % str(docx))
+            attachment = self.env['ir.attachment'].create({
+                'name': 'Report.pdf',
+                'type': 'binary',
+                'datas': docx,
+                'res_model': self._name,
+                'res_id': self.id,
+                'mimetype': 'application/pdf'
+            })
+
+            self.message_post(
+                body="Arabic No Grade (PDF),",
+                attachment_ids=[attachment.id]
+            )
             docxhttpheaders = [
                 (
                     "Content-Type",
