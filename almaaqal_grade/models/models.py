@@ -96,7 +96,7 @@ class AlmaaqalGrade(models.Model):
         # Check if there are exactly three digits after the decimal point
         return len(parts) == 2 and len(parts[1]) == 4
 
-    def truncate_to_three_decimals(number):
+    def truncate_to_three_decimals(self, number):
         str_num = str(number)
         if '.' in str_num:
             integer_part, decimal_part = str_num.split('.')
