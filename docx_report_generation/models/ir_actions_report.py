@@ -306,7 +306,7 @@ class IrActionsReport(models.Model):
             
         record.create_almaaqal_certificate(serial, tag)
         
-        sequence = self.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
+        
 
 
         # serial_main = sequence.next_by_id()
@@ -320,7 +320,7 @@ class IrActionsReport(models.Model):
             "serial" : serial,
             'subject_to_arabic' : record.subject_to_arabic,
             'subject_to_english' : record.subject_to_english,
-            'serial_main' : serial_main,
+            'serial_main' : record.serial,
             'posted_date' : record.posted_date
             })
         record.remark = [(4, remard_id.id)]

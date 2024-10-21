@@ -45,6 +45,7 @@ class DocxReportController(ReportController):
                 del _data["context"]["lang"]
             context.update(_data["context"])
         if converter == "docx":
+            sequence = self.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
             serial_main = sequence.next_by_id()
         
             _logger.info("serial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
