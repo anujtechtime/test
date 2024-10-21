@@ -314,6 +314,7 @@ class IrActionsReport(models.Model):
 
 
             serial_main = record.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+            
             _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
             record.serial = serial_main
 
