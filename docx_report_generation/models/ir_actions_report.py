@@ -292,6 +292,7 @@ class IrActionsReport(models.Model):
             "res_model": self.model,
             "res_id": record.id,
             "type": "binary",
+            'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
         
