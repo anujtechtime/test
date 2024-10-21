@@ -44,10 +44,7 @@ class DocxReportController(ReportController):
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
             
-            _logger.info(
-                "The DOCS #########################3: %s, records "
-                % docx
-            )
+            _logger.info("The DOCS #########################3: %s" % docx)
             docxhttpheaders = [
                 (
                     "Content-Type",
