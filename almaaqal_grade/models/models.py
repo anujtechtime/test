@@ -146,6 +146,11 @@ class AlmaaqalGrade(models.Model):
 
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
+        if 'serial' in vals:
+            serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+            _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
+            vals['serial'] = serial_main
+
         threedecimal = ""
         if 'average' in vals:
             if float(vals['average']) < 50:
