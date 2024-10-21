@@ -300,35 +300,35 @@ class IrActionsReport(models.Model):
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
 
+        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+        _logger.info("serial@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial)
+        tag = "Arabic No Grade"
+            
+        record.create_almaaqal_certificate(serial, tag)
+        
+
+
+        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        
+        _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
+        record.serial = serial_main
+
+        remard_id = record.remark.create({
+            "attachment_filename" : "Arabic No Grade.docx",
+            "user_id" : self.env.user.id,
+            "serial" : serial,
+            'subject_to_arabic' : record.subject_to_arabic,
+            'subject_to_english' : record.subject_to_english,
+            'serial_main' : serial_main,
+            'posted_date' : record.posted_date
+            })
+        record.remark = [(4, remard_id.id)]
 
         
         try:
             attachment = self.env["ir.attachment"].create(attachment_vals)
 
-            serial = record.env['ir.sequence'].next_by_code('arabic.nograde')
-            _logger.info("serial@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial)
-            tag = "Arabic No Grade"
-                
-            record.create_almaaqal_certificate(serial, tag)
             
-
-
-            serial_main = record.env['ir.sequence'].next_by_code('arabic.nogradeserial')
-            
-            _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
-            record.serial = serial_main
-
-            remard_id = record.remark.create({
-                "attachment_filename" : "Arabic No Grade.docx",
-                "user_id" : self.env.user.id,
-                "serial" : serial,
-                'subject_to_arabic' : record.subject_to_arabic,
-                'subject_to_english' : record.subject_to_english,
-                'serial_main' : serial_main,
-                'posted_date' : record.posted_date
-                })
-            record.remark = [(4, remard_id.id)]
-
 
             # Convert PDF to base64
             # pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
