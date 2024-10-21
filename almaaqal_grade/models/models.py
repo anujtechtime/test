@@ -169,13 +169,13 @@ class AlmaaqalGrade(models.Model):
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
-        res =  super(AlmaaqalGrade, self).write(vals)
-        threedecimal = self.has_three_decimal_places(float(self.average)) 
-        if threedecimal:
-            self.old_average = self.average
-            self.average = self.truncate_to_three_decimals(self.average)
-        return res
-
+            res =  super(AlmaaqalGrade, self).write(vals)
+            threedecimal = self.has_three_decimal_places(float(self.average)) 
+            if threedecimal:
+                self.old_average = self.average
+                self.average = self.truncate_to_three_decimals(self.average)
+            return res
+        return super(AlmaaqalGrade, self).write(vals)
 
 
     # def rounding_float(self):
