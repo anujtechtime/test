@@ -44,15 +44,19 @@ class DocxReportController(ReportController):
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
             
-            _logger.info("self #########################3: %s" % self)
+            
+            ids = [int(x) for x in docids.split(",")]
+            obj = request.env[report.model].browse(ids)
+
+            _logger.info("obj@@@@@@@@@@ #########################3: %s" % obj)
 
             _logger.info("The DOCS #########################3: %s" % str(docx))
-            attachment = self.env['ir.attachment'].create({
+            attachment = request.env['ir.attachment'].create({
                 'name': 'Report.pdf',
                 'type': 'binary',
                 'datas': docx,
-                'res_model': self._name,
-                'res_id': self.id,
+                'res_model': obj._name,
+                'res_id': obj.id,
                 'mimetype': 'application/pdf'
             })
 
