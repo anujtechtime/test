@@ -57,10 +57,10 @@ class DocxReportController(ReportController):
                 'datas': docx,
                 'res_model': obj._name,
                 'res_id': obj.id,
-                'mimetype': 'application/octet-stream'
+                'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             })
 
-            self.message_post(
+            request.message_post(
                 body="Arabic No Grade (PDF),",
                 attachment_ids=[attachment.id]
             )
