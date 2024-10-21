@@ -198,6 +198,10 @@ class IrActionsReport(models.Model):
                 "The DOCS report has been generated for model: %s, records %s."
                 % (self_sudo.model, str(res_ids))
             )
+            _logger.info(
+                "The DOCS report h@@@@@@@@@@@@@@@@@@@@@@2: %s"
+                % str(docx_content)
+            )
             return (
                 self_sudo._post_docx(
                     save_in_attachment, docx_content=docx_content, res_ids=res_ids
@@ -205,10 +209,6 @@ class IrActionsReport(models.Model):
                 "docx",
             )
 
-        _logger.info(
-                "The DOCS report h@@@@@@@@@@@@@@@@@@@@@@2: %s"
-                % str(docx_content)
-            )    
 
         return docx_content, "docx"
 
