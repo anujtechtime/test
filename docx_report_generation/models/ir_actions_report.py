@@ -283,11 +283,11 @@ class IrActionsReport(models.Model):
         """
         Непосредственно создает запись в ir.attachment
         """
-        attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
-        if not attachment_name:
-            return None
+        # attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
+        # if not attachment_name:
+        #     return None
         attachment_vals = {
-            "name": attachment_name,
+            "name": "Arabic Grade",
             "raw": buffer.getvalue(),
             "res_model": self.model,
             "res_id": record.id,
