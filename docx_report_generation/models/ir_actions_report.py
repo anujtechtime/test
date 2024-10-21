@@ -299,9 +299,39 @@ class IrActionsReport(models.Model):
             'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
+
+
         
         try:
-            self.env["ir.attachment"].create(attachment_vals)
+            attachment = self.env["ir.attachment"].create(attachment_vals)
+
+            serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+            tag = "Arabic No Grade"
+                
+            record.create_almaaqal_certificate(serial, tag)
+            
+
+
+            serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+            record.serial = serial_main
+
+            remard_id = record.remark.create({
+                "attachment_filename" : "Arabic No Grade.pdf",
+                "user_id" : self.env.user.id,
+                "serial" : serial,
+                'subject_to_arabic' : record.subject_to_arabic,
+                'subject_to_english' : record.subject_to_english,
+                'serial_main' : serial_main,
+                'posted_date' : record.posted_date
+                })
+            record.remark = [(4, remard_id.id)]
+
+
+            # Convert PDF to base64
+            # pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+            remard_id.update({
+                "attachment_file" : encoded_content,
+                })
         except AccessError:
             _logger.info(
                 "Cannot save DOCX report %r as attachment", attachment_vals["name"]
