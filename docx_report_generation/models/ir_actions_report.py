@@ -316,7 +316,7 @@ class IrActionsReport(models.Model):
             record.serial = serial_main
 
             remard_id = record.remark.create({
-                "attachment_filename" : "Arabic No Grade.pdf",
+                "attachment_filename" : "Arabic No Grade.docx",
                 "user_id" : self.env.user.id,
                 "serial" : serial,
                 'subject_to_arabic' : record.subject_to_arabic,
