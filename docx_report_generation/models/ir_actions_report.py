@@ -300,7 +300,7 @@ class IrActionsReport(models.Model):
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
 
-        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+        serial = self.env['ir.sequence'].sudo().next_by_code('arabic.nograde')
         _logger.info("serial@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial)
         tag = "Arabic No Grade"
             
@@ -308,7 +308,7 @@ class IrActionsReport(models.Model):
         
 
 
-        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+        serial_main = self.env['ir.sequence'].sudo().next_by_code('arabic.nogradeserial')
         
         _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
         record.serial = serial_main
@@ -328,7 +328,7 @@ class IrActionsReport(models.Model):
         try:
             attachment = self.env["ir.attachment"].create(attachment_vals)
 
-            
+
 
             # Convert PDF to base64
             # pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
