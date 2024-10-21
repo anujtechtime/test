@@ -93,73 +93,149 @@ class AlmaaqalGrade(models.Model):
         if 'average' in vals:
             if float(vals['average']) < 50:
                 vals['average_word_word'] = 'راسب'
-            
+                vals['average_word_word_en'] = 'Failed'
 
             if float(vals['average']) < 60 and float(vals['average']) > 49.99:
                 vals['average_word_word'] = 'مقبول'
-            
+                vals['average_word_word_en'] = 'Acceptable'
 
             if float(vals['average']) < 70 and float(vals['average']) > 59.99:
                 vals['average_word_word'] = 'متوسط'
-            
+                vals['average_word_word_en'] =  'Average'
 
             if float(vals['average']) < 80 and float(vals['average']) > 69.99:
                 vals['average_word_word'] = 'جيد'
+                vals['average_word_word_en'] = 'Good'
             
             if float(vals['average']) < 90 and float(vals['average']) > 79.99:
                 vals['average_word_word'] = 'جيد جدا'
+                vals['average_word_word_en'] = 'Very Good'
             
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
-        return super(AlmaaqalGrade, self).create(vals)    
+                vals['average_word_word'] = 'أمتياز'
+                vals['average_word_word_en'] = 'Excellent'
+
+
+                
+        res =  super(AlmaaqalGrade, self).create(vals)
+        threedecimal = res.has_three_decimal_places(float(res.average)) 
+        if threedecimal:
+            res.average = round(float(res.average), 3)
+        return res        
 
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
         if 'average' in vals:
             if float(vals['average']) < 50:
                 vals['average_word_word'] = 'راسب'
-            
+                vals['average_word_word_en'] = 'Failed'
 
             if float(vals['average']) < 60 and float(vals['average']) > 49.99:
                 vals['average_word_word'] = 'مقبول'
-            
+                vals['average_word_word_en'] = 'Acceptable'
 
             if float(vals['average']) < 70 and float(vals['average']) > 59.99:
                 vals['average_word_word'] = 'متوسط'
-            
+                vals['average_word_word_en'] =  'Average'
 
             if float(vals['average']) < 80 and float(vals['average']) > 69.99:
                 vals['average_word_word'] = 'جيد'
+                vals['average_word_word_en'] = 'Good'
             
             if float(vals['average']) < 90 and float(vals['average']) > 79.99:
                 vals['average_word_word'] = 'جيد جدا'
+                vals['average_word_word_en'] = 'Very Good'
             
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
-                vals['average_word_word'] = 'ممتاز'
-        return super(AlmaaqalGrade, self).write(vals)
+                vals['average_word_word'] = 'أمتياز'
+                vals['average_word_word_en'] = 'Excellent'
+        res =  super(AlmaaqalGrade, self).write(vals)
+        threedecimal = self.has_three_decimal_places(float(self.average)) 
+        if threedecimal:
+            self.average = round(float(self.average), 3)
+        return res
+
+    def has_three_decimal_places(self, number):
+        # Convert the number to a string
+        str_num = str(number)
+        # Split the string into the integer and decimal parts
+        parts = str_num.split(".")
+        # Check if there are exactly three digits after the decimal point
+        return len(parts) == 2 and len(parts[1]) == 4
+
+    def rounding_float(self):
+        threedecimal = self.has_three_decimal_places(self.average) 
+        if threedecimal:
+            self.average = round(self.average, 3)
 
     @api.onchange('average')
     def _onchange_average_word(self):
+        threedecimal = ""
         if float(self.average) < 50:
             self.average_word_word = 'راسب'
+            self.average_word_word_en = 'Failed'
         
 
         if float(self.average) < 60 and float(self.average) > 49.99:
             self.average_word_word = 'مقبول'
+            self.average_word_word_en = 'Acceptable'
         
 
         if float(self.average) < 70 and float(self.average) > 59.99:
             self.average_word_word = 'متوسط'
+            self.average_word_word_en =  'Average'
         
 
         if float(self.average) < 80 and float(self.average) > 69.99:
             self.average_word_word = 'جيد'
+            self.average_word_word_en = 'Good'
+
         
         if float(self.average) < 90 and float(self.average) > 79.99:
             self.average_word_word = 'جيد جدا'
+            self.average_word_word_en = 'Very Good'
         
         if float(self.average) < 100 and float(self.average) > 89.99:
-            self.average_word_word = 'ممتاز'
+            self.average_word_word = 'أمتياز'
+            self.average_word_word_en = 'Excellent'  
+
+        threedecimal = self.has_three_decimal_places(float(self.average)) 
+        if threedecimal:
+            self.average = round(float(self.average), 3) 
+
+    def change_englishh_average(self):
+        for dst in self:
+            if float(dst.average) < 50:
+                dst.average_word_word = 'راسب'
+                dst.average_word_word_en = 'Failed'
+            
+
+            if float(dst.average) < 60 and float(dst.average) > 49.99:
+                dst.average_word_word = 'مقبول'
+                dst.average_word_word_en = 'Acceptable'
+            
+
+            if float(dst.average) < 70 and float(dst.average) > 59.99:
+                dst.average_word_word = 'متوسط'
+                dst.average_word_word_en =  'Average'
+            
+
+            if float(dst.average) < 80 and float(dst.average) > 69.99:
+                dst.average_word_word = 'جيد'
+                dst.average_word_word_en = 'Good'
+
+            
+            if float(dst.average) < 90 and float(dst.average) > 79.99:
+                dst.average_word_word = 'جيد جدا'
+                dst.average_word_word_en = 'Very Good'
+            
+            if float(dst.average) < 100 and float(dst.average) > 89.99:
+                dst.average_word_word = 'أمتياز'
+                dst.average_word_word_en = 'Excellent' 
+            threedecimal = ""    
+            threedecimal = dst.has_three_decimal_places(float(dst.average)) 
+            if threedecimal:
+                dst.average = round(float(dst.average), 3)        
                     
 
     # @api.onchange('Status')

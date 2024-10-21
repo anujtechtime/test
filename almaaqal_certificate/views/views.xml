@@ -232,7 +232,7 @@
 
 
         
-        <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
+<!--         <record id="almaaqal_grade_report_py3o" model="ir.actions.report">
             <field name="name">Arabic no Grade (Docx)  Report</field> 
             <field name="type">ir.actions.report</field>
             <field name="model">almaaqal.grade</field>
@@ -244,8 +244,8 @@
             <field name="binding_model_id" ref="almaaqal_grade.model_almaaqal_grade" />
             <field name="binding_type">report</field>
         </record>
-
-        <report 
+ -->
+<!--         <report 
             string="Arabic No Grades" 
             id="action_report_almaaqal_certificate"
             model="almaaqal.grade"
@@ -283,7 +283,7 @@
             file="almaaqal_certificate.report_almaaqal_certificate_with_grade_english"
             report_type="qweb-pdf"
             print_report_name="'English with Grades - %s' % (object.exam_number_for_reference)"
-        />
+        /> -->
 
 
         
