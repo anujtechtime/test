@@ -9,11 +9,13 @@ from odoo.http import (
 )
 import time
 
+from logging import getLogger
 from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.web.controllers.main import ReportController
 
+_logger = getLogger(__name__)
 
 class DocxReportController(ReportController):
     @route()
@@ -41,6 +43,11 @@ class DocxReportController(ReportController):
             context.update(_data["context"])
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
+            
+            _logger.info(
+                "The DOCS #########################3: %s, records "
+                % docx
+            )
             docxhttpheaders = [
                 (
                     "Content-Type",
