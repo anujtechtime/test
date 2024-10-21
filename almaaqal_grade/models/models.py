@@ -133,10 +133,10 @@ class AlmaaqalGrade(models.Model):
 
                 
         res =  super(AlmaaqalGrade, self).create(vals)
-        threedecimal = res.has_three_decimal_places(float(res.average)) 
-        if threedecimal:
-            res.old_average = res.average
-            res.average = res.truncate_to_three_decimals(float(res.average))
+        # threedecimal = res.has_three_decimal_places(float(res.average)) 
+        # if threedecimal:
+        #     res.old_average = res.average
+        #     res.average = res.truncate_to_three_decimals(res.average)
         return res        
 
     def write(self, vals):
@@ -166,18 +166,18 @@ class AlmaaqalGrade(models.Model):
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
         res =  super(AlmaaqalGrade, self).write(vals)
-        threedecimal = self.has_three_decimal_places(float(self.average)) 
-        if threedecimal:
-            self.old_average = self.average
-            self.average = self.truncate_to_three_decimals(float(self.average))
+        # threedecimal = self.has_three_decimal_places(float(self.average)) 
+        # if threedecimal:
+        #     self.old_average = self.average
+        #     self.average = self.truncate_to_three_decimals(self.average)
         return res
 
 
 
-    def rounding_float(self):
-        threedecimal = self.has_three_decimal_places(self.average) 
-        if threedecimal:
-            self.average = self.truncate_to_three_decimals(float(self.average))
+    # def rounding_float(self):
+    #     threedecimal = self.has_three_decimal_places(self.average) 
+    #     if threedecimal:
+    #         self.average = self.truncate_to_three_decimals(self.average)
 
     @api.onchange('average')
     def _onchange_average_word(self):
@@ -210,10 +210,10 @@ class AlmaaqalGrade(models.Model):
             self.average_word_word = 'أمتياز'
             self.average_word_word_en = 'Excellent'  
 
-        threedecimal = self.has_three_decimal_places(float(self.average)) 
-        if threedecimal:
-            self.old_average = self.average
-            self.average = self.truncate_to_three_decimals(float(self.average))
+        # threedecimal = self.has_three_decimal_places(float(self.average)) 
+        # if threedecimal:
+        #     self.old_average = self.average
+        #     self.average = self.truncate_to_three_decimals(float(self.average))
 
     def change_englishh_average(self):
         for dst in self:
@@ -244,11 +244,11 @@ class AlmaaqalGrade(models.Model):
             if float(dst.average) < 100 and float(dst.average) > 89.99:
                 dst.average_word_word = 'أمتياز'
                 dst.average_word_word_en = 'Excellent' 
-            threedecimal = ""    
-            threedecimal = dst.has_three_decimal_places(float(dst.average)) 
-            if threedecimal:
-                dst.old_average = dst.average
-                dst.average = dst.truncate_to_three_decimals(float(dst.average))                               
+            # threedecimal = ""    
+            # threedecimal = dst.has_three_decimal_places(float(dst.average)) 
+            # if threedecimal:
+            #     dst.old_average = dst.average
+            #     dst.average = dst.truncate_to_three_decimals(float(dst.average))                               
 
     # @api.onchange('Status')
     def buuton_status_change(self):
