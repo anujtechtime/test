@@ -286,6 +286,8 @@ class IrActionsReport(models.Model):
         # attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
         # if not attachment_name:
         #     return None
+        
+        _logger.info("bufferbuffer@@@@@@@@@@@@@@@@@@@@@@@.%s" % buffer)
         attachment_vals = {
             "name": "Arabic Grade",
             "datas": buffer.getvalue(),
