@@ -309,10 +309,10 @@ class IrActionsReport(models.Model):
         sequence = self.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
 
 
-        serial_main = sequence.next_by_id()
+        # serial_main = sequence.next_by_id()
         
-        _logger.info("sequencesequence@@@@@@@@@@@@@@@@@@@@@@@.%s" % sequence)
-        record.serial = serial_main
+        # _logger.info("serial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
+        # record.serial = serial_main
 
         remard_id = record.remark.create({
             "attachment_filename" : "Arabic No Grade.docx",

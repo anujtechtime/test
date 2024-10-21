@@ -45,6 +45,10 @@ class DocxReportController(ReportController):
                 del _data["context"]["lang"]
             context.update(_data["context"])
         if converter == "docx":
+            serial_main = sequence.next_by_id()
+        
+            _logger.info("serial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
+            record.serial = serial_main
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
 
             # encoded_content = base64.b64encode(docx)
