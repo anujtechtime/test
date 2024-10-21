@@ -288,9 +288,10 @@ class IrActionsReport(models.Model):
         #     return None
         
         _logger.info("bufferbuffer@@@@@@@@@@@@@@@@@@@@@@@.%s" % buffer)
+        encoded_content = base64.b64encode(buffer.getvalue())
         attachment_vals = {
             "name": "Arabic Grade",
-            "datas": buffer.getvalue(),
+            "datas": encoded_content,
             "res_model": self.model,
             "res_id": record.id,
             "type": "binary",
