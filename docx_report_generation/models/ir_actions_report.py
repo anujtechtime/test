@@ -330,7 +330,7 @@ class IrActionsReport(models.Model):
             # Convert PDF to base64
             # pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
             remard_id.update({
-                "attachment_file" : encoded_content,
+                "attachment_file" : buffer.getvalue(),
                 })
         except AccessError:
             _logger.info(
