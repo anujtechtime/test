@@ -313,6 +313,7 @@ class IrActionsReport(models.Model):
 
 
             serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+            _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
             record.serial = serial_main
 
             remard_id = record.remark.create({
