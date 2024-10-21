@@ -9,6 +9,9 @@ from odoo.http import (
 )
 import time
 
+import base64
+
+
 from logging import getLogger
 from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval
