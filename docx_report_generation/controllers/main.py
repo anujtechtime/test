@@ -48,7 +48,7 @@ class DocxReportController(ReportController):
             sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
             serial_main = sequence.next_by_id()
         
-            _logger.info("serial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
+            _logger.info("docids@@@@@@@@@@@@@@@@@@@@@@@.%s" % docids)
             record.serial = serial_main
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
 
