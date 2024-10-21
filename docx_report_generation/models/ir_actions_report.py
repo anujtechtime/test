@@ -309,7 +309,7 @@ class IrActionsReport(models.Model):
         sequence = self.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
 
 
-        serial_main = self.env['ir.sequence'].sudo().next_by_code('arabic.nogradeserial')
+        serial_main = sequence.next_by_id()
         
         _logger.info("sequencesequence@@@@@@@@@@@@@@@@@@@@@@@.%s" % sequence)
         record.serial = serial_main
