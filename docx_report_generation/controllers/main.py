@@ -47,28 +47,28 @@ class DocxReportController(ReportController):
         if converter == "docx":
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
 
-            encoded_content = base64.b64encode(docx)
+            # encoded_content = base64.b64encode(docx)
             
             
-            ids = [int(x) for x in docids.split(",")]
-            obj = request.env[report.model].browse(ids)
+            # ids = [int(x) for x in docids.split(",")]
+            # obj = request.env[report.model].browse(ids)
 
-            _logger.info("obj@@@@@@@@@@ #########################3: %s" % obj)
+            # _logger.info("obj@@@@@@@@@@ #########################3: %s" % obj)
 
-            _logger.info("The DOCS #########################3: %s" % str(docx))
-            attachment = request.env['ir.attachment'].create({
-                'name': 'Report.pdf',
-                'type': 'binary',
-                'datas': encoded_content,
-                'res_model': obj._name,
-                'res_id': obj.id,
-                'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            })
+            # _logger.info("The DOCS #########################3: %s" % str(docx))
+            # attachment = request.env['ir.attachment'].create({
+            #     'name': 'Report.pdf',
+            #     'type': 'binary',
+            #     'datas': encoded_content,
+            #     'res_model': obj._name,
+            #     'res_id': obj.id,
+            #     'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            # })
 
-            request.message_post(
-                body="Arabic No Grade (PDF),",
-                attachment_ids=[attachment.id]
-            )
+            # request.message_post(
+            #     body="Arabic No Grade (PDF),",
+            #     attachment_ids=[attachment.id]
+            # )
             docxhttpheaders = [
                 (
                     "Content-Type",

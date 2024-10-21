@@ -204,6 +204,12 @@ class IrActionsReport(models.Model):
                 ),
                 "docx",
             )
+
+        _logger.info(
+                "The DOCS report h@@@@@@@@@@@@@@@@@@@@@@2: %s"
+                % str(docx_content)
+            )    
+
         return docx_content, "docx"
 
     def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
