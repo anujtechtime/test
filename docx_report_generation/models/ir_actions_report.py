@@ -305,14 +305,15 @@ class IrActionsReport(models.Model):
         try:
             attachment = self.env["ir.attachment"].create(attachment_vals)
 
-            serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+            serial = record.env['ir.sequence'].next_by_code('arabic.nograde')
+            _logger.info("serial@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial)
             tag = "Arabic No Grade"
                 
             record.create_almaaqal_certificate(serial, tag)
             
 
 
-            serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+            serial_main = record.env['ir.sequence'].next_by_code('arabic.nogradeserial')
             _logger.info("serial_mainserial_main@@@@@@@@@@@@@@@@@@@@@@@.%s" % serial_main)
             record.serial = serial_main
 
