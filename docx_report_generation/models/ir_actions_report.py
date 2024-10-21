@@ -14,6 +14,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval
+import base64
 import time
 
 
