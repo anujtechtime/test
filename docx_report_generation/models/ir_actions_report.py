@@ -290,6 +290,8 @@ class IrActionsReport(models.Model):
             "res_id": record.id,
             "type": "binary",
         }
+        _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
+        
         try:
             self.env["ir.attachment"].create(attachment_vals)
         except AccessError:
