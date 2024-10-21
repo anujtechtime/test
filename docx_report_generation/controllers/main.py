@@ -49,7 +49,10 @@ class DocxReportController(ReportController):
             serial_main = sequence.next_by_id()
         
             _logger.info("docids@@@@@@@@@@@@@@@@@@@@@@@.%s" % docids)
-            record.serial = serial_main
+            ids = [int(x) for x in docids.split(",")]
+            obj = request.env[report.model].browse(ids)
+
+            obj.serial = serial_main
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
 
             # encoded_content = base64.b64encode(docx)
