@@ -93,6 +93,7 @@ class AlmaaqalGrade(models.Model):
         str_num = str(number)
         # Split the string into the integer and decimal parts
         parts = str_num.split(".")
+        _logger.info("len(parts[1])len(parts[1])@@@@@@@@@@@@ %s" %len(parts[1]))
         # Check if there are exactly three digits after the decimal point
         return len(parts) == 2 and len(parts[1]) == 4
 
