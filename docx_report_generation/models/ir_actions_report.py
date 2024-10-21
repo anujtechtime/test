@@ -239,6 +239,9 @@ class IrActionsReport(models.Model):
             }
 
             _logger.info("self.model@@@@@@@@@@@@@@@@@@@@@@@.%s" % self.model)
+            new_stream = self._postprocess_docx_report(
+                record_map[res_ids[0]], docx_content
+            )
             # If no value in attachment or no record specified, only append the whole docx.
             if not record_map or not self.attachment:
                 streams.append(docx_content)
