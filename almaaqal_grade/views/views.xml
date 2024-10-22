@@ -135,7 +135,7 @@
                     groups="almaaqal_grade.group_buuton_status_change_final_approved"
                 />
 
-                <button name="print_arabic_no_grade_pdf"
+                <!-- <button name="print_arabic_no_grade_pdf"
                     string="Arabic No Grade (PDF)"
                     type="object"
                     confirm="Are you sure you want to print Arbic No Grade (PDF)?"
@@ -149,7 +149,7 @@
                     confirm="Are you sure you want to print Arbic With Grade (PDF)?"
                     attrs="{'invisible': [('Status', '=', 'draft')]}"
                     groups="almaaqal_grade.group_print_arabic_with_grade"
-                />
+                /> -->
 
                 <!-- <button name="print_english_no_grade"
                     string="English No Grade (PDF)"

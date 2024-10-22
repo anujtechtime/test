@@ -9,11 +9,16 @@ from odoo.http import (
 )
 import time
 
+import base64
+
+
+from logging import getLogger
 from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.web.controllers.main import ReportController
 
+_logger = getLogger(__name__)
 
 class DocxReportController(ReportController):
     @route()
@@ -40,7 +45,39 @@ class DocxReportController(ReportController):
                 del _data["context"]["lang"]
             context.update(_data["context"])
         if converter == "docx":
+            if report.model == "almaaqal.grade":
+                sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nogradeserial")], limit=1)
+                serial_main = sequence.next_by_id()
+            
+                _logger.info("docids@@@@@@@@@@@@@@@@@@@@@@@.%s" % docids)
+                ids = [int(x) for x in docids.split(",")]
+                obj = request.env[report.model].browse(ids)
+
+                obj.serial = serial_main
             docx = report.with_context(context)._render_docx_docx(_docids, data=_data)
+
+            # encoded_content = base64.b64encode(docx)
+            
+            
+            # ids = [int(x) for x in docids.split(",")]
+            # obj = request.env[report.model].browse(ids)
+
+            # _logger.info("obj@@@@@@@@@@ #########################3: %s" % obj)
+
+            # _logger.info("The DOCS #########################3: %s" % str(docx))
+            # attachment = request.env['ir.attachment'].create({
+            #     'name': 'Report.pdf',
+            #     'type': 'binary',
+            #     'datas': encoded_content,
+            #     'res_model': obj._name,
+            #     'res_id': obj.id,
+            #     'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            # })
+
+            # request.message_post(
+            #     body="Arabic No Grade (PDF),",
+            #     attachment_ids=[attachment.id]
+            # )
             docxhttpheaders = [
                 (
                     "Content-Type",

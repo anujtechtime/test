@@ -86,14 +86,11 @@ class AlmaaqalGrade(models.Model):
     remark = fields.Many2many("grade.remark", string="Remark", tracking=True)
 
     def has_three_decimal_places(self, number):
-        # Convert the number to a string
         str_num = str(number)
-        # Split the string into the integer and decimal parts
         parts = str_num.split(".")
-        # Check if there are exactly three digits after the decimal point
-        return len(parts) == 2 and len(parts[1]) == 4
+        return len(parts) == 2 and len(parts[1]) >= 4
 
-    def truncate_to_three_decimals(number):
+    def truncate_to_three_decimals(self, number):
         str_num = str(number)
         if '.' in str_num:
             integer_part, decimal_part = str_num.split('.')
@@ -102,7 +99,6 @@ class AlmaaqalGrade(models.Model):
             return float(truncated_number)
         else:
             return float(str_num)
-
     @api.model
     def create(self, vals):
         if 'average' in vals:
@@ -133,14 +129,15 @@ class AlmaaqalGrade(models.Model):
 
                 
         res =  super(AlmaaqalGrade, self).create(vals)
-        # threedecimal = res.has_three_decimal_places(float(res.average)) 
-        # if threedecimal:
-        #     res.old_average = res.average
-        #     res.average = res.truncate_to_three_decimals(res.average)
+        threedecimal = res.has_three_decimal_places(float(res.average)) 
+        if threedecimal:
+            res.old_average = res.average
+            res.average = res.truncate_to_three_decimals(res.average)
         return res        
 
     def write(self, vals):
         print("vals@@@@@@@@@@@@@@@@",vals)
+
         if 'average' in vals:
             if float(vals['average']) < 50:
                 vals['average_word_word'] = 'راسب'
@@ -165,12 +162,13 @@ class AlmaaqalGrade(models.Model):
             if float(vals['average']) < 100 and float(vals['average']) > 89.99:
                 vals['average_word_word'] = 'أمتياز'
                 vals['average_word_word_en'] = 'Excellent'
-        res =  super(AlmaaqalGrade, self).write(vals)
-        # threedecimal = self.has_three_decimal_places(float(self.average)) 
-        # if threedecimal:
-        #     self.old_average = self.average
-        #     self.average = self.truncate_to_three_decimals(self.average)
-        return res
+            res =  super(AlmaaqalGrade, self).write(vals)
+            threedecimal = self.has_three_decimal_places(float(self.average)) 
+            if threedecimal:
+                self.old_average = self.average
+                self.average = self.truncate_to_three_decimals(self.average)
+            return res
+        return super(AlmaaqalGrade, self).write(vals)
 
 
 
@@ -210,10 +208,10 @@ class AlmaaqalGrade(models.Model):
             self.average_word_word = 'أمتياز'
             self.average_word_word_en = 'Excellent'  
 
-        # threedecimal = self.has_three_decimal_places(float(self.average)) 
-        # if threedecimal:
-        #     self.old_average = self.average
-        #     self.average = self.truncate_to_three_decimals(float(self.average))
+        threedecimal = self.has_three_decimal_places(float(self.average)) 
+        if threedecimal:
+            self.old_average = self.average
+            self.average = self.truncate_to_three_decimals(self.average)
 
     def change_englishh_average(self):
         for dst in self:
@@ -244,11 +242,11 @@ class AlmaaqalGrade(models.Model):
             if float(dst.average) < 100 and float(dst.average) > 89.99:
                 dst.average_word_word = 'أمتياز'
                 dst.average_word_word_en = 'Excellent' 
-            # threedecimal = ""    
-            # threedecimal = dst.has_three_decimal_places(float(dst.average)) 
-            # if threedecimal:
-            #     dst.old_average = dst.average
-            #     dst.average = dst.truncate_to_three_decimals(float(dst.average))                               
+            threedecimal = ""    
+            threedecimal = dst.has_three_decimal_places(float(dst.average)) 
+            if threedecimal:
+                dst.old_average = dst.average
+                dst.average = dst.truncate_to_three_decimals(dst.average)                                
 
     # @api.onchange('Status')
     def buuton_status_change(self):
@@ -276,103 +274,103 @@ class AlmaaqalGrade(models.Model):
                 }    
         
     
-    def print_arabic_no_grade_pdf(self):
-        # Generate PDF report
-        report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate')
-        print("self@@@@@@@@@@@@@",self.ids)
+    # def print_arabic_no_grade_pdf(self):
+    #     # Generate PDF report
+    #     report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate')
+    #     print("self@@@@@@@@@@@@@",self.ids)
 
         
 
-        serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
-        tag = "Arabic No Grade"
+    #     serial = self.env['ir.sequence'].next_by_code('arabic.nograde')
+    #     tag = "Arabic No Grade"
             
-        self.create_almaaqal_certificate(serial, tag)
+    #     self.create_almaaqal_certificate(serial, tag)
         
 
 
-        serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
-        self.serial = serial_main
+    #     serial_main = self.env['ir.sequence'].next_by_code('arabic.nogradeserial')
+    #     self.serial = serial_main
 
-        remard_id = self.remark.create({
-            "attachment_filename" : "Arabic No Grade.pdf",
-            "user_id" : self.env.user.id,
-            "serial" : serial,
-            'subject_to_arabic' : self.subject_to_arabic,
-            'subject_to_english' : self.subject_to_english,
-            'serial_main' : serial_main,
-            'posted_date' : self.posted_date
-            })
-        self.remark = [(4, remard_id.id)]
-
-
-        pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
-
-        # Convert PDF to base64
-        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
-        remard_id.update({
-            "attachment_file" : pdf_base64,
-            })
-
-        # Create attachment
-        attachment = self.env['ir.attachment'].create({
-            'name': 'Report.pdf',
-            'type': 'binary',
-            'datas': pdf_base64,
-            'res_model': self._name,
-            'res_id': self.id,
-            'mimetype': 'application/pdf'
-        })
-
-        self.message_post(
-            body="Arabic No Grade (PDF),",
-            attachment_ids=[attachment.id]
-        )
-
-        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate').report_action(self)
+    #     remard_id = self.remark.create({
+    #         "attachment_filename" : "Arabic No Grade.pdf",
+    #         "user_id" : self.env.user.id,
+    #         "serial" : serial,
+    #         'subject_to_arabic' : self.subject_to_arabic,
+    #         'subject_to_english' : self.subject_to_english,
+    #         'serial_main' : serial_main,
+    #         'posted_date' : self.posted_date
+    #         })
+    #     self.remark = [(4, remard_id.id)]
 
 
+    #     pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
 
-    def print_arabic_with_grade(self):
-        # Generate PDF report
-        report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade')
-        print("self@@@@@@@@@@@@@",self.ids)
+    #     # Convert PDF to base64
+    #     pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+    #     remard_id.update({
+    #         "attachment_file" : pdf_base64,
+    #         })
 
-        pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+    #     # Create attachment
+    #     attachment = self.env['ir.attachment'].create({
+    #         'name': 'Report.pdf',
+    #         'type': 'binary',
+    #         'datas': pdf_base64,
+    #         'res_model': self._name,
+    #         'res_id': self.id,
+    #         'mimetype': 'application/pdf'
+    #     })
 
-        # Convert PDF to base64
-        pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+    #     self.message_post(
+    #         body="Arabic No Grade (PDF),",
+    #         attachment_ids=[attachment.id]
+    #     )
 
-        # Create attachment
-        attachment = self.env['ir.attachment'].create({
-            'name': 'Report.pdf',
-            'type': 'binary',
-            'datas': pdf_base64,
-            'res_model': self._name,
-            'res_id': self.id,
-            'mimetype': 'application/pdf'
-        })
+    #     return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate').report_action(self)
 
-        self.message_post(
-            body="Arabic With Grade (PDF),",
-            attachment_ids=[attachment.id]
-        )
 
-        serial = self.env['ir.sequence'].next_by_code('arabic.withgrade')
-        tag = "Arabic With Grade"
+
+    # def print_arabic_with_grade(self):
+    #     # Generate PDF report
+    #     report = self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade')
+    #     print("self@@@@@@@@@@@@@",self.ids)
+
+    #     pdf_content, _ = report.render_qweb_pdf(res_ids=self.ids)
+
+    #     # Convert PDF to base64
+    #     pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+
+    #     # Create attachment
+    #     attachment = self.env['ir.attachment'].create({
+    #         'name': 'Report.pdf',
+    #         'type': 'binary',
+    #         'datas': pdf_base64,
+    #         'res_model': self._name,
+    #         'res_id': self.id,
+    #         'mimetype': 'application/pdf'
+    #     })
+
+    #     self.message_post(
+    #         body="Arabic With Grade (PDF),",
+    #         attachment_ids=[attachment.id]
+    #     )
+
+    #     serial = self.env['ir.sequence'].next_by_code('arabic.withgrade')
+    #     tag = "Arabic With Grade"
             
-        self.create_almaaqal_certificate(serial, tag)
+    #     self.create_almaaqal_certificate(serial, tag)
 
-        remard_id = self.remark.create({
-            "attachment_filename" : "Arabic With Grade.pdf",
-            "attachment_file" : pdf_base64,
-            "user_id" : self.env.user.id,
-            'serial' : serial,
-            'subject_to_arabic' : self.subject_to_arabic,
-            'subject_to_english' : self.subject_to_english,
-            })
-        self.remark = [(4, remard_id.id)]
+    #     remard_id = self.remark.create({
+    #         "attachment_filename" : "Arabic With Grade.pdf",
+    #         "attachment_file" : pdf_base64,
+    #         "user_id" : self.env.user.id,
+    #         'serial' : serial,
+    #         'subject_to_arabic' : self.subject_to_arabic,
+    #         'subject_to_english' : self.subject_to_english,
+    #         })
+    #     self.remark = [(4, remard_id.id)]
 
-        return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade').report_action(self)    
+    #     return self.env.ref('almaaqal_certificate.action_report_almaaqal_certificate_with_grade').report_action(self)    
 
     # def print_english_no_grade(self):
     #     # Generate PDF report

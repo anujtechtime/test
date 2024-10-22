@@ -14,6 +14,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval
+import base64
 import time
 
 
@@ -198,12 +199,18 @@ class IrActionsReport(models.Model):
                 "The DOCS report has been generated for model: %s, records %s."
                 % (self_sudo.model, str(res_ids))
             )
+            _logger.info(
+                "The DOCS report h@@@@@@@@@@@@@@@@@@@@@@2: %s"
+                % str(docx_content)
+            )
             return (
                 self_sudo._post_docx(
                     save_in_attachment, docx_content=docx_content, res_ids=res_ids
                 ),
                 "docx",
             )
+
+
         return docx_content, "docx"
 
     def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
@@ -232,6 +239,10 @@ class IrActionsReport(models.Model):
                 )
             }
 
+            _logger.info("self.model@@@@@@@@@@@@@@@@@@@@@@@.%s" % self.model)
+            new_stream = self._postprocess_docx_report(
+                record_map[res_ids[0]], docx_content
+            )
             # If no value in attachment or no record specified, only append the whole docx.
             if not record_map or not self.attachment:
                 streams.append(docx_content)
@@ -273,18 +284,54 @@ class IrActionsReport(models.Model):
         """
         Непосредственно создает запись в ir.attachment
         """
-        attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
-        if not attachment_name:
-            return None
+        # attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
+        # if not attachment_name:
+        #     return None
+        
+        _logger.info("bufferbuffer@@@@@@@@@@@@@@@@@@@@@@@.%s" % buffer)
+        encoded_content = base64.b64encode(buffer.getvalue())
         attachment_vals = {
-            "name": attachment_name,
-            "raw": buffer.getvalue(),
+            "name": self.name,
+            "datas": encoded_content,
             "res_model": self.model,
             "res_id": record.id,
             "type": "binary",
+            'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }
+        _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
+
+        if 'Arabic' in self.name:
+            sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nograde")], limit=1)
+        if 'English' in self.name:
+            sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1)    
+        serial = sequence.next_by_id()
+            
+            
+        record.create_almaaqal_certificate(serial, self.name)
+        
+
+        remard_id = record.remark.create({
+            "attachment_filename" : "%s.docx" % self.name,
+            "user_id" : self.env.user.id,
+            "serial" : serial,
+            'subject_to_arabic' : record.subject_to_arabic,
+            'subject_to_english' : record.subject_to_english,
+            'serial_main' : record.serial,
+            'posted_date' : record.posted_date
+            })
+        record.remark = [(4, remard_id.id)]
+
+        
         try:
-            self.env["ir.attachment"].create(attachment_vals)
+            attachment = self.env["ir.attachment"].create(attachment_vals)
+
+
+
+            # Convert PDF to base64
+            # pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
+            remard_id.update({
+                "attachment_file" : encoded_content,
+                })
         except AccessError:
             _logger.info(
                 "Cannot save DOCX report %r as attachment", attachment_vals["name"]
