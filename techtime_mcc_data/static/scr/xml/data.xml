@@ -69,6 +69,11 @@
                             <label class="form-check-label" for="exampleCheck1">متخرج</label>
                           </div>
 
+                          <div class="form-check ml-2" id="form_click_data_status_type" value="" data-value="" data-id="hosting_university">
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="graduated"/>
+                            <label class="form-check-label" for="exampleCheck1"> استضافة من الجامعة</label>
+                          </div>
+
                         <!-- </t> -->
                           </div>
                         </div>
@@ -391,6 +396,11 @@
                             <div class="form-check ml-2" id="form_click_data_status_type" value="" data-value="" data-id="graduated">
                             <input type="checkbox" class="form-check-input" style="display : none;" value="" id="graduated"/>
                             <label class="form-check-label" for="exampleCheck1">متخرج</label>
+                          </div>
+
+                          <div class="form-check ml-2" id="form_click_data_status_type" value="" data-value="" data-id="hosting_university">
+                            <input type="checkbox" class="form-check-input" style="display : none;" value="" id="graduated"/>
+                            <label class="form-check-label" for="exampleCheck1"> استضافة من الجامعة</label>
                           </div>
 
                         <!-- </t> -->
