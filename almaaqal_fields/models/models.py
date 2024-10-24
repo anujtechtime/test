@@ -9,6 +9,10 @@ _logger = logging.getLogger(__name__)
 class ResPart(models.Model):
     _inherit = "res.partner"
 
+    Status = fields.Selection(
+        selection_add=[("hosting_university", " استضافة من الجامعة")],
+    )
+
     graduation_source = fields.Many2one("graduation.source", string="جهة التخرج ")
     nationalty_source = fields.Many2one("nationality.source", string="الجنسية ")
     second_nationality_source = fields.Many2one("nationality.source", string="الجنسيه الثانويه ")
