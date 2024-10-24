@@ -1195,9 +1195,9 @@ class SubjectcertificateAlm(models.Model):
  
 
 
-class AlmaaqalGradeAll(models.Model):
-    _inherit = "res.partner"
+# class AlmaaqalGradeAll(models.Model):
+#     _inherit = "res.partner"
 
-    Status = fields.Selection(
-        selection_add=[("hosting_university", " استضافة من الجامعة")],
-    )
+#     Status = fields.Selection(
+#         selection_add=[("hosting_university", " استضافة من الجامعة")],
+#     )
