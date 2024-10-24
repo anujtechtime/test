@@ -1194,3 +1194,10 @@ class SubjectcertificateAlm(models.Model):
     Subject_25_Semester  = fields.Char("Subject 25 Semester",  tracking=True)
  
 
+
+class AlmaaqalGradeAll(models.Model):
+    _inherit = "res.partner"
+
+    Status = fields.Selection(
+        selection_add=[("hosting_university", " استضافة من الجامعة")],
+    )
