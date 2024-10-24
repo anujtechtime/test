@@ -510,7 +510,7 @@ class DataMphine(models.Model):
                             failed = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.Status == "failed")
 
                             transferred_to_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transferred_to_us == True) 
-                            transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.transfer_shift == True)
+                            transferred_from_us = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.chckbox_data_2 == True)
                             print("currecnt_status_data@@@@@@@@@@@",currecnt_status_data)
                             print("row@@@@@@@@@@@@@@@",row)
 
@@ -574,7 +574,7 @@ class DataMphine(models.Model):
                             colld = 15
                             for ddts in data_one:
                                 data_one_data = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.Status == "currecnt_student")  
-                                # data_one_data_fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.fields_one_2 == True and picking.transferred_to_us == True and picking.Status == "currecnt_student" and picking.transfer_shift == False)  
+                                # data_one_data_fields_one_2 = self.filtered(lambda picking:picking.level == lev and picking.department.id == dept.id and picking.shift == shift and picking.data_one.id == ddts.id and picking.fields_one_2 == True and picking.transferred_to_us == True and picking.Status == "currecnt_student" and picking.chckbox_data_2 == False)  
                                 worksheet.write(row, colld, len(data_one_data.mapped("id")), main_cell_total) #data_one
                                 total_of_data_one = total_of_data_one + len(data_one_data.mapped("id"))
                                 colld = colld + 1
@@ -660,7 +660,7 @@ class DataMphine(models.Model):
             failed_1 = self.filtered(lambda picking:picking.level == lev and picking.Status == 'failed') 
 
             transferred_to_us_1 =  self.filtered(lambda picking:picking.level == lev and picking.transferred_to_us == True)
-            transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.transfer_shift == True) 
+            transferred_from_us_1 = self.filtered(lambda picking:picking.level == lev and picking.chckbox_data_2 == True) 
 
             worksheet.write(row, 3, len(all_status_data_1.mapped('id')) or '', main_cell_total)
 
@@ -733,7 +733,7 @@ class DataMphine(models.Model):
         failed_2 = self.filtered(lambda picking:picking.Status == "failed")
 
         transferred_to_us_2 =  self.filtered(lambda picking:picking.transferred_to_us == True)
-        transferred_from_us_2 = self.filtered(lambda picking:picking.transfer_shift == True)
+        transferred_from_us_2 = self.filtered(lambda picking:picking.chckbox_data_2 == True)
 
         worksheet.write_merge(row, row, 0, 2, "المجمــــــــــــــــــــــــــــــــوع", main_cell_total_of_total)
 
