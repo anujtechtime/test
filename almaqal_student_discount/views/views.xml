@@ -106,7 +106,6 @@
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="binding_view_types">list,form</field>
     </record>
-
     
 
     <record id="crm_stage_form_symbol_student_grade" model="ir.ui.view">
