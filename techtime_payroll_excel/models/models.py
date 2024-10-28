@@ -266,7 +266,7 @@ class techtime_payrollDepartment(models.Model):
                      pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre")
 
 
-        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour white; font: color white; align: horiz centre")
 
         header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
         cell_format = xlwt.easyxf()
@@ -344,7 +344,7 @@ class techtime_payrollDepartment(models.Model):
                         main_cell = xlwt.easyxf('font: bold off, color black;\
                          borders: top_color black, bottom_color black, right_color black, left_color black,\
                                   left thin, right thin, top thin, bottom thin;\
-                         pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
+                         pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                         
                     if status == "failed":
                         status_data  = "طالب راسب"
@@ -361,7 +361,7 @@ class techtime_payrollDepartment(models.Model):
                         main_cell = xlwt.easyxf('font: bold off, color black;\
                          borders: top_color black, bottom_color black, right_color black, left_color black,\
                                   left thin, right thin, top thin, bottom thin;\
-                         pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
+                         pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                     sequence = 1
