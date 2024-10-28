@@ -317,54 +317,51 @@ class techtime_payrollDepartment(models.Model):
 
             row = 3
             for level in level_data:
-                if status == "currecnt_student":
-                    status_data  = "طالب حالي"
-
-                if status == "status1":
-                    status_data  = "ترقين قيد"
-                    main_cell = xlwt.easyxf('font: bold off, color black;\
-                     borders: top_color black, bottom_color black, right_color black, left_color black,\
-                              left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color yellow; align: horiz centre; font: bold 1,height 240;')
-                if status == "status2":
-                    status_data  = "طالب غير مباشر"
-
-                if status == "status4":
-                    status_data  = "مؤجل"    
-                
-                if status == "status3":
-                    status_data  = "انسحاب"
-
-                if status == "succeeded":
-                    status_data  = "طالب ناجح"
-                    main_cell = xlwt.easyxf('font: bold off, color black;\
-                     borders: top_color black, bottom_color black, right_color black, left_color black,\
-                              left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
-                    
-                if status == "failed":
-                    status_data  = "طالب راسب"
-                    main_cell = xlwt.easyxf('font: bold off, color black;\
-                     borders: top_color black, bottom_color black, right_color black, left_color black,\
-                              left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color red; align: horiz centre; font: bold 1,height 240;')
-                    
-                if status == "transferred_from_us":
-                    status_data  = "طالب منتقل من الجامعة"     
-
-                if status == "graduated":
-                    status_data  = "طالب ناجح"       
-                    main_cell = xlwt.easyxf('font: bold off, color black;\
-                     borders: top_color black, bottom_color black, right_color black, left_color black,\
-                              left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
-
-                
-
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
                 status_data = ['currecnt_student','status1','status2','status4','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
+                    if status == "currecnt_student":
+                        status_data  = "طالب حالي"
+
+                    if status == "status1":
+                        status_data  = "ترقين قيد"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color yellow; align: horiz centre; font: bold 1,height 240;')
+                    if status == "status2":
+                        status_data  = "طالب غير مباشر"
+
+                    if status == "status4":
+                        status_data  = "مؤجل"    
+                    
+                    if status == "status3":
+                        status_data  = "انسحاب"
+
+                    if status == "succeeded":
+                        status_data  = "طالب ناجح"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
+                        
+                    if status == "failed":
+                        status_data  = "طالب راسب"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color red; align: horiz centre; font: bold 1,height 240;')
+                        
+                    if status == "transferred_from_us":
+                        status_data  = "طالب منتقل من الجامعة"     
+
+                    if status == "graduated":
+                        status_data  = "طالب ناجح"       
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                     sequence = 1
