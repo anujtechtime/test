@@ -121,7 +121,7 @@ class ReportTrialBalancepageseven(models.AbstractModel):
                 # groups[group_key]['dictionaries'].append(d)
 
             else:
-                _logger.info("groups[group_key]@@@@@@@@@@11111111111111111%s" %groups[group_key])
+                _logger.info("groups[group_key]@@@@@@@@@@11111111111111111%s" %groups)
 
                 _logger.info("group_code.code_prefix@@@@@@@@@@222222222222222222%s" %group_code.code_prefix)
                 # If the key doesn't exist, create a new list with the current dictionary as its first element
