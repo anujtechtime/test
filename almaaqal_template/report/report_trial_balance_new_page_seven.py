@@ -100,25 +100,26 @@ class ReportTrialBalancepageseven(models.AbstractModel):
             group_code = self.env['account.group'].search([("name","=",d['group_id'])])
             
             # Check if the group key already exists in the groups dictionary
-            if group_key in groups:
-                # If the key exists, append the dictionary to the list associated with that key
-                # groups[group_key].append(d)
+            for ddt in group_code:
+                if group_key in groups:
+                    # If the key exists, append the dictionary to the list associated with that key
+                    # groups[group_key].append(d)
 
-                print("groups[group_key]['sum_credit']@@@@@@@@@@@@@@@",groups[group_key])
-                groups[group_key]['sum_credit'] += float(credit_to_sum)
-                groups[group_key]['sum_debit'] += float(debit_to_sum)
+                    print("groups[group_key]['sum_credit']@@@@@@@@@@@@@@@",groups[group_key])
+                    groups[group_key]['sum_credit'] += float(credit_to_sum)
+                    groups[group_key]['sum_debit'] += float(debit_to_sum)
 
-                if group_code:
-                    groups[group_key]['code'] = group_code.code_prefix
+                    if ddt:
+                        groups[group_key]['code'] = ddt.code_prefix
+                    else:
+                        groups[group_key]['code'] = False 
+
+                    # Append the dictionary to the list associated with that key
+                    # groups[group_key]['dictionaries'].append(d)
+
                 else:
-                    groups[group_key]['code'] = False 
-
-                # Append the dictionary to the list associated with that key
-                # groups[group_key]['dictionaries'].append(d)
-
-            else:
-                # If the key doesn't exist, create a new list with the current dictionary as its first element
-                groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : group_code.code_prefix}
+                    # If the key doesn't exist, create a new list with the current dictionary as its first element
+                    groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : ddt.code_prefix}
 
 
         # Now 'groups' will contain dictionaries grouped by the 'group' key
