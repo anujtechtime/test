@@ -25,6 +25,10 @@ import time
 from odoo import api, models, _
 from odoo.exceptions import UserError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class ReportTrialBalancepageseven(models.AbstractModel):
     _name = 'report.almaaqal_template.report_trial_balance_new_page_seven'
@@ -117,6 +121,7 @@ class ReportTrialBalancepageseven(models.AbstractModel):
                 # groups[group_key]['dictionaries'].append(d)
 
             else:
+                _logger.info("groups[group_key]@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
                 # If the key doesn't exist, create a new list with the current dictionary as its first element
                 groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : group_code.code_prefix}
 
