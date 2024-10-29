@@ -196,6 +196,7 @@ class ResPrtner(models.Model):
             else:
                 student_id = result.student.id
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
+            _logger.info("installmet_datsstd33333333333333@@@@@@@@@@%s" %installmet_datsstd)
             for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
@@ -229,6 +230,7 @@ class ResPrtner(models.Model):
 
 
         if failed_student:
+            _logger.info("failed_student222222222222222@@@@@@@@@@%s" %failed_student)
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 

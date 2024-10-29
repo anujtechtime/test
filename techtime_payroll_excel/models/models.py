@@ -372,7 +372,7 @@ class techtime_payrollDepartment(models.Model):
                                 main_cell = xlwt.easyxf('font: bold off, color black;\
                                  borders: top_color black, bottom_color black, right_color black, left_color black,\
                                           left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')
+                                 pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                                 
                             if status == "failed":
                                 status_data  = "طالب راسب"
@@ -389,7 +389,7 @@ class techtime_payrollDepartment(models.Model):
                                 main_cell = xlwt.easyxf('font: bold off, color black;\
                                  borders: top_color black, bottom_color black, right_color black, left_color black,\
                                           left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color green; align: horiz centre; font: bold 1,height 240;')                     
+                                 pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')                     
 
                             worksheet.write(row, 4, status_data, main_cell)
 
