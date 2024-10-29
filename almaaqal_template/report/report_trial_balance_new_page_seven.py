@@ -128,7 +128,7 @@ class ReportTrialBalancepageseven(models.AbstractModel):
                 if group_code:
                     groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : group_code.code_prefix}
                 else:
-                    groups[group_key] = False 
+                    groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : False} 
                 
 
 
