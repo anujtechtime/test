@@ -104,6 +104,7 @@ class ReportTrialBalancepageseven(models.AbstractModel):
             group_code = self.env['account.group'].search([("name","=",d['group_id'])])
             
             # Check if the group key already exists in the groups dictionary
+            print("groups[group_key]['sum_credit']333333333333333333@@@@@@@@@@@@@@@",group_key)
             if group_key in groups:
                 # If the key exists, append the dictionary to the list associated with that key
                 # groups[group_key].append(d)
@@ -121,6 +122,7 @@ class ReportTrialBalancepageseven(models.AbstractModel):
                 # groups[group_key]['dictionaries'].append(d)
 
             else:
+                _logger.info("groups[group_key]@@@@@@@@@@11111111111111111%s" %group_code)
 
                 # If the key doesn't exist, create a new list with the current dictionary as its first element
                 if group_code:
