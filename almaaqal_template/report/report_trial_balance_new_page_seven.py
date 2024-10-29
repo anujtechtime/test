@@ -125,7 +125,11 @@ class ReportTrialBalancepageseven(models.AbstractModel):
 
                 _logger.info("group_code.code_prefix@@@@@@@@@@222222222222222222%s" %group_code.code_prefix)
                 # If the key doesn't exist, create a new list with the current dictionary as its first element
-                groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : group_code.code_prefix}
+                if group_code:
+                    groups[group_key] = {'sum_credit': credit_to_sum, 'sum_debit' : debit_to_sum, 'code' : group_code.code_prefix}
+                else:
+                    groups[group_key] = False 
+                
 
 
         # Now 'groups' will contain dictionaries grouped by the 'group' key
