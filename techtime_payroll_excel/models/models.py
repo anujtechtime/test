@@ -317,6 +317,16 @@ class techtime_payrollDepartment(models.Model):
 
             row = 3
             for level in level_data:
+                if level == "leve1":
+                    level_name = "المرحلة الاولى"
+                if level == "level2":
+                    level_name = "المرحلة الثانية"
+                if level == "level3": 
+                    level_name = "المرحلة الثالثة"
+                if level == "level4":
+                    level_name = "المرحلة الرابعة"
+                if level == "level5":
+                    level_name = "المرحلة الخامسة"
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
                 status_data = ['currecnt_student','status1','status2','status4','status3','succeeded','failed','transferred_from_us','graduated']
