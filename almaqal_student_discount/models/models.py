@@ -186,15 +186,24 @@ class ResPrtner(models.Model):
         # multi_level.pop(0)
         student_id = 0
 
+        duplicates = set([item for item in multi_level if multi_level.count(item) > 1])
+
+        if duplicates:
+            print(f"Duplicate values found: {duplicates}")
+        else:
+            print("No duplicate values found")
+
+
 
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
-            if result.student.id == 7:
-                student_id = 8
-            else:
-                student_id = result.student.id
+            if result.level in duplicates:
+                if result.student.id == 7:
+                    student_id = 8
+                else:
+                    student_id = result.student.id
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
             _logger.info("installmet_datsstd33333333333333@@@@@@@@@@%s" %installmet_datsstd)
             for years in installmet_datsstd:
