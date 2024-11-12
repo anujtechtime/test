@@ -295,7 +295,7 @@ class TechtimeNationality(models.Model):
 class SaleOrderInht(models.Model):
     _inherit = "sale.order"
     
-    year_status = fields.Selection([("value1","ناجح-"),("value2", "راسب-"),("value3","ناجح دور اول -"),("value4", "ناجح دور ثاني -"),("value5","عبور-"),("value6", "راسب-"),("value7","موْجل-"),("value8", "مرقن-"),("value9", "نقل-"),("value10", "استضافة-")], string="موقف الطالب", tracking=True)
+    year_status = fields.Selection([("value1","ناجح"),("value2", "راسب"),("value3","ناجح دور اول"),("value4", "ناجح دور ثاني"),("value5","عبور"),("value6", "راسب"),("value7","موْجل"),("value8", "مرقن"),("value9", "نقل"),("value10", "استضافة")], string="موقف الطالب", tracking=True)
 
 
 
