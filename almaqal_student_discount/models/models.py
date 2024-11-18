@@ -206,6 +206,8 @@ class ResPrtner(models.Model):
                     student_id = 16
                 else:
                     student_id = 8
+                _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
+
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
             _logger.info("installmet_datsstd33333333333333@@@@@@@@@@%s" %installmet_datsstd)
             for years in installmet_datsstd:
