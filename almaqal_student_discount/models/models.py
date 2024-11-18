@@ -190,8 +190,10 @@ class ResPrtner(models.Model):
 
         if duplicates:
             print(f"Duplicate values found: {duplicates}")
+            _logger.info("duplicates@@@@@@@@@@%s" %duplicates)
         else:
             print("No duplicate values found")
+            _logger.info("duplicates@@@@@@@@@@111111111%s" %duplicates)
 
 
 
@@ -200,6 +202,7 @@ class ResPrtner(models.Model):
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
             if result.level in duplicates:
+                _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                 if result.student.id == 11:
                     student_id = 16
                 else:
@@ -211,7 +214,6 @@ class ResPrtner(models.Model):
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
                     result.installment_amount = years.installment
-                    
 
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
