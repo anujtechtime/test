@@ -202,7 +202,6 @@ class ResPrtner(models.Model):
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
             if result.level in duplicates:
-                _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                 if result.student.id == 11:
                     student_id = 16
                 else:
