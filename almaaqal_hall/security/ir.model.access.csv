@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_class,student.class,model_student_class,base.group_user,1,1,1,1
+access_exam_hall,exam.hall,model_exam_hall,base.group_user,1,1,1,1
+access_booking_entry,booking.entry,model_booking_entry,base.group_user,1,1,1,1
+access_student_label,student.label,model_student_label,base.group_user,1,1,1,1

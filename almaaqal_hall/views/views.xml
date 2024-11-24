@@ -1,0 +1,156 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    
+
+    <record model="ir.ui.view" id="almaaqal_student_class_list">
+      <field name="name">Student Class</field>
+      <field name="model">student.class</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="almaaqal_student_class_list_action_window">
+      <field name="name">Student Class window</field>
+      <field name="res_model">student.class</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="almaaqal_hall_list">
+      <field name="name">Exam Hall</field>
+      <field name="model">exam.hall</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="location_collage"/>
+            <field name="location_floor"/>
+            <field name="location_department"/>
+            <field name="seats"/>
+            <field name="rows"/>
+            <field name="columns"/>
+            <field name="booking_entity"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="almaaqal_hall_list_action_window">
+      <field name="name">Exam Hall window</field>
+      <field name="res_model">exam.hall</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="almaaqal_booking_entry">
+      <field name="name">Booking Entry</field>
+      <field name="model">booking.entry</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="booking_date"/>
+            <field name="booking_time_from"/>
+            <field name="booking_time_to"/>
+            <field name="note"/>
+            <field name="hall_entry"/>
+            <field name="students_collage"/>
+            <field name="student_department"/>
+            <field name="student_class"/>
+            <field name="student_entity"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="almaaqal_booking_entry_action_window">
+      <field name="name">Booking Entry window</field>
+      <field name="res_model">booking.entry</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="almaaqal_student_label">
+      <field name="name">Student Label</field>
+      <field name="model">student.label</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="student_name"/>
+            <field name="student_class"/>
+            <field name="student_exam_id"/>
+            <field name="is_Paid"/>
+            <field name="is_full_data"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="almaaqal_student_label_action_window">
+      <field name="name">Student Label window</field>
+      <field name="res_model">student.label</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Exam Hall" id="almaaqal_hall_menu_root"/>
+    
+    <menuitem name="Hall" id="almaaqal_hall_menu_hall" parent="almaaqal_hall_menu_root" action="almaaqal_hall_list_action_window"/>
+    <menuitem name="Booking" id="almaaqal_hall_menu_booking" parent="almaaqal_hall_menu_root" action="almaaqal_booking_entry_action_window"/>
+    <menuitem name="Label" id="almaaqal_hall_menu_label" parent="almaaqal_hall_menu_root" action="almaaqal_student_label_action_window"/>
+    <menuitem name="Class" id="almaaqal_student_class_menu_label" parent="almaaqal_hall_menu_root" action="almaaqal_student_class_list_action_window"/>
+
+    
+
+    <!-- actions -->
+
+
+
+        
+
+
+        
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_hall.action_window">
+      <field name="name">almaaqal_hall window</field>
+      <field name="res_model">almaaqal_hall.almaaqal_hall</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_hall.action_server">
+      <field name="name">almaaqal_hall server</field>
+      <field name="model_id" ref="model_almaaqal_hall_almaaqal_hall"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_hall" id="almaaqal_hall.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_hall.menu_1" parent="almaaqal_hall.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_hall.menu_2" parent="almaaqal_hall.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_hall.menu_1_list" parent="almaaqal_hall.menu_1"
+              action="almaaqal_hall.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_hall" parent="almaaqal_hall.menu_2"
+              action="almaaqal_hall.action_server"/>
+-->
+  </data>
+</odoo>
