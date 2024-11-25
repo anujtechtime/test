@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 class BaseResPartner(models.Model):
     _inherit = "res.partner"
 
-    class_name = fields.Many2one("student.class", string="Class")
+    class_name = fields.Many2one("student.class", string="الشعبة")
 
 class AlmaaqalStudentClass(models.Model):
     _name = 'student.class'
@@ -35,10 +35,11 @@ class AlmaaqalBooking(models.Model):
     hall_entry = fields.Many2one("exam.hall", string="Hall Entry")
     booking_time_from  = fields.Float("Booking Time From", required=True)
     booking_time_to = fields.Float("Booking Time To", required=True)
-    note = fields.Char("Notes")
-    students_collage  = fields.Many2one("faculty.faculty", string="Location College")
-    student_department = fields.Many2one("department.department", string="Location Department")
-    student_class  = fields.Many2one("student.class", string="Location Class")
+    note = fields.Char("Title")
+    students_collage  = fields.Many2one("faculty.faculty", string="Student College")
+    student_department = fields.Many2one("department.department", string="Student Department")
+    student_class  = fields.Many2one("student.class", string="Student Class")
+    student_level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Student Level")
     student_entity  = fields.Many2many("student.label", string="Student entity")
 
     @api.model
@@ -51,7 +52,7 @@ class AlmaaqalBooking(models.Model):
         print("self#############",self)
 
         if 'students_collage' in vals and "student_department" in vals and "student_class" in vals:
-            student = self.env["res.partner"].search([("college","=",vals['students_collage']),("department","=",vals["student_department"]),("class_name","=",vals["student_class"])])
+            student = self.env["res.partner"].search([("college","=",vals['students_collage']),("department","=",vals["student_department"]),("class_name","=",vals["student_class"]),("level","=",vals["student_level"])])
         
         if "hall_entry" in vals:
             hall = self.env["exam.hall"].browse(int(vals['hall_entry']))

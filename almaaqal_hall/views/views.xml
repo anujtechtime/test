@@ -39,6 +39,33 @@
     </record>
 
 
+    <record model="ir.ui.view" id="almaaqal_hall_form">
+      <field name="name">Exam Hall</field>
+      <field name="model">exam.hall</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+            <group>
+            <group>
+                <field name="name"/>
+                <field name="location_collage"/>
+                <field name="location_floor"/>
+                <field name="location_department"/>
+            </group>
+            <group>
+                <field name="seats"/>
+                <field name="rows"/>
+                <field name="columns"/>
+                <field name="booking_entity"  context="{'default_hall_entry': active_id}" domain="[('hall_entry', '=', active_id)]"/>
+            </group>
+        </group>
+    </sheet>
+        </form>
+      </field>
+    </record>
+
+
     <record model="ir.actions.act_window" id="almaaqal_hall_list_action_window">
       <field name="name">Exam Hall window</field>
       <field name="res_model">exam.hall</field>
@@ -59,6 +86,7 @@
             <field name="students_collage"/>
             <field name="student_department"/>
             <field name="student_class"/>
+            <field name="student_level"/>
             <field name="student_entity"/>
         </tree>
       </field>
