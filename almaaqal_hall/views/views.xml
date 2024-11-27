@@ -28,8 +28,9 @@
         <tree>
             <field name="name"/>
             <field name="location_collage"/>
-            <field name="location_floor"/>
             <field name="location_department"/>
+            <field name="location_building"/>
+            <field name="location_floor"/>
             <field name="seats"/>
             <field name="rows"/>
             <field name="columns"/>
@@ -50,8 +51,9 @@
             <group>
                 <field name="name"/>
                 <field name="location_collage"/>
-                <field name="location_floor"/>
                 <field name="location_department"/>
+                <field name="location_building"/>
+                <field name="location_floor"/>
             </group>
             <group>
                 <field name="seats"/>
@@ -66,18 +68,6 @@
     </record>
 
 
-        <record id="ir_actions_server_report_for_student_label" model="ir.actions.server">
-        <field name="name">Student Label</field>
-        <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="almaaqal_hall.model_exam_hall"/>
-        <field name="state">code</field>
-        <field name="code">
-            if records:
-                action = records.report_for_student_label()
-        </field>
-        <field name="binding_model_id" ref="almaaqal_hall.model_exam_hall"/>
-        <field name="binding_view_types">list,form</field>
-    </record>
 
 
 
@@ -113,6 +103,18 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+<record id="ir_actions_server_report_for_student_label" model="ir.actions.server">
+        <field name="name">Student Label</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="almaaqal_hall.model_booking_entry"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.report_for_student_label()
+        </field>
+        <field name="binding_model_id" ref="almaaqal_hall.model_booking_entry"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
 
     <record model="ir.ui.view" id="almaaqal_student_label">
       <field name="name">Student Label</field>
