@@ -66,6 +66,21 @@
     </record>
 
 
+        <record id="ir_actions_server_report_for_student_label" model="ir.actions.server">
+        <field name="name">Student Label</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="almaaqal_hall.model_exam_hall"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.report_for_student_label()
+        </field>
+        <field name="binding_model_id" ref="almaaqal_hall.model_exam_hall"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+
+
     <record model="ir.actions.act_window" id="almaaqal_hall_list_action_window">
       <field name="name">Exam Hall window</field>
       <field name="res_model">exam.hall</field>
