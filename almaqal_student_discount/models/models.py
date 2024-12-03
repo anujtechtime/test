@@ -239,7 +239,7 @@ class ResPrtner(models.Model):
                 'order_id': result._origin.id,
                 'name': 'sales order line',
             })            
-            return result        
+        return result        
 
 
         if failed_student:
