@@ -1,25 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
 from odoo import models, fields, api
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-
-# class techtime_department(models.Model):
-#     _name = 'techtime_department.techtime_department'
-#     _description = 'techtime_department.techtime_department'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
-
 
 class DepartmentSale(models.Model):
     _name = 'department.department'
@@ -112,6 +96,11 @@ class StudentFields(models.Model):
 
     @api.model
     def create(self, vals):
+        if "number_exam" in vals:
+            res_part = self.env["res.partner"].search([("number_exam","=",vals["number_exam"])])
+            if res_part:
+                raise ValidationError(_("Exam number is already exist in the system."))
+
         result = super(StudentFields, self).create(vals)
         result.property_account_receivable_id = 832
         result.property_account_payable_id = 883
