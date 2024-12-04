@@ -178,7 +178,6 @@ class ResPrtner(models.Model):
         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
         failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("college","=",result.partner_id.college.id),("year","!=",result.partner_id.year.id),("level","=",result.partner_id.level)], limit=1)
         _logger.info("failed_student************11111111111111#####**%s" %failed_student)
-        nearest_date = 0
 
         perviously_failed_student = self.env["sale.order"].search([("partner_id","=",result.partner_id.id),("state","!=",'cancel')])
 
@@ -187,22 +186,36 @@ class ResPrtner(models.Model):
         # multi_level.pop(0)
         student_id = 0
 
+        duplicates = set([item for item in multi_level if multi_level.count(item) > 1])
+
+        if duplicates:
+            print(f"Duplicate values found: {duplicates}")
+            _logger.info("duplicates@@@@@@@@@@%s" %duplicates)
+        else:
+            print("No duplicate values found")
+            _logger.info("duplicates@@@@@@@@@@111111111%s" %duplicates)
+
+
 
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
-            if result.student.id == 7:
-                student_id = 8
-            else:
-                student_id = result.student.id
+            student_id = result.student.id
+            if result.level in duplicates:
+                if result.student.id == 11:
+                    student_id = 16
+                else:
+                    student_id = 8
+                _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
+
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
+            _logger.info("installmet_datsstd33333333333333@@@@@@@@@@%s" %installmet_datsstd)
             for years in installmet_datsstd:
                 if years.year.year[-4:] == result.partner_id.year_of_acceptance_1.name[-4:]:
                     _logger.info("years.year.year[-4:]@@@@@@@@@@%s" %years.year.year[-4:])
                     print("years.year.year[-4:]@@@@@@@@@@@@@@@@",years.year.year[-4:])
                     result.installment_amount = years.installment
-                    
 
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
@@ -217,16 +230,28 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         })
                         count_no = count_no + 1  
-            result.second_payment_date = datetime.today().date()
-            order_line = result.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': result.installment_amount,
-                'product_uom': result.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': result._origin.id,
-                'name': 'sales order line',
-            })            
-            return result   
+        else:
+            instamm_ment_details = self.env["installment.details"].search([('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
+            _logger.info("instamm_ment_details@@@@@@@@@@ %s" %instamm_ment_details)
+            result.installment_amount = instamm_ment_details.installment
+            for i in instamm_ment_details.sale_installment_line_ids:
+                installment = result.sale_installment_line_ids.create({
+                    'number' : i.number,
+                    'payment_date' : i.payment_date,
+                    'amount_installment' : i.amount_installment,
+                    'description': 'Installment Payment',
+                    'sale_installment_id' : result.id,
+                    })
+        result.second_payment_date = datetime.today().date()
+        order_line = result.env['sale.order.line'].create({
+            'product_id': 1,
+            'price_unit': result.installment_amount,
+            'product_uom': result.env.ref('uom.product_uom_unit').id,
+            'product_uom_qty': 1,
+            'order_id': result._origin.id,
+            'name': 'sales order line',
+        })            
+        return result       
 
         if failed_student:
             result.installment_amount = failed_student.installment_amount

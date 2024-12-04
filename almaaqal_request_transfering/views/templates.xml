@@ -87,6 +87,15 @@
 
                     
                 </div>
+
+                <div t-if="o" class="col-12" style=" margin-top :  20px;">
+                     ملاحظة: تحتفظ الجامعة بحقوقها المالية في حالة تقديم طلب الغاء الاستضافة من قبل الطالب
+
+                    
+                </div>
+
+
+                
                 
                 <div t-if="o" class="row" style="direction : rtl; margin-top :  120px;">
 
