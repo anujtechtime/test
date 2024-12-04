@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError, ValidationError
 
 class DepartmentSale(models.Model):
     _name = 'department.department'

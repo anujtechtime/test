@@ -230,16 +230,28 @@ class ResPrtner(models.Model):
                         'sale_installment_id' : result.id,
                         })
                         count_no = count_no + 1  
-            result.second_payment_date = datetime.today().date()
-            order_line = result.env['sale.order.line'].create({
-                'product_id': 1,
-                'price_unit': result.installment_amount,
-                'product_uom': result.env.ref('uom.product_uom_unit').id,
-                'product_uom_qty': 1,
-                'order_id': result._origin.id,
-                'name': 'sales order line',
-            })            
-        return result        
+        else:
+            instamm_ment_details = self.env["installment.details"].search([('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
+            _logger.info("instamm_ment_details@@@@@@@@@@ %s" %instamm_ment_details)
+            result.installment_amount = instamm_ment_details.installment
+            for i in instamm_ment_details.sale_installment_line_ids:
+                installment = result.sale_installment_line_ids.create({
+                    'number' : i.number,
+                    'payment_date' : i.payment_date,
+                    'amount_installment' : i.amount_installment,
+                    'description': 'Installment Payment',
+                    'sale_installment_id' : result.id,
+                    })
+        result.second_payment_date = datetime.today().date()
+        order_line = result.env['sale.order.line'].create({
+            'product_id': 1,
+            'price_unit': result.installment_amount,
+            'product_uom': result.env.ref('uom.product_uom_unit').id,
+            'product_uom_qty': 1,
+            'order_id': result._origin.id,
+            'name': 'sales order line',
+        })            
+        return result              
 
 
         if failed_student:
