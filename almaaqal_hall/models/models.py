@@ -129,7 +129,7 @@ class AlmaaqalBooking(models.Model):
         for std in self.student_entity:
             ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style)  #status
             
-            if (columns - 1) >= self.hall_entry.columns:
+            if col == self.hall_entry.columns:
                 row_start = row_start + 2
                 rows = rows + 1
                 columns = 1
@@ -145,6 +145,56 @@ class AlmaaqalBooking(models.Model):
                 col = col + 1
 
                 ws.col(columns).width = 280 * 60
+
+        print("row_start##################",row_start - 4)  
+        print("col#333333333333333333",col)  
+
+        # columns = columns + 2
+        if col <= self.hall_entry.columns:
+            for i in range(self.hall_entry.columns - col + 1):
+                ws.write(row_start, columns, '', border_style)  #status
+                columns = columns + 2
+        
+        print("row_start###############",rows)
+        # row_left = row_start - 3
+
+        # if row_left == 1:
+        row_left = self.hall_entry.rows - rows
+        columns = 1
+        col = 1
+        row_start = row_start + 2
+        ws.row(row_start).height_mismatch = True
+        ws.row(row_start).height = 30 * 30
+
+        print("row_left@@@@@@@@@@@@@@@@",row_left)
+
+        print("self.hall_entry.columns@@@@@@@@@@@@@@@@",self.hall_entry.columns)
+
+
+        for i in range(row_left * self.hall_entry.columns):
+
+            ws.write(row_start, columns, '', border_style)  #status
+
+            if col == self.hall_entry.columns:
+                row_start = row_start + 2
+                rows = rows + 1
+                columns = 1
+                col = 1
+
+
+
+                ws.row(row_start).height_mismatch = True
+                ws.row(row_start).height = 30 * 30
+
+            else:
+                print("columns@@@@@@@@@@",columns)
+                columns = columns + 2
+                col = col + 1
+
+                ws.col(columns).width = 280 * 60
+
+
+
                         
         fp = io.BytesIO()
         wb.save(fp)
@@ -166,7 +216,7 @@ class AlmaaqalBooking(models.Model):
             "type": "ir.actions.act_url",
             "url": str(base_url) + str(download_url),
             "target": "new",
-        }     
+        }          
 
 
 
