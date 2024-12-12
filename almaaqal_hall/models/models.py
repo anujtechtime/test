@@ -46,8 +46,9 @@ class AlmaaqalBooking(models.Model):
     student_department = fields.Many2one("department.department", string="Student Department")
     student_class  = fields.Many2one("student.class", string="Student Class")
     student_level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Student Level")
-    student_entity  = fields.Many2many("student.label", string="Student entity")
     student_shift = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Student Shift")
+    student_entity  = fields.Many2many("student.label", string="Student entity")
+    
 
     @api.model
     def create(self, vals):

@@ -91,8 +91,9 @@
             <field name="students_collage"/>
             <field name="student_department"/>
             <field name="student_class"/>
-            <field name="student_level"/>
             <field name="student_shift"/>
+            <field name="student_level"/>
+
             <field name="student_entity"/>
         </tree>
       </field>
