@@ -47,6 +47,7 @@ class AlmaaqalBooking(models.Model):
     student_class  = fields.Many2one("student.class", string="Student Class")
     student_level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Student Level")
     student_entity  = fields.Many2many("student.label", string="Student entity")
+    student_shift = fields.Selection([('morning','Morning'),('afternoon','AfterNoon')], string="Student Shift")
 
     @api.model
     def create(self, vals):
@@ -57,8 +58,8 @@ class AlmaaqalBooking(models.Model):
 
         print("self#############",self)
 
-        if 'students_collage' in vals and "student_department" in vals and "student_class" in vals:
-            student = self.env["res.partner"].search([("college","=",vals['students_collage']),("department","=",vals["student_department"]),("class_name","=",vals["student_class"]),("level","=",vals["student_level"])])
+        if 'students_collage' in vals and "student_department" in vals and "student_class" in vals and "student_shift" in vals:
+            student = self.env["res.partner"].search([("college","=",vals['students_collage']),("department","=",vals["student_department"]),("class_name","=",vals["student_class"]),("level","=",vals["student_level"]),("shift","=",vals["student_shift"])])
         
         if "hall_entry" in vals:
             hall = self.env["exam.hall"].browse(int(vals['hall_entry']))
@@ -109,7 +110,7 @@ class AlmaaqalBooking(models.Model):
 
         # Add header and sub-header information
         ws.write_merge(0, 0, 1, 7, self.students_collage.college + "-" + self.student_department.department, header_style)
-        ws.write_merge(1, 1, 1, 7, 'Hall Name = %s  CAPACITY = %s  BUILDING = %s  FLOOR = %s CLASS = %s LEVEL= %s' % (self.hall_entry.name ,self.hall_entry.seats, self.hall_entry.location_building ,self.hall_entry.location_floor, self.student_class.name, depp), header_style)
+        ws.write_merge(1, 1, 1, 7, 'Hall Name = %s  CAPACITY = %s  BUILDING = %s  FLOOR = %s CLASS = %s LEVEL= %s  SHIFT = %s' % (self.hall_entry.name ,self.hall_entry.seats, self.hall_entry.location_building ,self.hall_entry.location_floor, self.student_class.name, depp, self.student_shift), header_style)
         ws.write_merge(2, 2, 1, 7, "Students Number - %s" % len(self.student_entity.mapped("id")) , header_style)
 
         # Set column widths
