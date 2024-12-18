@@ -73,7 +73,7 @@
                 <field name="target">new</field>
             </record>
 
-            <menuitem action="action_customer_profit_wizard_wiz" id="manu_customer_profit_wizard_wiz" parent="account.menu_finance_receivables" sequence="15" name="Unpaid Student Report"/>
+            <menuitem action="action_customer_profit_wizard_wiz" id="manu_customer_profit_wizard_wiz" parent="almaaqal_hall.almaaqal_hall_menu_root" sequence="15" name="Unpaid Student Report"/>
 
 
     <!-- Top menu item -->

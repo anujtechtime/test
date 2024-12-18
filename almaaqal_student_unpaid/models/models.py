@@ -83,7 +83,7 @@ class DueStudentWizard(models.TransientModel):
         lst = []
         invoice_id = list(set(invoice_data.mapped("partner_id.id")))
         
-        partner_i = self.env["res.partner"].search([("id","in",invoice_id)])
+        partner_i = self.env["res.partner"].search([("id","in",invoice_id),("college.res_user","in",[self.env.uid])])
 
         print("partner_i##############",partner_i)
 
