@@ -1,0 +1,96 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_student_unpaid.list">
+      <field name="name">almaaqal_student_unpaid list</field>
+      <field name="model">almaaqal_student_unpaid.almaaqal_student_unpaid</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_student_unpaid.action_window">
+      <field name="name">almaaqal_student_unpaid window</field>
+      <field name="res_model">almaaqal_student_unpaid.almaaqal_student_unpaid</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_student_unpaid.action_server">
+      <field name="name">almaaqal_student_unpaid server</field>
+      <field name="model_id" ref="model_almaaqal_student_unpaid_almaaqal_student_unpaid"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+
+<record id="view_customer_profit_wizard_wizard_data" model="ir.ui.view">
+       <field name="name">due.student.wizard.view</field>
+       <field name="model">due.student.wizard</field>
+       <field name="type">form</field>
+       <field name="arch" type="xml">
+           <form>
+            <label for="requested_costumer" name="requested_costumer"  invisible="1"/>
+               <field name="requested_costumer"  widget="many2many_tags"   invisible="1"/>
+            <label for="date_start" name="date_start"   invisible="1"/>
+               <field name="date_start"   invisible="1"/>
+            <label for="date_end" name="date_end"   invisible="1"/>   
+                <field name="date_end"   invisible="1" />
+               <footer>
+                   <button name="action_done" string="Print" type="object" class="oe_highlight"/>
+                   <button string="Cancel" class="btn btn-default" special="cancel"/>
+               </footer>
+           </form>
+       </field>
+    </record>
+
+
+
+            <record id="action_customer_profit_wizard_wiz" model="ir.actions.act_window">
+                <field name="name">Unpaid Student Report</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">due.student.wizard</field>
+                <field name="view_mode">form</field>
+                <field name="context">{}</field>
+                <field name="view_id" ref="almaaqal_student_unpaid.view_customer_profit_wizard_wizard_data"/>
+                <field name="target">new</field>
+            </record>
+
+            <menuitem action="action_customer_profit_wizard_wiz" id="manu_customer_profit_wizard_wiz" parent="account.menu_finance_receivables" sequence="15" name="Unpaid Student Report"/>
+
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_student_unpaid" id="almaaqal_student_unpaid.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_student_unpaid.menu_1" parent="almaaqal_student_unpaid.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_student_unpaid.menu_2" parent="almaaqal_student_unpaid.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_student_unpaid.menu_1_list" parent="almaaqal_student_unpaid.menu_1"
+              action="almaaqal_student_unpaid.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_student_unpaid" parent="almaaqal_student_unpaid.menu_2"
+              action="almaaqal_student_unpaid.action_server"/>
+-->
+  </data>
+</odoo>
