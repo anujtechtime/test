@@ -70,6 +70,10 @@ class DueStudentWizard(models.TransientModel):
         
         worksheet.write(row, 0, 'Student Name', header_bold) #sequence
         worksheet.write(row, 1, 'Exam Number', header_bold) #sequence
+        worksheet.write(row, 2, 'Shift', header_bold) #sequence
+        worksheet.write(row, 3, 'Department', header_bold) #sequence
+        worksheet.write(row, 4, 'Class', header_bold) #sequence
+        worksheet.write(row, 5, 'Level', header_bold) #sequence
 
 
         row = 1
@@ -82,10 +86,28 @@ class DueStudentWizard(models.TransientModel):
         partner_i = self.env["res.partner"].search([("id","in",invoice_id)])
 
         print("partner_i##############",partner_i)
+
+        
         
         for pr in partner_i:
+            depp = ""
+            if pr.level == 'leve1':
+                depp = 'المرحلة الاولى'
+            if pr.level == 'level2':
+                depp = 'المرحلة الثانية'
+            if pr.level == 'level3':
+                depp = 'المرحلة الثالثة'
+            if pr.level == 'level4':
+                depp = 'المرحلة الرابعة'
+            if pr.level == 'level5':
+                depp = 'المرحلة الخامسة'
+                
             worksheet.write(row, col, pr.display_name, border_normal) #sequence
             worksheet.write(row, col + 1, pr.number_exam, border_normal) #sequence
+            worksheet.write(row, col + 2, pr.shift, border_normal) #sequence
+            worksheet.write(row, col + 3, pr.department.department, border_normal) #sequence
+            worksheet.write(row, col + 4, pr.class_name.name, border_normal) #sequence
+            worksheet.write(row, col + 5, depp, border_normal) #sequence
             row = row + 1
 
         fp = io.BytesIO()
