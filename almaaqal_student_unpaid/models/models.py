@@ -6,6 +6,7 @@ import json
 import base64
 import xlwt
 from datetime import date, datetime, timedelta
+from lxml import etree
 
 class DueStudentWizard(models.TransientModel):
     _name = 'due.student.wizard'
@@ -70,10 +71,6 @@ class DueStudentWizard(models.TransientModel):
         
         worksheet.write(row, 0, 'Student Name', header_bold) #sequence
         worksheet.write(row, 1, 'Exam Number', header_bold) #sequence
-        worksheet.write(row, 2, 'Shift', header_bold) #sequence
-        worksheet.write(row, 3, 'Department', header_bold) #sequence
-        worksheet.write(row, 4, 'Class', header_bold) #sequence
-        worksheet.write(row, 5, 'Level', header_bold) #sequence
 
 
         row = 1
@@ -86,28 +83,10 @@ class DueStudentWizard(models.TransientModel):
         partner_i = self.env["res.partner"].search([("id","in",invoice_id),("college.res_user","in",[self.env.uid])])
 
         print("partner_i##############",partner_i)
-
-        
         
         for pr in partner_i:
-            depp = ""
-            if pr.level == 'leve1':
-                depp = 'المرحلة الاولى'
-            if pr.level == 'level2':
-                depp = 'المرحلة الثانية'
-            if pr.level == 'level3':
-                depp = 'المرحلة الثالثة'
-            if pr.level == 'level4':
-                depp = 'المرحلة الرابعة'
-            if pr.level == 'level5':
-                depp = 'المرحلة الخامسة'
-                
             worksheet.write(row, col, pr.display_name, border_normal) #sequence
             worksheet.write(row, col + 1, pr.number_exam, border_normal) #sequence
-            worksheet.write(row, col + 2, pr.shift, border_normal) #sequence
-            worksheet.write(row, col + 3, pr.department.department, border_normal) #sequence
-            worksheet.write(row, col + 4, pr.class_name.name, border_normal) #sequence
-            worksheet.write(row, col + 5, depp, border_normal) #sequence
             row = row + 1
 
         fp = io.BytesIO()
@@ -136,3 +115,57 @@ class DueStudentWizard(models.TransientModel):
             "url": str(base_url) + str(download_url),
             "target": "new",
         }
+
+
+class ResPart(models.Model):
+    _inherit = "res.partner"
+
+    student_discipline = fields.Many2many("student.discipline",store = True, track_visibility=True) 
+
+    @api.onchange('student_discipline')
+    def _on_student_discipline(self):
+        print("result@@@@@@@@@@@@@@@@eeeeeeeeeee",self.student_discipline)
+
+    # @api.model
+    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    #     res = super(ResPart, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+        
+    #     if self.env.user.has_group('almaaqal_student_unpaid.group_student_decipline_read'):  # Replace with your group
+    #         doc = etree.XML(res['arch'])
+
+    #         print("doc@@@@@@@@@@@@@@@",doc)
+    #         for node in doc.xpath("//page[@name='student_discipline']/group/field[@name='student_discipline']"):
+    #             node.set('invisible', '1')  # Hide field
+    #         res['arch'] = etree.tostring(doc, encoding='unicode')
+        
+    #     return res    
+
+
+class StudentDecipline(models.Model):
+    _name = 'student.discipline'
+    _description = 'Persistent Model'
+
+    title = fields.Char("Title", track_visibility=True)
+    details = fields.Char("Details", track_visibility=True)
+
+    res_part = fields.Many2one("res.partner",string="Partner")   
+
+    attachment = fields.Many2many("ir.attachment",  string="Attachment")
+
+
+    @api.model
+    def create(self, vals):
+        print("vals@@@@@@@@@@@@@@@@",vals)
+        result = super(StudentDecipline, self).create(vals)
+
+        print("result@@@@@@@@@@@@@@@@",result.res_part)
+
+        result.res_part.message_post(subject=_(result.title), body=("Student Discipline") + result.title + "\n" +result.details, attachment_ids=result.attachment.mapped("id"))
+
+        return result
+
+        
+
+
+
+    

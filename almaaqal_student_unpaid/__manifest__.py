@@ -20,11 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base',"almaaqal_hall"],
+    'depends': ['base','techtime_student_excel'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
+        'security/student_decipline.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

@@ -40,6 +40,38 @@
     </record>
 -->
 
+    <record id="view_res_partner_data_inherit_decipline" model="ir.ui.view">
+            <field name="name">res.partner.form.val</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="techtime_student_excel.view_sales_order_filter_sale_res_partner"/>
+            <field name="arch" type="xml">
+            <xpath expr="//page" position="after">
+                <page string="Student Discipline" name="student_discipline" groups="almaaqal_student_unpaid.group_student_decipline_read">
+                <group>
+                  <field name="student_discipline" nolabel="1" context="{'default_res_part': active_id}">
+                    <tree string="Student Discipline" editable="bottom">
+                        <field name="title"/>
+                        <field name="details"/>
+                        <field name="attachment" widget="many2many_binary"/>
+                        
+                    </tree>
+                    <form string="Student Discipline">
+                        <group>
+                        <field name="title"/>
+                        <field name="details"/>
+                        <field name="attachment" widget="many2many_binary"/>
+                        </group>
+                    </form>
+                  </field>
+                </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
 
 <record id="view_customer_profit_wizard_wizard_data" model="ir.ui.view">
        <field name="name">due.student.wizard.view</field>
@@ -73,7 +105,7 @@
                 <field name="target">new</field>
             </record>
 
-            <menuitem action="action_customer_profit_wizard_wiz" id="manu_customer_profit_wizard_wiz" parent="almaaqal_hall.almaaqal_hall_menu_root" sequence="15" name="Unpaid Student Report"/>
+            <menuitem action="action_customer_profit_wizard_wiz" id="manu_customer_profit_wizard_wiz" parent="account.menu_finance_receivables" sequence="15" name="Unpaid Student Report"/>
 
 
     <!-- Top menu item -->
