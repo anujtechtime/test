@@ -140,6 +140,20 @@ class ResPart(models.Model):
         
     #     return res    
 
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(ResPart, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+        # if self.env.user.id == self.id:  # For logged-in user condition
+        if self.env.user.has_group('almaaqal_student_unpaid.group_student_decipline_write'):    
+            doc = etree.XML(res['arch'])
+            for node in doc.xpath("//field[@name='student_discipline']"):
+                node.set('readonly', '1')  # Set the field to readonly
+                node.set('can_write','false')
+                node.set('can_create','false')
+                modifiers = {'readonly': True}
+                node.set('modifiers', json.dumps(modifiers))
+            res['arch'] = etree.tostring(doc, encoding='unicode')
+        return res
 
 class StudentDecipline(models.Model):
     _name = 'student.discipline'
