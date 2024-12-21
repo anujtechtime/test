@@ -252,6 +252,11 @@ class HrPayslip(models.Model):
     def action_payslip_done(self):
         if not self.env.context.get("without_compute_sheet"):
             self.compute_sheet()
+
+        for record in self:
+            for line in record.line_ids:
+                if line.category_id.name == 'Net':
+                    record.net_salary = line.total    
         return self.write({"state": "done"})
 
     def action_payslip_cancel(self):
