@@ -94,15 +94,8 @@ class AlmaaqalBooking(models.Model):
         # Add a sheet
         ws = wb.add_sheet(string)
 
-        # Define the custom color (#F09393 in RGB: 240, 147, 147)
-        custom_color_index = 22  # Choose an index between 8 and 64
-        wb.set_colour_rgb(custom_color_index, 0xF0, 0x93, 0x93)  # RGB in hexadecimal
-
-        # Define a style with the custom color as the background
-        border_style_background = easyxf(f'font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin; pattern: pattern solid, fore_colour colour_{custom_color_index};')
-
         # Define styles
-        # border_style_background = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin')
+        border_style_background = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin ; pattern: pattern solid, fore_colour rose; ')
         header_style = easyxf('font: bold 1, height 280; align: vert centre, horiz center')
         sub_header_style = easyxf('font: height 220; align: vert centre, horiz center')
         border_style = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin')
@@ -146,6 +139,9 @@ class AlmaaqalBooking(models.Model):
                 rows = rows + 1
                 columns = 1
                 col = 1
+
+
+
                 ws.row(row_start).height_mismatch = True
                 ws.row(row_start).height = 30 * 30
 
