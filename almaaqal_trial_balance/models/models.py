@@ -106,21 +106,14 @@ class MrpProductWizard(models.TransientModel):
         if self.date_start and not self.date_end:
             for x in range(2):
                 if x == 0:
-                    if self.date_start.month == 1:
-                        start_date =  self.date_start.replace(day=1, month=1, year=self.date_start.year - 1).strftime('%Y/%m/%d')
-                        end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
-                    else:
-                        start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
-                        end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')   
-                        
-                    # start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
-                    # end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
+                    start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                    end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
                     rows = 1
                     data = 0
                     only_debit = 0
                     only_credit = 0
                     groups = {}
-                    start = str(start_date.strftime('%Y/%m'))
+                    start = str(self.date_start.strftime('%Y/%m'))
 
                     given_month = int(start[5:7]) - 1
 
@@ -516,7 +509,11 @@ class MrpProductWizard(models.TransientModel):
                 if col == 2: 
                     worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header)  
         else:
-            for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
+            if self.date_start.month == 1:
+                dtstart=self.date_start.replace(day=1, month=12, year=self.date_start.year - 1)
+            else:
+                dtstart=self.date_start.replace(day=1)    
+            for dt in rrule.rrule(rrule.MONTHLY, dtstart=dtstart, until=self.date_end):
                 rows = 1
                 data = 0
                 only_debit = 0
