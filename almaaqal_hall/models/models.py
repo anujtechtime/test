@@ -70,10 +70,12 @@ class AlmaaqalBooking(models.Model):
 
         if student:
             for stud in student:
+                paid_or = self.env["account.move"].search([("partner_id","=",stud.id),("type","=","out_invoice"),("invoice_payment_state","=","not_paid")])
                 label = self.env["student.label"].create({
                     "student_name" : stud.id,
                     "student_class" : vals["student_class"],
                     "student_exam_id" : stud.number_exam,
+                    "is_Paid" : True if paid_or else False
                     })
                 print("label@@@@@@@@@@@@@@@@@",label)
                 lst.append(label.id)
@@ -92,7 +94,15 @@ class AlmaaqalBooking(models.Model):
         # Add a sheet
         ws = wb.add_sheet(string)
 
+        # Define the custom color (#F09393 in RGB: 240, 147, 147)
+        custom_color_index = 22  # Choose an index between 8 and 64
+        wb.set_colour_rgb(custom_color_index, 0xF0, 0x93, 0x93)  # RGB in hexadecimal
+
+        # Define a style with the custom color as the background
+        border_style_background = easyxf(f'font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin; pattern: pattern solid, fore_colour colour_{custom_color_index};')
+
         # Define styles
+        # border_style_background = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin')
         header_style = easyxf('font: bold 1, height 280; align: vert centre, horiz center')
         sub_header_style = easyxf('font: height 220; align: vert centre, horiz center')
         border_style = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin')
@@ -129,16 +139,13 @@ class AlmaaqalBooking(models.Model):
         columns = 1
         col = 1
         for std in self.student_entity:
-            ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style)  #status
+            ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style if std.is_Paid else border_style_background)  #status
             
             if col == self.hall_entry.columns:
                 row_start = row_start + 2
                 rows = rows + 1
                 columns = 1
                 col = 1
-
-
-
                 ws.row(row_start).height_mismatch = True
                 ws.row(row_start).height = 30 * 30
 
