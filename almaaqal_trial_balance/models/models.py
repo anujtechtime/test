@@ -120,7 +120,7 @@ class MrpProductWizard(models.TransientModel):
                     only_debit = 0
                     only_credit = 0
                     groups = {}
-                    start = str(self.date_start.strftime('%Y/%m'))
+                    start = str(start_date.strftime('%Y/%m'))
 
                     given_month = int(start[5:7]) - 1
 
