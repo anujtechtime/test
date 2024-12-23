@@ -106,8 +106,15 @@ class MrpProductWizard(models.TransientModel):
         if self.date_start and not self.date_end:
             for x in range(2):
                 if x == 0:
-                    start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
-                    end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
+                    if self.date_start.month == 1:
+                        start_date =  self.date_start.replace(day=1, month=1, year=self.date_start.year - 1).strftime('%Y/%m/%d')
+                        end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
+                    else:
+                        start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                        end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')   
+                        
+                    # start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                    # end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
                     rows = 1
                     data = 0
                     only_debit = 0
