@@ -96,7 +96,7 @@ class AlmaaqalBooking(models.Model):
 
         # Define the custom color (#F09393 in RGB: 240, 147, 147)
         custom_color_index = 22  # Choose an index between 8 and 64
-        wb.set_colour_rgb(custom_color_index, 0xF0, 0x93, 0x93)  # RGB in hexadecimal
+        ws.set_colour_rgb(custom_color_index, 0xF0, 0x93, 0x93)  # RGB in hexadecimal
 
         # Define a style with the custom color as the background
         border_style_background = easyxf(f'font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin; pattern: pattern solid, fore_colour colour_{custom_color_index};')
