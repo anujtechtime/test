@@ -98,34 +98,45 @@ class MrpProductWizard(models.TransientModel):
         total_balance = 0
         codde = 0
 
-        if self.date_start.month == 1:
-            self.date_end = self.date_start
+        # if self.date_start.month == 1:
+        #     self.date_end = self.date_start
         if self.date_start.month == 2:
             self.date_end = self.date_start  
             self.date_start = self.date_start.replace(month=1)  
         if self.date_start and not self.date_end:
             for x in range(2):
                 if x == 0:
-                    start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                    if self.date_start.month == 1:
+                        start_date =  self.date_start.replace(day=1, month=1, year=self.date_start.year - 1).strftime('%Y/%m/%d')
+                        start = str(self.date_start.replace(day=1, month=1, year=self.date_start.year - 1).strftime('%Y/%m'))
+                        end = str(self.date_start.replace(day=1, month=12, year=self.date_start.year - 1).strftime('%Y/%m'))
+
+                        given_month = start + "-" + end
+
+                        # Get the name of the month
+                        # month_name = calendar.month_name[given_month]
+
+                    if self.date_start.month != 1:    
+                        start_date =  self.date_start.replace(day=1, month=1).strftime('%Y/%m/%d')
+                        start = str(self.date_start.strftime('%Y/%m'))
+
+                        given_month = int(start[5:7]) - 1
+
+                        # Get the name of the month
+                        month_name = calendar.month_name[given_month]
                     end_date = self.date_start.replace(day=1).strftime('%Y/%m/%d')
                     rows = 1
                     data = 0
                     only_debit = 0
                     only_credit = 0
                     groups = {}
-                    start = str(self.date_start.strftime('%Y/%m'))
-
-                    given_month = int(start[5:7]) - 1
-
-                    # Get the name of the month
-                    month_name = calendar.month_name[given_month]
 
 
                     worksheet.write(rows + 1 , col +2, "مدين", main_cell_total_of_total)
                     worksheet.write(rows + 1 , col + 3 , "دائن ", main_cell_total_of_total)
                     # worksheet.write(rows + 1 , col + 4 , "Balance", main_cell_total_of_total)
 
-                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مدور شهر (%s)" % int(given_month), main_cell_total)
+                    worksheet.write_merge(rows , rows , col + 2, col + 3 , "مدور شهر (%s)" % given_month, main_cell_total)
                     # worksheet.write_merge(0, 0, 1, 7, "Al-Maaqal University:   Detailed Trial Balance" or '', header_bold)
 
                     account_result = {}
@@ -509,7 +520,11 @@ class MrpProductWizard(models.TransientModel):
                 if col == 2: 
                     worksheet.write_merge(rows + 2, rows + 2 , 0 , 1 , "المجموع", header_bold_main_header)  
         else:
-            for dt in rrule.rrule(rrule.MONTHLY, dtstart=self.date_start.replace(day=1), until=self.date_end):
+            if self.date_start.month == 1:
+                dtstart=self.date_start.replace(day=1, month=12, year=self.date_start.year - 1)
+            else:
+                dtstart=self.date_start.replace(day=1)    
+            for dt in rrule.rrule(rrule.MONTHLY, dtstart=dtstart, until=self.date_end):
                 rows = 1
                 data = 0
                 only_debit = 0
