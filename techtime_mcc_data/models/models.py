@@ -1582,6 +1582,14 @@ class ContraPayslipDateAccount(models.Model):
 
     net_salary = fields.Float("Net Salary",compute="_value_pc", store=True)
 
+
+
+    def action_payslip_done(self):
+        for record in self:
+            for line in record.line_ids:
+                if line.category_id.name == 'Net':
+                    record.net_salary = line.total
+
     @api.depends('net_salary')
     def _value_pc(self):
         for record in self:
