@@ -82,7 +82,7 @@
         </record>
 
 
-        <menuitem action="action_payroll_depart_wiz" id="manu_action_payroll_depart_wiz" parent="account.menu_finance_receivables" sequence="15" name="Payroll Department Report"/>
+        <menuitem action="action_payroll_depart_wiz" id="manu_action_payroll_depart_wiz" parent="payroll.payroll_menu_root" sequence="15" name="Payroll Department Report"/>
 
 
 
