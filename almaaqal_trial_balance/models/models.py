@@ -1226,7 +1226,7 @@ class payrollDeProductWizard(models.TransientModel):
 
                     # _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 
-                    if previous_employee != material_line_id.employee_id.id:
+                    if previous_employee != material_line_id.employee_id.id and previous_employee != "":
                         row += 1
                         worksheet.write(row, 0, '',main_cell_total)
                         worksheet.write(row, 1, '',main_cell_total)
