@@ -917,7 +917,7 @@ class payrollDeProductWizard(models.TransientModel):
                 dep = self.env["hr.department"].search([('id','=',values_data)])
                 print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
 
-                rested = self.env['hr.payslip'].search([('department','=',dep.id),('date_from','>=',self.date_from),('date_to',"<=",self.date_to)]).sorted(key=lambda r: r.employee_id.job_id.sequence)
+                rested = self.env['hr.payslip'].search([('department','=',dep.id),('date_from','>=',self.date_from),('date_to',"<=",self.date_to)]).sorted(key=lambda r: r.employee_id.id)
                 # rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
 
                 worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
@@ -998,7 +998,16 @@ class payrollDeProductWizard(models.TransientModel):
                 total_entitlements_data = 0
                 certificate_data = 0
                 sequence = 1
+                previous_employee = ""
                 for material_line_id in rested:
+
+                    _logger.info("previous_employee@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % previous_employee)
+                    _logger.info("material_line_id.employee_id.id@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % material_line_id.employee_id.id)
+
+                    _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+
+                    previous_employee = material_line_id.employee_id.id
+
                     worksheet.write(row, 0, sequence or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.number or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.name or '',main_cell)
