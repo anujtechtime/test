@@ -1017,7 +1017,9 @@ class payrollDeProductWizard(models.TransientModel):
                 employee_total_ded_data = 0
                 employee_net_saled_data = 0
 
-                employee_day_deduction_data = 0
+                employee_allowance_data = 0
+                employee_total_aeaa_data = 0
+
                 for material_line_id in rested:
                     worksheet.write(row, 0, sequence or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.number or '',main_cell)
@@ -1192,7 +1194,7 @@ class payrollDeProductWizard(models.TransientModel):
                             basded = basded + iit.total
                             basded_total = basded_total + iit.total
 
-                            employee_basded = empoloyee_basded + iit.total
+                            employee_basded = employee_basded + iit.total
 
                         if not basded:
                             worksheet.write(row, 15, '',main_cell)
@@ -1218,10 +1220,10 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 17, '',main_cell)    
 
 
-                    _logger.info("previous_employee@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % previous_employee)
-                    _logger.info("material_line_id.employee_id.id@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % material_line_id.employee_id.id)
+                    # _logger.info("previous_employee@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % previous_employee)
+                    # _logger.info("material_line_id.employee_id.id@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % material_line_id.employee_id.id)
 
-                    _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+                    # _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 
                     if previous_employee != material_line_id.employee_id.id:
                         worksheet.write(row, 0, '',main_cell_total)
@@ -1270,6 +1272,8 @@ class payrollDeProductWizard(models.TransientModel):
                         employee_basded = 0
                         employee_total_ded_data = 0
                         employee_net_saled_data = 0
+                        employee_allowance_data = 0
+                        employee_total_aeaa_data = 0
                         row += 1
 
                     previous_employee = material_line_id.employee_id.id
@@ -1316,7 +1320,7 @@ class payrollDeProductWizard(models.TransientModel):
                 call = row + 3
                 row += 4
 
-            print("depp@@@@@@@@@@@@@@@@@@@@@@",depp)
+            # print("depp@@@@@@@@@@@@@@@@@@@@@@",depp)
             worksheet.write(row - 1, 0, "المجموع الكلي", main_cell_total_of_total) #day deduction
 
             worksheet.write(row - 1, 1, '',main_cell_total_of_total)
@@ -1349,7 +1353,7 @@ class payrollDeProductWizard(models.TransientModel):
             call = row + 2 + 1
             row += 3 + 1
         fp = io.BytesIO()
-        print("fp@@@@@@@@@@@@@@@@@@",fp)
+        # print("fp@@@@@@@@@@@@@@@@@@",fp)
         wb.save(fp)
         print(wb)
         out = base64.encodebytes(fp.getvalue())
@@ -1360,7 +1364,7 @@ class payrollDeProductWizard(models.TransientModel):
                        'type': 'binary'
                    }
         ir_id = self.env['ir.attachment'].create(attachment) 
-        print("ir_id@@@@@@@@@@@@@@@@",ir_id)
+        # print("ir_id@@@@@@@@@@@@@@@@",ir_id)
 
         xlDecoded = base64.b64decode(out)
 
