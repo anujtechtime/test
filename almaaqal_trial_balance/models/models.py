@@ -921,7 +921,7 @@ class payrollDeProductWizard(models.TransientModel):
                 rested = self.env['hr.payslip'].search([('department','=',dep.id),('date_from','>=',self.date_from),('date_to',"<=",self.date_to)]).sorted(key=lambda r: r.employee_id.id)
                 # rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
 
-                worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(self.date_from.year) +"-"+convert_numbers.english_to_arabic(self.date_to.year)), header_bold_main_header)
+                worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(self.date_from.strftime('%Y/%m/%d')) +"-"+convert_numbers.english_to_arabic(self.date_to.strftime('%Y/%m/%d'))), header_bold_main_header)
                 worksheet.write(call - 1, 0, dep.name, header_bold)
 
 
