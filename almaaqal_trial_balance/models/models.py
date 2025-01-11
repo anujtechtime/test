@@ -883,7 +883,7 @@ class payrollDeProductWizard(models.TransientModel):
             # print("department_data#############",depp.id)
             # print("parent_id$$$$$$$$$$$$$$$$$",depp.parent_id)
 
-            partner_data = self.env["hr.department"].search([("parent_id",'=',depp.id)])
+            partner_data = self.env["hr.department"].search([("parent_id",'=',depp.id)], )
             # print("depp###############",partner_data.mapped('id') + [depp.id])
 
             all_ids = [depp.id] + partner_data.mapped('id') 
@@ -917,7 +917,7 @@ class payrollDeProductWizard(models.TransientModel):
                 dep = self.env["hr.department"].search([('id','=',values_data)])
                 print("depdepdepdepdepdepdepdepdepdepdep",dep.id)
 
-                rested = self.env['hr.payslip'].search([('department','=',dep.id),('date_from','>=',self.date_from),('date_to',"<=",self.date_to)])
+                rested = self.env['hr.payslip'].search([('department','=',dep.id),('date_from','>=',self.date_from),('date_to',"<=",self.date_to)]).sorted(key=lambda r: r.employee_id.job_id.sequence)
                 # rested = self.filtered(lambda picking: picking.employee_id.department_id.id == dep.id).sorted(key=lambda r: r.employee_id.job_id.sequence)
 
                 worksheet.write_merge(0, 2, 3, 13, (" رواتب " + depp.name + " لشهر " + " - " + translation + convert_numbers.english_to_arabic(date.today().year)), header_bold_main_header)
