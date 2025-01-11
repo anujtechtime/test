@@ -999,15 +999,26 @@ class payrollDeProductWizard(models.TransientModel):
                 certificate_data = 0
                 sequence = 1
                 previous_employee = ""
+
+
+
+                employee_day_deduction_data = 0
+                employee_day_deduction_amount_data = 0
+                employee_total_wage_data = 0
+                employee_total_basic = 0
+                employee_compensation_data = 0
+                employee_total_day_all_data = 0
+                total_aeaa_data = 0
+                employee_total_entitlements_data = 0
+                employee_socailsecurity_data = 0
+                employee_tax_data = 0
+                employee_reded = 0
+                employee_basded = 0
+                employee_total_ded_data = 0
+                employee_net_saled_data = 0
+
+                employee_day_deduction_data = 0
                 for material_line_id in rested:
-
-                    _logger.info("previous_employee@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % previous_employee)
-                    _logger.info("material_line_id.employee_id.id@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % material_line_id.employee_id.id)
-
-                    _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
-
-                    previous_employee = material_line_id.employee_id.id
-
                     worksheet.write(row, 0, sequence or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.number or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.name or '',main_cell)
@@ -1059,11 +1070,14 @@ class payrollDeProductWizard(models.TransientModel):
                     day_deduction_data = day_deduction_data + material_line_id.contract_id.day_deduction
                     day_deduction_total = day_deduction_total + material_line_id.contract_id.day_deduction
 
+
+                    employee_day_deduction_data = employee_day_deduction_data +  material_line_id.contract_id.day_deduction
+
                     worksheet.write(row, 4, "{:,.2f}".format(float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))) or '',main_cell) 
 
                     day_deduction_amount_data = day_deduction_amount_data + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
                     day_deduction_amount_total = day_deduction_amount_total + float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
-                          
+                    employee_day_deduction_amount_data = employee_day_deduction_amount_data +  float((((material_line_id.contract_id.wage + material_line_id.contract_id.training_field) / 30) * material_line_id.contract_id.day_deduction))
 
                     # if material_line_id.contract_id.currency_id.id == 2:
                     #     worksheet.write(row, 4, str(material_line_id.contract_id.wage) + "$" or '',main_cell)
@@ -1072,16 +1086,20 @@ class payrollDeProductWizard(models.TransientModel):
                     worksheet.write(row, 5, "{:,.2f}".format(float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field)) + "ع.د" or '',main_cell)
                     total_wage_data = total_wage_data + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
                     total_wage_total = total_wage_total + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
+                    employee_total_wage_data = employee_total_wage_data + (float(material_line_id.contract_id.wage) + float(material_line_id.contract_id.training_field))
                     total_ent = 0
                     total_comp_ent = 0
                     total_all_ent = 0
                     total_all_day_all = 0
                     total_all_aeaa = 0
+
                     for iit in material_line_id.line_ids:
                         if iit.code == "BSCC":
                             worksheet.write(row, 6, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             total_basic = total_basic + iit.total
                             total_basic_total = total_basic_total + iit.total
+                            employee_total_basic = employee_total_basic + iit.total
+
                             total_ent = iit.total
                         if not total_basic:
                             worksheet.write(row, 6, '',main_cell)  
@@ -1089,6 +1107,7 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 7, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             compensation_data = compensation_data + iit.total
                             compensation_total = compensation_total + iit.total
+                            employee_compensation_data = employee_compensation_data + iit.total
                             total_comp_ent = iit.total
                         if not compensation_data:
                             worksheet.write(row, 7, '',main_cell)  
@@ -1097,6 +1116,7 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 8, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             allowance_data = allowance_data + iit.total
                             allowance_total = allowance_total + iit.total
+                            employee_allowance_data = employee_allowance_data + iit.total
                             total_all_ent = iit.total
                         if not allowance_data:
                             worksheet.write(row, 8, '',main_cell)    
@@ -1106,6 +1126,9 @@ class payrollDeProductWizard(models.TransientModel):
                             total_day_all_data = total_day_all_data + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
                             total_day_all_total = total_day_all_total + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
                             total_all_day_all = (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+
+                            employee_total_day_all_data = employee_total_day_all_data + (iit.total -float(((material_line_id.contract_id.wage / 30) * material_line_id.contract_id.day_deduction)))
+                            
                         if not total_day_all_data:
                             worksheet.write(row, 9, '',main_cell)
                         if iit.code == "AEAA":
@@ -1113,6 +1136,8 @@ class payrollDeProductWizard(models.TransientModel):
                             total_aeaa_data = total_aeaa_data + iit.total
                             total_aeaa_total = total_aeaa_total + iit.total  
                             total_all_aeaa = iit.total
+
+                            employee_total_aeaa_data = employee_total_aeaa_data + iit.total
                         if not total_aeaa_data:
                             worksheet.write(row, 10, '',main_cell)
 
@@ -1124,6 +1149,8 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 11, "{:,.2f}".format(float(total_entitlements)) or '',main_cell)
                             total_entitlements_data = total_entitlements_data + total_entitlements
                             total_entitlements_total = total_entitlements_total + total_entitlements
+
+                            employee_total_entitlements_data = employee_total_entitlements_data + total_entitlements
                                 
                         if not total_entitlements_data:
                             worksheet.write(row, 11, '',main_cell)        
@@ -1134,6 +1161,8 @@ class payrollDeProductWizard(models.TransientModel):
                             socailsecurity_data = socailsecurity_data + iit.total
                             socailsecurity_total = socailsecurity_total + iit.total
 
+                            employee_socailsecurity_data = employee_socailsecurity_data + iit.total
+
                         if not socailsecurity_data:
                             worksheet.write(row, 12, '',main_cell) 
 
@@ -1142,6 +1171,8 @@ class payrollDeProductWizard(models.TransientModel):
                             tax_data = tax_data + iit.total
                             tax_total = tax_total + iit.total
 
+                            employee_tax_data = employee_tax_data + iit.total
+
                         if not tax_data:
                             worksheet.write(row, 13, '',main_cell) 
 
@@ -1149,6 +1180,8 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 14, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             reded = reded + iit.total
                             reded_total = reded_total + iit.total
+
+                            employee_reded = employee_reded + iit.total
                             
                         if not reded:
                             worksheet.write(row, 14, '',main_cell)
@@ -1159,6 +1192,8 @@ class payrollDeProductWizard(models.TransientModel):
                             basded = basded + iit.total
                             basded_total = basded_total + iit.total
 
+                            employee_basded = empoloyee_basded + iit.total
+
                         if not basded:
                             worksheet.write(row, 15, '',main_cell)
 
@@ -1166,6 +1201,8 @@ class payrollDeProductWizard(models.TransientModel):
                             worksheet.write(row, 16, "{:,.2f}".format(float(iit.total)) or '',main_cell)
                             total_ded_data = total_ded_data + iit.total
                             total_ded_total = total_ded_total + iit.total
+
+                            employee_total_ded_data = employee_total_ded_data + iit.total
                             
                         if not total_ded_data:
                             worksheet.write(row, 16, '',main_cell)
@@ -1175,9 +1212,67 @@ class payrollDeProductWizard(models.TransientModel):
                             net_saled_data = net_saled_data + iit.total
                             net_saled_total = net_saled_total + iit.total
 
+                            employee_net_saled_data = employee_net_saled_data + iit.total
+
                         if not net_saled_data:
                             worksheet.write(row, 17, '',main_cell)    
 
+
+                    _logger.info("previous_employee@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % previous_employee)
+                    _logger.info("material_line_id.employee_id.id@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % material_line_id.employee_id.id)
+
+                    _logger.info("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+
+                    if previous_employee != material_line_id.employee_id.id:
+                        worksheet.write(row, 0, '',main_cell_total)
+                        worksheet.write(row, 1, '',main_cell_total)
+                        
+
+                        worksheet.write(row, 3, "{:,.2f}".format(employee_day_deduction_data),main_cell_total) #day deduction
+                        worksheet.write(row, 4, "{:,.2f}".format(employee_day_deduction_amount_data),main_cell_total) #day deduction amount
+
+                        worksheet.write(row, 5, "{:,.2f}".format(employee_total_wage_data),main_cell_total) # wage
+
+                        worksheet.write(row, 6, "{:,.2f}".format(employee_total_basic),main_cell_total) #basic salary
+
+
+                        # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+                        worksheet.write(row, 7, "{:,.2f}".format(employee_compensation_data),main_cell_total) #compensation
+
+                        worksheet.write(row, 8, "{:,.2f}".format(employee_allowance_data),main_cell_total) #allowance
+
+
+                        worksheet.write(row, 9, "{:,.2f}".format(employee_total_day_all_data),main_cell_total) #allowance
+                        worksheet.write(row, 10, "{:,.2f}".format(total_aeaa_data),main_cell_total) #allowance
+
+                        worksheet.write(row, 11, "{:,.2f}".format(employee_total_entitlements_data),main_cell_total) #total of above 3
+
+                        # worksheet.write(call, 7, 'Basic', header_bold)
+                        worksheet.write(row, 12, "{:,.2f}".format(employee_socailsecurity_data),main_cell_total) #socaial security
+                        worksheet.write(row, 13, "{:,.2f}".format(employee_tax_data),main_cell_total) #tax
+
+                        worksheet.write(row, 14, "{:,.2f}".format(employee_reded),main_cell_total) #REDED
+                        worksheet.write(row, 15, "{:,.2f}".format(employee_basded),main_cell_total) #BASDED
+                        worksheet.write(row, 16, "{:,.2f}".format(employee_total_ded_data),main_cell_total) #total deduction
+
+                        worksheet.write(row, 17, "{:,.2f}".format(employee_net_saled_data),main_cell_total) # Net Salary
+                        employee_day_deduction_data = 0
+                        employee_day_deduction_amount_data = 0
+                        employee_total_wage_data = 0
+                        employee_total_basic = 0
+                        employee_compensation_data = 0
+                        employee_total_day_all_data = 0
+                        total_aeaa_data = 0
+                        employee_total_entitlements_data = 0
+                        employee_socailsecurity_data = 0
+                        employee_tax_data = 0
+                        employee_reded = 0
+                        employee_basded = 0
+                        employee_total_ded_data = 0
+                        employee_net_saled_data = 0
+                        row += 1
+
+                    previous_employee = material_line_id.employee_id.id
                         
 
                     row += 1
