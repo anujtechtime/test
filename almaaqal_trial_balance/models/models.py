@@ -910,6 +910,7 @@ class payrollDeProductWizard(models.TransientModel):
             total_aeaa_total = 0
             total_entitlements_total = 0
             certificate_total = 0
+            previous_employee = ""
             
             worksheet.write_merge(call - 4, call - 2 , 0, 2, "جامعة الاهلية / قسم الشؤون المالية", header_bold_main_header)
             
@@ -998,7 +999,7 @@ class payrollDeProductWizard(models.TransientModel):
                 total_entitlements_data = 0
                 certificate_data = 0
                 sequence = 1
-                previous_employee = ""
+                
 
 
 
