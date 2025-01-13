@@ -999,10 +999,6 @@ class payrollDeProductWizard(models.TransientModel):
                 total_entitlements_data = 0
                 certificate_data = 0
                 sequence = 1
-                
-
-
-
                 employee_day_deduction_data = 0
                 employee_day_deduction_amount_data = 0
                 employee_total_wage_data = 0
@@ -1024,6 +1020,7 @@ class payrollDeProductWizard(models.TransientModel):
                 for material_line_id in rested:
                     if previous_employee != material_line_id.employee_id.id and previous_employee != "":
                         # row += 1
+                        sequence = 1
                         worksheet.write(row, 0, '',main_cell_total)
                         worksheet.write(row, 1, '',main_cell_total)
                         
