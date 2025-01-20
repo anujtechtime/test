@@ -50,6 +50,42 @@
         <menuitem action="action_trail_balance_wiz" id="manu_action_trail_balance_wiz" parent="account.menu_finance_receivables" sequence="15" name="Trial Balance Report"/>
 
 
+<record id="view_payroll_department_wizard_data" model="ir.ui.view">
+   <field name="name">payroll.department.wizard.view</field>
+   <field name="model">payroll.department.wizard</field>
+   <field name="type">form</field>
+   <field name="arch" type="xml">
+       <form>
+        <label for="date_from" name="date_from" />
+           <field name="date_from"/>
+        <label for="date_to" name="date_to" />   
+            <field name="date_to" />
+           <footer>
+               <button name="send_mis_report_for_department_new" string="Print" type="object" class="oe_highlight"/>
+               <button string="Cancel" class="btn btn-default" special="cancel"/>
+           </footer>
+       </form>
+   </field>
+</record>
+
+
+
+<record id="action_payroll_depart_wiz" model="ir.actions.act_window">
+            <field name="name">Payroll Department Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payroll.department.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="almaaqal_trial_balance.view_payroll_department_wizard_data"/>
+            <field name="target">new</field>
+            
+        </record>
+
+
+        <menuitem action="action_payroll_depart_wiz" id="manu_action_payroll_depart_wiz" parent="payroll.payroll_menu_root" sequence="15" name="Payroll Department Report"/>
+
+
+
 
     <!-- actions opening views on models -->
 <!--
