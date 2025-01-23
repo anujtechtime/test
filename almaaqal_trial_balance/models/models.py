@@ -32,6 +32,11 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
+class MrpProductWizard(models.Model):
+    _inherit = 'sale.order'
+
+    year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", related="partner_id.year_of_acceptance_1")
+
 
 class MrpProductWizard(models.TransientModel):
     _name = 'trail.balance.wizard'
