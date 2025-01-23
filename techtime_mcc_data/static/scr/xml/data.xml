@@ -621,7 +621,7 @@
                           </div>
                         </div>
 
-<div t-attf-style="#{ widget.modelName == 'res.partner' ? 'display: block;' : 'display : none' }">
+<!-- <div t-attf-style="#{ widget.modelName == 'res.partner' ? 'display: block;' : 'display : none' }"> -->
                         <div class="btn btn-primary oe_button oe_highlight o_button_lap"  style="border-radius: 11px !important;
     background-color: #636678 !important;">
                           <button style="margin-top: -7px;
@@ -647,7 +647,7 @@
                           </div>
                         </div>
 
-                      </div>
+                      <!-- </div> -->
                         <!-- <button
                         class="btn btn-primary oe_button oe_highlight o_button_lap"
                         type="button">Department</button>
