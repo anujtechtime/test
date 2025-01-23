@@ -32,10 +32,15 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
-class MrpProductWizard(models.Model):
+class MrpProductSale(models.Model):
     _inherit = 'sale.order'
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", related="partner_id.year_of_acceptance_1")
+
+class MrpProductPayment(models.Model):
+    _inherit = 'account.payment'
+
+    casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف')], string="الكاشير")
 
 
 class MrpProductWizard(models.TransientModel):
