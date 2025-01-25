@@ -137,7 +137,7 @@ class AlmaaqalBooking(models.Model):
             if std.student_name.student_Lack_of_information == True:
                 ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style_yellow if std.is_Paid else border_style_background)  #status
 
-            if std.student_name.student_Lack_of_information == True:
+            if std.student_name.student_Lack_of_information != True:
                 ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style if std.is_Paid else border_style_background)  #status
             
             if col == self.hall_entry.columns:
