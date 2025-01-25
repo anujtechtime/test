@@ -99,6 +99,8 @@ class AlmaaqalBooking(models.Model):
         header_style = easyxf('font: bold 1, height 280; align: vert centre, horiz center')
         sub_header_style = easyxf('font: height 220; align: vert centre, horiz center')
         border_style = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin')
+
+        border_style_yellow = easyxf('font: height 280; align: wrap on, vert centre, horiz center; borders: left thin, right thin, top thin, bottom thin ; pattern: pattern solid, fore_colour yellow;')
         arabic_text_style = easyxf('align: vert centre, horiz right')
         depp = ""
         if self.student_level == 'leve1':
@@ -132,7 +134,11 @@ class AlmaaqalBooking(models.Model):
         columns = 1
         col = 1
         for std in self.student_entity:
-            ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style if std.is_Paid else border_style_background)  #status
+            if std.student_name.student_Lack_of_information == True:
+                ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style_yellow if std.is_Paid else border_style_background)  #status
+
+            if std.student_name.student_Lack_of_information == True:
+                ws.write(row_start, columns, std.student_name.name + " \n " + self.students_collage.college + " | "  + std.student_class.name + " | " + depp + "  R=" + str(rows) + "  Col=" + str(col) or '', border_style if std.is_Paid else border_style_background)  #status
             
             if col == self.hall_entry.columns:
                 row_start = row_start + 2
