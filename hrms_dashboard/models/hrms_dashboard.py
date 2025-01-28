@@ -120,9 +120,9 @@ class Employee(models.Model):
     @api.model
     def get_dept_employee(self):
         cr = self._cr
-        cr.execute("""select year_year.year,count(*) 
-from res_partner join year_year on year_year.id=res_partner.year 
-group by res_partner.year,year_year.year""")
+        cr.execute("""select techtime_mcc_data_techtime_mcc_data.name,count(*) 
+from res_partner join techtime_mcc_data_techtime_mcc_data on techtime_mcc_data_techtime_mcc_data.id=res_partner.year_of_acceptance_1 
+group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.name""")
         dat = cr.fetchall()
         print("dat@@@@@@@@@@@@@@datdatdatdat",dat)
         data = []
