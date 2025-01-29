@@ -820,7 +820,7 @@ class payrollDeProductWizard(models.TransientModel):
         main_cell_total = xlwt.easyxf("font: bold off, color black;\
                      borders: top_color black, bottom_color black, right_color black, left_color black,\
                               left thin, right thin, top thin, bottom thin;\
-                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre")
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre")
 
 
         main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
