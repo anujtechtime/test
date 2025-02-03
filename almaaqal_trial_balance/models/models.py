@@ -42,6 +42,10 @@ class MrpProductPayment(models.Model):
 
     casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف')], string="الكاشير")
 
+    casher_bool = fields.Boolean(string="اشتراك نادي الطلبة")
+
+    
+
 
 class MrpProductWizard(models.TransientModel):
     _name = 'trail.balance.wizard'
