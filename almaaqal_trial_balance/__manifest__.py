@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'techtime_mcc_data'],
+    'depends': ['base', 'techtime_mcc_data', 'sale', 'account'],
 
     # always loaded
     'data': [
