@@ -1553,7 +1553,7 @@ class StudentReportnotes(models.TransientModel):
         for std in student_yoa:
             col = 0
             worksheet.write_merge(row, row, col, col + 1, std.display_name or '', border_normal)
-            year = self.env['year.year'].search([])
+            year = self.env['year.year'].search(['|',('active','=',False),('active','=',True)])
             col = 2
             for acp in std.sale_order_ids.filtered(lambda picking:picking.state == 'sale'):
                 if acp.level == 'leve1':
