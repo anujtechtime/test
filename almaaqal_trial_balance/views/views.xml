@@ -87,6 +87,40 @@
 
 
 
+<record id="view_mrp_student_report_wizard_data" model="ir.ui.view">
+   <field name="name">student.report.wizard.view</field>
+   <field name="model">student.report.wizard</field>
+   <field name="type">form</field>
+   <field name="arch" type="xml">
+       <form>
+        <label for="year_field" name="year_field" />
+           <field name="year_field" widget="many2many_tags"/>
+        <label for="date_end" name="date_end" invisible="1"/>   
+            <field name="date_end" invisible="1"/>
+           <footer>
+               <button name="action_done" string="Print" type="object" class="oe_highlight"/>
+               <button string="Cancel" class="btn btn-default" special="cancel"/>
+           </footer>
+       </form>
+   </field>
+</record>
+
+
+
+        <record id="action_student_report_wizard" model="ir.actions.act_window">
+            <field name="name">Student Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="almaaqal_trial_balance.view_mrp_student_report_wizard_data"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem action="action_student_report_wizard" id="manu_action_mrp_student_report" parent="contacts.res_partner_menu_config" sequence="15" name="Student Tracking Report"/>
+
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="almaaqal_trial_balance.action_window">

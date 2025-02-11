@@ -44,9 +44,6 @@ class MrpProductPayment(models.Model):
 
     casher_bool = fields.Boolean(string="اشتراك نادي الطلبة")
 
-    
-
-
 class MrpProductWizard(models.TransientModel):
     _name = 'trail.balance.wizard'
 
@@ -1473,3 +1470,185 @@ class payrollDeProductWizard(models.TransientModel):
     #         'Accounts': account_res,
     #     }    
 
+
+
+
+
+
+
+class StudentReportnotes(models.TransientModel):
+    _name = 'student.report.wizard'
+
+    
+    year_field = fields.Many2many("techtime_mcc_data.techtime_mcc_data",string="Date Start")
+    date_end = fields.Date("Date End")
+
+    # Method to mark the mrp orders as done
+    def action_done(self):
+        filename = 'جدول الاحصاء الصباحي.xls'
+        string = 'جدول الاحصاء الصباحي.xls'
+        wb = xlwt.Workbook(encoding='utf-8')
+        worksheet = wb.add_sheet(string , cell_overwrite_ok=True)
+        # worksheet.cols_right_to_left = True
+        header_bold = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour gray25;")
+        cell_format = xlwt.easyxf()
+        filename = 'Accounting Trial Balance %s.xls' % date.today()
+        row = 1
+        border_normal = xlwt.easyxf('borders: left thin, right thin, top thin, bottom thin; font: bold on;')
+        border_1 = xlwt.easyxf('borders: left 1, right 1, top 1, bottom 1;')
+        border_2 = xlwt.easyxf('borders: left 2, right 2, top 2, bottom 2;')
+        border_color_2 = xlwt.easyxf('borders: top_color blue, bottom_color blue, right_color blue, left_color blue, left 2, right 2, top 2, bottom 2; font: bold on; pattern: pattern solid, fore_colour gray25;')
+        # worksheet.col(0).width = 10000
+        # worksheet.col(1).width = 15000
+        # worksheet.col(2).width = 10000
+        worksheet.col(0).width = 5000
+        worksheet.col(1).width = 5000
+
+        header_bold = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour gray25; align: horiz centre; font: bold 1,height 240;")
+
+
+        header_bold_main_header = xlwt.easyxf("font: bold on, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; align: horiz centre; align: vert centre")
+
+
+        
+        main_cell_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour ivory; align: horiz centre; align: vert centre")
+
+
+        main_cell_total_of_total = xlwt.easyxf("font: bold off, color black;\
+                     borders: top_color black, bottom_color black, right_color black, left_color black,\
+                              left thin, right thin, top thin, bottom thin;\
+                     pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre; align: vert centre")
+
+        rows = 1
+
+        # worksheet.write_merge(0, 0, 1, 7, "ميزان مرجعة تفصيلي :جامعه المعقل " or '', header_bold)
+
+        worksheet.write_merge(1, 2, 0, 1, "Student Name " or '', header_bold)
+
+        year = self.env['year.year'].search([])
+
+        col = 2
+        for yr in year:
+            print("yr.year@222222222333333333",yr.year)
+            worksheet.write_merge(row, row, col, col + 2, yr.year or '', header_bold)
+            worksheet.write(row + 1, col ,"Level" , border_normal)
+            worksheet.write(row + 1, col + 1 ,"Status" , border_normal)
+            worksheet.write(row + 1, col + 2 ,"Notes" , border_normal)
+            col = col + 3
+
+
+        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.ids)])
+
+        row = 3
+        level_main = ""
+        for std in student_yoa:
+            col = 0
+            worksheet.write_merge(row, row, col, col + 1, std.display_name or '', border_normal)
+            year = self.env['year.year'].search([])
+            col = 2
+            for acp in std.sale_order_ids.filtered(lambda picking:picking.state == 'sale'):
+                if acp.level == 'leve1':
+                    level_main = 'المرحلة الاولى'
+                if acp.level == 'level2':
+                    level_main = 'المرحلة الثانية'
+                if acp.level == 'level3':
+                    level_main = 'المرحلة الثالثة'
+                if acp.level == 'level4':
+                    level_main = 'المرحلة الرابعة'
+                if acp.level == 'level5':
+                    level_main = 'المرحلة الخامسة'
+
+                status_data = ""
+
+                status = acp.Status
+                if status == "currecnt_student":
+                    status_data  = "طالب حالي"
+                if status == "status1":
+                    status_data  = "ترقين قيد"
+
+                if status == "status4":
+                    status_data  = "مؤجل"
+                    
+                if status == "status2":
+                    status_data  = "طالب غير مباشر"
+                
+                if status == "status3":
+                    status_data  = "انسحاب"
+
+                if status == "succeeded":
+                    status_data  = "طالب ناجح"
+                    
+                if status == "failed":
+                    status_data  = "طالب راسب"
+                    
+                if status == "transferred_from_us":
+                    status_data  = "طالب منتقل من الجامعة"     
+
+                if status == "graduated":
+                    status_data  = "طالب ناجح"   
+
+                messages = self.env['mail.message'].search([
+                    ('model', '=', 'res.partner'),
+                    ('res_id', '=', std.id)
+                ])   
+
+
+
+                for ytr in year:
+                    if ytr.id == acp.year.id:
+                        notes = ""
+                        for message in sorted(messages.tracking_value_ids, key=lambda m: m.ids, reverse=False):
+                            if len(message) < 2 and  message.field == "year" :
+                                old_year = message.old_value_integer
+                                new_year = message.new_value_integer 
+                            if len(message) < 2 and message.field == "notes_data" and acp.year.id == old_year:
+                                notes = message.old_value_text 
+
+                            if len(message) < 2 and message.field == "notes_data" and acp.year.id == new_year:
+                                notes = message.new_value_text     
+
+                        worksheet.write(row, col , level_main, border_normal)
+                        worksheet.write(row, col + 1 ,status_data , border_normal)
+                        worksheet.write(row, col + 2 , notes, border_normal)
+                        col = col + 3 
+
+            row = row + 1
+
+
+            
+
+
+
+        fp = io.BytesIO()
+        wb.save(fp)
+        print(wb)
+        out = base64.encodebytes(fp.getvalue())
+        attachment = {
+                       'name': str(filename),
+                       'display_name': str(filename),
+                       'datas': out,
+                       'type': 'binary'
+                   }
+        ir_id = self.env['ir.attachment'].create(attachment) 
+
+        xlDecoded = base64.b64decode(out)
+
+        # file_added = "/home/anuj/Desktop/workspace13/Student_report.xlsx"
+        # with open(file_added, "wb") as binary_file:
+        #     binary_file.write(xlDecoded)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        download_url = '/web/content/' + str(ir_id.id) + '?download=true'
+        return {
+            "type": "ir.actions.act_url",
+            "url": str(base_url) + str(download_url),
+            "target": "new",
+        }
