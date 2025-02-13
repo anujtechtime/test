@@ -1555,7 +1555,7 @@ class StudentReportnotes(models.TransientModel):
 
             col = 2
 
-            years = self.env['year.year'].search(['|',('active','=',True),('active','=',False)])
+            years = self.env['year.year'].search(['|',('active','=',False),('active','=',True)])
 
             year_ids =  years.mapped('id')  #[2020, 2021, 2022, 2023]
 
