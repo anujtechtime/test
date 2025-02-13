@@ -95,8 +95,8 @@
        <form>
         <label for="year_field" name="year_field" />
            <field name="year_field" widget="many2many_tags"/>
-        <label for="date_end" name="date_end" invisible="1"/>   
-            <field name="date_end" invisible="1"/>
+        <label for="department" name="department"/>   
+            <field name="department"/>
            <footer>
                <button name="action_done" string="Print" type="object" class="oe_highlight"/>
                <button string="Cancel" class="btn btn-default" special="cancel"/>

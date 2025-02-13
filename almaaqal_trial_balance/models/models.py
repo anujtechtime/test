@@ -1481,6 +1481,9 @@ class StudentReportnotes(models.TransientModel):
 
     
     year_field = fields.Many2many("techtime_mcc_data.techtime_mcc_data",string="Year Of Acceptance")
+    department = fields.Many2many("department.department",string="Department")
+
+    
     date_end = fields.Date("Date End")
 
     # Method to mark the mrp orders as done
@@ -1544,7 +1547,7 @@ class StudentReportnotes(models.TransientModel):
             col = col + 3
 
 
-        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.ids)])
+        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.ids),('department',"in",self.department.ids)])
 
         row = 3
         level_main = ""
