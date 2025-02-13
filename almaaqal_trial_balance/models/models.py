@@ -1634,7 +1634,7 @@ class StudentReportnotes(models.TransientModel):
                     worksheet.write(row, col + 2, "", border_normal)
                     col += 3
                 else:
-                    _logger.info("records@@@@@@@@@@@@@@@@@@@@@22222222222222 %s" % records)
+                    _logger.info("records@@@@@@@@@@@@@@@@@@@@333333333333333333 %s" % records)
                     print("records@@@@@@@@@@@@@@@@@@@@@3333333333333333", records)
                     for rc in records:
                         worksheet.write(row, col, rc["level"] , border_normal)
