@@ -1480,7 +1480,7 @@ class StudentReportnotes(models.TransientModel):
     _name = 'student.report.wizard'
 
     
-    year_field = fields.Many2many("techtime_mcc_data.techtime_mcc_data",string="Date Start")
+    year_field = fields.Many2many("techtime_mcc_data.techtime_mcc_data",string="Year Of Acceptance")
     date_end = fields.Date("Date End")
 
     # Method to mark the mrp orders as done
@@ -1533,12 +1533,10 @@ class StudentReportnotes(models.TransientModel):
         # worksheet.write_merge(0, 0, 1, 7, "ميزان مرجعة تفصيلي :جامعه المعقل " or '', header_bold)
 
         worksheet.write_merge(1, 2, 0, 1, "Student Name " or '', header_bold)
-
         year = self.env['year.year'].search(['|',('active','=',False),('active','=',True)])
 
         col = 2
         for yr in year:
-            print("yr.year@222222222333333333",yr.year)
             worksheet.write_merge(row, row, col, col + 2, yr.year or '', header_bold)
             worksheet.write(row + 1, col ,"Level" , border_normal)
             worksheet.write(row + 1, col + 1 ,"Status" , border_normal)
@@ -1546,87 +1544,100 @@ class StudentReportnotes(models.TransientModel):
             col = col + 3
 
 
-        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.ids)])
+        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.mapped('id'))])
 
         row = 3
         level_main = ""
+
         for std in student_yoa:
-            col = 0
-            worksheet.write_merge(row, row, col, col + 1, std.display_name or '', border_normal)
-            year = self.env['year.year'].search(['|',('active','=',False),('active','=',True)])
-            col = 2
-            for acp in std.sale_order_ids.filtered(lambda picking:picking.state == 'sale'):
-                if acp.level == 'leve1':
-                    level_main = 'المرحلة الاولى'
-                if acp.level == 'level2':
-                    level_main = 'المرحلة الثانية'
-                if acp.level == 'level3':
-                    level_main = 'المرحلة الثالثة'
-                if acp.level == 'level4':
-                    level_main = 'المرحلة الرابعة'
-                if acp.level == 'level5':
-                    level_main = 'المرحلة الخامسة'
-
-                status_data = ""
-
-                status = acp.Status
-                if status == "currecnt_student":
-                    status_data  = "طالب حالي"
-                if status == "status1":
-                    status_data  = "ترقين قيد"
-
-                if status == "status4":
-                    status_data  = "مؤجل"
-                    
-                if status == "status2":
-                    status_data  = "طالب غير مباشر"
-                
-                if status == "status3":
-                    status_data  = "انسحاب"
-
-                if status == "succeeded":
-                    status_data  = "طالب ناجح"
-                    
-                if status == "failed":
-                    status_data  = "طالب راسب"
-                    
-                if status == "transferred_from_us":
-                    status_data  = "طالب منتقل من الجامعة"     
-
-                if status == "graduated":
-                    status_data  = "طالب ناجح"   
-
-                messages = self.env['mail.message'].search([
-                    ('model', '=', 'res.partner'),
-                    ('res_id', '=', std.id)
-                ])   
-
-
-
-                for ytr in year:
-                    if ytr.id == acp.year.id:
-                        notes = ""
-                        for message in sorted(messages.tracking_value_ids, key=lambda m: m.ids, reverse=False):
-                            if len(message) < 2 and  message.field == "year" :
-                                old_year = message.old_value_integer
-                                new_year = message.new_value_integer 
-                            if len(message) < 2 and message.field == "notes_data" and acp.year.id == old_year:
-                                notes = message.old_value_text 
-
-                            if len(message) < 2 and message.field == "notes_data" and acp.year.id == new_year:
-                                notes = message.new_value_text     
-
-                        worksheet.write(row, col , level_main, border_normal)
-                        worksheet.write(row, col + 1 ,status_data , border_normal)
-                        worksheet.write(row, col + 2 , notes, border_normal)
-                        col = col + 3 
-
-            row = row + 1
-
-
             
+            worksheet.write_merge(row, row, 0, 1, std.display_name or '', border_normal)
+
+            col = 2
+
+            years = self.env['year.year'].search(['|',('active','=',True),('active','=',False)])
+
+            year_ids =  years.mapped('id')  #[2020, 2021, 2022, 2023]
+
+            year_dict = {year: [] for year in year_ids}
+
+            for item in std.sale_order_ids.filtered(lambda picking:picking.state == 'sale'):
+                status_data = ""
+                level_main = ""
+                if item.year.id in year_dict:
+
+                    if item.level == 'leve1':
+                        level_main = 'المرحلة الاولى'
+                    if item.level == 'level2':
+                        level_main = 'المرحلة الثانية'
+                    if item.level == 'level3':
+                        level_main = 'المرحلة الثالثة'
+                    if item.level == 'level4':
+                        level_main = 'المرحلة الرابعة'
+                    if item.level == 'level5':
+                        level_main = 'المرحلة الخامسة'
+
+                    status = item.Status
+                    if status == "currecnt_student":
+                        status_data  = "طالب حالي"
+                    if status == "status1":
+                        status_data  = "ترقين قيد"
+
+                    if status == "status4":
+                        status_data  = "مؤجل"
+                        
+                    if status == "status2":
+                        status_data  = "طالب غير مباشر"
+                    
+                    if status == "status3":
+                        status_data  = "انسحاب"
+
+                    if status == "succeeded":
+                        status_data  = "طالب ناجح"
+                        
+                    if status == "failed":
+                        status_data  = "طالب راسب"
+                        
+                    if status == "transferred_from_us":
+                        status_data  = "طالب منتقل من الجامعة"     
+
+                    if status == "graduated":
+                        status_data  = "طالب ناجح"
 
 
+                    messages = self.env['mail.message'].search([
+                        ('model', '=', 'res.partner'),
+                        ('res_id', '=', std.id)
+                    ])   
+
+                    notes = ""
+                    
+                    for message in sorted(messages.tracking_value_ids, key=lambda m: m.ids, reverse=False):
+                        if len(message) < 2 and  message.field == "year" :
+                            old_year = message.old_value_integer
+                            new_year = message.new_value_integer 
+                        if len(message) < 2 and message.field == "notes_data" and item.year.id == old_year:
+                            notes = message.old_value_text 
+
+                        if len(message) < 2 and message.field == "notes_data" and item.year.id == new_year:
+                            notes = message.new_value_text      
+
+                    year_dict[item.year.id].append({"level": level_main, "status": status_data, "notes" : notes})
+                    # worksheet.write(row, col, item.level, header_bold)
+
+            for year, records in year_dict.items():
+                if records == []:
+                    worksheet.write(row, col, "", border_normal)
+                    worksheet.write(row, col + 1, "", border_normal)
+                    worksheet.write(row, col + 2, "", border_normal)
+                    col += 3
+                else:
+                    for rc in records:
+                        worksheet.write(row, col, rc["level"] , border_normal)
+                        worksheet.write(row, col + 1, rc["status"], border_normal)
+                        worksheet.write(row, col + 2, rc["notes"], border_normal)
+                        col += 3
+            row = row + 1
 
         fp = io.BytesIO()
         wb.save(fp)
