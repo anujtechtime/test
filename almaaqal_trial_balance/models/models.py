@@ -1544,7 +1544,7 @@ class StudentReportnotes(models.TransientModel):
             col = col + 3
 
 
-        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.mapped('id'))])
+        student_yoa = self.env['res.partner'].search([("year_of_acceptance_1","in",self.year_field.ids)])
 
         row = 3
         level_main = ""
@@ -1627,11 +1627,13 @@ class StudentReportnotes(models.TransientModel):
 
             for year, records in year_dict.items():
                 if records == []:
+                    _logger.info("records@@@@@@@@@@@@@@@@@@@@@22222222222222%s" % records)
                     worksheet.write(row, col, "", border_normal)
                     worksheet.write(row, col + 1, "", border_normal)
                     worksheet.write(row, col + 2, "", border_normal)
                     col += 3
                 else:
+                    _logger.info("records@@@@@@@@@@@@@@@@@@@@@3333333333333333%s" % records)
                     for rc in records:
                         worksheet.write(row, col, rc["level"] , border_normal)
                         worksheet.write(row, col + 1, rc["status"], border_normal)
