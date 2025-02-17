@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_report_account.list">
+      <field name="name">almaaqal_report_account list</field>
+      <field name="model">almaaqal_report_account.almaaqal_report_account</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+
+    <record id="account_report_balance_view_new_block" model="ir.ui.view">
+        <field name="name">Account Balance</field>
+        <field name="model">account.balance.report.new.block</field>
+        <field name="inherit_id" ref="account.account_common_report_view"/>
+        <field name="arch" type="xml">
+            <data>
+            <!-- <field name="journal_ids" position="replace"/> -->
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="display_account" widget="radio"/>
+                    <newline/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="action_account_balance_menu_new_block" model="ir.actions.act_window">
+        <field name="name">Account Balance</field>
+        <field name="res_model">account.balance.report.new.block</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_balance_view_new_block"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_account" />
+    </record>
+
+    <menuitem id="menu_Balance_report_new_block"
+              name="Account Balance"
+              sequence="7"
+              action="action_account_balance_menu_new_block"
+              parent="base_accounting_kit.account_reports_audit"/>
+
+
+
+            <report
+            id="action_report_account_balance"
+            model="account.balance.report"
+            string="Account Balance"
+            report_type="qweb-pdf"
+            name="almaaqal_report_account.report_new_report"
+            file="almaaqal_report_account.report_new_report"
+            />
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_report_account.action_window">
+      <field name="name">almaaqal_report_account window</field>
+      <field name="res_model">almaaqal_report_account.almaaqal_report_account</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_report_account.action_server">
+      <field name="name">almaaqal_report_account server</field>
+      <field name="model_id" ref="model_almaaqal_report_account_almaaqal_report_account"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_report_account" id="almaaqal_report_account.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_report_account.menu_1" parent="almaaqal_report_account.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_report_account.menu_2" parent="almaaqal_report_account.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_report_account.menu_1_list" parent="almaaqal_report_account.menu_1"
+              action="almaaqal_report_account.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_report_account" parent="almaaqal_report_account.menu_2"
+              action="almaaqal_report_account.action_server"/>
+-->
+  </data>
+</odoo>
