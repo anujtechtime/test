@@ -49,7 +49,22 @@
                             <t t-set="total_34" t-value="0"/>
                             <t t-set="total_37" t-value="0"/>
                             <t t-set="total_384" t-value="0"/>
+
+
+                            <t t-set="total_pre_225" t-value="0"/>
+                            <t t-set="total_pre_43" t-value="0"/>
+                            <t t-set="total_pre_48" t-value="0"/>
+                            <t t-set="total_pre_49" t-value="0"/>
+                            <t t-set="total_pre_38" t-value="0"/>
+                            <t t-set="total_pre_39" t-value="0"/>
+                            <t t-set="total_pre_31" t-value="0"/>
+                            <t t-set="total_pre_32" t-value="0"/>
+                            <t t-set="total_pre_33" t-value="0"/>
+                            <t t-set="total_pre_34" t-value="0"/>
+                            <t t-set="total_pre_37" t-value="0"/>
+                            <t t-set="total_pre_384" t-value="0"/>
                             <t t-foreach="Accounts" t-as="account">
+                            
 
                             <t t-if="account['code'][:2] == '225'">
                                 <t t-set="total_225" t-value="int(total_225) + int(account['curr_year_balance'])"/> 
@@ -97,20 +112,8 @@
 
 
 
-                            <t t-set="total_pre_225" t-value="0"/>
-                            <t t-set="total_pre_43" t-value="0"/>
-                            <t t-set="total_pre_48" t-value="0"/>
-                            <t t-set="total_pre_49" t-value="0"/>
-                            <t t-set="total_pre_38" t-value="0"/>
-                            <t t-set="total_pre_39" t-value="0"/>
-                            <t t-set="total_pre_31" t-value="0"/>
-                            <t t-set="total_pre_32" t-value="0"/>
-                            <t t-set="total_pre_33" t-value="0"/>
-                            <t t-set="total_pre_34" t-value="0"/>
-                            <t t-set="total_pre_37" t-value="0"/>
-                            <t t-set="total_pre_384" t-value="0"/>
+
                              
-                            <t t-foreach="Accounts" t-as="account">
 
                             <t t-if="account['code'][:2] == '225'">
                                 <t t-set="total_pre_225" t-value="int(total_pre_225) + int(account['prev_year_balance'])"/> 
