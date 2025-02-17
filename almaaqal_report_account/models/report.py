@@ -1,4 +1,24 @@
 # -*- coding: utf-8 -*-
+#############################################################################
+#
+#    Cybrosys Technologies Pvt. Ltd.
+#
+#    Copyright (C) 2019-TODAY Cybrosys Technologies(<https://www.cybrosys.com>)
+#    Author: Cybrosys Techno Solutions(<https://www.cybrosys.com>)
+#
+#    You can modify it under the terms of the GNU LESSER
+#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
+#
+#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
+#    (LGPL v3) along with this program.
+#    If not, see <http://www.gnu.org/licenses/>.
+#
+#############################################################################
 
 import time
 
@@ -38,8 +58,8 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
     
         request = (
             "SELECT account_id AS id, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN debit - credit ELSE 0 END) AS prev_year_balance, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN debit - credit ELSE 0 END) AS curr_year_balance "
+            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS prev_year_balance, "
+            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS curr_year_balance "
             "FROM " + tables + " "
             "WHERE account_id IN %s " + filters + " "
             "GROUP BY account_id"
