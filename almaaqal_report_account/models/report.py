@@ -66,7 +66,7 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
         )
 
         params = (tuple(accounts.ids),) + tuple(where_params)
-        self.env.cr.execute(requested, params)
+        self.env.cr.execute(request, params)
         for row in self.env.cr.dictfetchall():
             account_result[row.pop('id')] = row
             print("row@@@@@@@@@@@@@@@@@@@",row)
