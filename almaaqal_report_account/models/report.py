@@ -55,13 +55,14 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
             wheres.append(where_clause.strip())
         filters = " AND ".join(wheres)
         # compute the balance, debit and credit for the provided accounts
-        requested = (
+    
+        request = (
             "SELECT account_id AS id, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN debit - credit ELSE 0 END) AS prev_year_balance, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN debit - credit ELSE 0 END) AS curr_year_balance "
-            "FROM " + tables + " "
-            "WHERE account_id IN %s " + filters + " "
-            "GROUP BY account_id"
+            "SUM(CASE WHEN EXTRACT(YEAR FROM t.date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN t.debit - t.credit ELSE 0 END) AS prev_year_balance, "
+            "SUM(CASE WHEN EXTRACT(YEAR FROM t.date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN t.debit - t.credit ELSE 0 END) AS curr_year_balance "
+            "FROM " + tables + " AS t "  # Ensure 'tables' is a valid table name
+            "WHERE t.account_id IN %s " + filters + " "
+            "GROUP BY t.account_id"
         )
 
         params = (tuple(accounts.ids),) + tuple(where_params)
