@@ -13,8 +13,8 @@
                     <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
                         <thead>
                             <tr>
-                                <th class="text-right">Previous Year</th>
-                                <th class="text-right">Current Year</th>
+                                <th class="text-right"><span t-esc="data['date_from'].split('-')[0]"/></th>
+                                <th class="text-right"><span t-esc="data['date_to'].split('-')[0]"/></th>
                                 <th class="text-right">اسم الحساب</th>
                                 <th class="text-right">رقم الدليل المحاسبي</th>
                             </tr>
@@ -308,169 +308,125 @@
                                     <span t-att-style="style" t-esc="code_value_384"/>
                                 </td>
                             </tr>   
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384"/></td>
+                                <td class="text-right" colspan="2">مجموع المصروفات الجارية</td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43"/></td>
+                                <td class="text-right" colspan="2">فائض العمليات التجارية(المرحلة الاولى)</td>
+                            </tr>
+                            
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_225))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_225))"/></td>
+                                <td class="text-right" colspan="2">(ينزل العجز المتراكم من السنوات السابقة)</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_pre_225))"/></td>
+                                <td class="text-right" colspan="2">فائض المرحلة الاولى بعد معاجة العجز المتراكم</td>
+
+                            </tr>
+
+
+                            <tr>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_pre_48" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_48" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                            <span/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="code_value_48"/>
+                            </td>
+                            </tr> 
+
+                            <tr>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_pre_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                            <span/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="code_value_49"/>
+                            </td>
+                            </tr>
+
+
+                             <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31))"/></td>
+                                <td class="text-right" colspan="2">تنزل :المصروفات التحويلية والاخرى</td>
+
+                            </tr>
+
+
+                            <tr>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_pre_38 - total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_38 - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                            <span/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="code_value_38"/>
+                            </td>
+                            </tr> 
+                        
+                            <tr>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_pre_39" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="total_39" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                            </td>
+                            <td class="text-right">
+                            <span/>
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="code_value_39"/>
+                            </td>
+                            </tr> 
+
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_39 - total_pre_38 - total_pre_384))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_39 - total_38 - total_384))"/></td>
+                                <td class="text-right" colspan="2">مجموع المصروفات التحويلية </td>
+
+                            </tr>
+                        
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225 + total_pre_48 + total_pre_49))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_225 + total_48 + total_49))"/></td>
+                                <td class="text-right" colspan="2">فائض العمليات الجارية (المرحلة الثانية)</td>
+
+                            </tr>
+
+
+
                         </tbody>
                     </table>
 
-
-
-       
-
-                    
-
-                    
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384"/></th>
-                                <th class="text-right" colspan="2">مجموع المصروفات الجارية</th>
-
-                            </tr>
-                        </thead>
-                    </table>
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43"/></th>
-                                <th class="text-right" colspan="2">فائض العمليات التجارية(المرحلة الاولى)</th>
-
-                            </tr>
-                        </thead>
-                    </table>
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_225))"/></th>
-                                <th class="text-right" colspan="2">(ينزل العجز المتراكم من السنوات السابقة)</th>
-
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_pre_225))"/></th>
-                                <th class="text-right" colspan="2">فائض المرحلة الاولى بعد معاجة العجز المتراكم</th>
-
-                            </tr>
-                        </thead>
-                    </table>
-
-
-                    <table class="table table-sm table-reports">
-                    <thead>
-                        <tr>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_pre_48" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_48" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                        <span/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="code_value_48"/>
-                        </td>
-                        </tr> 
-                    </thead>
-                    </table>
-                           
-
-                           <table class="table table-sm table-reports">
-                    <thead>
-                        <tr>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_pre_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                        <span/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="code_value_49"/>
-                        </td>
-                        </tr> 
-                    </thead>
-                    </table>
-
-
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31))"/></th>
-                                <th class="text-right" colspan="2">تنزل :المصروفات التحويلية والاخرى</th>
-
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <table class="table table-sm table-reports">
-                    <thead>
-                        <tr>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_pre_38 - total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_38 - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                        <span/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="code_value_38"/>
-                        </td>
-                        </tr> 
-                    </thead>
-                    </table>
-
-                    <table class="table table-sm table-reports">
-                    <thead>
-                        <tr>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_pre_39" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="total_39" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
-                        </td>
-                        <td class="text-right">
-                        <span/>
-                        </td>
-                        <td class="text-right">
-                            <span t-att-style="style" t-esc="code_value_39"/>
-                        </td>
-                        </tr> 
-                    </thead>
-                    </table>
-
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_39 - total_38 - total_384))"/></th>
-                                <th class="text-right" colspan="2">مجموع المصروفات التحويلية </th>
-
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <table class="table table-sm table-reports">
-                        <thead>
-                            <tr>
-                                <th class="text-right"></th>
-                                <th class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_225 + total_48 + total_49))"/></th>
-                                <th class="text-right" colspan="2">فائض العمليات الجارية (المرحلة الثانية)</th>
-
-                            </tr>
-                        </thead>
-                    </table>
                 </div>
             
              

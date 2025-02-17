@@ -30,7 +30,8 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
     _name = 'report.almaaqal_report_account.report_new_report'
     _description = 'Trial Balance Report New'
 
-    def _get_accounts(self, accounts, display_account):
+    def _get_accounts(self, accounts, display_account, date_from, date_to):
+        # print("used_context##############3",data.get('used_context'))
         """ compute the balance, debit and credit for the provided accounts
             :Arguments:
                 `accounts`: list of accounts record,
@@ -55,18 +56,20 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
             wheres.append(where_clause.strip())
         filters = " AND ".join(wheres)
         # compute the balance, debit and credit for the provided accounts
-    
-        request = (
+
+        print("self.endwwwwwwwwwwwwwwwww",filters)
+        requested = (
             "SELECT account_id AS id, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS prev_year_balance, "
-            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS curr_year_balance "
+            "SUM(CASE WHEN " + date_to[:4] + " = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS prev_year_balance, "
+            "SUM(CASE WHEN " + date_from[:4] + " = EXTRACT(YEAR FROM CURRENT_DATE) THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS curr_year_balance "
             "FROM " + tables + " "
             "WHERE account_id IN %s " + filters + " "
             "GROUP BY account_id"
         )
 
+
         params = (tuple(accounts.ids),) + tuple(where_params)
-        self.env.cr.execute(request, params)
+        self.env.cr.execute(requested, params)
         for row in self.env.cr.dictfetchall():
             account_result[row.pop('id')] = row
             print("row@@@@@@@@@@@@@@@@@@@",row)
@@ -92,11 +95,12 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
             
             account_res.append(res)
             
-            print("account_res@@@@@@@@@@@@@@@@22222222222222",account_res)    
+            # print("account_res@@@@@@@@@@@@@@@@22222222222222",account_res)    
         return account_res
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        print("data##########333344444444444444444",data['form'].get('used_context').get('date_from'))
         if not data.get('form') or not self.env.context.get('active_model'):
             raise UserError(
                 _("Form content is missing, this report cannot be printed."))
@@ -107,9 +111,11 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
         display_account = data['form'].get('display_account')
         accounts = docs if self.model == 'account.account' else self.env[
             'account.account'].search([])
+        date_from = data['form'].get('used_context').get('date_from')    
+        date_to =date_from = data['form'].get('used_context').get('date_to')   
         account_res = self.with_context(
             data['form'].get('used_context'))._get_accounts(accounts,
-                                                            display_account)
+                                                            display_account, date_from, date_to)
         return {
             'doc_ids': self.ids,
             'doc_model': self.model,
