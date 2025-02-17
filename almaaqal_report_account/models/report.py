@@ -36,7 +36,7 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
         filters = " AND ".join(wheres)
         # compute the balance, debit and credit for the provided accounts
     
-        requested = (
+        request = (
             "SELECT account_id AS id, "
             "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN debit - credit ELSE 0 END) AS prev_year_balance, "
             "SUM(CASE WHEN EXTRACT(YEAR FROM date) = EXTRACT(YEAR FROM CURRENT_DATE) THEN debit - credit ELSE 0 END) AS curr_year_balance "
