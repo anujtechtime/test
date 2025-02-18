@@ -60,8 +60,8 @@ class ReportTrialBalancepagetwo(models.AbstractModel):
         print("self.endwwwwwwwwwwwwwwwww",filters)
         requested = (
             "SELECT account_id AS id, "
-            "SUM(CASE WHEN " + str(int(date_from[:4]) - 1) + " = EXTRACT(YEAR FROM CURRENT_DATE) - 1 THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS prev_year_balance, "
-            "SUM(CASE WHEN " + date_from[:4] + " = EXTRACT(YEAR FROM CURRENT_DATE) THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS curr_year_balance "
+            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = "  + str(int(date_from[:4]) - 1) + " THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS prev_year_balance, "
+            "SUM(CASE WHEN EXTRACT(YEAR FROM account_move_line.date) = " + date_from[:4] + " THEN account_move_line.debit - account_move_line.credit ELSE 0 END) AS curr_year_balance "
             "FROM " + tables + " "
             "WHERE account_id IN %s " + filters + " "
             "GROUP BY account_id"
