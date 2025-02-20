@@ -585,8 +585,8 @@ class DataMphine(models.Model):
 
                 worksheet.write(row, 5, total_of_status_2, main_cell_total_of_total)
                 worksheet.write(row, 6, total_of_status_3, main_cell_total_of_total)
-                worksheet.write(row, 7, total_of_status_5, main_cell_total_of_total)
-                worksheet.write(row, 8, total_of_status_4, main_cell_total_of_total)
+                worksheet.write(row, 7, total_of_status_4, main_cell_total_of_total)
+                worksheet.write(row, 8, total_of_status_5, main_cell_total_of_total)
                 worksheet.write(row, 9, total_of_failed, main_cell_total_of_total)
                 worksheet.write(row, 10, total_transferred_from_us, main_cell_total_of_total)
                 worksheet.write(row, 11, total_transferred_to_us, main_cell_total_of_total)

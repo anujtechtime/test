@@ -57,6 +57,48 @@
             name="almaaqal_report_account.report_new_report"
             file="almaaqal_report_account.report_new_report"
             />
+
+            <record id="account_report_balance_view_new_block_new" model="ir.ui.view">
+        <field name="name">Account Balance</field>
+        <field name="model">account.balance.report.new.block.new</field>
+        <field name="inherit_id" ref="account.account_common_report_view"/>
+        <field name="arch" type="xml">
+            <data>
+            <!-- <field name="journal_ids" position="replace"/> -->
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="display_account" widget="radio"/>
+                    <newline/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="action_account_balance_menu_new_block_new" model="ir.actions.act_window">
+        <field name="name">Account Balance</field>
+        <field name="res_model">account.balance.report.new.block.new</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_report_balance_view_new_block"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_account" />
+    </record>
+
+    <menuitem id="menu_Balance_report_new_block_new"
+              name="Account Balance New"
+              sequence="8"
+              action="action_account_balance_menu_new_block_new"
+              parent="base_accounting_kit.account_reports_audit"/>
+
+
+
+            <report
+            id="action_report_account_balance_new"
+            model="account.balance.report"
+            string="Account Balance New"
+            report_type="qweb-pdf"
+            name="almaaqal_report_account.report_new_report_new"
+            file="almaaqal_report_account.report_new_report_new"
+            />
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="almaaqal_report_account.action_window">

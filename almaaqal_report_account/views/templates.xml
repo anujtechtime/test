@@ -13,8 +13,8 @@
                     <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
                         <thead>
                             <tr>
+                              <th class="text-right"><span t-esc="int(data['date_from'].split('-')[0]) - 1"/></th>
                                 <th class="text-right"><span t-esc="data['date_from'].split('-')[0]"/></th>
-                                <th class="text-right"><span t-esc="data['date_to'].split('-')[0]"/></th>
                                 <th class="text-right">اسم الحساب</th>
                                 <th class="text-right">رقم الدليل المحاسبي</th>
                             </tr>
@@ -175,7 +175,7 @@
                                     <span t-att-style="style"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>الايرادات الجارية</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style">4</span>
@@ -190,7 +190,7 @@
                                     <span t-att-style="style" t-esc="total_43" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>ايرادات النشاط التجاري</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_43"/>
@@ -226,7 +226,7 @@
                                     <span t-att-style="style" t-esc="total_31" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>الرواتب والاجور</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_31"/>
@@ -241,7 +241,7 @@
                                     <span t-att-style="style" t-esc="total_32" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>المستلزمات السلعية</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_32"/>
@@ -256,7 +256,7 @@
                                     <span t-att-style="style" t-esc="total_33" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>المستلزمات الخدمية</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_33"/>
@@ -271,7 +271,7 @@
                                     <span t-att-style="style" t-esc="total_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>خدمات التشغيل</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_34"/>
@@ -287,7 +287,7 @@
                                     <span t-att-style="style" t-esc="total_37" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>الاندثارات</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_37"/>
@@ -302,7 +302,7 @@
                                     <span t-att-style="style" t-esc="total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                                 </td>
                                 <td class="text-right">
-                                <span/>
+                                <span>ضرائب والرسوم</span>
                                 </td>
                                 <td class="text-right">
                                     <span t-att-style="style" t-esc="code_value_384"/>
@@ -310,29 +310,29 @@
                             </tr>   
 
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">مجموع المصروفات الجارية</td>
                             </tr>
 
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">فائض العمليات التجارية(المرحلة الاولى)</td>
                             </tr>
                             
 
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_225))"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_225))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_225" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_225" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">(ينزل العجز المتراكم من السنوات السابقة)</td>
 
                             </tr>
 
 
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225))"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_pre_225))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_pre_225" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">فائض المرحلة الاولى بعد معاجة العجز المتراكم</td>
 
                             </tr>
@@ -346,7 +346,7 @@
                                 <span t-att-style="style" t-esc="total_48" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                             </td>
                             <td class="text-right">
-                            <span/>
+                            <span>ايرادات تحويلية متنوعة</span>
                             </td>
                             <td class="text-right">
                                 <span t-att-style="style" t-esc="code_value_48"/>
@@ -361,7 +361,7 @@
                                 <span t-att-style="style" t-esc="total_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                             </td>
                             <td class="text-right">
-                            <span/>
+                            <span>ايرادات اخرى</span>
                             </td>
                             <td class="text-right">
                                 <span t-att-style="style" t-esc="code_value_49"/>
@@ -370,8 +370,8 @@
 
 
                              <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31))"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">تنزل :المصروفات التحويلية والاخرى</td>
 
                             </tr>
@@ -385,7 +385,7 @@
                                 <span t-att-style="style" t-esc="total_38 - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                             </td>
                             <td class="text-right">
-                            <span/>
+                            <span>المصروفات التحويلية (عدا 384)</span>
                             </td>
                             <td class="text-right">
                                 <span t-att-style="style" t-esc="code_value_38"/>
@@ -400,7 +400,7 @@
                                 <span t-att-style="style" t-esc="total_39" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
                             </td>
                             <td class="text-right">
-                            <span/>
+                            <span>المصروفات الاخرى</span>
                             </td>
                             <td class="text-right">
                                 <span t-att-style="style" t-esc="code_value_39"/>
@@ -409,20 +409,330 @@
 
 
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_39 - total_pre_38 - total_pre_384))"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_39 - total_38 - total_384))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_39 - total_pre_38 - total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_39 - total_38 - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">مجموع المصروفات التحويلية </td>
 
                             </tr>
                         
                             <tr>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225 + total_pre_48 + total_pre_49))"/></td>
-                                <td class="text-right"><span t-att-style="style" t-esc="('{:,}'.format(total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_225 + total_48 + total_49))"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_32 + total_pre_33 + total_pre_34 + total_pre_37 + total_pre_384 - total_pre_43 - total_pre_225 + total_pre_48 + total_pre_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_32 + total_33 + total_34 + total_37 + total_384 - total_43 - total_225 + total_48 + total_49" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
                                 <td class="text-right" colspan="2">فائض العمليات الجارية (المرحلة الثانية)</td>
 
                             </tr>
 
 
+
+                        </tbody>
+                    </table>
+
+                </div>
+            
+             
+                
+            </t>
+        </t>
+
+    </template>
+
+    
+    <template id="report_new_report_new">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+            <!--<t t-call="web.external_layout">  -->
+                <div class="page" style="margin-top : 60px !important;">
+                    <h4 class="text-center">  جامعة المعقل الاهلية /البصرة</h4>
+                    <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>كشف العمليات الجارية للسنة المالية المنتهية في </h4>
+                    <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
+                        <thead>
+                            <tr>
+                                <th class="text-right"><span t-esc="data['date_from'].split('-')[0]"/></th>
+                                <th class="text-right"><span t-esc="data['date_to'].split('-')[0]"/></th>
+                                <th class="text-right">اسم الحساب</th>
+                                <th class="text-right">رقم الدليل المحاسبي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <t t-set="code_value_43" t-value="43"/>
+
+
+                          <t t-set="code_value_31" t-value="31"/>
+                          <t t-set="code_value_32" t-value="32"/>
+                          <t t-set="code_value_33" t-value="33"/>
+                          <t t-set="code_value_34" t-value="34"/>
+                          <t t-set="code_value_37" t-value="37"/>
+                          <t t-set="code_value_384" t-value="384"/> 
+
+                            <t t-set="total_43" t-value="0"/>
+                            <t t-set="total_31" t-value="0"/>
+                            <t t-set="total_32" t-value="0"/>
+                            <t t-set="total_33" t-value="0"/>
+                            <t t-set="total_34" t-value="0"/>
+                            <t t-set="total_37" t-value="0"/>
+                            <t t-set="total_384" t-value="0"/>
+
+
+                            <t t-set="total_pre_43" t-value="0"/>
+                            <t t-set="total_pre_31" t-value="0"/>
+                            <t t-set="total_pre_32" t-value="0"/>
+                            <t t-set="total_pre_33" t-value="0"/>
+                            <t t-set="total_pre_34" t-value="0"/>
+                            <t t-set="total_pre_37" t-value="0"/>
+                            <t t-set="total_pre_384" t-value="0"/>
+                            <t t-foreach="Accounts" t-as="account">
+                            
+
+
+                            <t t-if="account['code'][:2] == '43'">
+                                <t t-set="total_43" t-value="int(total_43) + int(account['curr_year_balance'])"/> 
+                            </t>
+                            <t t-if="account['code'][:2] == '31'">
+                                <t t-set="total_31" t-value="int(total_31) + int(account['curr_year_balance'])"/> 
+                            </t>
+                            <t t-if="account['code'][:2] == '32'">
+                                <t t-set="total_32" t-value="int(total_32) + int(account['curr_year_balance'])"/>
+                            </t>
+                            <t t-if="account['code'][:2] == '33'">
+                                <t t-set="total_33" t-value="int(total_33) + int(account['curr_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:2] == '34'">
+                                <t t-set="total_34" t-value="int(total_34) + int(account['curr_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:2] == '37'">
+                                <t t-set="total_37" t-value="int(total_37) + int(account['curr_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:3] == '384'">
+                                <t t-set="total_384" t-value="int(total_384) + int(account['curr_year_balance'])"/>
+                            </t>
+
+
+
+
+
+                             
+
+
+                            <t t-if="account['code'][:2] == '43'">
+                                <t t-set="total_pre_43" t-value="int(total_pre_43) + int(account['prev_year_balance'])"/> 
+                            </t>
+
+
+
+                            <t t-if="account['code'][:2] == '31'">
+                                <t t-set="total_pre_31" t-value="int(total_pre_31) + int(account['prev_year_balance'])"/> 
+                            </t>
+                            <t t-if="account['code'][:2] == '32'">
+                                <t t-set="total_pre_32" t-value="int(total_pre_32) + int(account['prev_year_balance'])"/>
+                            </t>
+                            <t t-if="account['code'][:2] == '33'">
+                                <t t-set="total_pre_33" t-value="int(total_pre_33) + int(account['prev_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:2] == '34'">
+                                <t t-set="total_pre_34" t-value="int(total_pre_34) + int(account['prev_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:2] == '37'">
+                                <t t-set="total_pre_37" t-value="int(total_pre_37) + int(account['prev_year_balance'])"/>
+                            </t>
+
+                            <t t-if="account['code'][:3] == '384'">
+                                <t t-set="total_pre_384" t-value="int(total_384) + int(account['prev_year_balance'])"/>
+                            </t>
+                            </t>
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_43" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_43" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>ايرادات النشاط التجاري</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_43"/>
+                                </td>
+                            </tr>   
+
+                            <tr>
+                                <td class="text-right">
+                                    <span/>
+                                </td>
+                                <td class="text-right">
+                                    <span/>
+                                </td>
+                                <td class="text-right">
+                                <span> مستلزمات الانتاج</span>
+                                </td>
+                                <td class="text-right">
+                                    <span/>
+                                </td>
+                            </tr>   
+
+
+
+
+
+
+
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_32" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_32" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>المستلزمات السلعية</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_32"/>
+                                </td>
+                            </tr>    
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_33" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_33" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>المستلزمات الخدمية</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_33"/>
+                                </td>
+                            </tr>   
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>خدمات التشغيل</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_34"/>
+                                </td>
+                            </tr>   
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_32 + total_pre_33 + total_pre_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_32 + total_33 + total_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2"> المجموع </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_43 - total_pre_32 + total_pre_33 + total_pre_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_43 - total_32 + total_33 + total_34" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2">اجمالي القيمة المضافة بسعر السوق  </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>ضرائب والرسوم</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_384"/>
+                                </td>
+                            </tr>   
+
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_43 - (total_pre_32 + total_pre_33 + total_pre_34) - total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_43 - (total_32 + total_33 + total_34) - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2"> اجمالي القيمة المضافة بسعر تكلفة الانتاج </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right"><span/></td>
+                                <td class="text-right"><span/></td>
+                                <td class="text-right" colspan="2"> كلفة عناصر الانتاج للسنة المالية المنتهية </td>
+                            </tr>
+
+                            <tr>
+                            <td class="text-right"><span/></td>
+                                <td class="text-right"><span/></td>
+                                <td class="text-right"><span t-esc="data['date_from']"/></td>
+                                <td class="text-right"><span t-esc="data['date_to']"/></td>
+                            </tr>
+
+                            <tr>
+                                <th class="text-right"><span t-esc="data['date_from'].split('-')[0]"/></th>
+                                <th class="text-right"><span t-esc="data['date_to'].split('-')[0]"/></th>
+                                <th class="text-right"> اسم الحساب</th>
+                                <th class="text-right">رقم الدليل</th>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_31" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_31" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>الرواتب والاجور</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_31"/>
+                                </td>
+                            </tr>   
+
+
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_pre_37" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="total_37" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                                </td>
+                                <td class="text-right">
+                                <span>الاندثارات</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style" t-esc="code_value_37"/>
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_31 + total_pre_37" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_31 + total_37" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2"> المجموع </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_43 - (total_pre_32 + total_pre_33 + total_pre_34) - total_pre_384 - (total_pre_31 + total_pre_37)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_43 - (total_32 + total_33 + total_34) - total_384 - (total_31 + total_37)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2"> فائض العمليات التجارية(المرحلة الاولى)  </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_pre_43 - (total_pre_32 + total_pre_33 + total_pre_34) - total_pre_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right"><span t-att-style="style" t-esc="total_43 - (total_32 + total_33 + total_34) - total_384" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+                                <td class="text-right" colspan="2">اجمالي القيمة المنضافة بسعر تكلفة عناصر الانتاج </td>
+                            </tr>
 
                         </tbody>
                     </table>
