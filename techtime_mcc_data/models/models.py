@@ -1611,8 +1611,8 @@ class ContraPayslipDateAccount(models.Model):
         res = super(ContraPayslipDateAccount, self).action_payslip_done()
         for record in self:
             for line in record.line_ids:
-                if line.category_id.name == 'Net':
-                    record.net_salary = line.total
+                if line.category_id.id == 5:
+                    record.net_salary = line.amount
         return res            
 
     @api.depends('net_salary')
