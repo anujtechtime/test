@@ -134,7 +134,7 @@
 
 
             <report
-            id="action_report_account_balance_twow"
+            id="action_report_account_balance_two"
             model="account.balance.report"
             string="كشف الرواتب والأجور"
             report_type="qweb-pdf"
