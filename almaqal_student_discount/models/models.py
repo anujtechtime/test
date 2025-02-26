@@ -205,6 +205,8 @@ class ResPrtner(models.Model):
             if result.level in duplicates:
                 if result.student.id == 11:
                     student_id = 16
+                elif result.student.id == 55:
+                    student_id = 55
                 else:
                     student_id = 8
                 _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
@@ -251,11 +253,9 @@ class ResPrtner(models.Model):
             'order_id': result._origin.id,
             'name': 'sales order line',
         })            
-        return result              
-
+        return result       
 
         if failed_student:
-            _logger.info("failed_student222222222222222@@@@@@@@@@%s" %failed_student)
             result.installment_amount = failed_student.installment_amount
             payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
@@ -270,7 +270,7 @@ class ResPrtner(models.Model):
 
                 installment = result.sale_installment_line_ids.create({
                 'number' : i.number,
-                'payment_date' : nearest_date if nearest_date else i.payment,
+                'payment_date' : nearest_date if nearest_date else i.payment_date,
                 'amount_installment' : i.amount_installment,
                 'description': 'Installment Payment',
                 'sale_installment_id' : result.id,
@@ -319,47 +319,25 @@ class ResPrtner(models.Model):
             'order_id': result._origin.id,
             'name': 'sales order line',
         })
+
         # if installmet_dat:
         #     print("sale_installment_line_ids########",installmet_dat.sale_installment_line_ids.ids)
-        #     # for datts in installmet_dat.sale_installment_line_ids:
-        #     # result.sale_installment_line_ids = [(6, 0, installmet_dat.sale_installment_line_ids.ids)]
-            
-        #     # result.payable_amount = installmet_dat.installment / installmet_dat.installment_number
         #     result.tenure_month = installmet_dat.installment_number
-        #     result.second_payment_date = datetime.today().date()
-        #     order_line = result.env['sale.order.line'].create({
-        #         'product_id': 1,
-        #         'price_unit': result.installment_amount,
-        #         'product_uom': result.env.ref('uom.product_uom_unit').id,
-        #         'product_uom_qty': 1,
-        #         'order_id': result._origin.id,
-        #         'name': 'sales order line',
-        #     })
+            # result.second_payment_date = datetime.today().date()
+            # order_line = result.env['sale.order.line'].create({
+            #     'product_id': 1,
+            #     'price_unit': result.installment_amount,
+            #     'product_uom': result.env.ref('uom.product_uom_unit').id,
+            #     'product_uom_qty': 1,
+            #     'order_id': result._origin.id,
+            #     'name': 'sales order line',
+            # })
             # if count == 0:
             #     result.amount = d.amount_installment
             #     count = count + 1
 
-
-
         return result
 
-
-    # @api.onchange('partner_id')
-    # def _compute_partner_id(self):
-    #     if self.partner_id:
-    #         # if self.partner_id.shift >=  cgpa.shift and self.partner_id.student_cgpa >=  cgpa.percentage_from and self.partner_id.student_cgpa <=  cgpa.percentage_to:
-    #         instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',self.college.id),('Subject','=',self.partner_id.shift),('year','=',self.year.id),('department','=',self.department.id),('percentage_from','<=',self.partner_id.final_result),('percentage_to','>=',self.partner_id.final_result)])
-    #         self.installment_amount = instamm_ment_details.installment
-    #         if instamm_ment_details:
-    #             for i in instamm_ment_details.sale_installment_line_ids:
-    #                 sale_installment = self.sale_installment_line_ids.create({
-    #                     'number' : i.number,
-    #                     'payment_date' : i.payment_date,
-    #                     'amount_installment' : i.amount_installment,
-    #                     'description': 'Installment Payment',
-    #                     'sale_installment_id' : result.id,
-    #                     # "invoice_id" : invoice_id.id
-    #                     })
 
     @api.onchange('partner_id', 'year')
     def ompute_partner_id(self):
