@@ -332,7 +332,7 @@ class ReportAccountBalanceTwo(models.AbstractModel):
 
 
 class ReportTrialBalanceThree(models.AbstractModel):
-    _name = 'report.almaaqal_template.report_trial_balance_new_three'
+    _name = 'report.almaaqal_report_account.report_new_report_three'
     _description = 'Trial Balance Report New'
 
     def _get_accounts(self, accounts, display_account):
