@@ -1403,5 +1403,125 @@
             </t>
         </t>
     </template>
+
+
+
+    <template id="report_new_report_four">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+            <!--<t t-call="web.external_layout">  -->
+                <div class="page" style="margin-top : 60px !important;">
+                    <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>ميزان المراجعة بعد الغلق  </h4>
+                    <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
+                        <thead>
+                            <tr>
+                                <th class="text-right"><span>المجموع</span></th>
+                                <th class="text-right"><span>مواد طبية</span></th>
+                                <th class="text-right">كساوي دينار</th>
+                                <th class="text-right">نقل العاملين </th>
+                                <th class="text-right">المزايا العينية</th>
+                                <th class="text-right"> رقم الدليل</th>
+                            </tr>
+                        </thead>
+                        <tbody>                               
+                        
+
+                            <t t-set="code_value_112" t-value="3341"/>
+                            <t t-set="code_value_113" t-value="3261"/>
+                            <t t-set="code_value_115" t-value="3263"/>
+
+                            <t t-set="total_3341" t-value="0"/>
+                            <t t-set="total_3261" t-value="0"/>
+                            <t t-set="total_3263" t-value="0"/>
+
+
+
+
+                            <t t-foreach="Accounts" t-as="account">
+                            <t t-if="account['code'][:4] == '3341'">
+                                <t t-set="total_3341" t-value="int(total_3341) + int(account['balance'])"/> 
+                            </t>
+                            <t t-if="account['code'][:4] == '3261'">
+                                <t t-set="total_3261" t-value="int(total_3261) + int(account['balance'])"/> 
+                            </t>
+                            <t t-if="account['code'][:4] == '3263'">
+                                <t t-set="total_3263" t-value="int(total_3263) + int(account['balance'])"/> 
+                            </t>
+                            </t> 
+
+                            <tr>
+                                <td class="text-right">
+                                    <span t-esc="total_3263 + total_3261"></span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3263"></span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3261"></span>
+                                </td>
+                                <td class="text-right">
+                                    <span></span>
+                                </td>
+                                <td class="text-right">
+                                <span>المستلزمات السلعية</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style">32</span>
+                                </td>
+                            </tr>  
+                            <tr>
+                                <td class="text-right">
+                                    <span t-esc="total_3341"></span>
+                                </td>
+                                <td class="text-right">
+                                </td>
+                                <td class="text-right">
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3341"></span>
+                                </td>
+                                <td class="text-right">
+                                <span>المستلزمات الخدمية</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style">33</span>
+                                </td>
+                            </tr>  
+
+                                 <tr>
+                                <td class="text-right">
+                                    <span t-esc="total_3263 + total_3261 + total_3341"></span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3263"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3261" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total_3341"></span>
+                                </td>
+                                <td class="text-right">
+                                <span>المجموع</span>
+                                </td>
+                                <td class="text-right">
+                                    <span t-att-style="style"></span>
+                                </td>
+                            </tr>  
+
+                        </tbody>
+                    </table>
+
+                </div>
+            
+             
+                
+            </t>
+        </t>
+
+    </template>
     
 </odoo>
