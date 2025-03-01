@@ -1137,68 +1137,68 @@
                             <t t-foreach="Accounts" t-as="account">
                             <t t-if="account['code'][:3] == '112'">
                                 <t t-set="total_credit_112" t-value="int(total_credit_112) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_112" t-value="int(total_bedit_112) + int(account['debit'])"/> 
+                                <t t-set="total_debit_112" t-value="int(total_debit_112) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '113'">
                                 <t t-set="total_credit_113" t-value="int(total_credit_113) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_113" t-value="int(total_bedit_113) + int(account['debit'])"/> 
+                                <t t-set="total_debit_113" t-value="int(total_debit_113) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '115'">
                                 <t t-set="total_credit_115" t-value="int(total_credit_115) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_115" t-value="int(total_bedit_115) + int(account['debit'])"/> 
+                                <t t-set="total_debit_115" t-value="int(total_debit_115) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '116'">
                                 <t t-set="total_credit_116" t-value="int(total_credit_116) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_116" t-value="int(total_bedit_116) + int(account['debit'])"/> 
+                                <t t-set="total_debit_116" t-value="int(total_debit_116) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '167'">
                                 <t t-set="total_credit_167" t-value="int(total_credit_167) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_167" t-value="int(total_bedit_167) + int(account['debit'])"/> 
+                                <t t-set="total_debit_167" t-value="int(total_debit_167) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '183'">
                                 <t t-set="total_credit_183" t-value="int(total_credit_183) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_183" t-value="int(total_bedit_183) + int(account['debit'])"/> 
+                                <t t-set="total_debit_183" t-value="int(total_debit_183) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '225'">
                                 <t t-set="total_credit_225" t-value="int(total_credit_225) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_225" t-value="int(total_bedit_225) + int(account['debit'])"/> 
+                                <t t-set="total_debit_225" t-value="int(total_debit_225) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:4] == '2312'">
                                 <t t-set="total_credit_2312" t-value="int(total_credit_2312) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_2312" t-value="int(total_bedit_2312) + int(account['debit'])"/> 
+                                <t t-set="total_debit_2312" t-value="int(total_debit_2312) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:4] == '2313'">
                                 <t t-set="total_credit_2313" t-value="int(total_credit_2313) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_2313" t-value="int(total_bedit_2313) + int(account['debit'])"/> 
+                                <t t-set="total_debit_2313" t-value="int(total_debit_2313) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:4] == '2315'">
                                 <t t-set="total_credit_2315" t-value="int(total_credit_2315) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_2315" t-value="int(total_bedit_2315) + int(account['debit'])"/> 
+                                <t t-set="total_debit_2315" t-value="int(total_debit_2315) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:4] == '2316'">
                                 <t t-set="total_credit_2316" t-value="int(total_credit_2316) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_2316" t-value="int(total_bedit_2316) + int(account['debit'])"/> 
+                                <t t-set="total_debit_2316" t-value="int(total_debit_2316) + int(account['debit'])"/> 
                             </t>
                              
 
                              <t t-if="account['code'][:3] == '266'">
                                 <t t-set="total_credit_266" t-value="int(total_credit_266) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_266" t-value="int(total_bedit_266) + int(account['debit'])"/> 
+                                <t t-set="total_debit_266" t-value="int(total_debit_266) + int(account['debit'])"/> 
                             </t>
 
                             <t t-if="account['code'][:3] == '267'">
                                 <t t-set="total_credit_267" t-value="int(total_credit_267) + int(account['credit'])"/> 
-                                <t t-set="total_bedit_267" t-value="int(total_bedit_267) + int(account['debit'])"/> 
+                                <t t-set="total_debit_267" t-value="int(total_debit_267) + int(account['debit'])"/> 
                             </t>
                             </t> 
 
