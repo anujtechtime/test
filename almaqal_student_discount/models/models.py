@@ -206,8 +206,7 @@ class ResPrtner(models.Model):
                 if result.student.id == 11:
                     student_id = 16
                 elif result.student.id == 55:
-                    student_id = 55
-                    return result
+                    student_id = 1000
                 else:
                     student_id = 8
                 _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
