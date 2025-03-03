@@ -1624,7 +1624,7 @@ class ContraPayslipDateAccount(models.Model):
 
     def change_the_value_payslip(self):
         for ddtt in self:
-            ddtt.state = 'draft'
+            ddtt.state = 'done'
 
     def change_the_value_verify(self):
         for ddtt in self:
