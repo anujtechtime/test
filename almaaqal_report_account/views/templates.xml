@@ -7,7 +7,7 @@
             <t t-set="data_report_dpi" t-value="110"/>
             <t t-call="web.internal_layout">
             <!--<t t-call="web.external_layout">  -->
-                <div class="page" style="margin-top : 60px !important;">
+                 <div class="page" style="margin-top : 60px !important;">
                     <h4 class="text-center">  جامعة المعقل الاهلية /البصرة</h4>
                     <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>كشف العمليات الجارية للسنة المالية المنتهية في </h4>
                     <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
@@ -446,7 +446,7 @@
             <!--<t t-call="web.external_layout">  -->
                 <div class="page" style="margin-top : 60px !important;">
                     <h4 class="text-center">  جامعة المعقل الاهلية /البصرة</h4>
-                    <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/>كشف العمليات الجارية للسنة المالية المنتهية في </h4>
+                    <h4 class="text-center" style="margin-bottom : 60px;">  <span t-esc="data['date_from'].split('-')[0]"/> كشف  اجمالي القيمة المضافة  بسعر تكلفة عناصر الإنتاج للسنة المنتهية </h4>
                     <table class="table table-sm table-reports mt4" style="margin-top : 30px;">
                         <thead>
                             <tr>
