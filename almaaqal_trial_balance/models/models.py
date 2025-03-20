@@ -1029,7 +1029,7 @@ class payrollDeProductWizard(models.TransientModel):
                 employee_total_aeaa_data = 0
 
                 for material_line_id in rested:
-                    if previous_employee != material_line_id.employee_id.id and previous_employee != "":
+                    if previous_employee != material_line_id.employee_id.id:
                         # row += 1
                         sequence = 1
                         worksheet.write(row, 0, '',main_cell_total)
