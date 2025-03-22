@@ -1297,16 +1297,16 @@ class payrollDeProductWizard(models.TransientModel):
                 for x in range(17):
                     worksheet.write(row, x, '',main_cell)
                     worksheet.write(row + 1, x, '',main_cell)
-                row = row + 2
+                row = row + 3
                 worksheet.write(row, 0, '',main_cell_total)
                 worksheet.write(row, 1, '',main_cell_total)
 
-                worksheet.write(row, 3, "{:,.2f}".format(day_deduction_data),main_cell_total) #day deduction
-                worksheet.write(row, 4, "{:,.2f}".format(day_deduction_amount_data),main_cell_total) #day deduction amount
+                worksheet.write(row, 3, "{:,.2f}".format(day_deduction_data)) #day deduction
+                worksheet.write(row, 4, "{:,.2f}".format(day_deduction_amount_data)) #day deduction amount
 
-                worksheet.write(row, 5, "{:,.2f}".format(total_wage_data),main_cell_total) # wage
+                worksheet.write(row, 5, "{:,.2f}".format(total_wage_data)) # wage
 
-                worksheet.write(row, 6, "{:,.2f}".format(total_basic),main_cell_total) #basic salary
+                worksheet.write(row, 6, "{:,.2f}".format(total_basic)) #basic salary
 
 
                 # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
