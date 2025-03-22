@@ -1029,58 +1029,58 @@ class payrollDeProductWizard(models.TransientModel):
                 employee_total_aeaa_data = 0
 
                 for material_line_id in rested:
-                    if previous_employee != material_line_id.employee_id.id:
+                    # if previous_employee != material_line_id.employee_id.id:
                         # row += 1
-                        sequence = 1
-                        worksheet.write(row, 0, '',main_cell_total)
-                        worksheet.write(row, 1, '',main_cell_total)
-                        
+                    sequence = 1
+                    worksheet.write(row, 0, '',main_cell_total)
+                    worksheet.write(row, 1, '',main_cell_total)
+                    
 
-                        worksheet.write(row, 3, "{:,.2f}".format(employee_day_deduction_data),main_cell_total) #day deduction
-                        worksheet.write(row, 4, "{:,.2f}".format(employee_day_deduction_amount_data),main_cell_total) #day deduction amount
+                    worksheet.write(row, 3, "{:,.2f}".format(employee_day_deduction_data),main_cell_total) #day deduction
+                    worksheet.write(row, 4, "{:,.2f}".format(employee_day_deduction_amount_data),main_cell_total) #day deduction amount
 
-                        worksheet.write(row, 5, "{:,.2f}".format(employee_total_wage_data),main_cell_total) # wage
+                    worksheet.write(row, 5, "{:,.2f}".format(employee_total_wage_data),main_cell_total) # wage
 
-                        worksheet.write(row, 6, "{:,.2f}".format(employee_total_basic),main_cell_total) #basic salary
-
-
-                        # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
-                        worksheet.write(row, 7, "{:,.2f}".format(employee_compensation_data),main_cell_total) #compensation
-
-                        worksheet.write(row, 8, "{:,.2f}".format(employee_allowance_data),main_cell_total) #allowance
+                    worksheet.write(row, 6, "{:,.2f}".format(employee_total_basic),main_cell_total) #basic salary
 
 
-                        worksheet.write(row, 9, "{:,.2f}".format(employee_total_day_all_data),main_cell_total) #allowance
-                        worksheet.write(row, 10, "{:,.2f}".format(total_aeaa_data),main_cell_total) #allowance
+                    # worksheet.write(call, 4, 'Wage -الراتب الاسميUSD', header_bold)
+                    worksheet.write(row, 7, "{:,.2f}".format(employee_compensation_data),main_cell_total) #compensation
 
-                        worksheet.write(row, 11, "{:,.2f}".format(employee_total_entitlements_data),main_cell_total) #total of above 3
+                    worksheet.write(row, 8, "{:,.2f}".format(employee_allowance_data),main_cell_total) #allowance
 
-                        # worksheet.write(call, 7, 'Basic', header_bold)
-                        worksheet.write(row, 12, "{:,.2f}".format(employee_socailsecurity_data),main_cell_total) #socaial security
-                        worksheet.write(row, 13, "{:,.2f}".format(employee_tax_data),main_cell_total) #tax
 
-                        worksheet.write(row, 14, "{:,.2f}".format(employee_reded),main_cell_total) #REDED
-                        worksheet.write(row, 15, "{:,.2f}".format(employee_basded),main_cell_total) #BASDED
-                        worksheet.write(row, 16, "{:,.2f}".format(employee_total_ded_data),main_cell_total) #total deduction
+                    worksheet.write(row, 9, "{:,.2f}".format(employee_total_day_all_data),main_cell_total) #allowance
+                    worksheet.write(row, 10, "{:,.2f}".format(total_aeaa_data),main_cell_total) #allowance
 
-                        worksheet.write(row, 17, "{:,.2f}".format(employee_net_saled_data),main_cell_total) # Net Salary
-                        employee_day_deduction_data = 0
-                        employee_day_deduction_amount_data = 0
-                        employee_total_wage_data = 0
-                        employee_total_basic = 0
-                        employee_compensation_data = 0
-                        employee_total_day_all_data = 0
-                        total_aeaa_data = 0
-                        employee_total_entitlements_data = 0
-                        employee_socailsecurity_data = 0
-                        employee_tax_data = 0
-                        employee_reded = 0
-                        employee_basded = 0
-                        employee_total_ded_data = 0
-                        employee_net_saled_data = 0
-                        employee_allowance_data = 0
-                        employee_total_aeaa_data = 0
-                        row += 1
+                    worksheet.write(row, 11, "{:,.2f}".format(employee_total_entitlements_data),main_cell_total) #total of above 3
+
+                    # worksheet.write(call, 7, 'Basic', header_bold)
+                    worksheet.write(row, 12, "{:,.2f}".format(employee_socailsecurity_data),main_cell_total) #socaial security
+                    worksheet.write(row, 13, "{:,.2f}".format(employee_tax_data),main_cell_total) #tax
+
+                    worksheet.write(row, 14, "{:,.2f}".format(employee_reded),main_cell_total) #REDED
+                    worksheet.write(row, 15, "{:,.2f}".format(employee_basded),main_cell_total) #BASDED
+                    worksheet.write(row, 16, "{:,.2f}".format(employee_total_ded_data),main_cell_total) #total deduction
+
+                    worksheet.write(row, 17, "{:,.2f}".format(employee_net_saled_data),main_cell_total) # Net Salary
+                    employee_day_deduction_data = 0
+                    employee_day_deduction_amount_data = 0
+                    employee_total_wage_data = 0
+                    employee_total_basic = 0
+                    employee_compensation_data = 0
+                    employee_total_day_all_data = 0
+                    total_aeaa_data = 0
+                    employee_total_entitlements_data = 0
+                    employee_socailsecurity_data = 0
+                    employee_tax_data = 0
+                    employee_reded = 0
+                    employee_basded = 0
+                    employee_total_ded_data = 0
+                    employee_net_saled_data = 0
+                    employee_allowance_data = 0
+                    employee_total_aeaa_data = 0
+                    row += 1
 
                     worksheet.write(row, 0, sequence or '',main_cell)
                     # worksheet.write(row, 1, material_line_id.number or '',main_cell)
