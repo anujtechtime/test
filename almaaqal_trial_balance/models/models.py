@@ -1294,7 +1294,7 @@ class payrollDeProductWizard(models.TransientModel):
                     row += 1
                     sequence = sequence + 1 
                 # sequence = 1
-                row += 1
+                # row += 1
                 worksheet.write(row, 0, '',main_cell_total)
                 worksheet.write(row, 1, '',main_cell_total)
                 
