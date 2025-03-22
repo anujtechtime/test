@@ -1293,9 +1293,7 @@ class payrollDeProductWizard(models.TransientModel):
 
                     row += 1
                     sequence = sequence + 1 
-
-                previous_employee = material_line_id.employee_id.id    
-
+                    
                 for x in range(17):
                     worksheet.write(row, x, '',main_cell)
                     worksheet.write(row + 1, x, '',main_cell)
