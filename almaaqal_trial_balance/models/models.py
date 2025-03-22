@@ -1328,9 +1328,9 @@ class payrollDeProductWizard(models.TransientModel):
 
                 worksheet.write(row, 17, "{:,.2f}".format(employee_net_saled_data),main_cell_total) # Net Salary
                 
-                for x in range(17):
-                    worksheet.write(row, x, '',main_cell)
-                    worksheet.write(row + 1, x, '',main_cell)
+                # for x in range(17):
+                #     worksheet.write(row, x, '',main_cell)
+                #     worksheet.write(row + 1, x, '',main_cell)
                 row = row + 2
                 worksheet.write(row, 0, '',main_cell_total)
                 worksheet.write(row, 1, '',main_cell_total)
