@@ -29,6 +29,12 @@ class SaleOrdReg(models.Model):
 
     registration_status = fields.Many2one("registration.status", string="Registration Status")
 
+
+class SubjectSubjectD(models.Model):
+    _inherit = 'subject.subject'
+
+    status_type = fields.Selection([('option1', 'ناجح دور اول'),('option2','ناجح دور ثاني'),('option3','ناجح بالعبور'),('option4','راسب بالدرجات'),('option5','راسب بالغياب')], string="Status Type")
+
 # class alamaaqal_registration_status(models.Model):
 #     _name = 'alamaaqal_registration_status.alamaaqal_registration_status'
 #     _description = 'alamaaqal_registration_status.alamaaqal_registration_status'
