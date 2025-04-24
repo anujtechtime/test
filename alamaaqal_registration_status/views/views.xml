@@ -1,0 +1,90 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="alamaaqal_registration_status.list">
+      <field name="name">alamaaqal_registration_status list</field>
+      <field name="model">alamaaqal_registration_status.alamaaqal_registration_status</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+        <record model="ir.ui.view" id="registration_status_tree">
+          <field name="name">Registration Status</field>
+          <field name="model">registration.status</field>
+          <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+          </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="registration_status_tree_action_windownew_work">
+          <field name="name">Registration Status </field>
+          <field name="res_model">registration.status</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="ir_actions_server_res_registration_status" model="ir.actions.server">
+        <field name="name">Registartion Status</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.assign_registrtion_status()
+        </field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="alamaaqal_registration_status.action_window">
+      <field name="name">alamaaqal_registration_status window</field>
+      <field name="res_model">alamaaqal_registration_status.alamaaqal_registration_status</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="alamaaqal_registration_status.action_server">
+      <field name="name">alamaaqal_registration_status server</field>
+      <field name="model_id" ref="model_alamaaqal_registration_status_alamaaqal_registration_status"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="alamaaqal_registration_status" id="alamaaqal_registration_status.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="alamaaqal_registration_status.menu_1" parent="alamaaqal_registration_status.menu_root"/>
+    <menuitem name="Menu 2" id="alamaaqal_registration_status.menu_2" parent="alamaaqal_registration_status.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="alamaaqal_registration_status.menu_1_list" parent="alamaaqal_registration_status.menu_1"
+              action="alamaaqal_registration_status.action_window"/>
+    <menuitem name="Server to list" id="alamaaqal_registration_status" parent="alamaaqal_registration_status.menu_2"
+              action="alamaaqal_registration_status.action_server"/>
+-->
+  </data>
+</odoo>
