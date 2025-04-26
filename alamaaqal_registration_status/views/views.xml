@@ -47,7 +47,7 @@
 
 
     <record id="view_sale_order_inherit_search_payment" model="ir.ui.view">
-      <field name="name">subject.subject.tree</field>
+      <field name="name">Subject</field>
       <field name="model">subject.subject</field>
       <field name="inherit_id" ref="almaaqal_grade.subject_subject_tree"/>
       <field name="arch" type="xml">
