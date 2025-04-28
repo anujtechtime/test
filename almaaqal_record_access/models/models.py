@@ -8,6 +8,12 @@ class almaaqal_record_access(models.Model):
 
     res_user = fields.Many2many("res.users", string="Users")
 
+class almaaqalRecordaccesAMs(models.Model):
+
+    _inherit = "department.department"
+
+    res_user = fields.Many2many("res.users", string="Users")    
+
 
 # class almaaqal_record_access(models.Model):
 #     _name = 'almaaqal_record_access.almaaqal_record_access'

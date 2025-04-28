@@ -46,21 +46,21 @@
     </record>
 
 
-    <!-- <record id="view_sale_order_inherit_subject_subject_fg" model="ir.ui.view">
+    <record id="view_sale_order_inherit_subject_subject_fg" model="ir.ui.view">
       <field name="name">Subject</field>
       <field name="model">subject.subject</field>
       <field name="inherit_id" ref="almaaqal_grade.subject_subject_tree"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='stage']" position="after">
-            <field string="status_type"/>
-            <field string="status_in_year"/>
-            <field string="semrating2"/>
-            <field string="rating_in_year"/>
-            <field string="level"/>
-            <field string="note"/>
+            <field name="status_type"/>
+            <field name="status_in_year"/>
+            <field name="semrating2"/>
+            <field name="rating_in_year"/>
+            <field name="level"/>
+            <field name="note"/>
         </xpath>
       </field>
-    </record> -->
+    </record>
 
     <!-- actions opening views on models -->
 <!--
