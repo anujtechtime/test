@@ -62,6 +62,16 @@
       </field>
     </record>
 
+    <report 
+            string="Annual" 
+            id="action_report_almaaqal_annual"
+            model="almaaqal.grade"
+            name="alamaaqal_registration_status.report_almaaqal_annual"
+            file="alamaaqal_registration_status.report_almaaqal_annual"
+            report_type="qweb-pdf"
+            print_report_name="'Annual - %s' % (object.exam_number_for_reference)"
+        />
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="alamaaqal_registration_status.action_window">
