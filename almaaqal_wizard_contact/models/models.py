@@ -23,8 +23,8 @@ class WizardDocs(models.TransientModel):
     date_map = fields.Date("Date")
     Target = fields.Text("Target")
     docs_name = fields.Selection([
-        ('pdf1', 'طلب جلب شهادة(Docx)'),
-        ('pdf2', 'Confirmed')
+        ('pdf1', 'طلب جلب شهادة'),
+        ('pdf2', 'تأييد')
     ], string='Status', default='pdf1')
 
     
