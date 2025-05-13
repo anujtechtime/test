@@ -25,7 +25,7 @@ class WizardDocs(models.TransientModel):
     docs_name = fields.Selection([
         ('pdf1', 'طلب جلب شهادة'),
         ('pdf2', 'تأييد')
-    ], string='Status', default='pdf1')
+    ], string='طلبات', default='pdf1')
 
     
     
