@@ -22,12 +22,21 @@ class WizardDocs(models.TransientModel):
    
     date_map = fields.Date("Date")
     Target = fields.Text("Target")
+    docs_name = fields.Selection([
+        ('pdf1', 'طلب جلب شهادة(Docx)'),
+        ('pdf2', 'Confirmed')
+    ], string='Status', default='pdf1')
 
+    
+    
     def action_confirm_change_status(self):
         print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
         for idds in self._context.get("active_id"):
-            report = self.env['ir.actions.report'].browse(1169)
-
+            if self.docs_name == 'pdf2':
+                report = self.env['ir.actions.report'].browse(1169)
+            if self.docs_name == 'pdf1':
+                report = self.env['ir.actions.report'].browse(1171)
+            
             self_data = self.env["res.partner"].search([("id","=",idds)])
             depp = ""
             shift_name = ""

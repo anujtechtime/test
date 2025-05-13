@@ -23,12 +23,15 @@
             <form string="My Form">
                 <sheet>                         
                     <group> 
+                        <field name="docs_name" widget="radio"/>
                         <field name="date_map"/>
                         <field name="Target"/>
+                        
+
                     </group>
                 </sheet>
                 <footer>
-                    <button name="action_confirm_change_status" type="object" string="Change the Status value" class="oe_highlight"/>
+                    <button name="action_confirm_change_status" type="object" string="Print The Docs" class="oe_highlight"/>
                         or
                     <button special="cancel" string="Cancel"/>
                 </footer>
