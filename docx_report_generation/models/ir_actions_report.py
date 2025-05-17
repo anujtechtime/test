@@ -300,13 +300,16 @@ class IrActionsReport(models.Model):
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
 
+        serial = ""
+
         if 'Arabic' in self.name:
             sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nograde")], limit=1)
         if 'English' in self.name:
             sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1)    
         serial = sequence.next_by_id()
             
-            
+        if not serial:
+            return True
         record.create_almaaqal_certificate(serial, self.name)
         
 
