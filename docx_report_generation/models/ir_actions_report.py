@@ -304,9 +304,10 @@ class IrActionsReport(models.Model):
 
         if 'Arabic' in self.name:
             sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nograde")], limit=1)
+            serial = sequence.next_by_id()
         if 'English' in self.name:
             sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1)    
-        serial = sequence.next_by_id()
+            serial = sequence.next_by_id()
             
         if not sequence:
             return True
