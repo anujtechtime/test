@@ -1,0 +1,73 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="almaaqal_edit.list">
+      <field name="name">almaaqal_edit list</field>
+      <field name="model">almaaqal_edit.almaaqal_edit</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+<record id="view_res_partner_data_inherit_value_data" model="ir.ui.view">
+            <field name="name">persistent.model.form.val</field>
+            <field name="model">persistent.model</field>
+            <field name="inherit_id" ref="almaaqal_fields.view_any_name_form_persistent_model"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence_num']" position="after">
+                  <field name="status_type"/>
+                  <field name="registration_status"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="almaaqal_edit.action_window">
+      <field name="name">almaaqal_edit window</field>
+      <field name="res_model">almaaqal_edit.almaaqal_edit</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="almaaqal_edit.action_server">
+      <field name="name">almaaqal_edit server</field>
+      <field name="model_id" ref="model_almaaqal_edit_almaaqal_edit"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="almaaqal_edit" id="almaaqal_edit.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="almaaqal_edit.menu_1" parent="almaaqal_edit.menu_root"/>
+    <menuitem name="Menu 2" id="almaaqal_edit.menu_2" parent="almaaqal_edit.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="almaaqal_edit.menu_1_list" parent="almaaqal_edit.menu_1"
+              action="almaaqal_edit.action_window"/>
+    <menuitem name="Server to list" id="almaaqal_edit" parent="almaaqal_edit.menu_2"
+              action="almaaqal_edit.action_server"/>
+-->
+  </data>
+</odoo>
