@@ -40,7 +40,7 @@ class MrpProductSale(models.Model):
 class MrpProductPayment(models.Model):
     _inherit = 'account.payment'
 
-    casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف'),('option4','عبد الكاظم'),('option5','مصطفى جهاد'),('option6','نور الهدى'),('option7','سيف هاشم')], string="الكاشير")
+    casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف'),('option4','عبد الكاظم'),('option5','مصطفى جهاد'),('option6','نور الهدى'),('option7','سيف الدين')], string="الكاشير")
 
     casher_bool = fields.Boolean(string="اشتراك نادي الطلبة")
 
