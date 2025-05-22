@@ -301,10 +301,14 @@ class IrActionsReport(models.Model):
         }
         _logger.info("attachment_vals@@@@@@@@@@@@@@@@@@@@@@@.%s" % attachment_vals)
 
+        sequence = ""
+
         if 'Arabic' in self.name:
             sequence = request.env['ir.sequence'].search([('code', '=', "arabic.nograde")], limit=1)
         if 'English' in self.name:
-            sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1)    
+            sequence = request.env['ir.sequence'].search([('code', '=', "english.nograde")], limit=1) 
+        if not sequence:
+            return False       
         serial = sequence.next_by_id()
             
             
