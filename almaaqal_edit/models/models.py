@@ -16,7 +16,7 @@ class almaaqalStatusTypem(models.Model):
     status_type = fields.Many2one("status.type",string="Status Type")  
 
 class PersistentModelinher(models.Model):
-    _inherit = ['persistent.model', 'level.value']
+    _inherit = 'persistent.model'
 
     registration_status = fields.Many2one("registration.status")   
     status_type = fields.Many2one("status.type",string="Status Type")  

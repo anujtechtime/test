@@ -162,9 +162,13 @@ class StateSchool(models.Model):
 class PersistentModel(models.Model):
     _name = 'persistent.model'
     _description = 'Persistent Model'
-    _inherit = 'level.value'
+    # _inherit = 'level.value'
 
     res_part = fields.Many2one("res.partner")   
+    level = fields.Selection([('leve1','المرحلة الاولى'),('level2','المرحلة الثانية'),('level3','المرحلة الثالثة'),('level4','المرحلة الرابعة'),('level5','المرحلة الخامسة')], string="Level")
+    year = fields.Many2one("year.year", string="Year")
+
+
     notes_data = fields.Text("Notes", track_visibility=True)
     data_date_value = fields.Date("Date", track_visibility=True)
     sequence_num = fields.Char("Sequence", track_visibility=True)
