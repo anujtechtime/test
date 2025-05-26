@@ -126,6 +126,8 @@ class DataHrEmployee(models.Model):
 class DataMphine(models.Model):
     _inherit = "res.partner"
 
+    status_type = fields.Many2one("status.type",string="Status Type")  
+
     remark_data_change = fields.One2many("level.value","res_part",store = True)
 
     rfid = fields.Char("RFID")
