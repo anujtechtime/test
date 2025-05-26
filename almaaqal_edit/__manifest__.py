@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','almaaqal_fields'],
+    'depends': ['base','almaaqal_fields','techtime_mcc_data'],
 
     # always loaded
     'data': [
