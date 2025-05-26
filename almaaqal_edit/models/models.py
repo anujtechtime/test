@@ -2,6 +2,13 @@
 
 from odoo import models, fields, api, _
 
+class almaaqal_status_field(models.Model):
+    _name = 'status.type'
+    _description = 'status.type'
+
+    name = fields.Char("Name")
+
+
 class almaaqalStatusDone(models.Model):
     _inherit = 'res.partner'
     _description = 'status.type'

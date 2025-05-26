@@ -28,6 +28,28 @@
         </record>
 
 
+<record model="ir.ui.view" id="techtime_mcc_data_status_type">
+      <field name="name">Status Type</field>
+      <field name="model">status.type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="techtime_mcc_data_action_windownew_status_type">
+      <field name="name">Status Type window</field>
+      <field name="res_model">status.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Status Type" id="techtime_mcc_data_status_type_data" parent="contacts.res_partner_menu_contacts"
+              action="almaaqal_status_field.techtime_mcc_data_action_windownew_status_type"/>
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="almaaqal_edit.action_window">
