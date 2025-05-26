@@ -7,6 +7,8 @@ class almaaqalStatusDone(models.Model):
     _description = 'status.type'
 
     registration_status = fields.Many2one("registration.status")
+    status_type = fields.Many2one("status.type",string="Status Type")  
+    
 
 
 class almaaqalStatusTypem(models.Model):
