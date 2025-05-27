@@ -13,7 +13,7 @@ class almaaqalStatusTypem(models.Model):
     _inherit = 'sale.order'
     _description = 'status.type'
 
-    status_type = fields.Many2one("status.type",string="Status Type")  
+    status_type = fields.Many2one("status.type",string="Status Type", related="partner_id.status_type")  
 
 class PersistentModelinher(models.Model):
     _inherit = 'persistent.model'

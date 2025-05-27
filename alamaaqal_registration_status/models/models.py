@@ -27,7 +27,7 @@ class ResPartreg(models.Model):
 class SaleOrdReg(models.Model):
     _inherit = "sale.order"
 
-    registration_status = fields.Many2one("registration.status", string="Registration Status")
+    registration_status = fields.Many2one("registration.status", string="Registration Status", related="partner_id.registration_status")
 
 
 class SubjectSubjectD(models.Model):
