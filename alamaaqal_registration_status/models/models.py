@@ -2,6 +2,10 @@
 
 from odoo import models, fields, api
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 class RegistrationStatus(models.Model):
     _name = "registration.status"
     _description = "Registration Status"
@@ -32,6 +36,7 @@ class SaleOrdReg(models.Model):
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         result = super(SaleOrdReg, self)._onchange_partner_id()
+        _logger.info("result************11111111111111#####**%s" %result)
         if self.partner_id:
             self.registration_status = self.partner_id.registration_status
             self.status_type = self.partner_id.status_type
