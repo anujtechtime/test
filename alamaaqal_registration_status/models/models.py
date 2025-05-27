@@ -37,6 +37,7 @@ class SaleOrdReg(models.Model):
     def _onchange_partner_id(self):
         result = super(SaleOrdReg, self)._onchange_partner_id()
         _logger.info("result************11111111111111#####**%s" %result)
+        dddddddddd
         if self.partner_id:
             self.registration_status = self.partner_id.registration_status
             self.status_type = self.partner_id.status_type
