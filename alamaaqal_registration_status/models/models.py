@@ -27,7 +27,16 @@ class ResPartreg(models.Model):
 class SaleOrdReg(models.Model):
     _inherit = "sale.order"
 
-    registration_status = fields.Many2one("registration.status", string="Registration Status", related="partner_id.registration_status")
+    registration_status = fields.Many2one("registration.status", string="Registration Status")
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        result = super(SaleOrdReg, self)._onchange_partner_id()
+        if self.partner_id:
+            self.registration_status = self.partner_id.registration_status
+            self.status_type = self.partner_id.status_type
+        return result
+        
 
 
 class SubjectSubjectD(models.Model):
