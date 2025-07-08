@@ -1031,6 +1031,13 @@ class ContractmDateAccount(models.Model):
             self.basic_salary_one = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
             self.compensation_one = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             self.social_security = float(self.basic_salary) * 0.05 
+
+            if self.compensation_one <= self.basic_salary*0.3:
+                self.social_security = float(self.basic_salary) * 0.05 
+
+            else:
+                self.social_security=[(self.basic_salary + self.compensation_one) - ((self.basic_salary + self.compensation_one)*0.3)]*0.05
+            
             self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             if self.employ_type != 'option1':
                 self.total_salary = self.social_security + self.compensation
@@ -1076,7 +1083,7 @@ class ContractmDateAccount(models.Model):
 
                 if self.divorced_female:
                     self.total_salary = self.total_salary + 266666
-                
+
                 if self.if_age_is_above_63:
                     self.total_salary = self.total_salary + 25000     
             

@@ -772,8 +772,7 @@ class SubjectAlm(models.Model):
     stage_year = fields.Char("Year",  tracking=True)
     grade_id = fields.Many2one('almaaqal.grade', string='Grade Id',  tracking=True)
     stage = fields.Integer("Stage")
-
-
+    
     study_notes_in_arabic =  fields.Char("notes in arabic-stage",  tracking=True)     
     study_notes_in_english =  fields.Char("Notes in english-stage",  tracking=True) 
 
