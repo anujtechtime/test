@@ -303,7 +303,7 @@ class AlmaaqalGrade(models.Model):
                 if sub.status_type in ['راسب الغياب','الراسب بالغياب','الرسوب بالغياب','راسب بالغياب','رسوب بالغياب']:
                     registration.status_type = 5
                 else:
-                    registration.status_type =6
+                    registration.status_type = 6
 
 
     def remove_underscores(self, text):
