@@ -269,24 +269,25 @@ class AlmaaqalGrade(models.Model):
 
     def buuton_status_change_final_approved(self):
         self.Status = 'final_approved'
-        for sub in  subject:
+        for sub in  self.subject:
             registration = self.env["sale.order"].search([('partner_id','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
-            if sub.status_type in ['ناجح' , 'ناجح' ,'نجاح' ,'النجاح' ,'نجح' , 'اول', 'الاول' , 'الأول']:
-                registration.status_type = 'ناجح دور اول'
+            if  registration:
+                if sub.status_type in ['ناجح' , 'ناجح' ,'نجاح' ,'النجاح' ,'نجح' , 'اول', 'الاول' , 'الأول']:
+                    registration.status_type = 'ناجح دور اول'
+        
+                if sub.status_type in ['ناجح' , 'ناجح' , 'نجاح', 'النجاح' ,'نجح', 'ثاني' , 'الثاني']:
+                    registration.status_type = 'ناجح دور ثاني'
+        
+                if sub.status_type in ['ناجح', 'ناجح' , 'نجاح', 'النجاح','نجح', 'عبور','ألعبور', 'العبور']:
+                    registration.status_type = 'ناجح بالعبور'
+        
+                if sub.status_type in ['راسب', 'رسب' , 'رسوب','درجات', 'درجة' ,'درجه']:
+                    registration.status_type = 'راسب بالدرجات'
     
-            if sub.status_type in ['ناجح' , 'ناجح' , 'نجاح', 'النجاح' ,'نجح', 'ثاني' , 'الثاني']:
-                registration.status_type = 'ناجح دور ثاني'
-    
-            if sub.status_type in ['ناجح', 'ناجح' , 'نجاح', 'النجاح','نجح', 'عبور','ألعبور', 'العبور']:
-                registration.status_type = 'ناجح بالعبور'
-    
-            if sub.status_type in ['راسب', 'رسب' , 'رسوب','درجات', 'درجة' ,'درجه']:
-                registration.status_type = 'راسب بالدرجات'
- 
-            if sub.status_type in ['راسب', 'رسب', 'رسوب', 'غياب' ,'غيب']:
-                registration.status_type = 'راسب بالغياب'
-            else:
-                registration.status_type ='مرقن'
+                if sub.status_type in ['راسب', 'رسب', 'رسوب', 'غياب' ,'غيب']:
+                    registration.status_type = 'راسب بالغياب'
+                else:
+                    registration.status_type ='مرقن'
 
 
     def remove_underscores(self, text):
