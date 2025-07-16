@@ -269,25 +269,24 @@ class AlmaaqalGrade(models.Model):
 
     def buuton_status_change_final_approved(self):
         self.Status = 'final_approved'
-
         for sub in  subject:
             registration = self.env["sale.order"].search([('partner_id','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
             if sub.status_type in ['ناجح' , 'ناجح' ,'نجاح' ,'النجاح' ,'نجح' , 'اول', 'الاول' , 'الأول']:
-                registration.status_type = "ناجح دور اول"
+                registration.status_type = 'ناجح دور اول'
     
             if sub.status_type in ['ناجح' , 'ناجح' , 'نجاح', 'النجاح' ,'نجح', 'ثاني' , 'الثاني']:
-                registration.status_type = “ناجح دور ثاني”
+                registration.status_type = 'ناجح دور ثاني'
     
             if sub.status_type in ['ناجح', 'ناجح' , 'نجاح', 'النجاح','نجح', 'عبور','ألعبور', 'العبور']:
-                registration.status_type = “ناجح بالعبور”
+                registration.status_type = 'ناجح بالعبور'
     
             if sub.status_type in ['راسب', 'رسب' , 'رسوب','درجات', 'درجة' ,'درجه']:
-                registration.status_type = “راسب بالدرجات”
+                registration.status_type = 'راسب بالدرجات'
  
             if sub.status_type in ['راسب', 'رسب', 'رسوب', 'غياب' ,'غيب']:
-                registration.status_type = “راسب بالغياب”
+                registration.status_type = 'راسب بالغياب'
             else:
-                registration.status_type =”مرقن”
+                registration.status_type ='مرقن'
 
 
     def remove_underscores(self, text):
