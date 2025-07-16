@@ -273,21 +273,21 @@ class AlmaaqalGrade(models.Model):
             registration = self.env["sale.order"].search([('partner_id','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
             if  registration:
                 if sub.status_type in ['ناجح' , 'ناجح' ,'نجاح' ,'النجاح' ,'نجح' , 'اول', 'الاول' , 'الأول']:
-                    registration.status_type = 'ناجح دور اول'
+                    registration.status_type = 1
         
                 if sub.status_type in ['ناجح' , 'ناجح' , 'نجاح', 'النجاح' ,'نجح', 'ثاني' , 'الثاني']:
-                    registration.status_type = 'ناجح دور ثاني'
+                    registration.status_type = 2
         
                 if sub.status_type in ['ناجح', 'ناجح' , 'نجاح', 'النجاح','نجح', 'عبور','ألعبور', 'العبور']:
-                    registration.status_type = 'ناجح بالعبور'
+                    registration.status_type = 3
         
                 if sub.status_type in ['راسب', 'رسب' , 'رسوب','درجات', 'درجة' ,'درجه']:
-                    registration.status_type = 'راسب بالدرجات'
+                    registration.status_type = 4
     
                 if sub.status_type in ['راسب', 'رسب', 'رسوب', 'غياب' ,'غيب']:
-                    registration.status_type = 'راسب بالغياب'
+                    registration.status_type = 5
                 else:
-                    registration.status_type ='مرقن'
+                    registration.status_type = 6
 
 
     def remove_underscores(self, text):
