@@ -270,7 +270,7 @@ class AlmaaqalGrade(models.Model):
     def buuton_status_change_final_approved(self):
         self.Status = 'final_approved'
         for sub in  self.subject:
-            registration = self.env["sale.order"].search([('partner_id','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
+            registration = self.env["sale.order"].search([('partner_id.name','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
             if  registration:
                 if sub.status_type == 'option1':
                     registration.status_type = 1
