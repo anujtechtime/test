@@ -271,16 +271,20 @@ class AlmaaqalGrade(models.Model):
         self.Status = 'final_approved'
         for sub in  self.subject:
             registration = self.env["sale.order"].search([('partner_id.name','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
-            if  registration:
+            _logger.info("registration@@@@@@@@@@@@ %s" %(registration))
+
+            _logger.info("sub.status_type@@@@@@@@@@@@ %s" %(sub.status_type))
+
+            if  registration and sub.status_type:
                 if sub.status_type == 'option1':
                     registration.status_type = 1
-                if sub.status_type == 'option2':
+                elif sub.status_type == 'option2':
                     registration.status_type = 2
-                if sub.status_type == 'option3':
+                elif sub.status_type == 'option3':
                     registration.status_type = 3
-                if sub.status_type == 'option4':
+                elif  sub.status_type == 'option4':
                     registration.status_type = 4
-                if sub.status_type == 'option5':
+                elif  sub.status_type == 'option5':
                     registration.status_type = 5
                 else:
                     registration.status_type = 6
