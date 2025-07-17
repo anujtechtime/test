@@ -272,39 +272,18 @@ class AlmaaqalGrade(models.Model):
         for sub in  self.subject:
             registration = self.env["sale.order"].search([('partner_id','=',sub.grade_id.student_name_in_arabic),('year','=',sub.stage_year)])
             if  registration:
-                # if sub.status_type in ['ناجح' , 'ناجح' ,'نجاح' ,'النجاح' ,'نجح' , 'اول', 'الاول' , 'الأول']:
-                #     registration.status_type = 1
-        
-                # if sub.status_type in ['ناجح' , 'ناجح' , 'نجاح', 'النجاح' ,'نجح', 'ثاني' , 'الثاني']:
-                #     registration.status_type = 2
-        
-                # if sub.status_type in ['ناجح', 'ناجح' , 'نجاح', 'النجاح','نجح', 'عبور','ألعبور', 'العبور']:
-                #     registration.status_type = 3
-        
-                # if sub.status_type in ['راسب', 'رسب' , 'رسوب','درجات', 'درجة' ,'درجه']:
-                #     registration.status_type = 4
-    
-                # if sub.status_type in ['راسب', 'رسب', 'رسوب', 'غياب' ,'غيب']:
-                #     registration.status_type = 5
-                # else:
-                #     registration.status_type = 6
-                if sub.status_type in ['ناجح دور اول' , 'ناجح دور الاول' ,'ناجح دور الأول','ناجح دور أول','نجاح دور اول' ,'النجاح دور اول']:
+                if sub.status_type == 'option1':
                     registration.status_type = 1
-        
-                if sub.status_type in [ 'النجاح دور الثاني','نجاح دور الثاني','ناجح دور الثاني','ناجح دور ثاني','نجاح دور ثاني' ,'النجاح دور ثاني']:
+                if sub.status_type == 'option2':
                     registration.status_type = 2
-        
-                if sub.status_type in ['ناجح بألعبور','الناجح بالعبور','النجاح بالعبور','ناجح بالعبور']:
+                if sub.status_type == 'option3':
                     registration.status_type = 3
-        
-                if sub.status_type in ['رسوب بالدرجات','راسب بالدرجة','راسب بالدرجه','رسوب بالدرجات','راسب بالدرجات']:
+                if sub.status_type == 'option4':
                     registration.status_type = 4
-    
-                if sub.status_type in ['راسب الغياب','الراسب بالغياب','الرسوب بالغياب','راسب بالغياب','رسوب بالغياب']:
+                if sub.status_type == 'option5':
                     registration.status_type = 5
                 else:
                     registration.status_type = 6
-
 
     def remove_underscores(self, text):
         """Remove underscores from the given text."""
