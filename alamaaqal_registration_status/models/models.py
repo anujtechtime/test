@@ -48,14 +48,14 @@ class SubjectSubjectD(models.Model):
     _inherit = 'subject.subject'
 
     status_type = fields.Selection([('option1', 'ناجح دور اول'),('option2','ناجح دور ثاني'),('option3','ناجح بالعبور'),('option4','راسب بالدرجات'),('option5','راسب بالغياب')], string="Status Type")
+    status_in_year = fields.Selection([('option1', 'مؤجل'),('option2','مرقن'),('option3','طالب غير مباشر'),('option4','منسحب'),('option5','طالب حالي'),('option6','ناجح'),('option7','راسب'),('option8','نقل من الجامعة'),('option9','استضافة الى الجامعة')], string="status in year")
 
-    status_in_year = fields.Char("status in year")
+    # status_in_year = fields.Char("status in year")
+
     semrating2 = fields.Char("semrating2")
     rating_in_year = fields.Char("rating in year")
     level = fields.Char("Level")
     note = fields.Char("Note")
-
-
 
 # class alamaaqal_registration_status(models.Model):
 #     _name = 'alamaaqal_registration_status.alamaaqal_registration_status'
