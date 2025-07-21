@@ -25,7 +25,7 @@ class ResPartreg(models.Model):
                     sal.registration_status = 2
                 if sal.level != level:
                     sal.registration_status = 1
-                    
+
                 level = sal.level
 
 class SaleOrdReg(models.Model):
@@ -41,8 +41,6 @@ class SaleOrdReg(models.Model):
             self.registration_status = self.partner_id.registration_status
             self.status_type = self.partner_id.status_type
         return result
-        
-
 
 class SubjectSubjectD(models.Model):
     _inherit = 'subject.subject'

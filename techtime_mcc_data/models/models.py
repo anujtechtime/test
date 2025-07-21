@@ -1033,7 +1033,7 @@ class ContractmDateAccount(models.Model):
             self.social_security = float(self.basic_salary) * 0.05 
             self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             if self.employ_type != 'option1':
-                if self.total_salary >= 87500:
+                if self.social_security >= 87500:
                     self.total_salary = 87500 + self.compensation
                     if self.married_with_house_wife:
                         self.total_salary = 87500 + self.compensation + 375000  
