@@ -289,6 +289,30 @@ class AlmaaqalGrade(models.Model):
                 else:
                     registration.status_type = 6
 
+            if  registration and sub.status_type:
+                if sub.status_in_year == 'option1':
+                    registration.registration_status = 11
+                if sub.status_in_year == 'option2':
+                    registration.status_type = 5
+                if sub.status_in_year == 'option3':
+                    registration.registration_status = 9
+                if sub.status_in_year == 'option4':
+                    registration.registration_status = 7
+                if sub.status_in_year == 'option5':
+                    registration.registration_status = 8
+                if sub.status_in_year == 'option6':
+                    registration.registration_status = 3
+                if sub.status_in_year == 'option7':
+                    registration.registration_status = 4
+                if sub.status_in_year == 'option8':
+                    registration.registration_status = 10
+                if sub.status_in_year == 'option9':
+                    registration.registration_status = 14
+                if sub.status_in_year == 'option10':
+                    registration.registration_status = 12
+                else:
+                    registration.registration_status =13        
+
     def remove_underscores(self, text):
         """Remove underscores from the given text."""
         return text.replace('_', '')    
