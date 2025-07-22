@@ -289,11 +289,11 @@ class AlmaaqalGrade(models.Model):
                 else:
                     registration.status_type = 6
 
-            if  registration and sub.status_type:
+            if  registration and sub.status_in_year:
                 if sub.status_in_year == 'option1':
                     registration.registration_status = 11
                 if sub.status_in_year == 'option2':
-                    registration.status_type = 5
+                    registration.registration_status = 5
                 if sub.status_in_year == 'option3':
                     registration.registration_status = 9
                 if sub.status_in_year == 'option4':
