@@ -1084,25 +1084,25 @@ class ContractmDateAccount(models.Model):
                     self.total_salary = self.social_security + self.compensation
                     if self.married_with_house_wife:
                         self.total_salary = self.social_security + self.compensation + 375000  
-                        if self.married_with_working_wife:
-                            self.total_salary = self.social_security + self.compensation + 208333
-                        if self.married_with_non_working_husband:
-                            self.total_salary = self.social_security + self.compensation + 416666
-                        if self.married_with_working_husband:
-                            self.total_salary = self.social_security + self.compensation + 208333
-                        if self.single_male:
-                            self.total_salary = self.social_security + self.compensation + 208333
-                        if self.male_female_with_children:
-                            self.total_salary = self.total_salary + self.male_female_with_children * 16666    
-            
-                        if self.divorced_male:
-                            self.total_salary = self.total_salary + 208333 # 
+                    if self.married_with_working_wife:
+                        self.total_salary = self.social_security + self.compensation + 208333
+                    if self.married_with_non_working_husband:
+                        self.total_salary = self.social_security + self.compensation + 416666
+                    if self.married_with_working_husband:
+                        self.total_salary = self.social_security + self.compensation + 208333
+                    if self.single_male:
+                        self.total_salary = self.social_security + self.compensation + 208333
+                    if self.male_female_with_children:
+                        self.total_salary = self.total_salary + self.male_female_with_children * 16666    
+        
+                    if self.divorced_male:
+                        self.total_salary = self.total_salary + 208333 # 
 
-                        if self.divorced_female:
-                            self.total_salary = self.total_salary + 266666
-                        
-                        if self.if_age_is_above_63:
-                            self.total_salary = self.total_salary + 25000  
+                    if self.divorced_female:
+                        self.total_salary = self.total_salary + 266666
+                    
+                    if self.if_age_is_above_63:
+                        self.total_salary = self.total_salary + 25000  
 
             if self.employ_type == 'option1':
                 self.total_salary = self.compensation
