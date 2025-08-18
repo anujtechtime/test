@@ -1057,8 +1057,8 @@ class ContractmDateAccount(models.Model):
             self.compensation = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23) 
             self.basic_salary_one = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
             self.compensation_one = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
-            self.social_security = float(self.basic_salary) * 0.05 
             self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
+            self.social_security = (float(self.basic_salary) + float(self.compensation1) - (float(self.basic_salary) * 0.3)) * 0.05 
             if self.employ_type != 'option1':
                 if self.social_security >= 87500:
                     self.total_salary = 87500 + self.compensation
@@ -1133,16 +1133,16 @@ class ContractmDateAccount(models.Model):
 
             value_data = self.basic_salary + self.compensation - self.total_salary 
 
-            if value_data > 1000000:
+            if value_data > 83333:
                 self.tota_before =  ((value_data - 83333) * 0.15) + 5833 #((2563667 - 83333) * 0.15) + 5833 = 377883.1
 
-            if value_data > 500000 and value_data <= 1000000:
+            if value_data > 41666 and value_data <= 83333:
                 self.tota_before =  ((value_data - 41666) * 0.10) + 1666
 
-            if value_data > 250000 and value_data <= 500000:
+            if value_data > 20833 and value_data <= 41666:
                 self.tota_before =  ((value_data - 20833) * 0.05) + 625 
 
-            if value_data > 0 and value_data <= 250000:
+            if value_data > 0 and value_data <= 20833:
                 self.tota_before =  value_data * 0.03  
 
         else:
@@ -1152,6 +1152,7 @@ class ContractmDateAccount(models.Model):
             self.compensation = 0
             self.social_security = 0
             self.compensation1 = 0                    
+
 
 class CrmTeamSaleOrderccount(models.Model):
 
