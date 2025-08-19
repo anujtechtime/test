@@ -15,6 +15,14 @@ class RegistrationStatus(models.Model):
 class ResPartreg(models.Model):
     _inherit = "res.partner"    
 
+
+    contact_type = fields.Selection(
+        selection_add=[
+            ('admin','موظف'),
+        ],
+        ondelete={'admin': 'set null'},
+    )
+
     def assign_registrtion_status(self):
         for ddt in self:
             level = ""
