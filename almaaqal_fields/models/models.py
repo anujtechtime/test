@@ -171,7 +171,7 @@ class PersistentModel(models.Model):
     attachment = fields.Many2many("ir.attachment",  string="Attachment")
 
     Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
-    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),('admin','موظف')], string="Contact Type", tracking=True)
 
     def action_confirm_change(self):
         for ddts in self:
