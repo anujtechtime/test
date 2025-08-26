@@ -597,7 +597,7 @@ class TechtimeStudentexcel(models.Model):
 class ResData(models.Model):
     _inherit = 'res.partner'
 
-    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس")], string="Contact Type", tracking=True)
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),("admin","موظف")], string="Contact Type", tracking=True)
 
     chckbox_data_2 = fields.Boolean("نقل من جامعة")
 
