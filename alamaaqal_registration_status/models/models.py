@@ -9,7 +9,9 @@ class RegistrationStatus(models.Model):
     name = fields.Char(string="name")
 
 class ResPartreg(models.Model):
-    _inherit = "res.partner"    
+    _inherit = "res.partner"  
+
+    contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),("admin","موظف")], string="Contact Type", tracking=True)  
 
     def assign_registrtion_status(self):
         for ddt in self:
