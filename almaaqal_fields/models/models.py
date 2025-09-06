@@ -13,6 +13,7 @@ class ResPart(models.Model):
         selection_add=[("hosting_university", " استضافة من الجامعة")],
     )
 
+    year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     graduation_source = fields.Many2one("graduation.source", string="جهة التخرج ")
     nationalty_source = fields.Many2one("nationality.source", string="الجنسية ")
     second_nationality_source = fields.Many2one("nationality.source", string="الجنسيه الثانويه ")
