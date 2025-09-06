@@ -217,6 +217,9 @@ class DataLevelStatus(models.Model):
     _name = 'status.change'
 
 
+    student_type = fields.Many2one("level.level", string="Student Type")
+
+
     Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','طالب حالي '),('succeeded','ناجح '),('failed','راسب '),('transferred_from_us','نقل من جامعتنا '),('graduated','متخرج ')], string="حالة الطالب ")
     transferred_to_us = fields.Boolean("نقل الئ الجامعة ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
