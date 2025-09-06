@@ -169,6 +169,7 @@ class PersistentModel(models.Model):
     data_date_value = fields.Date("Date", track_visibility=True)
     sequence_num = fields.Char("Sequence", track_visibility=True)
     attachment = fields.Many2many("ir.attachment",  string="Attachment")
+    student_type = fields.Many2one("level.level", string="Student Type")
 
     Status = fields.Selection([('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status")
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),('admin','موظف')], string="Contact Type", tracking=True)
@@ -219,6 +220,10 @@ class DataLevelStatus(models.Model):
     transferred_to_us = fields.Boolean("نقل الئ الجامعة ") 
     transfer_shift = fields.Boolean("Transferred Shift ")
     chckbox_data = fields.Boolean("نقل من كلية الى أخرى")
+
+
+
+
 
     chckbox_data_2 = fields.Boolean("نقل من جامعة")
 
