@@ -262,6 +262,7 @@ class DataLevelStatus(models.Model):
 
 
                 levels_sale_order.d_date = ddts.data_date_value
+                levels_sale_order.student_type = ddts.student_type.id
                 levels_sale_order.n_notes = ddts.notes_data
                 levels_sale_order.s_sequence = ddts.sequence_num
                 # levels_sale_order.a_attachment = ddts.attachment
