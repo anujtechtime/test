@@ -285,6 +285,9 @@ class DataLevelStatus(models.Model):
                     levels_sale_order.transferred_to_us = ddts.transferred_to_us
                 if ddts.transfer_shift:
                     levels_sale_order.transfer_shift = ddts.transfer_shift
+
+                if ddts.student_type:
+                    levels_sale_order.student_type = ddts.student_type.id    
                 if ddts.chckbox_data:
                     levels_sale_order.chckbox_data = ddts.chckbox_data
                 if ddts.chckbox_data_2:

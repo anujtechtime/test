@@ -52,7 +52,11 @@ class SubjectSubjectD(models.Model):
     level = fields.Char("Level")
     note = fields.Char("Note")
 
+class DataLevelStatusInh(models.Model):
+    _inherit = 'status.change'
 
+
+    student_type = fields.Many2one("level.level", string="Student Type")  
 
 # class alamaaqal_registration_status(models.Model):
 #     _name = 'alamaaqal_registration_status.alamaaqal_registration_status'
