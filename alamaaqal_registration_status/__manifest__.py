@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','almaaqal_grade','almaaqal_fields'],
+    'depends': ['base','sale','almaaqal_grade','almaaqal_fields','almaqal_student_discount'],
 
     # always loaded
     'data': [
