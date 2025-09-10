@@ -30,6 +30,10 @@ class almaaqalStatusCHanng(models.Model):
 
         return result
     
+class SaleStatusType(models.Model):
+    _inherit = 'sale.order'
+
+    status_type = fields.Many2one("status.type",string="Status Type")    
 
 #     name = fields.Char()
 #     value = fields.Integer()
