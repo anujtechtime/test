@@ -15,6 +15,8 @@ class RegistrationStatus(models.Model):
 class ResPartreg(models.Model):
     _inherit = "res.partner"    
 
+    scholarship = fields.Boolean(string="منحة")
+
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),("admin","موظف")], string="Contact Type", tracking=True)
 
     def assign_registrtion_status(self):
