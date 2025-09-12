@@ -11,6 +11,8 @@ class RegistrationStatus(models.Model):
 class ResPartreg(models.Model):
     _inherit = "res.partner"  
 
+    scholarship = fields.Boolean(string="منحة")
+
     contact_type = fields.Selection([("student","طالب"),("teacher", "مدرس"),("admin","موظف")], string="Contact Type", tracking=True)  
 
     def assign_registrtion_status(self):
@@ -57,6 +59,14 @@ class DataLevelStatusInh(models.Model):
 
 
     student_type = fields.Many2one("level.level", string="Student Type")  
+
+class DataLevelStuentDicou(models.Model):
+    _inherit = 'installment.details'
+
+
+    def action_student_dicounts(self):
+        for ddt in self:
+            ddt.student_dicount = True    
 
 # class alamaaqal_registration_status(models.Model):
 #     _name = 'alamaaqal_registration_status.alamaaqal_registration_status'

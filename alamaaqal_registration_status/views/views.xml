@@ -45,6 +45,19 @@
         <field name="binding_view_types">list,form</field>
     </record>
 
+    <record id="ir_actions_server_student_discount_true" model="ir.actions.server">
+        <field name="name">Student Discount True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_installment_details"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_student_dicounts()
+        </field>
+        <field name="binding_model_id" ref="almaqal_student_discount.model_installment_details"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
 
     <record id="view_sale_order_inherit_subject_subject_fg" model="ir.ui.view">
       <field name="name">Subject</field>
