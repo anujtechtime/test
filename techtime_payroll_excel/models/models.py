@@ -265,7 +265,7 @@ class techtime_payrollDepartment(models.Model):
                      pattern: pattern solid, fore_color white; font: bold on; pattern: pattern solid, fore_colour lime; align: horiz centre")
 
 
-        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour green; font: color white; align: horiz centre")
+        header_bold_extra_tag = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour white; font: color white; align: horiz centre")
 
         header_bold_extra = xlwt.easyxf("font: bold on; pattern: pattern solid, fore_colour red; font: color white; align: horiz centre")
         cell_format = xlwt.easyxf()
@@ -312,9 +312,10 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 4, 'حالة الطالب', header_bold)
 
+            worksheet.write(row, 5, 'المبلغ المتبقي', header_bold)
+
             row = 3
             for level in level_data:
-
                 if level == "leve1":
                     level_name = "المرحلة الاولى"
                 if level == "level2":
@@ -325,25 +326,72 @@ class techtime_payrollDepartment(models.Model):
                     level_name = "المرحلة الرابعة"
                 if level == "level5":
                     level_name = "المرحلة الخامسة"
-
-                
-
                 print("level@@@@@@@@@@@@@",level)
                 print("self$$$$$$$$$$$$$",self)
                 status_data = ['currecnt_student','status1','status2','status4','status3','succeeded','failed','transferred_from_us','graduated']
                 for status in status_data:
+                    if status == "currecnt_student":
+                        status_data  = "طالب حالي"
+
+                    if status == "status1":
+                        status_data  = "ترقين قيد"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color yellow; align: horiz centre; font: bold 1,height 240;')
+                    if status == "status2":
+                        status_data  = "طالب غير مباشر"
+
+                    if status == "status4":
+                        status_data  = "مؤجل"    
+                    
+                    if status == "status3":
+                        status_data  = "انسحاب"
+
+                    if status == "succeeded":
+                        status_data  = "طالب ناجح"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
+                        
+                    if status == "failed":
+                        status_data  = "طالب راسب"
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color red; align: horiz centre; font: bold 1,height 240;')
+                        
+                    if status == "transferred_from_us":
+                        status_data  = "طالب منتقل من الجامعة"     
+
+                    if status == "graduated":
+                        status_data  = "طالب ناجح"       
+                        main_cell = xlwt.easyxf('font: bold off, color black;\
+                         borders: top_color black, bottom_color black, right_color black, left_color black,\
+                                  left thin, right thin, top thin, bottom thin;\
+                         pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                     sequence = 1
 
+                    same_name = ''
+
                     if invoice_data:
                         worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
                         for inv in invoice_data:
+                            if same_name != inv.name and same_name != '':
+                                
+                                worksheet.write(row, 5, inv.amount_residual, header_bold_extra)
+                                row = row + 1
+
                             print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
                             print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
                             worksheet.write(row, 1, sequence, main_cell)
 
                             worksheet.write(row, 2, inv.name, main_cell)
+
+                            
 
                             worksheet.write(row, 3, inv.partner_id.name, main_cell)
 
@@ -351,13 +399,8 @@ class techtime_payrollDepartment(models.Model):
 
                             if status == "currecnt_student":
                                 status_data  = "طالب حالي"
-         
                             if status == "status1":
                                 status_data  = "ترقين قيد"
-                                main_cell = xlwt.easyxf('font: bold off, color black;\
-                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
-                                          left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color yellow; align: horiz centre; font: bold 1,height 240;')
                             if status == "status2":
                                 status_data  = "طالب غير مباشر"
 
@@ -369,37 +412,30 @@ class techtime_payrollDepartment(models.Model):
 
                             if status == "succeeded":
                                 status_data  = "طالب ناجح"
-                                main_cell = xlwt.easyxf('font: bold off, color black;\
-                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
-                                          left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
                                 
                             if status == "failed":
                                 status_data  = "طالب راسب"
-                                main_cell = xlwt.easyxf('font: bold off, color black;\
-                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
-                                          left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color red; align: horiz centre; font: bold 1,height 240;')
                                 
                             if status == "transferred_from_us":
                                 status_data  = "طالب منتقل من الجامعة"     
 
                             if status == "graduated":
-                                status_data  = "طالب ناجح"       
-                                main_cell = xlwt.easyxf('font: bold off, color black;\
-                                 borders: top_color black, bottom_color black, right_color black, left_color black,\
-                                          left thin, right thin, top thin, bottom thin;\
-                                 pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')                     
+                                status_data  = "طالب ناجح"                            
 
                             worksheet.write(row, 4, status_data, main_cell)
+
+                            worksheet.write(row, 5, inv.amount_residual, main_cell)
 
                             row = row + 1
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
                             sequence = sequence + 1
-                            main_cell = xlwt.easyxf('font: bold off, color black;\
-                             borders: top_color black, bottom_color black, right_color black, left_color black,\
-                                      left thin, right thin, top thin, bottom thin;\
-                             pattern: pattern solid, fore_color white; align: horiz centre; font: bold 1,height 240;')
+
+                            
+
+                            same_name = inv.name
+
+
+                            
                         row = row + 3    
                         
 
