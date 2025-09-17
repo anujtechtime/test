@@ -380,7 +380,7 @@ class techtime_payrollDepartment(models.Model):
                     if invoice_data:
                         worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
                         for inv in invoice_data:
-                            if same_name != inv.name and same_name != '':
+                            if same_name != inv.name:
                                 
                                 worksheet.write(row, 5, inv.amount_residual, header_bold_extra)
                                 row = row + 1
