@@ -374,16 +374,21 @@ class techtime_payrollDepartment(models.Model):
                     invoice_data = self.filtered(lambda picking: picking.partner_id.Status == status and  picking.department.id == depp.id and picking.state == "posted" and picking.level == level and picking.invoice_payment_state != 'paid').sorted(key=lambda r: r.partner_id.name)
                 
                     sequence = 1
-
-                    same_name = ''
+                    same_name = None
+                    partner_total = 0.0 
 
                     if invoice_data:
                         worksheet.write(row - 1, 0, level_name   + "(" + str(len(invoice_data.mapped("id"))) + ")" , header_bold)
                         for inv in invoice_data:
-                            if same_name != inv.name:
-                                
-                                worksheet.write(row, 5, inv.amount_residual, header_bold_extra)
-                                row = row + 1
+
+                            partner_name = inv.partner_id.name
+
+                            # If partner changes -> write total row for previous partner
+                            if same_name and partner_name != same_name:
+                                worksheet.write(row, 2, "Total", header_bold)
+                                worksheet.write(row, 5, partner_total, header_bold)
+                                row += 1
+                                partner_total = 0.0  # reset for new partner
 
                             print("inhhhhhhhhhhhhhhhhhhh",inv.partner_id.name)
                             print("row@@@@@@@@@@@@@@wwwwwwwwww",row)
@@ -391,7 +396,6 @@ class techtime_payrollDepartment(models.Model):
 
                             worksheet.write(row, 2, inv.name, main_cell)
 
-                            
 
                             worksheet.write(row, 3, inv.partner_id.name, main_cell)
 
@@ -430,12 +434,15 @@ class techtime_payrollDepartment(models.Model):
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
                             sequence = sequence + 1
 
-                            
+                            partner_total += inv.amount_residual
 
-                            same_name = inv.name
+                            # Update trackers
+                            same_name = partner_name
 
-
-                            
+                        if same_name:
+                            worksheet.write(row, 2, "Total", header_bold)
+                            worksheet.write(row, 5, partner_total, header_bold)
+                            row += 1
                         row = row + 3    
                         
 
