@@ -310,7 +310,7 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 3, 'أسم الطالب', header_bold)
 
-            worksheet.write(row, 4, 'payment term ', header_bold)
+            worksheet.write(row, 4, 'تاريخ السداد', header_bold)
 
             worksheet.write(row, 5, 'حالة الطالب', header_bold)
 
