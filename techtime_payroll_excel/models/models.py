@@ -310,9 +310,11 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 3, 'أسم الطالب', header_bold)
 
-            worksheet.write(row, 4, 'حالة الطالب', header_bold)
+            worksheet.write(row, 4, 'payment term ', header_bold)
 
-            worksheet.write(row, 5, 'المبلغ المتبقي', header_bold)
+            worksheet.write(row, 5, 'حالة الطالب', header_bold)
+
+            worksheet.write(row, 6, 'المبلغ المتبقي', header_bold)
 
             row = 3
             for level in level_data:
@@ -386,7 +388,7 @@ class techtime_payrollDepartment(models.Model):
                             # If partner changes -> write total row for previous partner
                             if same_name and partner_name != same_name:
                                 worksheet.write(row, 2, "Total", header_bold)
-                                worksheet.write(row, 5, partner_total, header_bold)
+                                worksheet.write(row, 6, partner_total, header_bold)
                                 row += 1
                                 partner_total = 0.0  # reset for new partner
 
@@ -424,11 +426,13 @@ class techtime_payrollDepartment(models.Model):
                                 status_data  = "طالب منتقل من الجامعة"     
 
                             if status == "graduated":
-                                status_data  = "طالب ناجح"                            
+                                status_data  = "طالب ناجح"           
 
-                            worksheet.write(row, 4, status_data, main_cell)
+                            worksheet.write(row, 4, inv.invoice_payment_term_id, main_cell)                     
 
-                            worksheet.write(row, 5, inv.amount_residual, main_cell)
+                            worksheet.write(row, 5, status_data, main_cell)
+
+                            worksheet.write(row, 6, inv.amount_residual, main_cell)
 
                             row = row + 1
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
@@ -441,7 +445,7 @@ class techtime_payrollDepartment(models.Model):
 
                         if same_name:
                             worksheet.write(row, 2, "Total", header_bold)
-                            worksheet.write(row, 5, partner_total, header_bold)
+                            worksheet.write(row, 6, partner_total, header_bold)
                             row += 1
                         row = row + 3    
                         
