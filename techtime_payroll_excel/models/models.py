@@ -428,7 +428,7 @@ class techtime_payrollDepartment(models.Model):
                             if status == "graduated":
                                 status_data  = "طالب ناجح"           
 
-                            worksheet.write(row, 4, inv.invoice_payment_term_id.strftime("%Y-%m-%d"), main_cell)                     
+                            worksheet.write(row, 4, inv.invoice_date_due.strftime("%Y-%m-%d"), main_cell)                     
 
                             worksheet.write(row, 5, status_data, main_cell)
 
