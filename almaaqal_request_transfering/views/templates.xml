@@ -80,7 +80,6 @@
                 
                 <div t-if="o" class="col-12" style=" margin-top :  20px;">
                      نوع الدراسة  : <span t-field="o.shift" class="m-0"/>
-                    
                 </div>
                 <div t-if="o" class="col-12" style=" margin-top :  20px;">
                      التاريخ  : <t t-esc="datetime.datetime.today().strftime('%d/%m/%Y')"/>
