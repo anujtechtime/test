@@ -1,6 +1,6 @@
 {
     "name": "Account Payment Branch Group",
-    "version": "16.0.1.0.0",
+    "version": "13.0.1.0.0",
     "summary": "Add Branch Code field in users and group payments by Branch",
     "category": "Accounting",
     "author": "Your Name",
@@ -8,7 +8,8 @@
     "data": [
         "views/account_payment_views.xml"
     ],
-    "installable": true,
-    "application": false,
+    'installable': True,
+    'application': False,
+    'auto_install': False,
     "license": "LGPL-3"
 }
