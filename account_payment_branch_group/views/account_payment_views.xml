@@ -1,0 +1,17 @@
+<odoo>
+    <!-- Inherit Payment Search View -->
+    <record id="view_account_payment_search_inherit" model="ir.ui.view">
+        <field name="name">account.payment.search.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter string="Branch Code"
+                            name="group_branch_code"
+                            context="{'group_by':'user_branch_code'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
