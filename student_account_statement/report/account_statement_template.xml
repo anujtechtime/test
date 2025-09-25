@@ -1,49 +1,49 @@
 <odoo>
     <template id="report_account_statement">
-        <t t-call="web.external_layout">
-            <div class="page">
-                <h2>كشف حساب / Account Statement</h2>
-                <p><strong>Student:</strong> <span t-esc="doc.partner_id.name"/></p>
-                <p><strong>Department:</strong> <span t-esc="doc.partner_id.department_id.name"/></p>
-                <p><strong>Level:</strong> <span t-esc="doc.partner_id.level"/></p>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Account Statement</h2>
+                    <p><strong>Student:</strong> <span t-esc="doc.partner_id and doc.partner_id.name or ''"/></p>
+                    <p><strong>Department:</strong> <span t-esc="doc.department_id and doc.department_id.name or ''"/></p>
+                    <p><strong>Level:</strong> <span t-esc="doc.level or ''"/></p>
 
-                <h3>Invoices</h3>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Invoice</th>
-                            <th>Payment Terms</th>
-                            <th>Amount Due</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr t-foreach="docs.env['account.move'].search([('partner_id','=',doc.partner_id.id),('move_type','=','out_invoice')])" t-as="inv">
-                            <td><span t-esc="inv.name"/></td>
-                            <td><span t-esc="inv.invoice_payment_term_id.name"/></td>
-                            <td><span t-esc="inv.amount_residual"/></td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <h3>Invoices</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Payment Terms</th>
+                                <th>Amount Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.invoice_ids" t-as="inv">
+                                <td><span t-esc="inv.invoice_payment_term_id and inv.invoice_payment_term_id.name or ''"/></td>
+                                <td><span t-esc="inv.amount_residual"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <h3>Payments</h3>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr t-foreach="docs.env['account.payment'].search([('partner_id','=',doc.partner_id.id)])" t-as="pay">
-                            <td><span t-esc="pay.payment_date"/></td>
-                            <td><span t-esc="pay.amount"/></td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <h3>Payments</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.payment_ids" t-as="pay">
+                                <td><span t-esc="pay.payment_date"/></td>
+                                <td><span t-esc="pay.amount"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <p><strong>Total Invoices:</strong> <span t-esc="sum(docs.env['account.move'].search([('partner_id','=',doc.partner_id.id),('move_type','=','out_invoice')]).mapped('amount_total'))"/></p>
-                <p><strong>Total Payments:</strong> <span t-esc="sum(docs.env['account.payment'].search([('partner_id','=',doc.partner_id.id)]).mapped('amount'))"/></p>
-            </div>
+                    <p><strong>Total Invoices:</strong> <span t-esc="sum(inv.amount_total for inv in doc.invoice_ids)"/></p>
+                    <p><strong>Total Payments:</strong> <span t-esc="sum(pay.amount for pay in doc.payment_ids)"/></p>
+                </div>
+            </t>
         </t>
     </template>
 </odoo>

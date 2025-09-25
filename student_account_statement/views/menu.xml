@@ -1,4 +1,0 @@
-<odoo>
-    <menuitem id="menu_student_account_statement_root" name="Account Statement" parent="account.menu_finance_reports"/>
-    <menuitem id="menu_account_statement" name="كشف حساب / Account Statement" parent="menu_student_account_statement_root" action="action_account_statement_wizard"/>
-</odoo>
