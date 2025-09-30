@@ -74,9 +74,16 @@ class ResPrtner(models.Model):
     def action_create_badge_invoice(self):
         for result in self:
             instamm_ment_details = self.env["installment.details"].search([("student_dicount","=",True),('college','=',result.partner_id.college.id),("Student","=",result.student.id),("level","=",result.partner_id.level),('Subject','=',result.partner_id.shift),('year','=',result.partner_id.year.id),('department','=',result.partner_id.department.id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)], limit=1)
-            product_id = self.env["product.product"].search([("id",'=',3)])
+            product_id = self.env["product.product"].search([("id",'=',22)])
             journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
             count = 0
+            product_price = ""
+
+            if result.department.id == 8 or result.department.id == 9:
+                product_price = 5000
+            else:
+                product_price = 4000    
+
             invoice_vals = {
                 'ref': result.client_order_ref or '',
                 'type': 'out_invoice',
@@ -100,7 +107,7 @@ class ResPrtner(models.Model):
                 'transaction_ids': [(6, 0, result.transaction_ids.ids)],
                 'invoice_line_ids': [(0, 0, {
                     'name': product_id.name,
-                    'price_unit': product_id.lst_price,
+                    'price_unit': product_price,
                     'quantity': 1.0,
                     'product_id': product_id.id,
                     # 'tax_ids': [(6, 0, self.order_line.tax_id.ids)],
