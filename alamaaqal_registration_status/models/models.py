@@ -11,7 +11,7 @@ class RegistrationStatus(models.Model):
 class ResPartMint(models.Model):
     _inherit = "account.payment"  
 
-    casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف'),('option4','عبد الكاظم'),('option5','مصطفى جهاد'),('option6','نور الهدى'),('option7','سيف الدين'),('option8','انور مهند')], string="الكاشير")
+    casher = fields.Selection([('option1', 'حسين'),('option2','مسلم حسن'),('option3','مصطفى يوسف'),('option4','عبد الكاظم'),('option5','مصطفى جهاد'),('option6','نور الهدى'),('option7','سيف الدين'),('option8','انور مهند'),('option9',"محمد محي الدين")], string="الكاشير")
 
 
 class ResPartreg(models.Model):
