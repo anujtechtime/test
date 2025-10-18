@@ -11,5 +11,5 @@ class ResPartner(models.Model):
             'res_model': 'sale.order',
             'view_mode': 'form',
             'target': 'current',
-            'context': {'default_partner_id': self.id, 'default_year': self.year.id, 'default_college': self.college.id, 'default_department': self.department.id, 'default_student_type': self.Student.id, 'default_shift': self.shift, 'default_level': self.level, 'default_student_no': self.number_exam},
+            'context': {'default_partner_id': self.id, 'default_year': self.year.id, 'default_college': self.college.id, 'default_department': self.department.id, 'default_student_type': self.Student.id, 'default_shift': self.shift, 'default_level': self.level},
         }
