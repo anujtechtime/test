@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_partner_form_open_sale_order" model="ir.ui.view">
+        <field name="name">res.partner.form.open.sale.order</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="almaqal_templates.view_partner_form_custom_new_registration"/>
+        <field name="arch" type="xml">
+            <!-- <header position="inside">
+                <button name="action_open_new_sale_order" type="object" string="Create Sale Order" class="oe_highlight"/>
+            </header> -->
+
+            <sheet position="before">
+                <header>
+                    <button name="action_open_new_sale_order"
+                            string="Create Sale Order"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-shopping-cart"/>
+                </header>
+            </sheet>
+        </field>
+    </record>
+</odoo>
