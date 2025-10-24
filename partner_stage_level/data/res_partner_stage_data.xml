@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stage_first" model="res.partner.stage">
+        <field name="name">المستوى الأول</field>
+    </record>
+    <record id="stage_second" model="res.partner.stage">
+        <field name="name">المستوى الثاني</field>
+    </record>
+    <record id="stage_third" model="res.partner.stage">
+        <field name="name">المستوى الثالث</field>
+    </record>
+    <record id="stage_fourth" model="res.partner.stage">
+        <field name="name">المستوى الرابع</field>
+    </record>
+</odoo>
