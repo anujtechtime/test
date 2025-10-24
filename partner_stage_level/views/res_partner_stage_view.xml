@@ -32,7 +32,7 @@
 
     <menuitem id="menu_partner_stage_root"
               name="Customer Levels"
-              parent="contacts.menu_contacts_configuration"
+              parent="contacts.res_partner_menu_contacts"
               action="action_partner_stage"
               sequence="15"/>
 </odoo>
