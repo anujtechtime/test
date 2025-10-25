@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_stage_tree" model="ir.ui.view">
+        <field name="name">res.partner.stage.tree</field>
+        <field name="model">res.partner.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Levels">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_partner_stage_form" model="ir.ui.view">
+        <field name="name">res.partner.stage.form</field>
+        <field name="model">res.partner.stage</field>
+        <field name="arch" type="xml">
+            <form string="Customer Level">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_partner_stage" model="ir.actions.act_window">
+        <field name="name">Customer Levels</field>
+        <field name="res_model">res.partner.stage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_partner_stage_root"
+              name="Customer Levels"
+              parent="contacts.res_partner_menu_contacts"
+              action="action_partner_stage"
+              sequence="15"/>
+</odoo>

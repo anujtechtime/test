@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_stage" model="ir.ui.view">
+        <field name="name">res.partner.form.stage.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="function" position="after">
+                <field name="stage_id" options="{'no_quick_create': False, 'no_create_edit': False}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_search_inherit_stage" model="ir.ui.view">
+        <field name="name">res.partner.search.stage.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="customer" position="after">
+                <filter string="المستوى" name="stage" context="{'group_by': 'stage_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
