@@ -5,6 +5,7 @@ from odoo import models, fields, api
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError, ValidationError
 
 # class techtime_department(models.Model):
 #     _name = 'techtime_department.techtime_department'
@@ -113,11 +114,26 @@ class StudentFields(models.Model):
     @api.model
     def create(self, vals):
         result = super(StudentFields, self).create(vals)
-        result.property_account_receivable_id = 832
-        result.property_account_payable_id = 883
+        
         return result
          
 
+    @api.model
+    def create(self, vals):
+        # Check if 'number_exam' exists in vals before creating record
+        number_exam = vals.get("number_exam")
+        if number_exam:
+            existing_partner = self.env["res.partner"].search(
+                [("number_exam", "=", number_exam)], limit=1
+            )
+            if existing_partner:
+                raise ValidationError(_("Exam number already exists in the system."))
+
+        # Proceed with normal creation
+        result = super(StudentFields, self).create(vals)
+        result.property_account_receivable_id = 832
+        result.property_account_payable_id = 883
+        return result
     # faculty = fields.Many2one("hr.employee", string="Faculty")
     # trading_account_group = fields.Char("trading account group")
     # symbol_value = fields.Float("Symbol Value")
