@@ -29,6 +29,11 @@ class PersistentModelinher(models.Model):
 
     registration_status = fields.Many2one("registration.status")   
     status_type = fields.Many2one("status.type",string="Status Type")  
+    stage_id = fields.Many2one(
+        'res.partner.stage',
+        string='المستوى',
+        help='Customer level',
+    )
 
     def action_confirm_change(self):
         res = super(PersistentModelinher, self).action_confirm_change()
