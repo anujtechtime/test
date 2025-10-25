@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # from odoo import models, fields, api
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -111,12 +111,6 @@ class StudentFields(models.Model):
     contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")
 
 
-    @api.model
-    def create(self, vals):
-        result = super(StudentFields, self).create(vals)
-        
-        return result
-         
 
     @api.model
     def create(self, vals):
