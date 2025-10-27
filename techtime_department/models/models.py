@@ -92,20 +92,22 @@ class StudentFields(models.Model):
     university_no = fields.Char("University No.")
     college_number = fields.Char("College Number")
     notes = fields.Text("Notes")
-    contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")
+    contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")          
 
+    @api.model
+    def create(self, vals):
+        # Check if 'number_exam' exists in vals before creating record
+        number_exam = vals.get("number_exam")
+        if number_exam:
+            existing_partner = self.env["res.partner"].search(
+                [("number_exam", "=", number_exam)], limit=1
+            )
+            if existing_partner:
+                raise ValidationError(_("Exam number already exists in the system."))
 
-    # @api.model
-    # def create(self, vals):
-    #     result = super(StudentFields, self).create(vals)
-    #     if result.number_exam:
-    #         res_part = self.env["res.partner"].search([("number_exam","=",result.number_exam)])
-    #         if res_part:
-    #             raise ValidationError(_("Exam number is already exist in the system."))
-    #     result.property_account_receivable_id = 832
-    #     result.property_account_payable_id = 883
-    #     return result
-         
+        # Proceed with normal creation
+        result = super(StudentFields, self).create(vals)
+        return result
 
     # faculty = fields.Many2one("hr.employee", string="Faculty")
     # trading_account_group = fields.Char("trading account group")
