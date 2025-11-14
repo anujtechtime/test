@@ -210,14 +210,21 @@ class ResPrtner(models.Model):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
             student_id = result.student.id
             if result.level in duplicates:
+                # if result.student.id == 11:
+                #     student_id = 16
+                # elif result.student.id == 48:
+                #     student_id = 1000
+                #     return result
+                # elif result.student.id == 7:
+                #     student_id = 8
+                # _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)   
+
+
                 if result.student.id == 11:
-                    student_id = 16
-                elif result.student.id == 48:
-                    student_id = 1000
-                    return result
-                elif result.student.id == 7:
-                    student_id = 8
-                _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
+                    student_id = 64
+                else:
+                    student_id = result.student.id
+
 
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
             _logger.info("installmet_datsstd33333333333333@@@@@@@@@@%s" %installmet_datsstd)
