@@ -202,22 +202,25 @@ class ResPrtner(models.Model):
             print("No duplicate values found")
             _logger.info("duplicates@@@@@@@@@@111111111%s" %duplicates)
 
-
-
         print("multi_level@@@@@@@@@@",result.contains_duplicate(multi_level))
         _logger.info("multi_level@@@@@@@@@@%s" %result.contains_duplicate(multi_level))
         if result.contains_duplicate(multi_level):
             _logger.info("multi_level@@@@@@@@@@11111111111111111%s" %result.contains_duplicate(multi_level))
             student_id = result.student.id
             if result.level in duplicates:
+                # if result.student.id == 11:
+                #     student_id = 16
+                # elif result.student.id == 55:
+                #     student_id = 55
+                #     result.installment_amount = 0
+                #     return result
+                # else:
+                #     student_id = 8
                 if result.student.id == 11:
-                    student_id = 16
-                elif result.student.id == 55:
-                    student_id = 55
-                    result.installment_amount = 0
-                    return result
+                    student_id = 64
                 else:
-                    student_id = 8
+                    student_id = result.student.id
+
                 _logger.info("result.level@@@@@@@@@@111111111%s" %result.level)    
 
             installmet_datsstd = result.env["installment.details"].search([('college' , '=', result.college.id),("level","=",'leve1'),("Subject","=",result.Subject),('department','=',result.department.id),('Student','=',student_id),('percentage_from','<=',result.partner_id.final_result),('percentage_to','>=',result.partner_id.final_result)])
@@ -230,7 +233,6 @@ class ResPrtner(models.Model):
 
                     payemnt_date = installmet_dat.sale_installment_line_ids.mapped("payment_date")
 
-                    
                     count_no = 0
                     for i in years.sale_installment_line_ids:
                         installment = result.sale_installment_line_ids.create({
