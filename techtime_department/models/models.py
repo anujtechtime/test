@@ -95,16 +95,16 @@ class StudentFields(models.Model):
     contact_type = fields.Selection([("student","Student"),("teacher", "Teacher")], string="Contact Type")          
 
 
-    def write(self, vals):
-        res =  super(StudentFields, self).write(vals)
-        if self.number_exam:
-            existing_partner = self.env["res.partner"].search(
-                [("number_exam", "=", self.number_exam)], limit=1
-            )
-            if existing_partner:
-                raise ValidationError(_("Exam number already exists in the system."))
+    # def write(self, vals):
+    #     res =  super(StudentFields, self).write(vals)
+    #     if self.number_exam:
+    #         existing_partner = self.env["res.partner"].search(
+    #             [("number_exam", "=", self.number_exam)], limit=1
+    #         )
+    #         if existing_partner:
+    #             raise ValidationError(_("Exam number already exists in the system."))
 
-        return res
+    #     return res
     
     @api.model
     def create(self, vals):
