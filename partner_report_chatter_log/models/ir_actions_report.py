@@ -5,12 +5,11 @@ from datetime import datetime
 class IrActionsReport(models.Model):
     _inherit = 'ir.actions.report'
 
-    @api.model
-    def _render_qweb_pdf(self, res_ids=None, data=None):
-        pdf, _ = super()._render_qweb_pdf(res_ids=res_ids, data=data)
+    def report_action(self, docids, data=None, config=True):
+        res = super().report_action(docids, data=data, config=config)
 
-        if self.model == 'res.partner' and res_ids:
-            partners = self.env['res.partner'].browse(res_ids)
+        if self.model == 'res.partner' and docids:
+            partners = self.env['res.partner'].browse(docids)
             user = self.env.user
             now = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
@@ -23,4 +22,4 @@ class IrActionsReport(models.Model):
                     subtype_xmlid='mail.mt_note'
                 )
 
-        return pdf, _
+        return res
