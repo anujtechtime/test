@@ -10,9 +10,9 @@ _logger = logging.getLogger(__name__)
 class ReportControllerInherit(ReportController):
 
     @http.route(['/report/download'], type='http', auth='user')
-    def report_download(self, data, context=None):
-        # 🔒 ALWAYS call super first (important in Odoo 13)
-        response = super().report_download(data, context=context)
+    def report_download(self, data, token):
+        # ✅ Call original method FIRST
+        response = super(ReportControllerInherit, self).report_download(data, token)
 
         try:
             ctx = request.env.context or {}
@@ -33,8 +33,8 @@ class ReportControllerInherit(ReportController):
                             subtype_xmlid='mail.mt_note'
                         )
 
-        except Exception as e:
+        except Exception:
             # ❗ Never block report download
-            _logger.exception("Report download chatter log failed: %s", e)
+            _logger.exception("Chatter log failed for report download")
 
         return response
