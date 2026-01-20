@@ -1,37 +1,33 @@
-from odoo import models, api, _
+from odoo import http, _
+from odoo.http import request
+from odoo.addons.web.controllers.main import ReportController
 from datetime import datetime
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
-class IrActionsReport(models.Model):
-    _inherit = 'ir.actions.report'
+class ReportControllerInherit(ReportController):
 
-    @api.model
-    def _get_report_from_name(self, report_name):
-        report = super()._get_report_from_name(report_name)
-
-        ctx = self.env.context
+    @http.route([
+        '/report/docx/<string:report_name>/<string:docids>',
+    ], type='http', auth='user')
+    def report_docx(self, report_name, docids=None, **data):
+        # 🔥 LOG BEFORE DOWNLOAD
+        ctx = request.env.context
         active_model = ctx.get('active_model')
         active_ids = ctx.get('active_ids')
 
-        _logger.warning(
-            "REPORT PRINT DETECTED | report=%s model=%s ids=%s",
-            report_name, active_model, active_ids
-        )
-
-        if active_model == 'res.partner' and active_ids:
-            partners = self.env['res.partner'].browse(active_ids)
-            user = self.env.user
+        if active_model and active_ids:
+            records = request.env[active_model].browse(active_ids)
+            user = request.env.user
             now = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
-            for partner in partners:
-                partner.message_post(
-                    body=_(
-                        "<b>%s</b> printed report <i>%s</i> on %s"
-                    ) % (user.name, report.name, now),
-                    subtype_xmlid='mail.mt_note'
-                )
+            for rec in records:
+                if hasattr(rec, 'message_post'):
+                    rec.message_post(
+                        body=_(
+                            "<b>%s</b> printed DOCX report <i>%s</i> on %s"
+                        ) % (user.name, report_name, now),
+                        subtype_xmlid='mail.mt_note'
+                    )
 
-        return report
+        # ✅ Continue normal DOCX generation
+        return super().report_docx(report_name, docids, **data)
