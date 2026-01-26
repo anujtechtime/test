@@ -240,6 +240,11 @@ class IrActionsReport(models.Model):
             }
 
             _logger.info("self.model@@@@@@@@@@@@@@@@@@@@@@@.%s" % self.model)
+            _logger.info("record_map@@@@@@@@@@@@@@@@@@@@@@@.%s" % record_map)
+            _logger.info("record_map[res_ids[0]]@@@@@@@@@@@@@@@@@@@@@@@.%s" % record_map[res_ids[0]])
+            # record.message_post(
+            #     body="This is a test message from backend",
+            # )
             if self.model == "almaaqal.grade":
                 new_stream = self._postprocess_docx_report(
                     record_map[res_ids[0]], docx_content
