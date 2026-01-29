@@ -21,6 +21,11 @@ class WizardDocs(models.TransientModel):
     _name = 'wizard.docs'
    
     date_map = fields.Date("Date")
+
+    docs_option = fields.Selection([
+        ('ppd1', ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'),
+        ('ppd2',' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية')
+    ], string="اختر اسم المخول")
     Target = fields.Text("Target")
     docs_name = fields.Selection([
         ('pdf1', 'طلب جلب شهادة'),
@@ -33,9 +38,9 @@ class WizardDocs(models.TransientModel):
         print("res@@@@@@@@@@@@@@@@@@@@@@@@@@26666",self._context.get("active_id"))
         for idds in self._context.get("active_id"):
             if self.docs_name == 'pdf2':
-                report = self.env['ir.actions.report'].browse(1169)
+                report = self.env['ir.actions.report'].browse(1270)
             if self.docs_name == 'pdf1':
-                report = self.env['ir.actions.report'].browse(1171)
+                report = self.env['ir.actions.report'].browse(1269)
             
             self_data = self.env["res.partner"].search([("id","=",idds)])
             depp = ""
