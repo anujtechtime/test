@@ -41,6 +41,12 @@ class WizardDocs(models.TransientModel):
                 report = self.env['ir.actions.report'].browse(1270)
             if self.docs_name == 'pdf1':
                 report = self.env['ir.actions.report'].browse(1269)
+
+
+            if self.docs_name == 'ppd1':
+                self_data.docs_option = ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'
+            if self.docs_name == 'ppd2':
+                self_data.docs_option = ' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية'
             
             self_data = self.env["res.partner"].search([("id","=",idds)])
             depp = ""
@@ -69,7 +75,7 @@ class WizardDocs(models.TransientModel):
             self_data.Target = self.Target
             self_data.level_name_work = depp
             self_data.shift_name_work = shift_name
-            self_data.docs_option = self.docs_option
+            # self_data.docs_option = self.docs_option
             
             return report.report_action(self_data)
 
