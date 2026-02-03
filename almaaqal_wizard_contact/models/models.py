@@ -69,6 +69,7 @@ class WizardDocs(models.TransientModel):
             self_data.Target = self.Target
             self_data.level_name_work = depp
             self_data.shift_name_work = shift_name
+            self_data.docs_option = self.docs_option
             
             return report.report_action(self_data)
 
@@ -84,6 +85,7 @@ class WizardResPart(models.Model):
     Target = fields.Text("Target")
     level_name_work = fields.Char("Level work")
     shift_name_work = fields.Char("Level work")
+    docs_option = fields.Char("docs_option")
 
     def action_done_download_docs(self):
         print("self._context##################",self._context.get("active_ids"))
