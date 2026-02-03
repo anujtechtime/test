@@ -43,9 +43,9 @@ class WizardDocs(models.TransientModel):
                 report = self.env['ir.actions.report'].browse(1269)
 
 
-            if self.docs_name == 'ppd1':
+            if self.docs_option == 'ppd1':
                 self_data.docs_option = ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'
-            if self.docs_name == 'ppd2':
+            if self.docs_option == 'ppd2':
                 self_data.docs_option = ' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية'
             
             self_data = self.env["res.partner"].search([("id","=",idds)])
