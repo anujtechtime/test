@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+import re
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -11,3 +12,19 @@ class ResPartner(models.Model):
     specialization = fields.Char(string='Specialization')
     certificate = fields.Binary(string='Certificate')
     certificate_filename = fields.Char(string='Certificate Filename')
+
+
+
+    @api.model
+    def create(self, vals):
+        if vals.get('passport_number'):
+            vals['id_unified_number'] = self._extract_numeric(vals['passport_number'])
+        return super(ResPartner, self).create(vals)
+
+    def write(self, vals):
+        if vals.get('passport_number'):
+            vals['id_unified_number'] = self._extract_numeric(vals['passport_number'])
+        return super(ResPartner, self).write(vals)
+
+    def _extract_numeric(self, value):
+        return ''.join(re.findall(r'\d+', value))
