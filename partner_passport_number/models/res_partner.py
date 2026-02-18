@@ -18,12 +18,12 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('passport_number'):
-            vals['id_unified_number'] = self._extract_numeric(vals['passport_number'])
+            vals['ID_Unified_Number'] = self._extract_numeric(vals['passport_number'])
         return super(ResPartner, self).create(vals)
 
     def write(self, vals):
         if vals.get('passport_number'):
-            vals['id_unified_number'] = self._extract_numeric(vals['passport_number'])
+            vals['ID_Unified_Number'] = self._extract_numeric(vals['passport_number'])
         return super(ResPartner, self).write(vals)
 
     def _extract_numeric(self, value):
