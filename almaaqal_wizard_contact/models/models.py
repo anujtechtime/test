@@ -21,6 +21,11 @@ class WizardDocs(models.TransientModel):
     _name = 'wizard.docs'
    
     date_map = fields.Date("Date")
+
+    docs_option = fields.Selection([
+        ('ppd1', ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'),
+        ('ppd2',' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية')
+    ], string="اختر اسم المخول")
     Target = fields.Text("Target")
     docs_name = fields.Selection([
         ('pdf1', 'طلب جلب شهادة'),
@@ -36,8 +41,17 @@ class WizardDocs(models.TransientModel):
                 report = self.env['ir.actions.report'].browse(1270)
             if self.docs_name == 'pdf1':
                 report = self.env['ir.actions.report'].browse(1269)
+
+
+            
             
             self_data = self.env["res.partner"].search([("id","=",idds)])
+
+            if self.docs_option == 'ppd1':
+                self_data.docs_option = ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'
+            if self.docs_option == 'ppd2':
+                self_data.docs_option = ' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية'
+                
             depp = ""
             shift_name = ""
             lev = self_data.level
@@ -64,6 +78,7 @@ class WizardDocs(models.TransientModel):
             self_data.Target = self.Target
             self_data.level_name_work = depp
             self_data.shift_name_work = shift_name
+            # self_data.docs_option = self.docs_option
             
             return report.report_action(self_data)
 
@@ -79,6 +94,7 @@ class WizardResPart(models.Model):
     Target = fields.Text("Target")
     level_name_work = fields.Char("Level work")
     shift_name_work = fields.Char("Level work")
+    docs_option = fields.Char("docs_option")
 
     def action_done_download_docs(self):
         print("self._context##################",self._context.get("active_ids"))
