@@ -14,17 +14,30 @@ class ResPartner(models.Model):
     certificate_filename = fields.Char(string='Certificate Filename')
 
 
-
     @api.model
     def create(self, vals):
         if vals.get('passport_number'):
-            vals['ID_Unified_Number'] = self._extract_numeric(vals['passport_number'])
+            passport = vals.get('passport_number').strip()
+
+            # If contains any alphabet → keep in passport field
+            if re.search(r'[A-Za-z]', passport):
+                pass
+            else:
+                # Only numbers → shift to ID_Unified_Number
+                vals['ID_Unified_Number'] = passport
+                vals['passport_number'] = False
+
         return super(ResPartner, self).create(vals)
 
     def write(self, vals):
         if vals.get('passport_number'):
-            vals['ID_Unified_Number'] = self._extract_numeric(vals['passport_number'])
+            passport = vals.get('passport_number').strip()
+
+            if re.search(r'[A-Za-z]', passport):
+                pass
+            else:
+                vals['ID_Unified_Number'] = passport
+                vals['passport_number'] = False
+
         return super(ResPartner, self).write(vals)
 
-    def _extract_numeric(self, value):
-        return ''.join(re.findall(r'\d+', value))
