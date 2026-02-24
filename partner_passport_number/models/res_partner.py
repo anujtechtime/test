@@ -12,6 +12,7 @@ class ResPartner(models.Model):
     specialization = fields.Char(string='Specialization')
     certificate = fields.Binary(string='Certificate')
     certificate_filename = fields.Char(string='Certificate Filename')
+    register_date = fields.Char("تاريخ التسجيل")
 
 
     # @api.model
