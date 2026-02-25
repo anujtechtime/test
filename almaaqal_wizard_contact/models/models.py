@@ -24,7 +24,7 @@ class WizardDocs(models.TransientModel):
 
     docs_option = fields.Selection([
         ('ppd1', ' الاستاذ الدكتور بدر نعمه عكاش البدران رئيس جامعة'),
-        ('ppd2',' أ.م.د محمد جاسم الاسديمساعد رئيس الجامعة للشؤون العلمية')
+        ('ppd2','أ.م.د محمد جاسم الاسدي مساعد رئيس الجامعة للشؤون العلمية')
     ], string="اختر اسم المخول")
     Target = fields.Text("Target")
     docs_name = fields.Selection([
