@@ -1,0 +1,24 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_partner_kanban_missing_info" model="ir.ui.view">
+        <field name="name">res.partner.kanban.missing.info</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[contains(@class,'o_kanban_record_top')]" position="inside">
+
+                <t t-if="record.has_missing_info.raw_value">
+                    <span class="fa fa-exclamation-circle text-danger"
+                          title="Some information missing"
+                          style="margin-left:6px;font-size:16px;"/>
+                </t>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
