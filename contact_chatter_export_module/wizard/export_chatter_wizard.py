@@ -14,7 +14,7 @@ class PartnerChatterExportWizard(models.TransientModel):
 
     def export_chatter(self):
 
-        messages = self.env['mail.message'].search([
+        messages = self.env['mail.message'].sudo().search([
             ('model', '=', 'res.partner'),
             ('res_id', '=', self.partner_id.id)
         ], order="date asc")
