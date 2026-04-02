@@ -1,8 +1,8 @@
-
 from odoo import models, fields
 import base64
 import io
 import xlsxwriter
+
 
 class PartnerChatterExportWizard(models.TransientModel):
     _name = 'partner.chatter.export.wizard'
@@ -28,12 +28,48 @@ class PartnerChatterExportWizard(models.TransientModel):
             sheet.write(0, col, header)
 
         row = 1
+
         for msg in messages:
-            sheet.write(row, 0, str(msg.date or ''))
-            sheet.write(row, 1, msg.author_id.name or '')
-            sheet.write(row, 2, msg.message_type or '')
-            sheet.write(row, 3, msg.body or '')
-            row += 1
+
+            # Export normal chatter message
+            if msg.body:
+                sheet.write(row, 0, str(msg.date or ''))
+                sheet.write(row, 1, msg.author_id.name or '')
+                sheet.write(row, 2, msg.message_type or 'message')
+                sheet.write(row, 3, msg.body or '')
+                row += 1
+
+            # Export tracking values (field changes)
+            for track in msg.tracking_value_ids:
+
+                old_value = (
+                    track.old_value_char
+                    or track.old_value_text
+                    or track.old_value_integer
+                    or track.old_value_float
+                    or ''
+                )
+
+                new_value = (
+                    track.new_value_char
+                    or track.new_value_text
+                    or track.new_value_integer
+                    or track.new_value_float
+                    or ''
+                )
+
+                change_text = "%s : %s → %s" % (
+                    track.field_desc,
+                    old_value,
+                    new_value
+                )
+
+                sheet.write(row, 0, str(msg.date or ''))
+                sheet.write(row, 1, msg.author_id.name or '')
+                sheet.write(row, 2, "Field Change")
+                sheet.write(row, 3, change_text)
+
+                row += 1
 
         workbook.close()
         output.seek(0)
