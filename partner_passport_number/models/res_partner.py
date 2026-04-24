@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     passport_number = fields.Char(string='Passport Number')
-    attempts = fields.Boolean(string='Attempts')
+    attempts = fields.Boolean(string='محاولات ')
     registration_date = fields.Date(string='Registration Date')
 
     institute = fields.Boolean(string='معلومات المرحلة الاعدادية')
@@ -14,10 +14,13 @@ class ResPartner(models.Model):
     certificate_filename = fields.Char(string='Certificate Filename')
     register_date = fields.Char("تاريخ التسجيل")
 
+    institute_char = fields.Char("institute")
+    
+    
 
     # @api.model
     # def create(self, vals):
-    #     if vals.get('passport_number'):
+    #     if vals.get('passport_number'): 
     #         passport = vals.get('passport_number').strip()
 
     #         # If contains any alphabet → keep in passport field
