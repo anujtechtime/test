@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_move_filter_inherit_year" model="ir.ui.view">
+        <field name="name">account.move.search.year.acceptance.m2o</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="year_of_acceptance_1"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Year of Acceptance"
+                        context="{'group_by': 'year_of_acceptance_1'}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
