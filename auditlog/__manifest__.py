@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "website": "https://github.com/OCA/server-tools",
     "category": "Tools",
-    "depends": ["base"],
+    "depends": ["base","account"],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron.xml",
