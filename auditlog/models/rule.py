@@ -663,3 +663,18 @@ class AuditlogRule(models.Model):
                 act_window.unlink()
         self.write({"state": "draft"})
         return True
+
+
+
+from odoo import models
+
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    def _setup_fields(self):
+        super()._setup_fields()
+        for field_name, field in self._fields.items():
+            try:
+                field.tracking = True
+            except Exception:
+                pass
