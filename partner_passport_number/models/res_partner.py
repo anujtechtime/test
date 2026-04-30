@@ -14,6 +14,8 @@ class ResPartner(models.Model):
     certificate_filename = fields.Char(string='Certificate Filename')
     register_date = fields.Char("تاريخ التسجيل")
 
+    institute_char = fields.Char("institute")
+
 
     # @api.model
     # def create(self, vals):
