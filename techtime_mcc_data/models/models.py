@@ -1031,7 +1031,7 @@ class ContractmDateAccount(models.Model):
             self.basic_salary_one = float(self.wage) * 0.77 - (((self.wage/30) * self.day_deduction) * 0.77)
             self.compensation_one = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
             self.compensation1 = float(self.wage) * 0.23  - (((self.wage/30) * self.day_deduction) * 0.23)
-            self.social_security = (float(self.basic_salary) + float(self.compensation1) - (float(self.basic_salary) * 0.3)) * 0.05 
+            self.social_security = (float(self.wage) + float(self.compensation1) - (float(self.wage) * 0.3)) * 0.05 
             if self.employ_type != 'option1':
                 if self.social_security >= 87500:
                     self.total_salary = 87500 + self.compensation
