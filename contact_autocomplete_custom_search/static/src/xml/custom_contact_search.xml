@@ -5,7 +5,7 @@
 
         <t t-jquery=".o_cp_searchview" t-operation="before">
 
-            <t t-if="widget.modelName == 'res.partner'">
+            <!-- <t t-if="widget.modelName == 'res.partner'"> -->
 
                 <div class="o_contact_custom_search mr-2">
 
@@ -16,7 +16,7 @@
 
                 </div>
 
-            </t>
+            <!-- </t> -->
 
         </t>
 
