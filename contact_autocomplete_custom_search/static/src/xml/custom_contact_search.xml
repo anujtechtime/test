@@ -5,14 +5,18 @@
 
         <t t-jquery=".o_cp_searchview" t-operation="before">
 
-            <div class="o_contact_custom_search mr-2">
+            <t t-if="widget and widget.modelName == 'res.partner'">
 
-                <input type="text"
-                       class="form-control o_contact_search_input"
-                       placeholder="Search Contact..."
-                       autocomplete="off"/>
+                <div class="o_contact_custom_search mr-2">
 
-            </div>
+                    <input type="text"
+                           class="form-control o_contact_search_input"
+                           placeholder="Search Contact..."
+                           autocomplete="off"/>
+
+                </div>
+
+            </t>
 
         </t>
 
