@@ -7,7 +7,9 @@
     'qweb': [
         'static/src/xml/custom_contact_search.xml',
     ],
-    'data': [],
+    'data': [
+        'views/assets.xml',
+    ],
     'installable': True,
     'application': False,
 }
