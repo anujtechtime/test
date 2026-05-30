@@ -2,11 +2,10 @@
 <templates xml:space="preserve">
 
         <t t-extend="KanbanView.buttons">
-            <!-- <t t-jquery="button" t-operation="after"> -->
-                
+            <t t-jquery="button" t-operation="before">
+                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner'">
 
-        <t t-jquery=".o_cp_searchview" t-operation="before">
-        <t t-if="widget and widget.modelName and widget.modelName == 'res.partner'">
+        <!-- <t t-jquery=".o_cp_searchview" t-operation="before"> -->
 
             <!-- <t t-if="widget.modelName == 'res.partner'"> -->
 
