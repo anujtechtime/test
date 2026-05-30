@@ -23,24 +23,25 @@
         <!-- </t> -->
         </t>
         </t>
+        </t>
 
 
         <t t-extend="ListView.buttons">
             <t t-jquery=".o_list_buttons" t-operation="before">
                 <t t-if="widget and widget.modelName and widget.modelName == 'res.partner' or widget.modelName == 'sale.order'">
-                <div class="o_contact_custom_search mr-2">
+                    <div class="o_contact_custom_search mr-2">
 
-                    <input type="text"
-                           class="form-control o_contact_search_input"
-                           placeholder="Search Contact..."
-                           autocomplete="off"/>
+                        <input type="text"
+                            class="form-control o_contact_search_input"
+                            placeholder="Search Contact..."
+                            autocomplete="off"/>
 
-                </div>
+                    </div>
                 </t>
-                </t>
-                </t>
+            </t>
+        </t>
                     
 
-    </t>
+    
 
 </templates>
