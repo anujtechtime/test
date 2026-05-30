@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+        <t t-extend="KanbanView.buttons">
+            <t t-jquery="button" t-operation="before">
+                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner'">
+
+        <!-- <t t-jquery=".o_cp_searchview" t-operation="before"> -->
+
+            <!-- <t t-if="widget.modelName == 'res.partner'"> -->
+
+                <div class="o_contact_custom_search mr-2">
+
+                    <input type="text"
+                           class="form-control o_contact_search_input"
+                           placeholder="Search Contact..."
+                           autocomplete="off"/>
+
+                </div>
+
+            <!-- </t> -->
+
+        <!-- </t> -->
+        </t>
+        </t>
+        </t>
+
+
+        <t t-extend="ListView.buttons">
+            <t t-jquery=".o_list_buttons" t-operation="before">
+                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner' or widget.modelName == 'sale.order'">
+                    <div class="o_contact_custom_search mr-2">
+
+                        <input type="text"
+                            class="form-control o_contact_search_input"
+                            placeholder="Search Contact..."
+                            autocomplete="off"/>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+                    
+
+    
+
+</templates>
