@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-extend="ControlPanel">
+        <t t-extend="KanbanView.buttons">
+            <t t-jquery="button" t-operation="after">
+                <t t-if="widget and widget.modelName and widget.modelName == 'res.partner'">
 
         <t t-jquery=".o_cp_searchview" t-operation="before">
 
@@ -18,6 +20,8 @@
 
             <!-- </t> -->
 
+        </t>
+        </t>
         </t>
 
     </t>
