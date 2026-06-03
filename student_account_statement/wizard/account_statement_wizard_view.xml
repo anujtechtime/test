@@ -9,6 +9,9 @@
                 </group>
                 <footer>
                     <button string="Print" type="object" name="action_print_report" class="btn-primary"/>
+
+                    <button name="action_export_excel" string="Export Excel" type="object" class="btn-primary"/>
+
                     <button string="Cancel" special="cancel"/>
                 </footer>
             </form>
