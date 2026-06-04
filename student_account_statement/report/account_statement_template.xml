@@ -1,49 +1,105 @@
 <odoo>
     <template id="report_account_statement">
-        <t t-call="web.external_layout">
+       <t t-call="web.external_layout">
+          <!--<t t-foreach="docs" t-as="doc">-->
+          <t t-set="level" t-value=""/>
             <div class="page">
+                <main>
                 <h2>كشف حساب / Account Statement</h2>
-                <p><strong>Student:</strong> <span t-esc="doc.partner_id.name"/></p>
-                <p><strong>Department:</strong> <span t-esc="doc.partner_id.department_id.name"/></p>
-                <p><strong>Level:</strong> <span t-esc="doc.partner_id.level"/></p>
+                
+                <t t-if="docs.partner_id.level == 'leve1'">
+                  <t t-set="level" t-value="' المرحلة الاولى '"/>
+                </t>
+                
+                
+                <t t-if="docs.partner_id.level == 'level2'">
+                  <t t-set="level" t-value="'المرحلة الثانية'"/>
+                </t>
+                
+                <t t-if="docs.partner_id.level == 'level3'">
+                  <t t-set="level" t-value="'المرحلة الثالثة'"/>
+                </t>
+                
+                
+                <t t-if="docs.partner_id.level == 'level4'">
+                  <t t-set="level" t-value="'المرحلة الرابعة'"/>
+                </t>
+                
+                <t t-if="docs.partner_id.level == 'level5'">
+                  <t t-set="level" t-value="'المرحلة الخامسة'"/>
+                </t>
+                
+                
+                
+              
 
-                <h3>Invoices</h3>
+                <div class="col-12 text-center">
+                  <strong>الطالبة:</strong><span t-esc="docs.partner_id.name"/>-<span t-esc="docs.partner_id.department.department"/>-<span t-esc="level"/>
+                </div>
+                
+                <div class="row">
+                  
+                  <div class="col-6">
+                
                 <table class="table table-sm">
                     <thead>
+                        <tr colspan="2">
+                            <th>لفواتير كما تم تقسيمها</th>
+                        </tr>
                         <tr>
-                            <th>Invoice</th>
-                            <th>Payment Terms</th>
-                            <th>Amount Due</th>
+                            <th>التاريخ</th>
+                            <th>المبلغ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr t-foreach="docs.env['account.move'].search([('partner_id','=',doc.partner_id.id),('move_type','=','out_invoice')])" t-as="inv">
-                            <td><span t-esc="inv.name"/></td>
-                            <td><span t-esc="inv.invoice_payment_term_id.name"/></td>
-                            <td><span t-esc="inv.amount_residual"/></td>
+                        <tr t-foreach="docs.env['account.move'].search([('partner_id','=',docs.partner_id.id),('type','=','out_invoice')], order='invoice_date_due asc')" t-as="inv">
+                            <td><span t-esc="inv.invoice_date_due"/></td>
+                            <td><span t-esc="inv.amount_total"/></td>
+                        </tr>
+                        <tr>
+                          <td>المجموع</td>
+                            <td><span t-esc="sum(docs.env['account.move'].search([('partner_id','=',docs.partner_id.id),('type','=','out_invoice')]).mapped('amount_total'))"/></td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
+                
+                <div class="col-6">
 
-                <h3>Payments</h3>
                 <table class="table table-sm">
                     <thead>
+                      <tr colspan="2">
+                            <th>الوصولات التي تم دفعها</th>
+                        </tr>
                         <tr>
-                            <th>Date</th>
-                            <th>Amount</th>
+                            <th>تاريخ الوصل</th>
+                            <th>المبلغ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr t-foreach="docs.env['account.payment'].search([('partner_id','=',doc.partner_id.id)])" t-as="pay">
+                        <tr t-foreach="docs.env['account.payment'].search([('partner_id','=',docs.partner_id.id)], order='payment_date asc')" t-as="pay">
                             <td><span t-esc="pay.payment_date"/></td>
                             <td><span t-esc="pay.amount"/></td>
                         </tr>
+                        
+                        <tr>
+                            <td>المجموع</td>
+                            <td> <span t-esc="sum(docs.env['account.payment'].search([('partner_id','=',docs.partner_id.id)]).mapped('amount'))"/></td>
+                        </tr>
                     </tbody>
                 </table>
-
-                <p><strong>Total Invoices:</strong> <span t-esc="sum(docs.env['account.move'].search([('partner_id','=',doc.partner_id.id),('move_type','=','out_invoice')]).mapped('amount_total'))"/></p>
-                <p><strong>Total Payments:</strong> <span t-esc="sum(docs.env['account.payment'].search([('partner_id','=',doc.partner_id.id)]).mapped('amount'))"/></p>
+                
+                </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-12 text-left">
+                  <strong>المدور</strong><t t-esc="sum(docs.env['account.move'].search([('partner_id','=',docs.partner_id.id),('type','=','out_invoice')]).mapped('amount_total')) - sum(docs.env['account.payment'].search([('partner_id','=',docs.partner_id.id)]).mapped('amount'))"/>
+                </div>
+                </div>
+                </main>
             </div>
+            <!--</t>-->
         </t>
     </template>
 </odoo>
