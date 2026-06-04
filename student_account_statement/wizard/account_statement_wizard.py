@@ -18,6 +18,11 @@ class AccountStatementWizard(models.TransientModel):
     file_data = fields.Binary()
     file_name = fields.Char()
 
+    def action_print_report(self):
+        return self.env.ref('student_account_statement.action_report_account_statement').report_action(self)
+    
+
+
     def action_export_excel(self):
 
         self.ensure_one()
