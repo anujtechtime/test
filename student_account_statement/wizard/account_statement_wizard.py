@@ -65,7 +65,7 @@ class AccountStatementWizard(models.TransientModel):
 
         invoices = self.env['account.move'].search([
             ('partner_id', '=', partner.id),
-            ('move_type', '=', 'out_invoice')
+            ('type', '=', 'out_invoice')
         ], order='invoice_date_due asc')
 
         invoice_total = 0
