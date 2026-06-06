@@ -15,6 +15,8 @@ class ResPartner(models.Model):
     register_date = fields.Char("تاريخ التسجيل")
 
     institute_char = fields.Char("institute")
+
+    year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
     
 class TwchtTimet(models.Model):
     _inherit = 'account.move'
