@@ -16,7 +16,11 @@ class ResPartner(models.Model):
 
     institute_char = fields.Char("institute")
     
-    
+class TwchtTimet(models.Model):
+    _inherit = 'account.move'
+
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", store=True, related="partner_id.Status")
+
 
     # @api.model
     # def create(self, vals):
