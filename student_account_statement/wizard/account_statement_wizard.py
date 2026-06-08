@@ -6,9 +6,6 @@ from odoo import models, fields
 
 from collections import defaultdict
 
-
-
-
 class AccountStatementWizard(models.TransientModel):
     _name = 'account.statement.wizard'
     _description = 'Account Statement Wizard'
@@ -168,14 +165,13 @@ class AccountStatementWizard(models.TransientModel):
         partner = self.partner_id
 
         sheet.set_column('A:A', 15)
-        sheet.set_column('B:B', 15)
-        sheet.set_column('C:C', 15)
-        sheet.set_column('D:F', 18)
+        sheet.set_column('B:C', 18)
+        sheet.set_column('D:F', 20)
 
         row = 0
 
         # =====================================================
-        # STUDENT INFO
+        # STUDENT INFORMATION
         # =====================================================
 
         sheet.write(row, 0, 'Student', header)
@@ -191,7 +187,7 @@ class AccountStatementWizard(models.TransientModel):
             normal
         )
 
-        row += 3
+        row += 4
 
         # =====================================================
         # INVOICES
@@ -200,7 +196,7 @@ class AccountStatementWizard(models.TransientModel):
         invoices = self.env['account.move'].search(
             [
                 ('partner_id', '=', partner.id),
-                ('type', '=', 'out_invoice'),
+                ('move_type', '=', 'out_invoice'),
                 ('state', '=', 'posted')
             ],
             order='invoice_date_due asc'
@@ -237,24 +233,22 @@ class AccountStatementWizard(models.TransientModel):
                 })
 
         # =====================================================
-        # INSTALLMENT BY YEAR
-        # =====================================================
-        #
-        # CHANGE THIS PART ACCORDING TO YOUR MODEL
-        #
-        # Example:
-        #
-        # installment_by_year[2023] = 1360000
-        # installment_by_year[2024] = 1350000
-        #
+        # INSTALLMENTS
         # =====================================================
 
         installment_by_year = defaultdict(float)
 
-        # Example Placeholder
-        # for line in partner.installment_ids:
-        #     year = line.due_date.year
-        #     installment_by_year[year] += line.amount
+        sale_orders = self.env['sale.order'].search([
+            ('partner_id', '=', partner.id),
+        ])
+
+        for sale in sale_orders:
+            for inst in sale.sale_installment_line_ids:
+
+                if inst.payment_date:
+                    installment_by_year[
+                        inst.payment_date.year
+                    ] += inst.amount_installment
 
         # =====================================================
         # ALL YEARS
@@ -284,66 +278,70 @@ class AccountStatementWizard(models.TransientModel):
         grand_installment_total = 0
 
         # =====================================================
-        # YEAR WISE DATA
+        # YEAR WISE REPORT
         # =====================================================
 
         for year in years:
 
-            inv_lines = invoice_by_year.get(year, [])
-            pay_lines = payment_by_year.get(year, [])
+            invoice_lines = invoice_by_year.get(year, [])
+            payment_lines = payment_by_year.get(year, [])
 
             max_rows = max(
-                len(inv_lines),
-                len(pay_lines),
+                len(invoice_lines),
+                len(payment_lines),
                 1
             )
 
             year_invoice_total = 0
             year_payment_total = 0
+            year_installment_total = installment_by_year.get(year, 0)
 
             for i in range(max_rows):
 
                 sheet.write(row, 0, year, normal)
 
-                if i < len(inv_lines):
+                if i < len(invoice_lines):
+
                     sheet.write(
                         row,
                         1,
-                        str(inv_lines[i]['date']),
+                        str(invoice_lines[i]['date']),
                         normal
                     )
 
                     sheet.write(
                         row,
                         3,
-                        inv_lines[i]['amount'],
+                        invoice_lines[i]['amount'],
                         amount_format
                     )
 
-                    year_invoice_total += inv_lines[i]['amount']
+                    year_invoice_total += invoice_lines[i]['amount']
 
-                if i < len(pay_lines):
+                if i < len(payment_lines):
+
                     sheet.write(
                         row,
                         2,
-                        str(pay_lines[i]['date']),
+                        str(payment_lines[i]['date']),
                         normal
                     )
 
                     sheet.write(
                         row,
                         4,
-                        pay_lines[i]['amount'],
+                        payment_lines[i]['amount'],
                         amount_format
                     )
 
-                    year_payment_total += pay_lines[i]['amount']
+                    year_payment_total += payment_lines[i]['amount']
 
                 if i == 0:
+
                     sheet.write(
                         row,
                         5,
-                        installment_by_year.get(year, 0),
+                        year_installment_total,
                         amount_format
                     )
 
@@ -351,17 +349,12 @@ class AccountStatementWizard(models.TransientModel):
 
             grand_invoice_total += year_invoice_total
             grand_payment_total += year_payment_total
-            grand_installment_total += installment_by_year.get(year, 0)
+            grand_installment_total += year_installment_total
 
             sheet.write(row, 0, f'Total {year}', header)
             sheet.write(row, 3, year_invoice_total, header)
             sheet.write(row, 4, year_payment_total, header)
-            sheet.write(
-                row,
-                5,
-                installment_by_year.get(year, 0),
-                header
-            )
+            sheet.write(row, 5, year_installment_total, header)
 
             row += 2
 
@@ -383,15 +376,15 @@ class AccountStatementWizard(models.TransientModel):
         balance = grand_invoice_total - grand_payment_total
 
         if balance > 0:
-            balance_text = f"مطلوب {abs(balance):,.2f}"
+            balance_text = "مطلوب %.2f" % abs(balance)
         else:
-            balance_text = f"يطلب {abs(balance):,.2f}"
+            balance_text = "يطلب %.2f" % abs(balance)
 
         sheet.write(row, 0, 'Balance', header)
         sheet.write(row, 1, balance_text, header)
 
         # =====================================================
-        # FINISH
+        # SAVE FILE
         # =====================================================
 
         workbook.close()
