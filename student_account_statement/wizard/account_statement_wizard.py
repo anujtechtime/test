@@ -4,6 +4,10 @@ import xlsxwriter
 
 from odoo import models, fields
 
+from collections import defaultdict
+
+
+
 
 class AccountStatementWizard(models.TransientModel):
     _name = 'account.statement.wizard'
@@ -23,8 +27,121 @@ class AccountStatementWizard(models.TransientModel):
     
 
 
-    def action_export_excel(self):
+    # def action_export_excel(self):
 
+    #     self.ensure_one()
+
+    #     output = io.BytesIO()
+
+    #     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    #     sheet = workbook.add_worksheet('Account Statement')
+
+    #     header = workbook.add_format({
+    #         'bold': True,
+    #         'border': 1,
+    #         'align': 'center',
+    #     })
+
+    #     normal = workbook.add_format({
+    #         'border': 1,
+    #     })
+
+    #     partner = self.partner_id
+
+    #     row = 0
+
+    #     sheet.write(row, 0, 'Student', header)
+    #     sheet.write(row, 1, partner.name or '', normal)
+
+    #     row += 1
+
+    #     sheet.write(row, 0, 'Department', header)
+    #     sheet.write(
+    #         row,
+    #         1,
+    #         partner.department.department if partner.department else '',
+    #         normal
+    #     )
+
+    #     row += 3
+
+    #     sheet.write(row, 0, 'Invoices', header)
+
+    #     row += 1
+
+    #     sheet.write(row, 0, 'Due Date', header)
+    #     sheet.write(row, 1, 'Amount', header)
+
+    #     invoices = self.env['account.move'].search([
+    #         ('partner_id', '=', partner.id),
+    #         ('type', '=', 'out_invoice')
+    #     ], order='invoice_date_due asc')
+
+    #     invoice_total = 0
+
+    #     for inv in invoices:
+    #         row += 1
+    #         sheet.write(row, 0, str(inv.invoice_date_due or ''), normal)
+    #         sheet.write(row, 1, inv.amount_total, normal)
+
+    #         invoice_total += inv.amount_total
+
+    #     row += 1
+
+    #     sheet.write(row, 0, 'Invoice Total', header)
+    #     sheet.write(row, 1, invoice_total, header)
+
+    #     row += 3
+
+    #     sheet.write(row, 0, 'Payments', header)
+
+    #     row += 1
+
+    #     sheet.write(row, 0, 'Payment Date', header)
+    #     sheet.write(row, 1, 'Amount', header)
+
+    #     payments = self.env['account.payment'].search([
+    #         ('partner_id', '=', partner.id)
+    #     ], order='payment_date asc')
+
+    #     payment_total = 0
+
+    #     for pay in payments:
+    #         row += 1
+    #         sheet.write(row, 0, str(pay.payment_date or ''), normal)
+    #         sheet.write(row, 1, pay.amount, normal)
+
+    #         payment_total += pay.amount
+
+    #     row += 1
+
+    #     sheet.write(row, 0, 'Payment Total', header)
+    #     sheet.write(row, 1, payment_total, header)
+
+    #     row += 2
+
+    #     balance = invoice_total - payment_total
+
+    #     sheet.write(row, 0, 'Balance', header)
+    #     sheet.write(row, 1, balance, header)
+
+    #     workbook.close()
+
+    #     output.seek(0)
+
+    #     self.file_name = 'Account_Statement.xlsx'
+    #     self.file_data = base64.b64encode(output.read())
+
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': '/web/content/?model=%s&id=%s&field=file_data&download=true&filename=%s'
+    #                % (self._name, self.id, self.file_name),
+    #         'target': 'self',
+    #     }
+
+    
+
+    def action_export_excel(self):
         self.ensure_one()
 
         output = io.BytesIO()
@@ -36,15 +153,30 @@ class AccountStatementWizard(models.TransientModel):
             'bold': True,
             'border': 1,
             'align': 'center',
+            'bg_color': '#D9EAD3',
         })
 
         normal = workbook.add_format({
             'border': 1,
         })
 
+        amount_format = workbook.add_format({
+            'border': 1,
+            'num_format': '#,##0.00',
+        })
+
         partner = self.partner_id
 
+        sheet.set_column('A:A', 15)
+        sheet.set_column('B:B', 15)
+        sheet.set_column('C:C', 15)
+        sheet.set_column('D:F', 18)
+
         row = 0
+
+        # =====================================================
+        # STUDENT INFO
+        # =====================================================
 
         sheet.write(row, 0, 'Student', header)
         sheet.write(row, 1, partner.name or '', normal)
@@ -61,65 +193,206 @@ class AccountStatementWizard(models.TransientModel):
 
         row += 3
 
-        sheet.write(row, 0, 'Invoices', header)
+        # =====================================================
+        # INVOICES
+        # =====================================================
 
-        row += 1
+        invoices = self.env['account.move'].search(
+            [
+                ('partner_id', '=', partner.id),
+                ('move_type', '=', 'out_invoice'),
+                ('state', '=', 'posted')
+            ],
+            order='invoice_date_due asc'
+        )
 
-        sheet.write(row, 0, 'Due Date', header)
-        sheet.write(row, 1, 'Amount', header)
-
-        invoices = self.env['account.move'].search([
-            ('partner_id', '=', partner.id),
-            ('type', '=', 'out_invoice')
-        ], order='invoice_date_due asc')
-
-        invoice_total = 0
+        invoice_by_year = defaultdict(list)
 
         for inv in invoices:
-            row += 1
-            sheet.write(row, 0, str(inv.invoice_date_due or ''), normal)
-            sheet.write(row, 1, inv.amount_total, normal)
+            if inv.invoice_date_due:
+                invoice_by_year[inv.invoice_date_due.year].append({
+                    'date': inv.invoice_date_due,
+                    'amount': inv.amount_total,
+                })
 
-            invoice_total += inv.amount_total
+        # =====================================================
+        # PAYMENTS
+        # =====================================================
 
-        row += 1
+        payments = self.env['account.payment'].search(
+            [
+                ('partner_id', '=', partner.id),
+                ('state', '=', 'posted')
+            ],
+            order='payment_date asc'
+        )
 
-        sheet.write(row, 0, 'Invoice Total', header)
-        sheet.write(row, 1, invoice_total, header)
-
-        row += 3
-
-        sheet.write(row, 0, 'Payments', header)
-
-        row += 1
-
-        sheet.write(row, 0, 'Payment Date', header)
-        sheet.write(row, 1, 'Amount', header)
-
-        payments = self.env['account.payment'].search([
-            ('partner_id', '=', partner.id)
-        ], order='payment_date asc')
-
-        payment_total = 0
+        payment_by_year = defaultdict(list)
 
         for pay in payments:
-            row += 1
-            sheet.write(row, 0, str(pay.payment_date or ''), normal)
-            sheet.write(row, 1, pay.amount, normal)
+            if pay.payment_date:
+                payment_by_year[pay.payment_date.year].append({
+                    'date': pay.payment_date,
+                    'amount': pay.amount,
+                })
 
-            payment_total += pay.amount
+        # =====================================================
+        # INSTALLMENT BY YEAR
+        # =====================================================
+        #
+        # CHANGE THIS PART ACCORDING TO YOUR MODEL
+        #
+        # Example:
+        #
+        # installment_by_year[2023] = 1360000
+        # installment_by_year[2024] = 1350000
+        #
+        # =====================================================
+
+        installment_by_year = defaultdict(float)
+
+        # Example Placeholder
+        # for line in partner.installment_ids:
+        #     year = line.due_date.year
+        #     installment_by_year[year] += line.amount
+
+        # =====================================================
+        # ALL YEARS
+        # =====================================================
+
+        years = sorted(
+            set(invoice_by_year.keys())
+            | set(payment_by_year.keys())
+            | set(installment_by_year.keys())
+        )
+
+        # =====================================================
+        # TABLE HEADER
+        # =====================================================
+
+        sheet.write(row, 0, 'Year', header)
+        sheet.write(row, 1, 'Due Date', header)
+        sheet.write(row, 2, 'Payment Date', header)
+        sheet.write(row, 3, 'Invoice Amount', header)
+        sheet.write(row, 4, 'Payment Amount', header)
+        sheet.write(row, 5, 'Installment Amount', header)
 
         row += 1
 
-        sheet.write(row, 0, 'Payment Total', header)
-        sheet.write(row, 1, payment_total, header)
+        grand_invoice_total = 0
+        grand_payment_total = 0
+        grand_installment_total = 0
+
+        # =====================================================
+        # YEAR WISE DATA
+        # =====================================================
+
+        for year in years:
+
+            inv_lines = invoice_by_year.get(year, [])
+            pay_lines = payment_by_year.get(year, [])
+
+            max_rows = max(
+                len(inv_lines),
+                len(pay_lines),
+                1
+            )
+
+            year_invoice_total = 0
+            year_payment_total = 0
+
+            for i in range(max_rows):
+
+                sheet.write(row, 0, year, normal)
+
+                if i < len(inv_lines):
+                    sheet.write(
+                        row,
+                        1,
+                        str(inv_lines[i]['date']),
+                        normal
+                    )
+
+                    sheet.write(
+                        row,
+                        3,
+                        inv_lines[i]['amount'],
+                        amount_format
+                    )
+
+                    year_invoice_total += inv_lines[i]['amount']
+
+                if i < len(pay_lines):
+                    sheet.write(
+                        row,
+                        2,
+                        str(pay_lines[i]['date']),
+                        normal
+                    )
+
+                    sheet.write(
+                        row,
+                        4,
+                        pay_lines[i]['amount'],
+                        amount_format
+                    )
+
+                    year_payment_total += pay_lines[i]['amount']
+
+                if i == 0:
+                    sheet.write(
+                        row,
+                        5,
+                        installment_by_year.get(year, 0),
+                        amount_format
+                    )
+
+                row += 1
+
+            grand_invoice_total += year_invoice_total
+            grand_payment_total += year_payment_total
+            grand_installment_total += installment_by_year.get(year, 0)
+
+            sheet.write(row, 0, f'Total {year}', header)
+            sheet.write(row, 3, year_invoice_total, header)
+            sheet.write(row, 4, year_payment_total, header)
+            sheet.write(
+                row,
+                5,
+                installment_by_year.get(year, 0),
+                header
+            )
+
+            row += 2
+
+        # =====================================================
+        # GRAND TOTAL
+        # =====================================================
+
+        sheet.write(row, 0, 'Grand Total', header)
+        sheet.write(row, 3, grand_invoice_total, header)
+        sheet.write(row, 4, grand_payment_total, header)
+        sheet.write(row, 5, grand_installment_total, header)
 
         row += 2
 
-        balance = invoice_total - payment_total
+        # =====================================================
+        # BALANCE
+        # =====================================================
+
+        balance = grand_invoice_total - grand_payment_total
+
+        if balance > 0:
+            balance_text = f"مطلوب {abs(balance):,.2f}"
+        else:
+            balance_text = f"يطلب {abs(balance):,.2f}"
 
         sheet.write(row, 0, 'Balance', header)
-        sheet.write(row, 1, balance, header)
+        sheet.write(row, 1, balance_text, header)
+
+        # =====================================================
+        # FINISH
+        # =====================================================
 
         workbook.close()
 
@@ -131,6 +404,6 @@ class AccountStatementWizard(models.TransientModel):
         return {
             'type': 'ir.actions.act_url',
             'url': '/web/content/?model=%s&id=%s&field=file_data&download=true&filename=%s'
-                   % (self._name, self.id, self.file_name),
+                % (self._name, self.id, self.file_name),
             'target': 'self',
         }
