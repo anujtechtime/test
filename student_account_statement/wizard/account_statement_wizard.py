@@ -425,12 +425,6 @@ class AccountStatementWizard(models.TransientModel):
 
 
 
-
-
-
-
-
-
     def action_export_excel(self):
         self.ensure_one()
 
@@ -489,7 +483,7 @@ class AccountStatementWizard(models.TransientModel):
         invoices = self.env['account.move'].search(
             [
                 ('partner_id', '=', partner.id),
-                ('type', '=', 'out_invoice'),
+                ('type', '=', 'out_invoice'),  # Odoo 16/18 => use move_type
                 ('state', '=', 'posted')
             ],
             order='invoice_date_due asc'
@@ -499,7 +493,11 @@ class AccountStatementWizard(models.TransientModel):
 
         for inv in invoices:
 
-            academic_year = inv.year or 'Undefined'
+            academic_year = (
+                inv.year.year
+                if inv.year and inv.year.year
+                else 'Undefined'
+            )
 
             invoice_by_year[academic_year].append({
                 'date': inv.invoice_date_due,
@@ -522,7 +520,11 @@ class AccountStatementWizard(models.TransientModel):
 
         for pay in payments:
 
-            academic_year = pay.year or 'Undefined'
+            academic_year = (
+                pay.year.year
+                if pay.year and pay.year.year
+                else 'Undefined'
+            )
 
             payment_by_year[academic_year].append({
                 'date': pay.payment_date,
@@ -541,16 +543,19 @@ class AccountStatementWizard(models.TransientModel):
 
         for sale in sale_orders:
 
-            academic_year = sale.year or 'Undefined'
+            academic_year = (
+                sale.year.year
+                if sale.year and sale.year.year
+                else 'Undefined'
+            )
 
             for inst in sale.sale_installment_line_ids:
-
                 installment_by_year[
                     academic_year
                 ] += (inst.amount_installment or 0.0)
 
         # =====================================================
-        # YEAR SORTING
+        # SORT YEARS
         # =====================================================
 
         def year_sort_key(year_name):
@@ -600,13 +605,13 @@ class AccountStatementWizard(models.TransientModel):
 
             year_invoice_total = 0
             year_payment_total = 0
-            year_installment_total = installment_by_year.get(year, 0)
+            year_installment_total = installment_by_year.get(year, 0.0)
 
             for i in range(max_rows):
 
                 sheet.write(row, 0, year, normal)
 
-                # Invoice
+                # Invoice Data
                 if i < len(invoice_lines):
 
                     sheet.write(
@@ -625,7 +630,7 @@ class AccountStatementWizard(models.TransientModel):
 
                     year_invoice_total += invoice_lines[i]['amount']
 
-                # Payment
+                # Payment Data
                 if i < len(payment_lines):
 
                     sheet.write(
@@ -644,9 +649,8 @@ class AccountStatementWizard(models.TransientModel):
 
                     year_payment_total += payment_lines[i]['amount']
 
-                # Installment only once
+                # Installment Amount Once Per Year
                 if i == 0:
-
                     sheet.write(
                         row,
                         5,
@@ -660,8 +664,7 @@ class AccountStatementWizard(models.TransientModel):
             grand_payment_total += year_payment_total
             grand_installment_total += year_installment_total
 
-            # Year Total Row
-
+            # Year Total
             sheet.write(row, 0, 'Total %s' % year, header)
             sheet.write(row, 3, year_invoice_total, header)
             sheet.write(row, 4, year_payment_total, header)
@@ -695,7 +698,7 @@ class AccountStatementWizard(models.TransientModel):
         sheet.write(row, 1, balance_text, header)
 
         # =====================================================
-        # EXPORT FILE
+        # SAVE FILE
         # =====================================================
 
         workbook.close()
