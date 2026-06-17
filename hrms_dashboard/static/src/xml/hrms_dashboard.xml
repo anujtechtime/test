@@ -144,6 +144,117 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-md-2 col-sm-6 hr_payslip oh-payslip" >
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon"><i class="fa fa-money"/></div>
+                            <div class="stat-content">
+                                <div class="stat-text">Number of Students</div>
+                                <t t-if="widget.dashboard_data">
+                                <div class="stat-digit total_students_count">
+                                    <t t-esc="widget.dashboard_data['number_of_student']"/>
+                                </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <t t-if="widget.dashboard_data">
+                <t t-foreach="widget.dashboard_data.department_data" t-as="dept">
+
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <strong>
+                                <t t-esc="dept.department"/>
+                            </strong>
+                            -
+                            <t t-esc="dept.count"/>
+                        </div>
+
+                        <div class="card-body">
+
+                            <t t-foreach="dept.shifts" t-as="shift">
+
+                                <div style="margin-left:20px;">
+                                    <b>
+                                        <t t-esc="shift.shift"/>
+                                    </b>
+                                    :
+                                    <t t-esc="shift.count"/>
+
+                                    <ul>
+                                        <t t-foreach="shift.student_types" t-as="stype">
+
+                                            <li>
+                                                <t t-esc="stype.student_type"/>
+                                                :
+                                                <t t-esc="stype.count"/>
+                                            </li>
+
+                                        </t>
+                                    </ul>
+
+                                </div>
+
+                            </t>
+
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+            <!-- <div class="col-md-2 col-sm-6 hr_timesheets oh-payslip oh-timesheets">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon"><i class="fa fa-clock-o"/></div>
+                            <div class="stat-content">
+                                <div class="stat-text">نقل الى جامعة</div>
+                                <div class="stat-digit"><t t-esc="widget.login_employee['emp_timesheets']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 hr_contract oh-payslip oh-contracts">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon" style="padding-top: 8%;"><i class="fa fa-fw fa-book"/></div>
+                            <div class="stat-content">
+                                <div class="stat-text">نقل الى جامعة</div>
+                                <div class="stat-digit"><t t-esc="widget.login_employee['contracts_count']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 login_broad_factor oh-payslip oh-broad-factor">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-icon"><i class="fa fa-bar-chart"/></div>
+                            <div class="stat-content">
+                                <div class="stat-text">أبناء الهيئة التدريسية</div>
+                                <div class="stat-digit"><t t-esc="widget.login_employee['broad_factor']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 <!--             <div class="col-md-2 col-sm-2 hr_attendance_login">
                 <div class="oh-card">
                     <div class="oh-card-body">
@@ -172,6 +283,38 @@
     </t>
     <t t-name="ManagerDashboard">
         <div class="employee_dashboard_main">
+        <div class="row mb-3 dashboard_filters">
+
+
+
+
+
+
+        <div class="col-md-3">
+            <label>Academic Year</label>
+            <select class="form-control academic_year_filter">
+                <t t-esc="widget.login_employee.year"/>
+                <t t-foreach="widget.login_employee.year" t-as="year">
+                    <option t-att-value="year">
+                        <t t-esc="year"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label>Acceptance Year</label>
+            <select class="form-control acceptance_year_filter">
+                <t t-foreach="widget.login_employee.year_of_acceptance" t-as="year">
+                    <option t-att-value="year">
+                        <t t-esc="year"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+    </div>
+    
+
             <div class="row main-section">
                 <div class="col-md-2 col-sm-2 dummy"></div>
                 <div class="col-sm-3 col-lg-3" style="padding-left: 0px;">

@@ -20,6 +20,9 @@ var HrDashboard = AbstractAction.extend({
     ],
     events: {
 
+        'change .academic_year_filter': '_onFilterChange',
+        'change .acceptance_year_filter': '_onFilterChange',
+
         "click .o_hr_attendance_sign_in_out_icon": function() {
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
             this.update_attendance();
@@ -73,6 +76,8 @@ var HrDashboard = AbstractAction.extend({
         }).then(function(result) {
             self.login_employee =  result[0];
         });
+
+        
         var def2 = self._rpc({
             model: "hr.employee",
             method: "get_upcoming",
@@ -80,7 +85,17 @@ var HrDashboard = AbstractAction.extend({
         .then(function (res) {
             self.employee_birthday = res['birthday'];
         });
-        return $.when(def0, def1, def2);
+
+        var def3 = self._rpc({
+            model: 'sale.order',
+            method: 'get_dashboard_data',
+            args: [{}],
+        }).then(function(result){
+            self.dashboard_data = result;
+        });
+
+        return $.when(def0, def1, def2, def3);
+
     },
 
     render_dashboards: function() {
@@ -192,6 +207,42 @@ var HrDashboard = AbstractAction.extend({
         //     res_id: this.login_employee.id,
         //     target: 'current'
         // }, options)
+    },
+
+    _onFilterChange: function () {
+        var self = this;
+
+        var academic_year_id = $('.academic_year_filter').val() || false;
+        var acceptance_year_id = $('.acceptance_year_filter').val() || false;
+
+        this._rpc({
+            model: 'sale.order',
+            method: 'get_dashboard_data',
+            args: [{
+                academic_year_id: academic_year_id,
+                acceptance_year_id: acceptance_year_id,
+            }],
+        }).then(function(result) {
+
+            self.dashboard_data = result;
+
+            // Store selected values
+            self.academic_year_id = academic_year_id;
+            self.acceptance_year_id = acceptance_year_id;
+
+            $('.o_hr_dashboard').empty();
+            self.render_dashboards();
+
+            // Restore selected values
+            $('.academic_year_filter').val(self.academic_year_id);
+            $('.acceptance_year_filter').val(self.acceptance_year_id);
+
+            $('.total_students_count').text(
+                result.total_students || 0
+            );
+
+            self.render_graphs();
+        });
     },
 
     hr_contract: function(e){

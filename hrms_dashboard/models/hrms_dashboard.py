@@ -34,6 +34,11 @@ class Employee(models.Model):
         first_day = date.today().replace(day=1)
         last_day = (date.today() + relativedelta(months=1, day=1)) - timedelta(1)
         
+
+        year  =  self.env['year.year'].sudo().search([]).mapped("year") 
+        
+        year_of_acceptance  =  self.env['techtime_mcc_data.techtime_mcc_data'].sudo().search([]).mapped("name")
+        
         timesheet_count = self.env['res.partner'].sudo().search_count(
             [('transferred_to_us', '!=', False)])
 
@@ -83,13 +88,38 @@ class Employee(models.Model):
                     'emp_timesheets': timesheet_count,
                     'payslip_count': payslip_count,
                     'experience': experience,
-                    'age': age
+                    'age': age,
+                    'year' :  year,
+                    'year_of_acceptance' : year_of_acceptance
                 }
-                print("data#############",data)
                 employee[0].update(data)
             return employee
         else:
             return False
+
+    # @api.model
+    # def get_dashboard_data(self, filters=None):
+
+    #     domain = []
+
+    #     if filters.get('academic_year_id'):
+    #         domain.append(
+    #             ('academic_year_id', '=', int(filters['academic_year_id']))
+    #         )
+
+    #     if filters.get('acceptance_year_id'):
+    #         domain.append(
+    #             ('acceptance_year_id', '=', int(filters['acceptance_year_id']))
+    #         )
+
+    #     students = self.env['your.student.model'].search(domain)
+
+    #     return {
+    #         'total_students': len(students),
+    #         'year_chart': self._get_year_chart(domain),
+    #         'college_chart': self._get_college_chart(domain),
+    #         'status_chart': self._get_status_chart(domain),
+    #     }
 
     @api.model
     def get_upcoming(self):
@@ -112,7 +142,6 @@ class Employee(models.Model):
         ddt = {
             'birthday': birthday,
         }
-        print("ddt##################",ddt)    
         return {
             'birthday': birthday,
         }
@@ -124,12 +153,9 @@ class Employee(models.Model):
 from res_partner join techtime_mcc_data_techtime_mcc_data on techtime_mcc_data_techtime_mcc_data.id=res_partner.year_of_acceptance_1 
 group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.name""")
         dat = cr.fetchall()
-        print("dat@@@@@@@@@@@@@@datdatdatdat",dat)
         data = []
         for i in range(0, len(dat)):
-            print("dat[i]##############",dat[i])
             data.append({'label': dat[i][0], 'value': dat[i][1]})
-        print("get_dept_employee###################",data)    
         return data
 
     @api.model
@@ -225,7 +251,6 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
     #         for day in day_hours
     #     )
 
-    #     print("days#################",days)
     #     return days
 
     @api.model
@@ -241,14 +266,12 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
         for month in college_info:
             res = 0
             res = self.env["res.partner"].sudo().search_count([('student_type','=',month.id)])
-            print("res################",res)
             vals = {
                 'l_month': month.Student,
                 'leave': res
             }
             value = value + res
             graph_result.append(vals)
-        print("graph_resultgggggffffffffffffffffffff",graph_result)    
         # graph_resultgggggffffffffffffffffffff [{'l_month': 'Dec 2022', 'leave': 0}, {'l_month': 'Jan 2023', 'leave': 0}, {'l_month': 'Feb 2023', 'leave': 0}, {'l_month': 'Mar 2023', 'leave': 0}, {'l_month': 'Apr 2023', 'leave': 0}, {'l_month': 'May 2023', 'leave': 0}]
         return graph_result
 
@@ -263,17 +286,14 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
         value_s = 0
         for i in range(11, -1, -1):
             last_month = datetime.now() - relativedelta(months=i)
-            print("last_month###################",last_month)
             text = format(last_month, '%B %Y')
             month_list.append(text)
-            print("month_list@@@@@@@@@@@@@@",month_list)
             
         college_info = self.env['faculty.faculty'].sudo().search([])
           
         for month in college_info:
             res = 0
             res = self.env["res.partner"].sudo().search_count([('college','=',month.id)])
-            print("res################",res)
             vals = {
                 'l_month': month.college,
                 'count': res
@@ -287,7 +307,6 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
 
         # graph_resultkkkkkkkkkkkkkkkkkkkkkkkkkk [{'name': 'Transfered To Us', 'values': [{'l_month': 'Jun', 'count': 0}, {'l_month': 'Jul', 'count': 0}, {'l_month': 'Aug', 'count': 0}, {'l_month': 'Sep', 'count': 0}, {'l_month': 'Oct', 'count': 0}, {'l_month': 'Nov', 'count': 0}, {'l_month': 'Dec', 'count': 0}, {'l_month': 'Jan', 'count': 0}, {'l_month': 'Feb', 'count': 0}, {'l_month': 'Mar', 'count': 0}, {'l_month': 'Apr', 'count': 0}, {'l_month': 'May', 'count': 0}]}, {'name': 'Resign', 'values': [{'l_month': 'Jun', 'count': 0}, {'l_month': 'Jul', 'count': 0}, {'l_month': 'Aug', 'count': 0}, {'l_month': 'Sep', 'count': 0}, {'l_month': 'Oct', 'count': 0}, {'l_month': 'Nov', 'count': 0}, {'l_month': 'Dec', 'count': 0}, {'l_month': 'Jan', 'count': 0}, {'l_month': 'Feb', 'count': 0}, {'l_month': 'Mar', 'count': 0}, {'l_month': 'Apr', 'count': 0}, {'l_month': 'May', 'count': 0}]}]
 
-        print("graph_resultkkkkkkkkkkkkkkkkkkkkkkkkkk",graph_result)
         return graph_result
 
 
@@ -319,7 +338,6 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
 
         # graph_resultkkkkkkkkkkkkkkkkkkkkkkkkkk [{'name': 'Transfered To Us', 'values': [{'l_month': 'Jun', 'count': 0}, {'l_month': 'Jul', 'count': 0}, {'l_month': 'Aug', 'count': 0}, {'l_month': 'Sep', 'count': 0}, {'l_month': 'Oct', 'count': 0}, {'l_month': 'Nov', 'count': 0}, {'l_month': 'Dec', 'count': 0}, {'l_month': 'Jan', 'count': 0}, {'l_month': 'Feb', 'count': 0}, {'l_month': 'Mar', 'count': 0}, {'l_month': 'Apr', 'count': 0}, {'l_month': 'May', 'count': 0}]}, {'name': 'Resign', 'values': [{'l_month': 'Jun', 'count': 0}, {'l_month': 'Jul', 'count': 0}, {'l_month': 'Aug', 'count': 0}, {'l_month': 'Sep', 'count': 0}, {'l_month': 'Oct', 'count': 0}, {'l_month': 'Nov', 'count': 0}, {'l_month': 'Dec', 'count': 0}, {'l_month': 'Jan', 'count': 0}, {'l_month': 'Feb', 'count': 0}, {'l_month': 'Mar', 'count': 0}, {'l_month': 'Apr', 'count': 0}, {'l_month': 'May', 'count': 0}]}]
 
-        print("graph_resultkkkkkkkkkkkkkkkkkkkkkkkkkk",graph_result)
         return graph_result    
 
     @api.model
@@ -355,8 +373,127 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
                 'attrition_rate': length_status
             }
             month_attrition.append(vals)
-        # print("month_attrition#################",month_attrition)
 
         # month_attrition################# [{'month': 'May', 'attrition_rate': 0.0}, {'month': 'Apr', 'attrition_rate': 0.0}, {'month': 'Mar', 'attrition_rate': 0.0}, {'month': 'Feb', 'attrition_rate': 0.0}, {'month': 'Jan', 'attrition_rate': 0.0}, {'month': 'Dec', 'attrition_rate': 0.0}, {'month': 'Nov', 'attrition_rate': 0.0}, {'month': 'Oct', 'attrition_rate': 0.0}, {'month': 'Sep', 'attrition_rate': 0.0}, {'month': 'Aug', 'attrition_rate': 0.0}, {'month': 'Jul', 'attrition_rate': 0.0}, {'month': 'Jun', 'attrition_rate': 0.0}]
 
         return month_attrition
+    
+
+
+
+
+class ResPartner(models.Model):
+    _inherit = 'sale.order'
+
+
+    acceptance_year_id = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", related="partner_id.year_of_acceptance_1")
+
+
+    # @api.model
+    # def get_dashboard_data(self, filters=None):
+
+    #     domain = []
+
+    #     if filters.get('year'):
+    #         domain.append(
+    #             ('year.year', '=', int(filters['academic_year_id']))
+    #         )
+
+    #     if filters.get('year_of_acceptance_1'):
+    #         domain.append(
+    #             ('year_of_acceptance_1.name', '=', int(filters['acceptance_year_id']))
+    #         )
+
+    #     students = self.env['sale.order'].search(domain)
+
+    #     department_count = self.env['sale.order'].search(domain)
+
+    #     students = self.env['sale.order'].search(domain)
+
+    #     print("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",len(students))
+
+    #     return {
+    #         'total_students': len(students),
+    #         'department_count': self.get_dept_employee(),
+    #         'shift_count': self.get_dept_employee_shift(),
+    #     }
+
+
+    @api.model
+    def get_dashboard_data(self, filters=None):
+        filters = filters or {}
+
+        domain = []
+
+        if filters.get('academic_year_id'):
+            domain.append(
+                ('year.year', '=', filters['academic_year_id'])
+            )
+
+        if filters.get('acceptance_year_id'):
+            domain.append(
+                ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+            )
+
+        orders = self.env['sale.order']
+
+        department_data = []
+
+        departments = orders.read_group(
+            domain,
+            ['department'],
+            ['department']
+        )
+
+        for dept in departments:
+
+            if not dept.get('department'):
+                continue
+
+            dept_id = dept['department'][0]
+            dept_name = dept['department'][1]
+
+            dept_domain = domain + [
+                ('department', '=', dept_id)
+            ]
+
+            shift_data = []
+
+            for shift in ['morning', 'evening']:
+
+                shift_domain = dept_domain + [
+                    ('Subject', '=', shift)
+                ]
+
+                shift_count = orders.search_count(shift_domain)
+
+                student_groups = orders.read_group(
+                    shift_domain,
+                    ['student'],
+                    ['student']
+                )
+
+                student_types = []
+
+                for st in student_groups:
+                    student_types.append({
+                        'student_type': st.get('student'),
+                        'count': st.get('student_count', 0),
+                    })
+
+                shift_data.append({
+                    'shift': shift,
+                    'count': shift_count,
+                    'student_types': student_types,
+                })
+
+            department_data.append({
+                'department': dept_name,
+                'count': orders.search_count(dept_domain),
+                'shifts': shift_data,
+            })
+
+        return {
+            'total_students': orders.search_count(domain),
+            'department_data': department_data,
+        }
