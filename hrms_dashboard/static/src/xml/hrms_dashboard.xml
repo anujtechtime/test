@@ -246,7 +246,9 @@
             </div>
 
             <!-- Student Type Cards -->
+            <div class="row main-section">
             <t t-foreach="shift.student_types" t-as="stype">
+                
                 <div class="col-md-2 col-sm-6 ml-5">
                     <div class="oh-card student-card">
                         <div class="oh-card-body">
@@ -263,10 +265,8 @@
                         </div>
                     </div>
                 </div>
-                
-
             </t>
-
+            </div>
         </t>
 
         
