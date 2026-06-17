@@ -147,6 +147,29 @@
 
 
 
+<style>
+.department-card{
+    background:#5bc0de;
+    color:white;
+    margin-bottom:10px;
+}
+
+.shift-card{
+    background:#9370db;
+    color:white;
+    margin-left:30px;
+    margin-bottom:10px;
+}
+
+.student-card{
+    background:#5cb85c;
+    color:white;
+    margin-left:60px;
+    margin-bottom:10px;
+}
+</style>
+
+
 
 
 
