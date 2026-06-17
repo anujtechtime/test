@@ -28,6 +28,9 @@ var HrDashboard = AbstractAction.extend({
             this.update_attendance();
         },
         'click #broad_factor_pdf': 'generate_broad_factor_report',
+
+        'click .department-card': '_onDepartmentClick',
+    'click .shift-card': '_onShiftClick',
     },
 
     init: function(parent, context) {
@@ -208,6 +211,77 @@ var HrDashboard = AbstractAction.extend({
         //     target: 'current'
         // }, options)
     },
+
+    _onDepartmentClick: function(ev) {
+    var department = $(ev.currentTarget).data('department');
+
+    var dept = this.dashboard_data.department_data.find(
+        d => d.department === department
+    );
+
+    var html = '';
+
+    _.each(dept.shifts, function(shift){
+
+        html += `
+            <div class="col-md-3">
+                <div class="oh-card shift-card"
+                     data-shift="${shift.shift}">
+                    <div class="stat-text">${shift.shift}</div>
+                    <div class="stat-digit">${shift.count}</div>
+                </div>
+            </div>
+        `;
+
+    });
+
+    this.selected_department = dept;
+
+    $('.shift-container')
+        .html(html)
+        .removeClass('d-none');
+
+    $('.student-type-container')
+        .html('')
+        .addClass('d-none');
+},
+
+
+_onShiftClick: function(ev) {
+
+    var shift_name = $(ev.currentTarget).data('shift');
+
+    var shift = this.selected_department.shifts.find(
+        s => s.shift === shift_name
+    );
+
+    var html = '';
+
+    _.each(shift.student_types, function(type){
+
+        html += `
+            <div class="col-md-2">
+                <div class="oh-card">
+                    <div class="stat-text">
+                        ${type.student_type}
+                    </div>
+
+                    <div class="stat-digit">
+                        ${type.count}
+                    </div>
+                </div>
+            </div>
+        `;
+
+    });
+
+    $('.student-type-container')
+        .html(html)
+        .removeClass('d-none');
+},
+
+
+
 
     _onFilterChange: function () {
         var self = this;

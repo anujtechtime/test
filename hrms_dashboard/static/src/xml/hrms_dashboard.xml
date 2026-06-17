@@ -206,9 +206,12 @@
              <div class="col-md-2 col-sm-2 dummy"></div>
         <!-- Department Card -->
         <div class="col-md-10 col-sm-6">
-            <div class="oh-card department-card">
+            <div class="oh-card department-card" t-att-data-department="dept.department">
                 <div class="oh-card-body">
                     <div class="stat-widget-one">
+
+                        <div class="stat-icon">Department</div>
+
                         <div class="stat-content text-center">
                             <div class="stat-text">
                                 <t t-esc="dept.department"/>
@@ -231,6 +234,7 @@
                 <div class="oh-card shift-card">
                     <div class="oh-card-body">
                         <div class="stat-widget-one">
+                        <div class="stat-icon">Shift</div>
                             <div class="stat-content text-center">
                                 <div class="stat-text">
                                     <t t-esc="shift.shift"/>
