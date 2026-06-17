@@ -173,6 +173,77 @@
 
 
             <t t-if="widget.dashboard_data">
+
+    <t t-foreach="widget.dashboard_data.department_data" t-as="dept">
+
+        <!-- Department Card -->
+        <div class="col-md-3 col-sm-6">
+            <div class="oh-card department-card">
+                <div class="oh-card-body">
+                    <div class="stat-widget-one">
+                        <div class="stat-content text-center">
+                            <div class="stat-text">
+                                <t t-esc="dept.department"/>
+                            </div>
+                            <div class="stat-digit">
+                                <t t-esc="dept.count"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shift Cards -->
+        <t t-foreach="dept.shifts" t-as="shift">
+
+            <div class="col-md-2 col-sm-6 ml-4">
+                <div class="oh-card shift-card">
+                    <div class="oh-card-body">
+                        <div class="stat-widget-one">
+                            <div class="stat-content text-center">
+                                <div class="stat-text">
+                                    <t t-esc="shift.shift"/>
+                                </div>
+                                <div class="stat-digit">
+                                    <t t-esc="shift.count"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Type Cards -->
+            <t t-foreach="shift.student_types" t-as="stype">
+
+                <div class="col-md-2 col-sm-6 ml-5">
+                    <div class="oh-card student-card">
+                        <div class="oh-card-body">
+                            <div class="stat-widget-one">
+                                <div class="stat-content text-center">
+                                    <div class="stat-text">
+                                        <t t-esc="stype.student_type"/>
+                                    </div>
+                                    <div class="stat-digit">
+                                        <t t-esc="stype.count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+
+        </t>
+
+    </t>
+
+</t>
+
+
+            <!-- <t t-if="widget.dashboard_data">
                 <t t-foreach="widget.dashboard_data.department_data" t-as="dept">
 
                     <div class="card mb-2">
@@ -215,7 +286,7 @@
                     </div>
 
                 </t>
-            </t>
+            </t> -->
             <!-- <div class="col-md-2 col-sm-6 hr_timesheets oh-payslip oh-timesheets">
                 <div class="oh-card">
                     <div class="oh-card-body">
