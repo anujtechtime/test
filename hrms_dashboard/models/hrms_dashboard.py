@@ -9,6 +9,10 @@ from odoo import models, fields, api, _
 from odoo.http import request
 from odoo.tools import float_utils
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 ROUNDING_FACTOR = 16
 
 class Employee(models.Model):
@@ -476,6 +480,7 @@ class ResPartner(models.Model):
                 student_types = []
 
                 for st in student_groups:
+                    _logger.info(f"Processing student group: {st}")  # Debug log
                     student_types.append({
                         'student_type': st.get('student'),
                         'count': st.get('student_count', 0),
