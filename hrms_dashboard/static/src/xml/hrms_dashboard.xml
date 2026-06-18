@@ -250,11 +250,11 @@
             </div>
 
             <!-- Student Type Cards -->
-            <div class="row main-section">
+            <div class="row main-section" style="margin-left: 220px;">
             <t t-foreach="shift.student_types" t-as="stype">
                 
-                <div class="col-md-2 col-sm-6 ml-5">
-                    <div class="oh-card student-card">
+                <div class="col-md-2 col-sm-6">
+                    <div class="oh-card ">
                         <div class="oh-card-body">
                             <div class="stat-widget-one">
                                 <div class="stat-content text-center">
