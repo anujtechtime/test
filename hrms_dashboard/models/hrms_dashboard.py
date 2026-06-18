@@ -482,10 +482,11 @@ class ResPartner(models.Model):
                 for st in student_groups:
                     _logger.info(f"Processing student group: {st}")  # Debug log
                     student_types.append({
-                        'student_type': st.get('student'),
+                        'student_type': st.get('student')[1],
                         'count': st.get('student_count', 0),
                     })
 
+                _logger.info(f"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq {student_types}")  # Debug log
                 shift_data.append({
                     'shift': shift,
                     'count': shift_count,
