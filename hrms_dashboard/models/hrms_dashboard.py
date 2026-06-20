@@ -442,6 +442,15 @@ class ResPartner(models.Model):
                 ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
             )
 
+        # Department Filter
+        if filters.get('department_id'):
+            domain.append(
+                ('department', '=', filters['department_id'])
+            )
+
+        _logger.info("Filters: %s", filters)
+        _logger.info("Domain: %s", domain)
+
         orders = self.env['sale.order']
 
         department_data = []
@@ -483,13 +492,11 @@ class ResPartner(models.Model):
                 student_types = []
 
                 for st in student_groups:
-                    _logger.info(f"Processing student group: {st}")  # Debug log
                     student_types.append({
-                        'student_type': st.get('student')[1],
+                        'student_type': st['student'][1] if st.get('student') else '',
                         'count': st.get('student_count', 0),
                     })
 
-                _logger.info(f"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq {student_types}")  # Debug log
                 shift_data.append({
                     'shift': shift,
                     'count': shift_count,
@@ -497,6 +504,7 @@ class ResPartner(models.Model):
                 })
 
             department_data.append({
+                'id': dept_id,
                 'department': dept_name,
                 'count': orders.search_count(dept_domain),
                 'shifts': shift_data,
