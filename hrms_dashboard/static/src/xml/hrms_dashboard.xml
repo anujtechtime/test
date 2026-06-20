@@ -177,10 +177,9 @@
              <div class="col-md-2 col-sm-2 dummy"></div>
 
 
-<div class="col-md-3">
+        <div class="col-md-3">
             <label>Academic Year</label>
             <select class="form-control academic_year_filter">
-                <t t-esc="widget.login_employee.year"/>
                 <t t-foreach="widget.login_employee.year" t-as="year">
                     <option t-att-value="year">
                         <t t-esc="year"/>
@@ -203,7 +202,6 @@
         <div class="col-md-3">
             <label>Department's</label>
             <select class="form-control department_filter">
-                <t t-esc="widget.login_employee.year"/>
                 <t t-foreach="widget.login_employee.department" t-as="department">
                     <option t-att-value="department">
                         <t t-esc="department"/>
