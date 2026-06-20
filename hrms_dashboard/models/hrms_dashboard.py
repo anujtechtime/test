@@ -42,6 +42,8 @@ class Employee(models.Model):
         year  =  self.env['year.year'].sudo().search([]).mapped("year") 
         
         year_of_acceptance  =  self.env['techtime_mcc_data.techtime_mcc_data'].sudo().search([]).mapped("name")
+
+        department  =  self.env['department.department'].sudo().search([]).mapped("name")
         
         timesheet_count = self.env['res.partner'].sudo().search_count(
             [('transferred_to_us', '!=', False)])
@@ -94,7 +96,8 @@ class Employee(models.Model):
                     'experience': experience,
                     'age': age,
                     'year' :  year,
-                    'year_of_acceptance' : year_of_acceptance
+                    'year_of_acceptance' : year_of_acceptance,
+                    'department' : department,
                 }
                 employee[0].update(data)
             return employee

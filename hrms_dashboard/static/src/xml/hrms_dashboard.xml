@@ -199,6 +199,19 @@
                 </t>
             </select>
         </div>
+
+        <div class="col-md-3">
+            <label>Department's</label>
+            <select class="form-control academic_year_filter">
+                <t t-esc="widget.login_employee.year"/>
+                <t t-foreach="widget.login_employee.department" t-as="department">
+                    <option t-att-value="department">
+                        <t t-esc="department"/>
+                    </option>
+                </t>
+            </select>
+        </div>
+
         </div>
 
 
