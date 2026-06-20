@@ -22,7 +22,7 @@ var HrDashboard = AbstractAction.extend({
 
         'change .academic_year_filter': '_onFilterChange',
         'change .acceptance_year_filter': '_onFilterChange',
-        'click .department_filter': '_onFilterChange',
+        'change .department_filter': '_onFilterChange',
 
         "click .o_hr_attendance_sign_in_out_icon": function() {
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
