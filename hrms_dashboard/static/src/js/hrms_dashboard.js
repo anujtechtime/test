@@ -22,6 +22,7 @@ var HrDashboard = AbstractAction.extend({
 
         'change .academic_year_filter': '_onFilterChange',
         'change .acceptance_year_filter': '_onFilterChange',
+        'click .department_filter': '_onFilterChange',
 
         "click .o_hr_attendance_sign_in_out_icon": function() {
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
@@ -31,6 +32,7 @@ var HrDashboard = AbstractAction.extend({
 
         'click .department-card': '_onDepartmentClick',
     'click .shift-card': '_onShiftClick',
+    
     },
 
     init: function(parent, context) {
@@ -288,6 +290,7 @@ _onShiftClick: function(ev) {
 
         var academic_year_id = $('.academic_year_filter').val() || false;
         var acceptance_year_id = $('.acceptance_year_filter').val() || false;
+        var department_id = $('.department_filter').val() || false;
 
         this._rpc({
             model: 'sale.order',
@@ -295,6 +298,7 @@ _onShiftClick: function(ev) {
             args: [{
                 academic_year_id: academic_year_id,
                 acceptance_year_id: acceptance_year_id,
+                department_id: department_id,
             }],
         }).then(function(result) {
 
@@ -303,6 +307,7 @@ _onShiftClick: function(ev) {
             // Store selected values
             self.academic_year_id = academic_year_id;
             self.acceptance_year_id = acceptance_year_id;
+            self.department_id = department_id;
 
             $('.o_hr_dashboard').empty();
             self.render_dashboards();
@@ -310,6 +315,7 @@ _onShiftClick: function(ev) {
             // Restore selected values
             $('.academic_year_filter').val(self.academic_year_id);
             $('.acceptance_year_filter').val(self.acceptance_year_id);
+            $('.department_filter').val(self.department_id);
 
             $('.total_students_count').text(
                 result.total_students || 0
