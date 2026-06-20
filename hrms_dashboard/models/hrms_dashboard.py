@@ -43,7 +43,7 @@ class Employee(models.Model):
         
         year_of_acceptance  =  self.env['techtime_mcc_data.techtime_mcc_data'].sudo().search([]).mapped("name")
 
-        department  =  self.env['department.department'].sudo().search([]).mapped("name")
+        department  =  self.env['department.department'].sudo().search([]).mapped("department")
         
         timesheet_count = self.env['res.partner'].sudo().search_count(
             [('transferred_to_us', '!=', False)])
