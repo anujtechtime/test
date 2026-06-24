@@ -438,7 +438,7 @@ class ResPartner(models.Model):
             ])
 
             result.append({
-                'label': grant.name,
+                'label': grant.Student,
                 'value': count,
             })
 
