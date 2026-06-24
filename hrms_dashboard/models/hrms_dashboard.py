@@ -433,7 +433,7 @@ class ResPartner(models.Model):
         grants = self.env['level.level'].search([])
 
         for grant in grants:
-            count = self.env['res.partner'].search_count([
+            count = self.env['sale.order'].search_count([
                 ('student', '=', grant)
             ])
 
