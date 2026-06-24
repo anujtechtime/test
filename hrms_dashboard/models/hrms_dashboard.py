@@ -427,6 +427,25 @@ class ResPartner(models.Model):
 
 
     @api.model
+    def get_grant_discount_graph(self):
+        result = []
+
+        grants = self.env['level.level'].search([])
+
+        for grant in grants:
+            count = self.env['res.partner'].search_count([
+                ('student', '=', grant.id)
+            ])
+
+            result.append({
+                'label': grant.name,
+                'value': count,
+            })
+
+        return result
+
+
+    @api.model
     def get_dashboard_data(self, filters=None):
         filters = filters or {}
 

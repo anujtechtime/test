@@ -124,6 +124,9 @@ var HrDashboard = AbstractAction.extend({
             self.render_department_employee();
             self.render_department_employee_shift();
             self.render_department_employee_shift_gender();
+
+            self.render_grant_discount_graph();
+
             self.render_leave_graph();
             self.update_join_resign_trends();
             self.update_join_resign_trends_dep();
@@ -1021,6 +1024,58 @@ _onShiftClick: function(ev) {
 
         });
     },
+
+
+    render_grant_discount_graph: function () {
+        var elem = this.$('.grant_discount_graph');
+
+        rpc.query({
+            model: "sale.order",
+            method: "get_grant_discount_graph",
+        }).then(function (data) {
+
+            var margin = {top: 20, right: 20, bottom: 100, left: 60},
+                width = 900 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom;
+
+            var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], 0.1);
+
+            var y = d3.scale.linear()
+                .range([height, 0]);
+
+            x.domain(data.map(function(d) { return d.label; }));
+            y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+            var svg = d3.select(elem[0])
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+            svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.label); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); });
+
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.svg.axis().scale(x).orient("bottom"))
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("transform", "rotate(-45)");
+
+            svg.append("g")
+                .call(d3.svg.axis().scale(y).orient("left"));
+        });
+    },      
 
     render_leave_graph:function(){
         var self = this;
