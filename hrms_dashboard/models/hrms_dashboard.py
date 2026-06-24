@@ -434,7 +434,7 @@ class ResPartner(models.Model):
 
         for grant in grants:
             count = self.env['sale.order'].search_count([
-                ('student', '=', grant)
+                ('student', '=', grant.id)
             ])
 
             result.append({
