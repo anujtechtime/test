@@ -396,12 +396,132 @@ class ResPartner(models.Model):
     acceptance_year_id = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", related="partner_id.year_of_acceptance_1")
 
 
+    # @api.model
+    # def get_student_payment_dashboard(self):
+
+    #     Installment = self.env['sale.installment']
+    #     Department = self.env['department.department']
+    #     StudentType = self.env['level.level']
+
+    #     result = {
+    #         'kpi': {},
+    #         'second_installment_percentage': [],
+    #         'first_installment_department': [],
+    #         'first_installment_student_type': [],
+    #     }
+
+    #     # -------------------------
+    #     # KPI
+    #     # -------------------------
+
+    #     result['kpi'] = {
+    #         'first_paid': Installment.search_count([
+    #             ('number', '=', 1),
+    #             ('payment_status', '=', 'paid')
+    #         ]),
+    #         'second_paid': Installment.search_count([
+    #             ('number', '=', 2),
+    #             ('payment_status', '=', 'paid')
+    #         ]),
+    #         'third_paid': Installment.search_count([
+    #             ('number', '=', 3),
+    #             ('payment_status', '=', 'paid')
+    #         ]),
+    #     }
+
+    #     # -------------------------
+    #     # Graph 1
+    #     # Second Installment %
+    #     # -------------------------
+
+    #     for dept in Department.search([]):
+
+    #         total = self.search_count([
+    #             ('department', '=', dept.id)
+    #         ])
+
+    #         paid = Installment.search_count([
+    #             ('number', '=', 2),
+    #             ('payment_status', '=', 'paid'),
+    #             ('sale_installment_id.department', '=', dept.id)
+    #         ])
+
+    #         percentage = round((paid * 100.0) / total, 2) if total else 0
+
+    #         result['second_installment_percentage'].append({
+    #             'department': dept.department,
+    #             'percentage': percentage,
+    #         })
+
+    #     # -------------------------
+    #     # Graph 2
+    #     # First Installment Paid
+    #     # by Department
+    #     # -------------------------
+
+    #     for dept in Department.search([]):
+
+    #         count = Installment.search_count([
+    #             ('number', '=', 1),
+    #             ('payment_status', '=', 'paid'),
+    #             ('sale_installment_id.department', '=', dept.id)
+    #         ])
+
+    #         result['first_installment_department'].append({
+    #             'department': dept.department,
+    #             'count': count,
+    #         })
+
+    #     # -------------------------
+    #     # Graph 3
+    #     # Student Type
+    #     # level.level
+    #     # -------------------------
+
+    #     for student in StudentType.search([]):
+
+    #         count = Installment.search_count([
+    #             ('number', '=', 1),
+    #             ('payment_status', '=', 'paid'),
+    #             ('sale_installment_id.student', '=', student.id)
+    #         ])
+
+    #         result['first_installment_student_type'].append({
+    #             'student_type': student.Student,
+    #             'count': count,
+    #         })
+
+    #     return result
+    
+
+
+
+
+
     @api.model
-    def get_student_payment_dashboard(self):
+    def get_student_payment_dashboard(self, filters=None):
+
+        filters = filters or {}
 
         Installment = self.env['sale.installment']
         Department = self.env['department.department']
         StudentType = self.env['level.level']
+
+        # ----------------------------------------
+        # Common Domains
+        # ----------------------------------------
+
+        sale_domain = []
+        installment_domain = []
+
+        if filters.get('acceptance_year_id'):
+            sale_domain.append(
+                ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+            )
+
+            installment_domain.append(
+                ('sale_installment_id.year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+            )
 
         result = {
             'kpi': {},
@@ -410,41 +530,49 @@ class ResPartner(models.Model):
             'first_installment_student_type': [],
         }
 
-        # -------------------------
+        # ----------------------------------------
         # KPI
-        # -------------------------
+        # ----------------------------------------
+
+        first_domain = installment_domain + [
+            ('number', '=', 1),
+            ('payment_status', '=', 'paid')
+        ]
+
+        second_domain = installment_domain + [
+            ('number', '=', 2),
+            ('payment_status', '=', 'paid')
+        ]
+
+        third_domain = installment_domain + [
+            ('number', '=', 3),
+            ('payment_status', '=', 'paid')
+        ]
 
         result['kpi'] = {
-            'first_paid': Installment.search_count([
-                ('number', '=', 1),
-                ('payment_status', '=', 'paid')
-            ]),
-            'second_paid': Installment.search_count([
-                ('number', '=', 2),
-                ('payment_status', '=', 'paid')
-            ]),
-            'third_paid': Installment.search_count([
-                ('number', '=', 3),
-                ('payment_status', '=', 'paid')
-            ]),
+            'first_paid': Installment.search_count(first_domain),
+            'second_paid': Installment.search_count(second_domain),
+            'third_paid': Installment.search_count(third_domain),
         }
 
-        # -------------------------
+        # ----------------------------------------
         # Graph 1
-        # Second Installment %
-        # -------------------------
+        # ----------------------------------------
 
         for dept in Department.search([]):
 
-            total = self.search_count([
+            total_domain = sale_domain + [
                 ('department', '=', dept.id)
-            ])
+            ]
 
-            paid = Installment.search_count([
+            paid_domain = installment_domain + [
                 ('number', '=', 2),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.department', '=', dept.id)
-            ])
+            ]
+
+            total = self.search_count(total_domain)
+            paid = Installment.search_count(paid_domain)
 
             percentage = round((paid * 100.0) / total, 2) if total else 0
 
@@ -453,38 +581,38 @@ class ResPartner(models.Model):
                 'percentage': percentage,
             })
 
-        # -------------------------
+        # ----------------------------------------
         # Graph 2
-        # First Installment Paid
-        # by Department
-        # -------------------------
+        # ----------------------------------------
 
         for dept in Department.search([]):
 
-            count = Installment.search_count([
+            domain = installment_domain + [
                 ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.department', '=', dept.id)
-            ])
+            ]
+
+            count = Installment.search_count(domain)
 
             result['first_installment_department'].append({
                 'department': dept.department,
                 'count': count,
             })
 
-        # -------------------------
+        # ----------------------------------------
         # Graph 3
-        # Student Type
-        # level.level
-        # -------------------------
+        # ----------------------------------------
 
         for student in StudentType.search([]):
 
-            count = Installment.search_count([
+            domain = installment_domain + [
                 ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.student', '=', student.id)
-            ])
+            ]
+
+            count = Installment.search_count(domain)
 
             result['first_installment_student_type'].append({
                 'student_type': student.Student,
@@ -492,8 +620,6 @@ class ResPartner(models.Model):
             })
 
         return result
-    
-
     # first_paid = self.env['sale.installment'].search_count([
     #     ('sequence', '=', 1),
     #     ('payment_status', '=', 'paid')

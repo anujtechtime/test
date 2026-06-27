@@ -1035,7 +1035,9 @@ _onShiftClick: function(ev) {
         rpc.query({
         model: 'sale.order',
         method: 'get_student_payment_dashboard',
-        args: [],
+        args: [{
+                acceptance_year_id: acceptance_year_id,
+            }],
         }).then(function (result) {
 
             console.log("ssssssssssssssssssssssfdddddddddddd",result);
