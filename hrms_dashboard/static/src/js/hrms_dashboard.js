@@ -1042,9 +1042,9 @@ _onShiftClick: function(ev) {
 
             console.log("ssssssssssssssssssssssfdddddddddddd",result);
 
-            drawSecondInstallmentChart(result.second_installment_percentage);
-            drawDepartmentChart(result.first_installment_department);
-            drawStudentTypeChart(result.first_installment_student_type);
+            // drawSecondInstallmentChart(result.second_installment_percentage);
+            // drawDepartmentChart(result.first_installment_department);
+            // drawStudentTypeChart(result.first_installment_student_type);
 
             $('#first_paid').text(result.kpi.first_paid);
             $('#second_paid').text(result.kpi.second_paid);
