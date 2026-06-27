@@ -327,7 +327,6 @@ _onShiftClick: function(ev) {
             self.render_graphs();
         });
     },
-    
 
     hr_contract: function(e){
         var self = this;
@@ -1027,19 +1026,19 @@ _onShiftClick: function(ev) {
     },
 
 
-
-
     render_grant_discount_graph: function () {
         var elem = this.$('.grant_discount_graph');
 
-         rpc.query({
+        var acceptance_year_id = $('.acceptance_year_filter').val() || false;
+
+
+        rpc.query({
         model: 'sale.order',
-        method: 'get_student_payment_dashboard ',
+        method: 'get_student_payment_dashboard',
         args: [],
         }).then(function (result) {
 
-            console.log(result);
-            dddddddddddddddddddddd
+            console.log("ssssssssssssssssssssssfdddddddddddd",result);
 
             drawSecondInstallmentChart(result.second_installment_percentage);
             drawDepartmentChart(result.first_installment_department);
@@ -1050,7 +1049,6 @@ _onShiftClick: function(ev) {
             $('#third_paid').text(result.kpi.third_paid);
 
         });
-        
 
         rpc.query({
             model: "sale.order",
