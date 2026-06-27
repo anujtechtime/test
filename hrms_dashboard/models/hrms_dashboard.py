@@ -449,7 +449,7 @@ class ResPartner(models.Model):
             percentage = round((paid * 100.0) / total, 2) if total else 0
 
             result['second_installment_percentage'].append({
-                'department': dept.name,
+                'department': dept.department,
                 'percentage': percentage,
             })
 
@@ -468,7 +468,7 @@ class ResPartner(models.Model):
             ])
 
             result['first_installment_department'].append({
-                'department': dept.name,
+                'department': dept.department,
                 'count': count,
             })
 
