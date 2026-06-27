@@ -483,7 +483,7 @@ class ResPartner(models.Model):
             count = Installment.search_count([
                 ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
-                ('sale_installment_id.sale_installment_id.student', '=', student.id)
+                ('sale_installment_id.student', '=', student.id)
             ])
 
             result['first_installment_student_type'].append({
