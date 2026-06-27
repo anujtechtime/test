@@ -416,15 +416,15 @@ class ResPartner(models.Model):
 
         result['kpi'] = {
             'first_paid': Installment.search_count([
-                ('sequence', '=', 1),
+                ('number', '=', 1),
                 ('payment_status', '=', 'paid')
             ]),
             'second_paid': Installment.search_count([
-                ('sequence', '=', 2),
+                ('number', '=', 2),
                 ('payment_status', '=', 'paid')
             ]),
             'third_paid': Installment.search_count([
-                ('sequence', '=', 3),
+                ('number', '=', 3),
                 ('payment_status', '=', 'paid')
             ]),
         }
@@ -441,7 +441,7 @@ class ResPartner(models.Model):
             ])
 
             paid = Installment.search_count([
-                ('sequence', '=', 2),
+                ('number', '=', 2),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.sale_installment_id.department', '=', dept.id)
             ])
@@ -462,7 +462,7 @@ class ResPartner(models.Model):
         for dept in Department.search([]):
 
             count = Installment.search_count([
-                ('sequence', '=', 1),
+                ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.sale_installment_id.department', '=', dept.id)
             ])
@@ -481,7 +481,7 @@ class ResPartner(models.Model):
         for student in StudentType.search([]):
 
             count = Installment.search_count([
-                ('sequence', '=', 1),
+                ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
                 ('sale_installment_id.sale_installment_id.student', '=', student.id)
             ])
@@ -565,7 +565,7 @@ class ResPartner(models.Model):
 
 
 
-    
+
     # @api.model
     # def get_dashboard_data(self, filters=None):
 
