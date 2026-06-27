@@ -443,7 +443,7 @@ class ResPartner(models.Model):
             paid = Installment.search_count([
                 ('number', '=', 2),
                 ('payment_status', '=', 'paid'),
-                ('sale_installment_id.sale_installment_id.department', '=', dept.id)
+                ('sale_installment_id.department', '=', dept.id)
             ])
 
             percentage = round((paid * 100.0) / total, 2) if total else 0
@@ -464,7 +464,7 @@ class ResPartner(models.Model):
             count = Installment.search_count([
                 ('number', '=', 1),
                 ('payment_status', '=', 'paid'),
-                ('sale_installment_id.sale_installment_id.department', '=', dept.id)
+                ('sale_installment_id.department', '=', dept.id)
             ])
 
             result['first_installment_department'].append({
