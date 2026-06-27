@@ -487,7 +487,7 @@ class ResPartner(models.Model):
             ])
 
             result['first_installment_student_type'].append({
-                'student_type': student.name,
+                'student_type': student.Student,
                 'count': count,
             })
 
