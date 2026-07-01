@@ -488,16 +488,16 @@ class ResPartner(models.Model):
                 ('payment_status', '=', 'paid'),
                 ('number', '=', 1),
             ],
-            ['sale_installment_id.department'],
-            ['sale_installment_id.department'],
+            ['sale_installment_id.partner_id.department'],
+            ['sale_installment_id.partner_id.department'],
             lazy=False,
         )
 
         first_map = {}
         for rec in first_groups:
-            if rec.get('sale_installment_id.department'):
+            if rec.get('sale_installment_id.partner_id.department'):
                 first_map[
-                    rec['sale_installment_id.department'][0]
+                    rec['sale_installment_id.partner_id.department'][0]
                 ] = rec['__count']
 
         # ==========================================================
