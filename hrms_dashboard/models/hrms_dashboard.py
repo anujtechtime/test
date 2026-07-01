@@ -500,16 +500,11 @@ class ResPartner(models.Model):
 
     @api.model
     def get_student_payment_dashboard(self, filters=None):
-
         filters = filters or {}
 
         Installment = self.env['sale.installment']
         Department = self.env['department.department']
         StudentType = self.env['level.level']
-
-        # ----------------------------------------
-        # Common Domains
-        # ----------------------------------------
 
         sale_domain = []
         installment_domain = []
@@ -518,7 +513,6 @@ class ResPartner(models.Model):
             sale_domain.append(
                 ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
             )
-
             installment_domain.append(
                 ('sale_installment_id.year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
             )
@@ -531,92 +525,125 @@ class ResPartner(models.Model):
         }
 
         # ----------------------------------------
-        # KPI
+        # KPI (Single Query)
         # ----------------------------------------
+        kpi_data = Installment.read_group(
+            installment_domain + [
+                ('payment_status', '=', 'paid'),
+                ('number', 'in', [1, 2, 3]),
+            ],
+            ['number'],
+            ['number'],
+            lazy=False,
+        )
 
-        first_domain = installment_domain + [
-            ('number', '=', 1),
-            ('payment_status', '=', 'paid')
-        ]
-
-        second_domain = installment_domain + [
-            ('number', '=', 2),
-            ('payment_status', '=', 'paid')
-        ]
-
-        third_domain = installment_domain + [
-            ('number', '=', 3),
-            ('payment_status', '=', 'paid')
-        ]
+        kpi = {item['number']: item['number_count'] for item in kpi_data}
 
         result['kpi'] = {
-            'first_paid': Installment.search_count(first_domain),
-            'second_paid': Installment.search_count(second_domain),
-            'third_paid': Installment.search_count(third_domain),
+            'first_paid': kpi.get(1, 0),
+            'second_paid': kpi.get(2, 0),
+            'third_paid': kpi.get(3, 0),
         }
 
         # ----------------------------------------
-        # Graph 1
+        # Total Students Per Department
         # ----------------------------------------
+        total_students = self.read_group(
+            sale_domain,
+            ['department'],
+            ['department'],
+            lazy=False,
+        )
 
-        for dept in Department.search([]):
+        total_map = {
+            rec['department'][0]: rec['department_count']
+            for rec in total_students
+            if rec.get('department')
+        }
 
-            total_domain = sale_domain + [
-                ('department', '=', dept.id)
-            ]
-
-            paid_domain = installment_domain + [
-                ('number', '=', 2),
+        # ----------------------------------------
+        # Second Installment Paid Per Department
+        # ----------------------------------------
+        second_paid = Installment.read_group(
+            installment_domain + [
                 ('payment_status', '=', 'paid'),
-                ('sale_installment_id.department', '=', dept.id)
-            ]
+                ('number', '=', 2),
+            ],
+            ['sale_installment_id.department'],
+            ['sale_installment_id.department'],
+            lazy=False,
+        )
 
-            total = self.search_count(total_domain)
-            paid = Installment.search_count(paid_domain)
+        second_map = {
+            rec['sale_installment_id.department'][0]: rec['sale_installment_id.department_count']
+            for rec in second_paid
+            if rec.get('sale_installment_id.department')
+        }
 
-            percentage = round((paid * 100.0) / total, 2) if total else 0
+        # ----------------------------------------
+        # First Installment Paid Per Department
+        # ----------------------------------------
+        first_paid = Installment.read_group(
+            installment_domain + [
+                ('payment_status', '=', 'paid'),
+                ('number', '=', 1),
+            ],
+            ['sale_installment_id.department'],
+            ['sale_installment_id.department'],
+            lazy=False,
+        )
+
+        first_map = {
+            rec['sale_installment_id.department'][0]: rec['sale_installment_id.department_count']
+            for rec in first_paid
+            if rec.get('sale_installment_id.department')
+        }
+
+        # ----------------------------------------
+        # First Installment Paid Per Student Type
+        # ----------------------------------------
+        student_paid = Installment.read_group(
+            installment_domain + [
+                ('payment_status', '=', 'paid'),
+                ('number', '=', 1),
+            ],
+            ['sale_installment_id.student'],
+            ['sale_installment_id.student'],
+            lazy=False,
+        )
+
+        student_map = {
+            rec['sale_installment_id.student'][0]: rec['sale_installment_id.student_count']
+            for rec in student_paid
+            if rec.get('sale_installment_id.student')
+        }
+
+        # ----------------------------------------
+        # Prepare Graphs
+        # ----------------------------------------
+        departments = Department.search([])
+        students = StudentType.search([])
+
+        for dept in departments:
+            total = total_map.get(dept.id, 0)
+            paid_second = second_map.get(dept.id, 0)
+
+            percentage = round((paid_second * 100.0) / total, 2) if total else 0
 
             result['second_installment_percentage'].append({
                 'department': dept.department,
                 'percentage': percentage,
             })
 
-        # ----------------------------------------
-        # Graph 2
-        # ----------------------------------------
-
-        for dept in Department.search([]):
-
-            domain = installment_domain + [
-                ('number', '=', 1),
-                ('payment_status', '=', 'paid'),
-                ('sale_installment_id.department', '=', dept.id)
-            ]
-
-            count = Installment.search_count(domain)
-
             result['first_installment_department'].append({
                 'department': dept.department,
-                'count': count,
+                'count': first_map.get(dept.id, 0),
             })
 
-        # ----------------------------------------
-        # Graph 3
-        # ----------------------------------------
-
-        for student in StudentType.search([]):
-
-            domain = installment_domain + [
-                ('number', '=', 1),
-                ('payment_status', '=', 'paid'),
-                ('sale_installment_id.student', '=', student.id)
-            ]
-
-            count = Installment.search_count(domain)
-
+        for student in students:
             result['first_installment_student_type'].append({
                 'student_type': student.Student,
-                'count': count,
+                'count': student_map.get(student.id, 0),
             })
 
         return result
