@@ -127,6 +127,8 @@ var HrDashboard = AbstractAction.extend({
 
             self.render_grant_discount_graph();
 
+            self._onFilterChange();
+
             self.render_leave_graph();
             self.update_join_resign_trends();
             self.update_join_resign_trends_dep();
