@@ -386,24 +386,22 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
         return month_attrition
     
 
-# class SaleInstallment(models.Model):
-#     _inherit = 'sale.installment'
+class SaleInstallment(models.Model):
+    _inherit = 'sale.installment'
 
-#     department = fields.Many2one(
-#         'department.department',
-#         related='sale_installment_id.department',
-#         store=True,
-#         readonly=True,
-#     )
+    department = fields.Many2one(
+        'department.department',
+        related='sale_installment_id.department',
+        store=True,
+        readonly=True,
+    )
 
-#     student = fields.Many2one(
-#         'level.level',
-#         related='sale_installment_id.student',
-#         store=True,
-#         readonly=True,
-#     )
-
-#     college_installment_id = fields.Many2one("installment.details", string="Installment", store=True, readonly=True)
+    student = fields.Many2one(
+        'level.level',
+        related='sale_installment_id.student',
+        store=True,
+        readonly=True,
+    )
 
 class ResPartner(models.Model):
     _inherit = 'sale.order'
