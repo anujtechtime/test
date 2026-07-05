@@ -447,24 +447,24 @@ class ResPartner(models.Model):
         # Second Installment %
         # -------------------------
 
-        for dept in Department.search([]):
+        # for dept in Department.search([]):
 
-            total = self.search_count([
-                ('department', '=', dept.id)
-            ])
+        #     total = self.search_count([
+        #         ('department', '=', dept.id)
+        #     ])
 
-            paid = Installment.search_count([
-                ('number', '=', 2),
-                ('payment_status', '=', 'paid'),
-                ('sale_installment_id.department', '=', dept.id)
-            ])
+        #     paid = Installment.search_count([
+        #         ('number', '=', 2),
+        #         ('payment_status', '=', 'paid'),
+        #         ('sale_installment_id.department', '=', dept.id)
+        #     ])
 
-            percentage = round((paid * 100.0) / total, 2) if total else 0
+        #     percentage = round((paid * 100.0) / total, 2) if total else 0
 
-            result['second_installment_percentage'].append({
-                'department': dept.department,
-                'percentage': percentage,
-            })
+        #     result['second_installment_percentage'].append({
+        #         'department': dept.department,
+        #         'percentage': percentage,
+        #     })
 
         # -------------------------
         # Graph 2
@@ -472,18 +472,18 @@ class ResPartner(models.Model):
         # by Department
         # -------------------------
 
-        for dept in Department.search([]):
+        # for dept in Department.search([]):
 
-            count = Installment.search_count([
-                ('number', '=', 1),
-                ('payment_status', '=', 'paid'),
-                ('sale_installment_id.department', '=', dept.id)
-            ])
+        #     count = Installment.search_count([
+        #         ('number', '=', 1),
+        #         ('payment_status', '=', 'paid'),
+        #         ('sale_installment_id.department', '=', dept.id)
+        #     ])
 
-            result['first_installment_department'].append({
-                'department': dept.department,
-                'count': count,
-            })
+        #     result['first_installment_department'].append({
+        #         'department': dept.department,
+        #         'count': count,
+        #     })
 
         # -------------------------
         # Graph 3
@@ -491,18 +491,18 @@ class ResPartner(models.Model):
         # level.level
         # -------------------------
 
-        for student in StudentType.search([]):
+        # for student in StudentType.search([]):
 
-            count = Installment.search_count([
-                ('number', '=', 1),
-                ('payment_status', '=', 'paid'),
-                ('sale_installment_id.student', '=', student.id)
-            ])
+        #     count = Installment.search_count([
+        #         ('number', '=', 1),
+        #         ('payment_status', '=', 'paid'),
+        #         ('sale_installment_id.student', '=', student.id)
+        #     ])
 
-            result['first_installment_student_type'].append({
-                'student_type': student.Student,
-                'count': count,
-            })
+        #     result['first_installment_student_type'].append({
+        #         'student_type': student.Student,
+        #         'count': count,
+        #     })
 
         return result
     
