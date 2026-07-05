@@ -403,6 +403,11 @@ class SaleInstallment(models.Model):
         readonly=True,
     )
 
+    year = fields.Many2one('year.year', string='Year',
+        related='sale_installment_id.year',
+        store=True,
+    )
+
 class ResPartner(models.Model):
     _inherit = 'sale.order'
 
