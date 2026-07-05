@@ -409,7 +409,7 @@ class ResPartner(models.Model):
 
         if filters.get('acceptance_year_id'):
             domain.append(
-                ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+                ('sale_installment_id.year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
             )
 
 
