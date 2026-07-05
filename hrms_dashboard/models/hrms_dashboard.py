@@ -386,8 +386,22 @@ group by res_partner.year_of_acceptance_1 , techtime_mcc_data_techtime_mcc_data.
         return month_attrition
     
 
+class SaleInstallment(models.Model):
+    _inherit = 'sale.installment'
 
+    department = fields.Many2one(
+        'department.department',
+        related='sale_installment_id.department',
+        store=True,
+        readonly=True,
+    )
 
+    student = fields.Many2one(
+        'level.level',
+        related='sale_installment_id.student',
+        store=True,
+        readonly=True,
+    )
 
 class ResPartner(models.Model):
     _inherit = 'sale.order'
@@ -468,16 +482,16 @@ class ResPartner(models.Model):
                 ('payment_status', '=', 'paid'),
                 ('number', '=', 2),
             ],
-            ['sale_installment_id.partner_id.department'],
-            ['sale_installment_id.partner_id.department'],
+            ['department'],
+            ['department'],
             lazy=False,
         )
 
-        second_map = {}
+        second_map = {} 
         for rec in second_groups:
-            if rec.get('sale_installment_id.partner_id.department'):
+            if rec.get('sale_installment_id.department'):
                 second_map[
-                    rec['sale_installment_id.partner_id.department'][0]
+                    rec['sale_installment_id.department'][0]
                 ] = rec['__count']
 
         # ==========================================================
@@ -488,16 +502,16 @@ class ResPartner(models.Model):
                 ('payment_status', '=', 'paid'),
                 ('number', '=', 1),
             ],
-            ['sale_installment_id.partner_id.department'],
-            ['sale_installment_id.partner_id.department'],
+            ['department'],
+            ['department'],
             lazy=False,
         )
 
         first_map = {}
         for rec in first_groups:
-            if rec.get('sale_installment_id.partner_id.department'):
+            if rec.get('sale_installment_id.department'):
                 first_map[
-                    rec['sale_installment_id.partner_id.department'][0]
+                    rec['sale_installment_id.department'][0]
                 ] = rec['__count']
 
         # ==========================================================
@@ -508,8 +522,8 @@ class ResPartner(models.Model):
                 ('payment_status', '=', 'paid'),
                 ('number', '=', 1),
             ],
-            ['sale_installment_id.student'],
-            ['sale_installment_id.student'],
+            ['student'],
+            ['student'],
             lazy=False,
         )
 

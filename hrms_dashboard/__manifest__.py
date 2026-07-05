@@ -30,7 +30,7 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.openhrms.com",
-    'depends': ['hr','hr_employee_updation',"sale"],
+    'depends': ['hr','hr_employee_updation',"sale",'techtime_sale'],
     'external_dependencies': {
         'python': ['pandas'],
     },
