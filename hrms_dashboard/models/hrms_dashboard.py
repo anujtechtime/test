@@ -403,6 +403,8 @@ class SaleInstallment(models.Model):
         readonly=True,
     )
 
+    college_installment_id = fields.Many2one("installment.details", string="Installment", store=True, readonly=True)
+
 class ResPartner(models.Model):
     _inherit = 'sale.order'
 
