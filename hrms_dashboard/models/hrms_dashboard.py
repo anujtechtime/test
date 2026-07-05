@@ -397,11 +397,21 @@ class ResPartner(models.Model):
 
 
     @api.model
-    def get_student_payment_dashboard(self):
+    def get_student_payment_dashboard(self, filters=None):
+
+        filters = filters or {}
+
+        domain = []
 
         Installment = self.env['sale.installment']
         Department = self.env['department.department']
         StudentType = self.env['level.level']
+
+        if filters.get('acceptance_year_id'):
+            domain.append(
+                ('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+            )
+
 
         result = {
             'kpi': {},
@@ -418,15 +428,18 @@ class ResPartner(models.Model):
             'first_paid': Installment.search_count([
                 ('number', '=', 1),
                 ('payment_status', '=', 'paid')
-            ]),
+                ] + domain
+            ),
             'second_paid': Installment.search_count([
                 ('number', '=', 2),
                 ('payment_status', '=', 'paid')
-            ]),
+                ] + domain
+            ),
             'third_paid': Installment.search_count([
                 ('number', '=', 3),
                 ('payment_status', '=', 'paid')
-            ]),
+            ] + domain
+            ),
         }
 
         # -------------------------
@@ -705,4 +718,4 @@ class ResPartner(models.Model):
         }
     
 
-    
+
