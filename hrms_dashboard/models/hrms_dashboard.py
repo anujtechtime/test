@@ -411,6 +411,10 @@ class SaleInstallment(models.Model):
 class ResPartner(models.Model):
     _inherit = 'sale.order'
 
+    year = fields.Many2one('year.year', string='Year',
+        related='partner_id.year',
+        store=True,
+    )
 
     acceptance_year_id = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", related="partner_id.year_of_acceptance_1")
 
