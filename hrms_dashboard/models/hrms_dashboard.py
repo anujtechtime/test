@@ -609,23 +609,23 @@ class ResPartner(models.Model):
     #     }
 
 
-    @api.model
-    def get_grant_discount_graph(self, filters=None):
-        result = []
+    # @api.model
+    # def get_grant_discount_graph(self, filters=None):
+    #     result = []
 
-        grants = self.env['level.level'].search([])
+    #     grants = self.env['level.level'].search([])
 
-        for grant in grants:
-            count = self.env['sale.order'].search_count([
-                ('student', '=', grant.id),('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
-            ])
+    #     for grant in grants:
+    #         count = self.env['sale.order'].search_count([
+    #             ('student', '=', grant.id),('year_of_acceptance_1.name', '=', filters['acceptance_year_id'])
+    #         ])
 
-            result.append({
-                'label': grant.Student,
-                'value': count,
-            })
+    #         result.append({
+    #             'label': grant.Student,
+    #             'value': count,
+    #         })
 
-        return result
+    #     return result
 
 
     @api.model
