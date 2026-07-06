@@ -79,3 +79,19 @@ class ResPartner(models.Model):
 
         return super(ResPartner, self).write(vals) 
 
+class SaleMembershipInt(models.Model):
+    _inherit = 'sale.installment'
+
+    department = fields.Many2one(
+        'department.department',
+        related='sale_installment_id.department',
+        store=True,
+        readonly=True,
+    )
+
+    student = fields.Many2one(
+        'level.level',
+        related='sale_installment_id.student',
+        store=True,
+        readonly=True,
+    )
