@@ -82,6 +82,8 @@ class ResPartner(models.Model):
 class SaleMembershipInt(models.Model):
     _inherit = 'sale.installment'
 
+    sale_installment_id = fields.Many2one("sale.order", string="Installment")
+
     department = fields.Many2one(
         'department.department',
         related='sale_installment_id.department',
