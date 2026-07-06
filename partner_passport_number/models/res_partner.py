@@ -95,3 +95,10 @@ class SaleMembershipInt(models.Model):
         store=True,
         readonly=True,
     )
+
+    year = fields.Many2one(
+        'year.year',
+        related='sale_installment_id.year',
+        store=True,
+        readonly=True,
+    )
