@@ -83,7 +83,6 @@ class ResPartner(models.Model):
 class SaleMembershipInt(models.Model):
     _inherit = 'sale.installment'
 
-    sale_installment_id = fields.Many2one("sale.order", string="Installment")
 
     department = fields.Many2one(
         'department.department',
@@ -99,9 +98,3 @@ class SaleMembershipInt(models.Model):
         readonly=True,
     )
 
-    year = fields.Many2one(
-        'year.year',
-        related='sale_installment_id.year',
-        store=True,
-        readonly=True,
-    )
