@@ -292,19 +292,6 @@ class SaleMembership(models.Model):
         ('cancel', 'Cancel'),
         ], string='Status', readonly=True, copy=False, default='draft')
 
-    department = fields.Many2one(
-        'department.department',
-        related='sale_installment_id.department',
-        store=True,
-        readonly=True,
-    )
-
-    student = fields.Many2one(
-        'level.level',
-        related='sale_installment_id.student',
-        store=True,
-        readonly=True,
-    )
 
 
 class SaleMembershipAccount(models.Model):

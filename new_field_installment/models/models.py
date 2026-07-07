@@ -23,18 +23,21 @@ class SaleMembershipInt(models.Model):
 
     department = fields.Many2one(
         'department.department',
+        related='sale_installment_id.department',
         store=True,
         readonly=True,
     )
 
     student = fields.Many2one(
         'level.level',
+        related='sale_installment_id.student',
         store=True,
         readonly=True,
     )
 
     year = fields.Many2one(
         'year.year',
+        related='sale_installment_id.year',
         store=True,
         readonly=True,
     )
