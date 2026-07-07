@@ -17,7 +17,6 @@ class ResPartner(models.Model):
     institute_char = fields.Char("institute")
 
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance")
-    year = fields.Many2one("year.year", string="Year")
     
 
     # @api.model
