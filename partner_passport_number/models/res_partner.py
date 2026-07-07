@@ -1,6 +1,11 @@
 from odoo import models, fields, api
 import re
 
+class TwchtTimet(models.Model):
+    _inherit = 'account.move'
+
+    student_status_in_department = fields.Char(string="حالة الطالب في القسم") 
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
