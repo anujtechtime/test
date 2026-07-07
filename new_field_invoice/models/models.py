@@ -17,6 +17,14 @@ import re
 #         for record in self:
 #             record.value2 = float(record.value) / 100
 
+class ResPartnerInherit(models.Model):
+    _inherit = 'res.partner'
+    
+    year_of_acceptance_1 = fields.Many2one(
+        "techtime_mcc_data.techtime_mcc_data", 
+        string="Year of acceptance"
+    )
+    
 class TwchtTimet(models.Model):
     _inherit = 'account.move'
 
