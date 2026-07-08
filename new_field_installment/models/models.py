@@ -31,7 +31,6 @@ class SaleMembershipInt(models.Model):
     department = fields.Many2one(
         'department.department',
         related='invoice_id.department',
-        store=True,
         readonly=True,
     )
 
