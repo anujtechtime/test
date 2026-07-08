@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','account','techtime_sale','techtime_department'],
+    'depends': ['base','account','techtime_sale','techtime_department','almaqal_student_discount'],
 
     # always loaded
     'data': [
