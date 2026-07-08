@@ -1,6 +1,11 @@
 from odoo import models, fields, api
 import re
 
+class MoveDiv(models.Model):
+    _inherit = "account.move"
+
+    student_status_in_department = fields.Char(" الطالب في القسم")
+    
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
@@ -78,22 +83,4 @@ class ResPartner(models.Model):
                     vals['ID_Unified_Number'] = False
 
         return super(ResPartner, self).write(vals) 
-
-class SaleMembershipInt(models.Model):
-    _inherit = 'sale.installment'
-
-
-    department = fields.Many2one(
-        'department.department',
-        related='sale_installment_id.department',
-        store=True,
-        readonly=True,
-    )
-
-    student = fields.Many2one(
-        'level.level',
-        related='sale_installment_id.student',
-        store=True,
-        readonly=True,
-    )
 
