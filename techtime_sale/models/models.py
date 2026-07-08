@@ -293,7 +293,7 @@ class SaleMembership(models.Model):
         ], string='Status', readonly=True, copy=False, default='draft')
     department = fields.Many2one(
         'department.department',
-        related='invoice_id.department',
+        related='sale_installment_id.department',
         store=True,
         readonly=True,
     )
