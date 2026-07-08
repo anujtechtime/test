@@ -291,12 +291,7 @@ class SaleMembership(models.Model):
         ('paid', 'Paid'),
         ('cancel', 'Cancel'),
         ], string='Status', readonly=True, copy=False, default='draft')
-    department = fields.Many2one(
-        'department.department',
-        related='sale_installment_id.department',
-        store=True,
-        readonly=True,
-    )
+        
 
 
 
