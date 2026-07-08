@@ -22,28 +22,13 @@ class MoveDiv(models.Model):
 #             record.value2 = float(record.value) / 100
 
 
-# class SaleMembershipInt(models.Model):
-#     _inherit = 'sale.installment'
+class SaleMembershipInt(models.Model):
+    _inherit = 'sale.installment'
 
-#     sale_installment_id = fields.Many2one("sale.order", string="Installment")
+    department = fields.Many2one(
+        'department.department',
+        related='invoice_id.department',
+        store=True,
+        readonly=True,
+    )
 
-#     department = fields.Many2one(
-#         'department.department',
-#         related='sale_installment_id.department',
-#         store=True,
-#         readonly=True,
-#     )
-
-#     student = fields.Many2one(
-#         'level.level',
-#         related='sale_installment_id.student',
-#         store=True,
-#         readonly=True,
-#     )
-
-#     year = fields.Many2one(
-#         'year.year',
-#         related='sale_installment_id.year',
-#         store=True,
-#         readonly=True,
-#     )
