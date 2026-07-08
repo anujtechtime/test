@@ -10,7 +10,6 @@ class ResPartner(models.Model):
         store=True
     )
 
-    year = fields.Many2one("year.year", string="Year")
 
     # @api.depends(
     #     'year','college','department','student_type','shift','level',
