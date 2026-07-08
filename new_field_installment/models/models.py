@@ -6,6 +6,9 @@ class MoveDiv(models.Model):
     _inherit = "account.move"
 
     student_status_in_department = fields.Char(" الطالب في القسم")
+    Status = fields.Selection([('status4', 'مؤجل'),('status1','ترقين قيد'),('status2','طالب غير مباشر'),('status3','انسحاب'),('currecnt_student','Current student'),('succeeded','Succeeded'),('failed','Falied'),('transferred_from_us','Transferred From Us'),('graduated','Graduated')], string="Status", store=True, related="partner_id.Status")
+    year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", store=True, related="partner_id.year_of_acceptance_1")
+
 
 # class new_field_installment(models.Model):
 #     _name = 'new_field_installment.new_field_installment'
