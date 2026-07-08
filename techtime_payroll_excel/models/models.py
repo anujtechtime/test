@@ -316,6 +316,8 @@ class techtime_payrollDepartment(models.Model):
 
             worksheet.write(row, 6, 'المبلغ المتبقي', header_bold)
 
+            worksheet.write(row, 7, ' الطالب في القسم', header_bold)
+
             row = 3
             for level in level_data:
                 if level == "leve1":
@@ -433,6 +435,8 @@ class techtime_payrollDepartment(models.Model):
                             worksheet.write(row, 5, status_data, main_cell)
 
                             worksheet.write(row, 6, inv.amount_residual, main_cell)
+
+                            worksheet.write(row, 7, inv.student_status_in_department)
 
                             row = row + 1
                             print("row@@@@@@@@@@@@@@eeeeeeeeee",row)
