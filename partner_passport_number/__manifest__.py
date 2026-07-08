@@ -4,7 +4,7 @@
     'category': 'Contacts',
     'summary': 'Add Passport Number field to Contacts',
     'author': 'ChatGPT',
-    'depends': ['base', 'contacts','account'],
+    'depends': ['base', 'contacts'],
     'data': [
         'views/res_partner_view.xml',
     ],
