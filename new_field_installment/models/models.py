@@ -12,18 +12,22 @@ class MoveDiv(models.Model):
 class SaleInstallment(models.Model):
     _inherit = 'sale.installment'
 
+    # department = fields.Many2one(
+    #     comodel_name='department.department',
+    #     string='Department',
+    #     compute='_compute_department',
+    #     store=True,        # Store for performance
+    #     readonly=True,
+    # )
     department = fields.Many2one(
-        comodel_name='department.department',
+        'department.department',
         string='Department',
-        compute='_compute_department',
-        store=True,        # Store for performance
-        readonly=True,
     )
 
-    @api.depends('invoice_id.department')
-    def _compute_department(self):
-        for record in self:
-            record.department = record.invoice_id.department
+    # @api.depends('invoice_id.department')
+    # def _compute_department(self):
+    #     for record in self:
+    #         record.department = record.invoice_id.department
 
 # class new_field_installment(models.Model):
 #     _name = 'new_field_installment.new_field_installment'
