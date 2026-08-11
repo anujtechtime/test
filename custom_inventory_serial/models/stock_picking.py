@@ -87,6 +87,8 @@ class StockPicking(models.Model):
         StockProductionLot = self.env['stock.production.lot'].sudo()
         processed = False
 
+        _logger.info("Skipping StockProductionLot11111111112222222222222333333333333 %s", StockProductionLot)
+
         for picking in self:
             if not picking._is_internal_transfer_for_serials():
                 _logger.info("Skipping picking11111111111111111111 %s", picking.name)
