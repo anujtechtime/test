@@ -70,7 +70,7 @@ class StockPicking(models.Model):
         serial = sequence.next_by_id()
         return serial
 
-    def _generate_serials_for_picking(self, raise_on_missing_prefix=True):
+    def _generate_serials_for_picking(self):
         """
         Generate serials and assign them directly
         """
@@ -90,37 +90,26 @@ class StockPicking(models.Model):
                 if not destination:
                     continue
 
-                try:
-                    location_prefix = picking._get_location_prefix(destination)
-                    product_prefix = picking._get_product_prefix(product)
-                    picking._validate_prefix(location_prefix, _('Location'))
-                    picking._validate_prefix(product_prefix, _('Product'))
-                except ValidationError as e:
-                    if raise_on_missing_prefix:
-                        raise
+                location_prefix = picking._get_location_prefix(destination)
+                product_prefix = picking._get_product_prefix(product)
+                
+                if not location_prefix or not product_prefix:
+                    _logger.warning('Missing prefix for product %s', product.display_name)
                     continue
 
                 quantity = int(move.product_uom_qty)
                 
-                # If no move lines, create them
+                # If no move lines, create them with lots
                 if not move.move_line_ids:
                     for i in range(quantity):
                         serial = picking._next_serial(destination, product)
                         
-                        # Create or get the lot
-                        lot = StockProductionLot.search([
-                            ('name', '=', serial),
-                            ('product_id', '=', product.id)
-                        ], limit=1)
+                        lot = StockProductionLot.create({
+                            'name': serial,
+                            'product_id': product.id,
+                            'company_id': picking.company_id.id or self.env.company.id,
+                        })
                         
-                        if not lot:
-                            lot = StockProductionLot.create({
-                                'name': serial,
-                                'product_id': product.id,
-                                'company_id': picking.company_id.id or self.env.company.id,
-                            })
-                        
-                        # Create move line with lot assigned directly
                         self.env['stock.move.line'].create({
                             'move_id': move.id,
                             'picking_id': picking.id,
@@ -128,7 +117,7 @@ class StockPicking(models.Model):
                             'product_uom_id': move.product_uom.id,
                             'location_id': move.location_id.id,
                             'location_dest_id': destination.id,
-                            'lot_id': lot.id,  # Assign lot directly during creation
+                            'lot_id': lot.id,
                             'qty_done': 1.0,
                         })
                         processed = True
@@ -137,19 +126,11 @@ class StockPicking(models.Model):
                     for line in move.move_line_ids:
                         if not line.lot_id:
                             serial = picking._next_serial(destination, product)
-                            lot = StockProductionLot.search([
-                                ('name', '=', serial),
-                                ('product_id', '=', product.id)
-                            ], limit=1)
-                            
-                            if not lot:
-                                lot = StockProductionLot.create({
-                                    'name': serial,
-                                    'product_id': product.id,
-                                    'company_id': picking.company_id.id or self.env.company.id,
-                                })
-                            
-                            # Force assign the lot using write (bypasses constraints)
+                            lot = StockProductionLot.create({
+                                'name': serial,
+                                'product_id': product.id,
+                                'company_id': picking.company_id.id or self.env.company.id,
+                            })
                             line.write({
                                 'lot_id': lot.id,
                                 'qty_done': 1.0,
@@ -162,44 +143,21 @@ class StockPicking(models.Model):
         return processed
 
     # ============================================================
-    # OVERRIDE VALIDATE - BYPASS ODOO'S VALIDATION
+    # SIMPLE APPROACH - OVERRIDE VALIDATION ONLY
     # ============================================================
 
     def button_validate(self):
         """
-        Override to bypass Odoo's serial validation
+        Generate serials before validation
         """
+        # Generate serials for all internal transfers
         for picking in self:
             if picking._is_internal_transfer_for_serials():
-                # Generate serials
-                picking._generate_serials_for_picking(raise_on_missing_prefix=True)
-                
-                # Force update to ensure all changes are saved
-                picking.env.cr.flush()
-                
-                # Manually validate each move line to ensure they have lots
-                for move in picking.move_ids_without_package:
-                    if move.product_id.tracking == 'serial':
-                        for line in move.move_line_ids:
-                            if not line.lot_id:
-                                # If still no lot, create a default one
-                                default_serial = picking._next_serial(
-                                    move.location_dest_id or picking.location_dest_id,
-                                    move.product_id
-                                )
-                                lot = self.env['stock.production.lot'].sudo().create({
-                                    'name': default_serial,
-                                    'product_id': move.product_id.id,
-                                    'company_id': picking.company_id.id or self.env.company.id,
-                                })
-                                line.write({
-                                    'lot_id': lot.id,
-                                    'qty_done': 1.0,
-                                })
-
-        # Call original validation but with our serials already assigned
+                picking._generate_serials_for_picking()
+        
+        # Now proceed with normal validation
         return super(StockPicking, self).button_validate()
 
     def action_generate_serial_prefix(self):
         self.ensure_one()
-        return self._generate_serials_for_picking(raise_on_missing_prefix=True)
+        return self._generate_serials_for_picking()
