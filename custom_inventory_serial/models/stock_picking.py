@@ -255,6 +255,7 @@ class StockPicking(models.Model):
             raise UserError(_(
                 'Transfer "%s" does not contain any serial-tracked products.'
             ) % self.name)
+
         
         result = self._generate_serials_for_moves()
         
