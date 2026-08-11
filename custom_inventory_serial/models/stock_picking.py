@@ -16,113 +16,73 @@ class StockPicking(models.Model):
         string='Serial Prefix Generated',
         copy=False,
         readonly=True,
-        help='Technical flag indicating that serial numbers '
-             'have been generated for this transfer.'
     )
 
-    # ============================================================
-    # CHECK INTERNAL TRANSFER
-    # ============================================================
+    # ---------------------------------------------------------
+    # INTERNAL TRANSFER CHECK
+    # ---------------------------------------------------------
 
     def _is_internal_transfer_for_serials(self):
         self.ensure_one()
         return self.picking_type_id.code == 'internal'
 
-    # ============================================================
-    # GET LOCATION PREFIX
-    # ============================================================
+    # ---------------------------------------------------------
+    # LOCATION PREFIX
+    # ---------------------------------------------------------
 
     def _get_location_prefix(self, location):
-        """
-        Get the serial prefix from destination location.
-
-        Example:
-            Building = N
-            Floor = F
-            Hall = 5
-
-            Location Prefix = NF5
-        """
 
         if not location:
             return ''
 
-        # Your custom location module has get_serial_prefix()
         prefix = location.get_serial_prefix()
 
-        if not prefix:
-            return ''
+        return (prefix or '').strip()
 
-        return prefix.strip()
-
-    # ============================================================
-    # GET PRODUCT PREFIX
-    # ============================================================
+    # ---------------------------------------------------------
+    # PRODUCT PREFIX
+    # ---------------------------------------------------------
 
     def _get_product_prefix(self, product):
-        """
-        Get product prefix.
 
-        Example:
-            Product Prefix = x
-        """
+        prefix = product.product_tmpl_id.prefix_code
 
-        if not product:
-            return ''
+        return (prefix or '').strip()
 
-        prefix = product.product_tmpl_id.prefix_code or ''
-
-        return prefix.strip()
-
-    # ============================================================
-    # VALIDATE PREFIX
-    # ============================================================
+    # ---------------------------------------------------------
+    # PREFIX VALIDATION
+    # ---------------------------------------------------------
 
     def _validate_prefix(self, prefix, label):
 
         if not prefix:
+
             raise ValidationError(
-                _(
-                    '%s prefix code is required before '
-                    'generating a serial number.'
-                ) % label
+                _('%s prefix code is required.') % label
             )
 
-        if not re.match(
-            r'^[A-Za-z0-9_-]+$',
-            prefix
-        ):
+        if not re.match(r'^[A-Za-z0-9_-]+$', prefix):
+
             raise ValidationError(
                 _(
-                    '%s prefix "%s" contains unsupported '
-                    'characters. Use only letters, numbers, '
-                    'underscore or hyphen.'
-                ) % (
-                    label,
-                    prefix
-                )
+                    '%s prefix "%s" contains unsupported characters. '
+                    'Use only letters, numbers, underscore or hyphen.'
+                ) % (label, prefix)
             )
 
-    # ============================================================
+    # ---------------------------------------------------------
     # GET / CREATE SEQUENCE
-    # ============================================================
+    # ---------------------------------------------------------
 
     @api.model
     def _get_serial_sequence(self, prefix):
 
-        Sequence = self.env[
-            'ir.sequence'
-        ].sudo()
+        Sequence = self.env['ir.sequence'].sudo()
 
-        code = (
-            'custom_inventory_serial.%s'
-            % prefix
-        )
+        code = 'custom_inventory_serial.%s' % prefix
 
         sequence = Sequence.search(
-            [
-                ('code', '=', code)
-            ],
+            [('code', '=', code)],
             limit=1
         )
 
@@ -140,20 +100,16 @@ class StockPicking(models.Model):
 
         return sequence
 
-    # ============================================================
+    # ---------------------------------------------------------
     # GENERATE NEXT SERIAL
-    # ============================================================
+    # ---------------------------------------------------------
 
     @api.model
     def _next_serial(self, location, product):
 
-        location_prefix = self._get_location_prefix(
-            location
-        )
+        location_prefix = self._get_location_prefix(location)
 
-        product_prefix = self._get_product_prefix(
-            product
-        )
+        product_prefix = self._get_product_prefix(product)
 
         self._validate_prefix(
             location_prefix,
@@ -165,12 +121,16 @@ class StockPicking(models.Model):
             _('Product')
         )
 
-        full_prefix = (
-            '%s%s'
-            % (
-                location_prefix,
-                product_prefix
-            )
+        full_prefix = '%s%s' % (
+            location_prefix,
+            product_prefix
+        )
+
+        _logger.info(
+            "SERIAL PREFIX => Location=%s Product=%s Full=%s",
+            location_prefix,
+            product_prefix,
+            full_prefix
         )
 
         sequence = self._get_serial_sequence(
@@ -179,357 +139,268 @@ class StockPicking(models.Model):
 
         serial = sequence.next_by_id()
 
+        _logger.info(
+            "GENERATED SERIAL => %s",
+            serial
+        )
+
         return serial
 
-    # ============================================================
-    # MAIN SERIAL GENERATION METHOD
-    # ============================================================
+    # =========================================================
+    # MAIN SERIAL GENERATOR
+    # =========================================================
 
     def _generate_serials_for_picking(
         self,
         raise_on_missing_prefix=True
     ):
-        """
-        Generate serial numbers for internal transfers.
 
-        Example:
-
-            Destination:
-                Building = N
-                Floor    = F
-                Hall     = 5
-                Prefix   = NF5
-
-            Product:
-                Prefix   = x
-
-            Generated:
-                NF5x0001
-                NF5x0002
-                NF5x0003
-
-        Important:
-            - Only internal transfers are processed.
-            - Only serial-tracked products are processed.
-            - Existing lot/serial numbers are never overwritten.
-            - One serial is generated for each unit.
-        """
-
-        StockProductionLot = self.env[
-            'stock.production.lot'
-        ].sudo()
+        _logger.info(
+            "================================================="
+        )
+        _logger.info(
+            "SERIAL GENERATION START"
+        )
+        _logger.info(
+            "================================================="
+        )
 
         processed = False
 
-        _logger = __import__(
-            'logging'
-        ).getLogger(__name__)
+        Lot = self.env[
+            'stock.production.lot'
+        ].sudo()
 
-        _logger.info(
-            '========== SERIAL GENERATION START =========='
-        )
+        MoveLine = self.env[
+            'stock.move.line'
+        ]
 
         for picking in self:
 
             _logger.info(
-                'Processing Picking: %s | ID: %s',
+                "PICKING: %s | ID: %s | STATE: %s",
                 picking.name,
-                picking.id
-            )
-
-            _logger.info(
-                'Picking State: %s',
+                picking.id,
                 picking.state
             )
 
-            _logger.info(
-                'Picking Type: %s',
-                picking.picking_type_id.name
-            )
+            # -------------------------------------------------
+            # CHECK INTERNAL TRANSFER
+            # -------------------------------------------------
 
-            _logger.info(
-                'Picking Type Code: %s',
-                picking.picking_type_id.code
-            )
+            if picking.picking_type_id.code != 'internal':
 
-            # ----------------------------------------------------
-            # INTERNAL TRANSFER CHECK
-            # ----------------------------------------------------
-
-            if not picking._is_internal_transfer_for_serials():
-
-                _logger.info(
-                    'Skipping %s because it is not an '
-                    'internal transfer.',
+                _logger.warning(
+                    "NOT INTERNAL TRANSFER: %s",
                     picking.name
                 )
 
                 continue
 
-            # ----------------------------------------------------
+            # -------------------------------------------------
             # IMPORTANT:
-            # USE MOVE IDS WITHOUT PACKAGE
-            # ----------------------------------------------------
+            # TRANSFER MUST HAVE MOVES
+            # -------------------------------------------------
 
-            moves = picking.move_ids_without_package
+            moves = picking.move_lines
 
             _logger.info(
-                'Move IDs: %s',
+                "MOVE IDS: %s",
                 moves.ids
             )
 
             _logger.info(
-                'Total Moves: %s',
+                "NUMBER OF MOVES: %s",
                 len(moves)
             )
 
-            # ----------------------------------------------------
-            # FALLBACK:
-            # DIRECT SEARCH IN STOCK.MOVE
-            # ----------------------------------------------------
-
             if not moves:
 
-                moves = self.env[
-                    'stock.move'
-                ].search(
-                    [
-                        ('picking_id', '=', picking.id)
-                    ]
+                raise ValidationError(
+                    _(
+                        'No stock moves exist on transfer "%s". '
+                        'Please add a product and confirm the transfer '
+                        'before generating serial numbers.'
+                    ) % picking.name
                 )
 
-                _logger.info(
-                    'Fallback stock.move search IDs: %s',
-                    moves.ids
-                )
-
-            # ----------------------------------------------------
-            # STILL NO MOVES
-            # ----------------------------------------------------
-
-            if not moves:
-
-                _logger.warning(
-                    'NO STOCK MOVES FOUND FOR PICKING %s',
-                    picking.name
-                )
-
-                continue
-
-            # ====================================================
+            # -------------------------------------------------
             # PROCESS EACH MOVE
-            # ====================================================
+            # -------------------------------------------------
 
             for move in moves:
 
                 product = move.product_id
 
                 _logger.info(
-                    '--------------------------------------------'
+                    "---------------------------------------------"
                 )
 
                 _logger.info(
-                    'Processing Move ID: %s',
+                    "MOVE ID: %s",
                     move.id
                 )
 
                 _logger.info(
-                    'Product: %s',
+                    "PRODUCT: %s",
                     product.display_name
                 )
 
                 _logger.info(
-                    'Product ID: %s',
+                    "PRODUCT ID: %s",
                     product.id
                 )
 
                 _logger.info(
-                    'Product Tracking: %s',
+                    "TRACKING: %s",
                     product.tracking
                 )
 
                 _logger.info(
-                    'Product Prefix: %s',
+                    "PRODUCT PREFIX: %s",
                     product.product_tmpl_id.prefix_code
                 )
 
                 _logger.info(
-                    'Demand Quantity: %s',
+                    "SOURCE: %s",
+                    move.location_id.complete_name
+                )
+
+                _logger.info(
+                    "DESTINATION: %s",
+                    move.location_dest_id.complete_name
+                )
+
+                _logger.info(
+                    "DEMAND QTY: %s",
                     move.product_uom_qty
                 )
 
                 _logger.info(
-                    'Source Location: %s',
-                    move.location_id.display_name
+                    "RESERVED QTY: %s",
+                    move.reserved_availability
                 )
 
                 _logger.info(
-                    'Destination Location: %s',
-                    move.location_dest_id.display_name
+                    "DONE QTY: %s",
+                    move.quantity_done
                 )
 
-                # ------------------------------------------------
-                # PRODUCT CHECK
-                # ------------------------------------------------
-
-                if not product:
-
-                    _logger.warning(
-                        'Skipping move %s because product '
-                        'is missing.',
-                        move.id
-                    )
-
-                    continue
-
-                # ------------------------------------------------
-                # TRACKING CHECK
-                # ------------------------------------------------
+                # -------------------------------------------------
+                # PRODUCT MUST BE SERIAL TRACKED
+                # -------------------------------------------------
 
                 if product.tracking != 'serial':
 
-                    _logger.warning(
-                        'Skipping product %s because tracking '
-                        'is "%s", not "serial".',
-                        product.display_name,
-                        product.tracking
+                    raise ValidationError(
+                        _(
+                            'Product "%s" is not configured for '
+                            'Unique Serial Number tracking.'
+                        ) % product.display_name
                     )
 
-                    continue
-
-                # ------------------------------------------------
+                # -------------------------------------------------
                 # DESTINATION
-                # ------------------------------------------------
+                # -------------------------------------------------
 
-                destination = (
-                    move.location_dest_id
-                    or picking.location_dest_id
-                )
+                destination = move.location_dest_id
 
                 if not destination:
 
                     raise ValidationError(
                         _(
-                            'Destination location is missing '
-                            'for product "%s".'
+                            'Destination location is missing for '
+                            'product "%s".'
                         ) % product.display_name
                     )
 
-                _logger.info(
-                    'Destination Location ID: %s',
-                    destination.id
-                )
-
-                _logger.info(
-                    'Destination Location Name: %s',
-                    destination.display_name
-                )
-
-                # ------------------------------------------------
+                # -------------------------------------------------
                 # LOCATION PREFIX
-                # ------------------------------------------------
+                # -------------------------------------------------
 
                 location_prefix = (
-                    picking._get_location_prefix(
+                    self._get_location_prefix(
                         destination
                     )
                 )
 
                 _logger.info(
-                    'Location Prefix: %s',
+                    "LOCATION PREFIX: %s",
                     location_prefix
                 )
 
-                # ------------------------------------------------
+                # -------------------------------------------------
                 # PRODUCT PREFIX
-                # ------------------------------------------------
+                # -------------------------------------------------
 
                 product_prefix = (
-                    picking._get_product_prefix(
+                    self._get_product_prefix(
                         product
                     )
                 )
 
                 _logger.info(
-                    'Product Prefix: %s',
+                    "PRODUCT PREFIX: %s",
                     product_prefix
                 )
 
-                # ------------------------------------------------
+                # -------------------------------------------------
                 # VALIDATE PREFIXES
-                # ------------------------------------------------
+                # -------------------------------------------------
 
-                picking._validate_prefix(
+                self._validate_prefix(
                     location_prefix,
                     _('Location')
                 )
 
-                picking._validate_prefix(
+                self._validate_prefix(
                     product_prefix,
                     _('Product')
                 )
 
-                # ------------------------------------------------
+                # -------------------------------------------------
                 # EXISTING MOVE LINES
-                # ------------------------------------------------
+                # -------------------------------------------------
 
-                lines = move.move_line_ids.sorted(
-                    key=lambda line: line.id
-                )
+                move_lines = move.move_line_ids
 
                 _logger.info(
-                    'Existing Move Lines: %s',
-                    lines.ids
+                    "EXISTING MOVE LINE IDS: %s",
+                    move_lines.ids
                 )
 
-                # =================================================
-                # CREATE MOVE LINES IF NONE EXIST
-                # =================================================
+                # -------------------------------------------------
+                # QUANTITY
+                # -------------------------------------------------
 
-                if not lines:
+                demand_qty = int(
+                    move.product_uom_qty
+                )
 
-                    quantity = move.product_uom_qty
+                if demand_qty <= 0:
 
-                    _logger.info(
-                        'No move lines found.'
+                    raise ValidationError(
+                        _(
+                            'Quantity must be greater than zero '
+                            'for product "%s".'
+                        ) % product.display_name
                     )
 
+                # -------------------------------------------------
+                # CREATE MOVE LINES IF NECESSARY
+                # -------------------------------------------------
+
+                if not move_lines:
+
                     _logger.info(
-                        'Creating lines for quantity: %s',
-                        quantity
+                        "NO MOVE LINES FOUND."
                     )
 
-                    if quantity <= 0:
+                    vals_list = []
 
-                        _logger.warning(
-                            'Skipping move %s because quantity '
-                            'is zero.',
-                            move.id
-                        )
+                    for i in range(demand_qty):
 
-                        continue
-
-                    if int(quantity) != quantity:
-
-                        raise ValidationError(
-                            _(
-                                'Serial-tracked product "%s" '
-                                'has a non-integer quantity (%s). '
-                                'Serial tracking requires one '
-                                'serial per unit.'
-                            ) % (
-                                product.display_name,
-                                quantity
-                            )
-                        )
-
-                    vals = []
-
-                    for index in range(
-                        int(quantity)
-                    ):
-
-                        vals.append({
+                        vals_list.append({
                             'picking_id': picking.id,
                             'move_id': move.id,
                             'product_id': product.id,
@@ -539,200 +410,186 @@ class StockPicking(models.Model):
                             'qty_done': 1.0,
                         })
 
-                    lines = self.env[
-                        'stock.move.line'
-                    ].create(vals)
-
-                    _logger.info(
-                        'Created Move Lines: %s',
-                        lines.ids
-                    )
-
-                # =================================================
-                # PROCESS EACH MOVE LINE
-                # =================================================
-
-                for line in lines:
-
-                    _logger.info(
-                        '============================================'
+                    move_lines = MoveLine.create(
+                        vals_list
                     )
 
                     _logger.info(
-                        'Processing Move Line ID: %s',
+                        "CREATED MOVE LINES: %s",
+                        move_lines.ids
+                    )
+
+                # -------------------------------------------------
+                # PROCESS MOVE LINES
+                # -------------------------------------------------
+
+                for line in move_lines:
+
+                    _logger.info(
+                        "============================================="
+                    )
+
+                    _logger.info(
+                        "MOVE LINE ID: %s",
                         line.id
                     )
 
                     _logger.info(
-                        'Qty Done: %s',
-                        line.qty_done
-                    )
-
-                    _logger.info(
-                        'Lot ID: %s',
+                        "LOT ID: %s",
                         line.lot_id.id if line.lot_id else False
                     )
 
                     _logger.info(
-                        'Lot Name: %s',
+                        "LOT NAME: %s",
                         line.lot_name
                     )
 
-                    # ------------------------------------------------
-                    # EXISTING SERIAL
-                    # ------------------------------------------------
+                    _logger.info(
+                        "QTY DONE: %s",
+                        line.qty_done
+                    )
 
-                    if line.lot_id or line.lot_name:
+                    # ---------------------------------------------
+                    # ALREADY HAS SERIAL
+                    # ---------------------------------------------
+
+                    if line.lot_id:
 
                         _logger.info(
-                            'Skipping line %s because serial '
-                            'already exists.',
-                            line.id
+                            "SERIAL ALREADY EXISTS: %s",
+                            line.lot_id.name
                         )
 
                         continue
 
-                    # ------------------------------------------------
-                    # QTY DONE
-                    # ------------------------------------------------
-
-                    if line.qty_done <= 0:
+                    if line.lot_name:
 
                         _logger.info(
-                            'qty_done is 0 for line %s. '
-                            'Setting qty_done to 1 for '
-                            'serial generation.',
-                            line.id
+                            "LOT NAME ALREADY EXISTS: %s",
+                            line.lot_name
                         )
 
-                        line.write({
-                            'qty_done': 1.0
-                        })
+                        continue
 
-                    # ------------------------------------------------
+                    # ---------------------------------------------
                     # GENERATE SERIAL
-                    # ------------------------------------------------
+                    # ---------------------------------------------
 
-                    _logger.info(
-                        'Generating serial for:'
+                    serial = self._next_serial(
+                        destination,
+                        product
                     )
 
                     _logger.info(
-                        'Location Prefix = %s',
-                        location_prefix
-                    )
-
-                    _logger.info(
-                        'Product Prefix = %s',
-                        product_prefix
-                    )
-
-                    try:
-
-                        serial = picking._next_serial(
-                            destination,
-                            product
-                        )
-
-                    except ValidationError:
-
-                        _logger.exception(
-                            'Prefix validation failed for '
-                            'move line %s.',
-                            line.id
-                        )
-
-                        if raise_on_missing_prefix:
-                            raise
-
-                        continue
-
-                    _logger.info(
-                        'Generated Serial: %s',
+                        "SERIAL GENERATED: %s",
                         serial
                     )
 
-                    # ------------------------------------------------
-                    # DUPLICATE CHECK
-                    # ------------------------------------------------
+                    # ---------------------------------------------
+                    # CHECK EXISTING LOT
+                    # ---------------------------------------------
 
-                    existing = StockProductionLot.search(
-                        [
-                            ('name', '=', serial),
-                            (
-                                'product_id',
-                                '=',
-                                product.id
-                            ),
-                        ],
-                        limit=1
-                    )
+                    existing_lot = Lot.search([
+                        ('name', '=', serial),
+                        ('product_id', '=', product.id),
+                    ], limit=1)
 
-                    _logger.info(
-                        'Existing Lot Search Result: %s',
-                        existing
-                    )
-
-                    if existing:
+                    if existing_lot:
 
                         raise ValidationError(
                             _(
-                                'Generated serial "%s" '
-                                'already exists for product "%s".'
+                                'Serial "%s" already exists for '
+                                'product "%s".'
                             ) % (
                                 serial,
                                 product.display_name
                             )
                         )
 
-                    # ------------------------------------------------
-                    # ASSIGN SERIAL
-                    # ------------------------------------------------
+                    # ---------------------------------------------
+                    # CREATE ACTUAL LOT/SERIAL RECORD
+                    # ---------------------------------------------
 
-                    _logger.info(
-                        'Assigning serial %s to move line %s',
-                        serial,
-                        line.id
-                    )
-
-                    line.write({
-                        'lot_name': serial
+                    lot = Lot.create({
+                        'name': serial,
+                        'product_id': product.id,
+                        'company_id': (
+                            picking.company_id.id
+                            or self.env.company.id
+                        ),
                     })
 
                     _logger.info(
-                        'SUCCESS: Serial %s assigned to '
-                        'move line %s',
-                        serial,
-                        line.id
+                        "LOT CREATED: ID=%s NAME=%s",
+                        lot.id,
+                        lot.name
+                    )
+
+                    # ---------------------------------------------
+                    # ASSIGN LOT DIRECTLY
+                    # ---------------------------------------------
+
+                    line.write({
+                        'lot_id': lot.id,
+                        'lot_name': serial,
+                        'qty_done': 1.0,
+                    })
+
+                    # ---------------------------------------------
+                    # FORCE CACHE REFRESH
+                    # ---------------------------------------------
+
+                    line.invalidate_cache()
+
+                    _logger.info(
+                        "AFTER WRITE:"
+                    )
+
+                    _logger.info(
+                        "MOVE LINE LOT ID: %s",
+                        line.lot_id.id
+                    )
+
+                    _logger.info(
+                        "MOVE LINE LOT NAME: %s",
+                        line.lot_id.name
+                    )
+
+                    _logger.info(
+                        "MOVE LINE QTY DONE: %s",
+                        line.qty_done
                     )
 
                     processed = True
 
-        # --------------------------------------------------------
-        # END PICKING LOOP
-        # --------------------------------------------------------
+            # -------------------------------------------------
+            # MARK PICKING
+            # -------------------------------------------------
 
-        # ============================================================
-        # MARK PICKING AS PROCESSED
-        # ============================================================
+            if processed:
 
-        if processed:
-
-            self.write({
-                'serial_prefix_generated': True
-            })
+                picking.write({
+                    'serial_prefix_generated': True
+                })
 
         _logger.info(
-            '========== SERIAL GENERATION END | '
-            'PROCESSED=%s ==========',
+            "================================================="
+        )
+
+        _logger.info(
+            "SERIAL GENERATION END | PROCESSED=%s",
             processed
+        )
+
+        _logger.info(
+            "================================================="
         )
 
         return processed
 
-    # ============================================================
-    # BUTTON / SERVER ACTION
-    # ============================================================
+    # =========================================================
+    # BUTTON
+    # =========================================================
 
     def action_generate_serial_prefix(self):
         self.ensure_one()
@@ -778,15 +635,26 @@ class StockPicking(models.Model):
             raise_on_missing_prefix=True
         )
 
-    # ============================================================
+    # =========================================================
     # VALIDATE
-    # ============================================================
+    # =========================================================
 
     def button_validate(self):
 
-        self._generate_serials_for_picking(
-            raise_on_missing_prefix=True
+        _logger.info(
+            "========== BUTTON VALIDATE =========="
         )
+
+        for picking in self:
+
+            if (
+                picking.picking_type_id.code == 'internal'
+                and picking.state not in ('done', 'cancel')
+            ):
+
+                picking._generate_serials_for_picking(
+                    raise_on_missing_prefix=True
+                )
 
         return super(
             StockPicking,
