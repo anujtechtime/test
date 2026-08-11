@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_excel_import_form" model="ir.ui.view">
+        <field name="name">purchase.order.excel.import.form</field>
+        <field name="model">purchase.order.excel.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Purchase Order Lines">
+                <group>
+                    <field name="purchase_id" readonly="1"/>
+                    <field name="file_data" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_import" string="Import Lines" type="object" class="oe_highlight"/>
+                    <button name="action_download_template" string="Download Template" type="object"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_order_excel_import" model="ir.actions.act_window">
+        <field name="name">Import PO Excel</field>
+        <field name="res_model">purchase.order.excel.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

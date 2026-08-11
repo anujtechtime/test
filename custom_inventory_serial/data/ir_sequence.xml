@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_custom_inventory_serial_fallback" model="ir.sequence">
+        <field name="name">Custom Inventory Serial Fallback</field>
+        <field name="code">custom_inventory_serial.fallback</field>
+        <field name="implementation">no_gap</field>
+        <field name="prefix">SER</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+    </record>
+</odoo>
