@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_prefix" model="ir.ui.view">
+        <field name="name">stock.picking.form.prefix.serial</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_validate']" position="after">
+                <button name="action_generate_serials_from_destination"
+                        type="object"
+                        string="Generate Prefix Serials"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '!=', 'done')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

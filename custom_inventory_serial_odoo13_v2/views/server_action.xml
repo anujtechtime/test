@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="server_action_generate_prefix_serials" model="ir.actions.server">
+        <field name="name">Generate Prefix Serials</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">records.action_generate_serials_from_destination()</field>
+    </record>
+</odoo>
