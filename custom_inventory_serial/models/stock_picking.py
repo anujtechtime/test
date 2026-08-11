@@ -3,6 +3,8 @@ import re
 
 from odoo import models, api, fields, _
 from odoo.exceptions import UserError, ValidationError
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class StockPicking(models.Model):
@@ -87,6 +89,7 @@ class StockPicking(models.Model):
 
         for picking in self:
             if not picking._is_internal_transfer_for_serials():
+                _logger.info("Skipping picking11111111111111111111 %s", picking.name)
                 continue
 
             # Only outgoing move lines from the source to the destination location
@@ -97,6 +100,7 @@ class StockPicking(models.Model):
 
                 # If there are no move lines yet, create enough lines for the
                 # planned quantity. Odoo normally creates these during reservation.
+                _logger.info("move.product_uom_qty 22222222222222222%s", move.product_uom_qty)
                 if not lines and move.product_uom_qty:
                     qty = int(move.product_uom_qty)
                     if qty != move.product_uom_qty:
@@ -116,12 +120,15 @@ class StockPicking(models.Model):
                             'qty_done': 1.0,
                         })
                     lines = self.env['stock.move.line'].create(vals)
+                    _logger.info("lines 3333333333333333333%s", lines)
 
                 for line in lines:
                     # Ignore already identified serials.
                     if line.lot_id or line.lot_name:
+                        _logger.info("Skipping line %s because it already has a lot/serial assigned.4444444444444444", line.id)
                         continue
                     if line.qty_done <= 0 and not picking._context.get('generate_for_planned_qty'):
+                        _logger.info("Skipping line %s because qty_done is 0 and generate_for_planned_qty is not set.5555555555555555", line.id)
                         continue
 
                     try:
@@ -135,6 +142,7 @@ class StockPicking(models.Model):
                         ('name', '=', serial),
                         ('product_id', '=', line.product_id.id),
                     ], limit=1)
+                    _logger.info("existing 66666666666666666%s", existing)
                     if existing:
                         # This should be extremely unlikely because the sequence is
                         # independent per prefix, but never duplicate a lot.
@@ -145,6 +153,7 @@ class StockPicking(models.Model):
                     # Odoo 13's stock.move.line supports lot_name for entering a
                     # new lot/serial during transfer validation.
                     line.write({'lot_name': serial})
+                    _logger.info("line.write 77777777777777777%s", serial)
                     processed = True
 
         if processed:
