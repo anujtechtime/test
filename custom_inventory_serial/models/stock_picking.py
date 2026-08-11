@@ -262,32 +262,8 @@ class StockPicking(models.Model):
 
             if not moves:
 
-                moves = self.env[
-                    'stock.move'
-                ].search([
-                    ('picking_id', '=', picking.id)
-                ])
+                self.action_done()
 
-            _logger.info(
-                'Move IDs: %s',
-                moves.ids
-            )
-
-            if not moves:
-
-                _logger.warning(
-                    'NO STOCK MOVES FOUND FOR PICKING %s',
-                    picking.name
-                )
-
-                if raise_on_missing_prefix:
-                    raise ValidationError(_(
-                        'No stock moves exist on transfer "%s". '
-                        'Please add a product and confirm the transfer '
-                        'before generating serial numbers.'
-                    ) % picking.name)
-
-                continue
 
             # ==========================================================
             # 3. PROCESS EACH MOVE
