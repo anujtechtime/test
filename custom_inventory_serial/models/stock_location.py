@@ -13,7 +13,7 @@ class StockLocation(models.Model):
              'configured prefixes in the parent location path.',
     )
 
-    @api.multi
+    
     def get_serial_prefix(self):
         """Return the concatenated prefix for the complete location path.
 

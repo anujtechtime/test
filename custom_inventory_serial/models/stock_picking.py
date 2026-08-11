@@ -16,23 +16,23 @@ class StockPicking(models.Model):
              'the custom serial generator.',
     )
 
-    @api.multi
+    
     def _is_internal_transfer_for_serials(self):
         self.ensure_one()
         return self.picking_type_id.code == 'internal'
 
-    @api.multi
+    
     def _get_location_prefix(self, location):
         if not location:
             return ''
         return location.get_serial_prefix()
 
-    @api.multi
+    
     def _get_product_prefix(self, product):
         prefix = product.product_tmpl_id.prefix_code or ''
         return prefix.strip()
 
-    @api.multi
+    
     def _validate_prefix(self, prefix, label):
         if not prefix:
             raise ValidationError(_('%s prefix code is required before generating a serial number.') % label)
@@ -73,7 +73,7 @@ class StockPicking(models.Model):
         sequence = self._get_serial_sequence(full_prefix)
         return sequence.next_by_id()
 
-    @api.multi
+    
     def _generate_serials_for_picking(self, raise_on_missing_prefix=True):
         """Generate and assign missing serials to done/reserved move lines.
 
@@ -151,7 +151,7 @@ class StockPicking(models.Model):
             self.write({'serial_prefix_generated': True})
         return processed
 
-    @api.multi
+    
     def button_validate(self):
         # Generate missing serials before standard validation. This is required
         # for serial-tracked products because Odoo 13 may reject validation if a
@@ -159,7 +159,7 @@ class StockPicking(models.Model):
         self._generate_serials_for_picking(raise_on_missing_prefix=True)
         return super(StockPicking, self).button_validate()
 
-    @api.multi
+    
     def action_generate_serial_prefix(self):
         """Server-action friendly method.
 

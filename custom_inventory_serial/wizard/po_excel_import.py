@@ -22,7 +22,7 @@ class PurchaseOrderExcelImport(models.TransientModel):
     file_data = fields.Binary(string='Excel File', required=True)
     file_name = fields.Char(string='File Name')
 
-    @api.multi
+    
     def action_import(self):
         self.ensure_one()
         if openpyxl is None:
@@ -163,7 +163,7 @@ class PurchaseOrderExcelImport(models.TransientModel):
         workbook.close()
         return {'type': 'ir.actions.act_window_close'}
 
-    @api.multi
+    
     def action_download_template(self):
         self.ensure_one()
         if openpyxl is None:
