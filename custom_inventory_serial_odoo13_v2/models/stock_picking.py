@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, api
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -30,28 +33,38 @@ class StockPicking(models.Model):
         return '%s%04d' % (prefix, last_number + 1)
 
     def action_generate_serials_from_destination(self):
-        Lot = self.env['stock.production.lot']
-        for picking in self:
-            if picking.state != 'done':
-                continue
-            for move_line in picking.move_line_ids:
-                product = move_line.product_id
-                if product.tracking != 'serial':
+            Lot = self.env['stock.production.lot']
+            _logger.info("LOT11111111111111111111111 %s" % Lot)
+            for picking in self:
+                _logger.info("Processing picking: %s" % picking)
+                if picking.state != 'done':
+                    _logger.info("Picking is not done: %s" % picking)
                     continue
-                if move_line.lot_id:
-                    continue
-                location = move_line.location_dest_id
-                prefix = self._get_serial_prefix(location, product)
-                if not prefix:
-                    continue
-                serial_name = self._next_serial_name(prefix)
-                lot = Lot.create({
-                    'name': serial_name,
-                    'product_id': product.id,
-                    'company_id': picking.company_id.id,
-                })
-                move_line.lot_id = lot.id
-        return True
+                for move_line in picking.move_line_ids:
+                    _logger.info("Processing move line: %s" % move_line)
+                    product = move_line.product_id
+                    if product.tracking != 'serial':
+                        _logger.info("Product is not tracked by serial: %s" % product.tracking)
+                        continue
+                    if move_line.lot_id:
+                        _logger.info("Move line already has a lot: %s" % move_line.lot_id)
+                        continue
+                    location = move_line.location_dest_id
+                    prefix = self._get_serial_prefix(location, product)
+                    _logger.info("Generated prefix: %s" % prefix)
+                    if not prefix:
+                        continue
+                    serial_name = self._next_serial_name(prefix)
+                    _logger.info("Generated serial name: %s" % serial_name)
+                    lot = Lot.create({
+                        'name': serial_name,
+                        'product_id': product.id,
+                        'company_id': picking.company_id.id,
+                    })
+                    _logger.info("Generated lotwwwwwwwwwwww: %s" % lot)
+                    move_line.lot_id = lot.id
+            return True
+    
 
     def button_validate(self):
         result = super(StockPicking, self).button_validate()
