@@ -181,6 +181,22 @@ class StockPicking(models.Model):
 
         return serial
 
+
+    def _prepare_stock_move_vals(self, line, picking):
+        return {
+            'name': _('New Move:') + line.product_id.display_name,
+            'product_id': line.product_id.id,
+            'product_uom_qty': line.qty_done,
+            'product_uom': line.product_uom_id.id,
+            'description_picking': line.description_picking,
+            'location_id': picking.location_id.id,
+            'location_dest_id': picking.location_dest_id.id,
+            'picking_id': picking.id,
+            'picking_type_id': picking.picking_type_id.id,
+            'restrict_partner_id': picking.owner_id.id,
+            'company_id': picking.company_id.id,
+        }
+
     # ============================================================
     # MAIN SERIAL GENERATION METHOD
     # ============================================================
