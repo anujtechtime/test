@@ -262,7 +262,15 @@ class StockPicking(models.Model):
 
             if not moves:
 
-                self.action_done()
+                # self.action_done()
+                for ops in picking.move_line_ids.filtered(lambda x: not x.move_id):
+                    # Search move with this product
+                    moves = picking.move_lines.filtered(lambda x: x.product_id == ops.product_id)
+                    moves = sorted(moves, key=lambda m: m.quantity_done < m.product_qty, reverse=True)
+                    if moves:
+                        ops.move_id = moves[0].id
+                    else:
+                        new_move = self.env['stock.move'].create(self._prepare_stock_move_vals(ops, picking))
 
 
             # ==========================================================
