@@ -237,7 +237,6 @@ class StockPicking(models.Model):
     # ============================================================
     # MAIN SERIAL GENERATION METHOD - UPDATED
     # ============================================================
-
     def _generate_serials_for_picking(
         self,
         raise_on_missing_prefix=True
@@ -266,6 +265,7 @@ class StockPicking(models.Model):
             - Only serial-tracked products are processed.
             - Existing lot/serial numbers are never overwritten.
             - One serial is generated for each unit.
+            - Preserves existing qty_done values on move lines.
         """
 
         StockProductionLot = self.env[
@@ -630,7 +630,7 @@ class StockPicking(models.Model):
                             'product_uom_id': move.product_uom.id,
                             'location_id': move.location_id.id,
                             'location_dest_id': destination.id,
-                            'qty_done': 1.0,
+                            'qty_done': 1.0,  # New lines get qty_done = 1
                         })
 
                     lines = self.env[
@@ -687,24 +687,43 @@ class StockPicking(models.Model):
                         continue
 
                     # ------------------------------------------------
-                    # QTY DONE
+                    # VALIDATE QTY DONE - PRESERVE EXISTING VALUES
                     # ------------------------------------------------
-
+                    
+                    # Check if qty_done is valid
                     if line.qty_done <= 0:
-
+                        _logger.warning(
+                            'Move line %s has qty_done = %s. '
+                            'Skipping serial generation because quantity must be > 0.',
+                            line.id,
+                            line.qty_done
+                        )
+                        continue
+                    
+                    # For serial-tracked products, each serial represents 1 unit
+                    # But we should NOT overwrite the existing qty_done
+                    # If qty_done > 1, we need to create multiple serials
+                    
+                    quantity_to_process = int(line.qty_done)
+                    
+                    if quantity_to_process > 1:
                         _logger.info(
-                            'qty_done is 0 for line %s. '
-                            'Setting qty_done to 1 for '
-                            'serial generation.',
-                            line.id
+                            'Move line %s has qty_done = %s. '
+                            'Generating %s serial numbers.',
+                            line.id,
+                            line.qty_done,
+                            quantity_to_process
+                        )
+                    else:
+                        _logger.info(
+                            'Move line %s has qty_done = %s. '
+                            'Generating 1 serial number.',
+                            line.id,
+                            line.qty_done
                         )
 
-                        line.write({
-                            'qty_done': 1.0
-                        })
-
                     # ------------------------------------------------
-                    # GENERATE SERIAL
+                    # GENERATE SERIAL(S)
                     # ------------------------------------------------
 
                     _logger.info(
@@ -721,109 +740,144 @@ class StockPicking(models.Model):
                         product_prefix
                     )
 
-                    try:
+                    # Track generated serials for this line
+                    generated_serials = []
+                    
+                    # Generate one serial for each unit
+                    for serial_index in range(quantity_to_process):
+                        
+                        try:
 
-                        serial = picking._next_serial(
-                            destination,
-                            product
-                        )
-
-                    except ValidationError:
-
-                        _logger.exception(
-                            'Prefix validation failed for '
-                            'move line %s.',
-                            line.id
-                        )
-
-                        if raise_on_missing_prefix:
-                            raise
-
-                        continue
-
-                    _logger.info(
-                        'Generated Serial: %s',
-                        serial
-                    )
-
-                    # ------------------------------------------------
-                    # DUPLICATE CHECK
-                    # ------------------------------------------------
-
-                    existing = StockProductionLot.search(
-                        [
-                            ('name', '=', serial),
-                            (
-                                'product_id',
-                                '=',
-                                product.id
-                            ),
-                        ],
-                        limit=1
-                    )
-
-                    _logger.info(
-                        'Existing Lot Search Result: %s',
-                        existing
-                    )
-
-                    if existing:
-
-                        raise ValidationError(
-                            _(
-                                'Generated serial "%s" '
-                                'already exists for product "%s".'
-                            ) % (
-                                serial,
-                                product.display_name
+                            serial = picking._next_serial(
+                                destination,
+                                product
                             )
-                        )
 
-                    # ------------------------------------------------
-                    # CREATE LOT AND ASSIGN SERIAL
-                    # ------------------------------------------------
+                        except ValidationError:
 
-                    _logger.info(
-                        'Creating lot and assigning serial %s to move line %s',
-                        serial,
-                        line.id
-                    )
+                            _logger.exception(
+                                'Prefix validation failed for '
+                                'move line %s.',
+                                line.id
+                            )
 
-                    try:
-                        # Create the lot/serial record
-                        lot = StockProductionLot.create({
-                            'name': serial,
-                            'product_id': product.id,
-                            'company_id': picking.company_id.id or self.env.company.id,
-                        })
+                            if raise_on_missing_prefix:
+                                raise
 
-                        # Assign the lot to the move line
-                        line.write({
-                            'lot_id': lot.id,  # Use lot_id instead of lot_name
-                            'qty_done': 1.0,
-                        })
+                            continue
 
                         _logger.info(
-                            'SUCCESS: Serial %s assigned to move line %s',
+                            'Generated Serial: %s',
+                            serial
+                        )
+
+                        # ------------------------------------------------
+                        # DUPLICATE CHECK
+                        # ------------------------------------------------
+
+                        existing = StockProductionLot.search(
+                            [
+                                ('name', '=', serial),
+                                (
+                                    'product_id',
+                                    '=',
+                                    product.id
+                                ),
+                            ],
+                            limit=1
+                        )
+
+                        _logger.info(
+                            'Existing Lot Search Result: %s',
+                            existing
+                        )
+
+                        if existing:
+
+                            raise ValidationError(
+                                _(
+                                    'Generated serial "%s" '
+                                    'already exists for product "%s".'
+                                ) % (
+                                    serial,
+                                    product.display_name
+                                )
+                            )
+
+                        # ------------------------------------------------
+                        # CREATE LOT AND ASSIGN SERIAL
+                        # ------------------------------------------------
+
+                        _logger.info(
+                            'Creating lot and assigning serial %s to move line %s',
                             serial,
                             line.id
                         )
 
-                        processed = True
+                        try:
+                            # Create the lot/serial record
+                            lot = StockProductionLot.create({
+                                'name': serial,
+                                'product_id': product.id,
+                                'company_id': picking.company_id.id or self.env.company.id,
+                            })
 
-                    except Exception as e:
-                        _logger.error(
-                            'Failed to create/assign serial %s: %s',
-                            serial,
-                            str(e)
-                        )
-                        raise ValidationError(
-                            _('Failed to assign serial number: %s') % str(e)
+                            # For the first serial, assign to the existing line
+                            if serial_index == 0:
+                                # Assign the lot to the move line
+                                line.write({
+                                    'lot_id': lot.id,  # Use lot_id instead of lot_name
+                                    'qty_done': 1.0,  # Keep qty_done as 1 for serial-tracked product
+                                })
+                                _logger.info(
+                                    'SUCCESS: Serial %s assigned to move line %s',
+                                    serial,
+                                    line.id
+                                )
+                            else:
+                                # For additional serials, create new move lines
+                                new_line_vals = {
+                                    'picking_id': picking.id,
+                                    'move_id': move.id,
+                                    'product_id': product.id,
+                                    'product_uom_id': move.product_uom.id,
+                                    'location_id': move.location_id.id,
+                                    'location_dest_id': destination.id,
+                                    'lot_id': lot.id,
+                                    'qty_done': 1.0,
+                                }
+                                new_line = self.env['stock.move.line'].create(new_line_vals)
+                                _logger.info(
+                                    'SUCCESS: Serial %s assigned to new move line %s',
+                                    serial,
+                                    new_line.id
+                                )
+
+                            generated_serials.append(serial)
+                            processed = True
+
+                        except Exception as e:
+                            _logger.error(
+                                'Failed to create/assign serial %s: %s',
+                                serial,
+                                str(e)
+                            )
+                            raise ValidationError(
+                                _('Failed to assign serial number: %s') % str(e)
+                            )
+
+                    # After processing all serials for this line
+                    if generated_serials:
+                        _logger.info(
+                            'Successfully generated %s serials for move line %s: %s',
+                            len(generated_serials),
+                            line.id,
+                            ', '.join(generated_serials)
                         )
 
-        # --------------------------------------------------------
-        # END PICKING LOOP
-        # --------------------------------------------------------
+            # --------------------------------------------------------
+            # END PICKING LOOP
+            # --------------------------------------------------------
 
         # ============================================================
         # MARK PICKING AS PROCESSED
@@ -842,7 +896,6 @@ class StockPicking(models.Model):
         )
 
         return processed
-
     # ============================================================
     # BUTTON / SERVER ACTION
     # ============================================================
