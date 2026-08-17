@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
-import re
 
 
+from odoo import models, fields
+
+
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    payment_type_name = fields.Selection(
+        [
+            ('1', 'كاش'),
+            ('2', 'دفع الكتروني'),
+        ],
+        string='نوع الدفع',
+    )
 # class new_field_invoice(models.Model):
 #     _name = 'new_field_invoice.new_field_invoice'
 #     _description = 'new_field_invoice.new_field_invoice'
