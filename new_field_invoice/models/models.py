@@ -24,13 +24,13 @@ class TwchtTimet(models.Model):
     year_of_acceptance_1 = fields.Many2one("techtime_mcc_data.techtime_mcc_data", string="Year of acceptance", store=True, related="partner_id.year_of_acceptance_1")
 
 
-class AccountPayment(models.Model):
-    _inherit = 'account.payment'
+# class AccountPayment(models.Model):
+#     _inherit = 'account.payment'
 
-    payment_type_name = fields.Selection(
-        [
-            ('1', 'كاش'),
-            ('2', 'دفع الكتروني'),
-        ],
-        string='نوع الدفع',
-    )
+#     payment_type_name = fields.Selection(
+#         [
+#             ('1', 'كاش'),
+#             ('2', 'دفع الكتروني'),
+#         ],
+#         string='نوع الدفع',
+#     )
