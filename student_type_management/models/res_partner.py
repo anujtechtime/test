@@ -274,7 +274,7 @@ class SaleOrder(models.Model):
                 continue
             
             # Check if student type is general
-            if student_type.name in general_types:
+            if student_type.Student in general_types:
                 order.student_type_validation_status = 'general'
                 order.student_type_validation_warning = False
                 continue
@@ -290,7 +290,7 @@ class SaleOrder(models.Model):
                     "الرجاء رفع الكتاب الرسمي لتأكيد نوع الطالب\n\n"
                     "⚠️ Official letter is not attached for student type: %s\n"
                     "Please upload the official letter to confirm student type"
-                ) % (student_type.name, student_type.name)
+                ) % (student_type.Student, student_type.Student)
 
     @api.onchange('partner_id')
     def _onchange_partner_id_validation(self):
