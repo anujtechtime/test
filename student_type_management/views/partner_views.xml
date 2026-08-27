@@ -100,25 +100,4 @@
     <!-- Add search filters -->
     
 
-    <!-- Kanban view for partners -->
-    <record id="view_partner_kanban_inherit" model="ir.ui.view">
-        <field name="name">res.partner.kanban.inherit.student.type</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_kanban"/>
-        <field name="arch" type="xml">
-            <xpath expr="//div[@class='oe_kanban_global_click']" position="inside">
-                <field name="student_type_change_pending" invisible="1"/>
-                <div class="oe_kanban_details">
-                    <field name="student_type" readonly="1"/>
-                    <div attrs="{'invisible': [('student_type_change_pending', '!=', True)]}">
-                        <span class="badge badge-warning">
-                            <i class="fa fa-exclamation-triangle"/>
-                            <span>Pending</span>
-                        </span>
-                    </div>
-                </div>
-            </xpath>
-        </field>
-    </record>
-
 </odoo>
