@@ -6,14 +6,15 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <!-- Add student_type field after category_id -->
+            <!-- Declare fields first -->
             <field name="category_id" position="before">
                 <field name="student_type_change_pending" invisible="1"/>
                 <field name="student_type_attachment_filename" invisible="1"/>
                 <field name="student_type_change_date" invisible="1"/>
                 <field name="student_type_changed_by" invisible="1"/>
             </field>
-            
+
+            <!-- Add student_type after category_id -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <group string="Student Information" name="student_group">
                     <group>
@@ -34,12 +35,12 @@
                 </group>
             </xpath>
 
-            <!-- Add attachment field with warning message -->
+            <!-- Add warning message -->
             <xpath expr="//field[@name='category_id']" position="after">
                 <div class="alert alert-info" 
                      style="margin-top: 10px; margin-bottom: 10px;"
                      attrs="{'invisible': [('student_type_change_pending', '!=', True)]}">
-                    <i class="fa fa-info-circle" style="margin-right: 8px;"></i>
+                    <i class="fa fa-info-circle" style="margin-right: 8px;"/>
                     <strong>تنبيه مهم:</strong> 
                     <span style="color: #8a6d3b;">
                         يجب رفع كتاب رسمي (كتاب رسمي) لتأكيد تغيير نوع الطالب.
@@ -60,34 +61,34 @@
                        widget="binary"
                        class="oe_inline"
                        attrs="{'required': [('student_type_change_pending', '=', True)]}"/>
-                <field name="student_type_attachment_filename" invisible="1"/>
             </xpath>
 
-            <!-- Add buttons for managing attachments -->
+            <!-- Add buttons -->
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_request_attachment"
-                        string="Upload Official Letter"
-                        type="object"
-                        class="btn btn-warning"
+                <button name="action_request_attachment" 
+                        string="Upload Official Letter" 
+                        type="object" 
+                        class="btn btn-warning" 
                         attrs="{'invisible': [('student_type_change_pending', '!=', True)]}"/>
-                <button name="action_clear_pending_change"
-                        string="Clear Pending Change"
-                        type="object"
-                        class="btn btn-success"
-                        groups="base.group_system"
+                <button name="action_clear_pending_change" 
+                        string="Clear Pending Change" 
+                        type="object" 
+                        class="btn btn-success" 
+                        groups="base.group_system" 
                         attrs="{'invisible': [('student_type_change_pending', '!=', True)]}"/>
             </xpath>
         </field>
     </record>
 
-    <!-- Add tree view columns -->
+    <!-- Add tree view columns - Fixed version -->
     <record id="view_partner_tree_inherit" model="ir.ui.view">
         <field name="name">res.partner.tree.inherit.student.type</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree"/>
         <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="student_type" widget="many2one" />
+            <!-- Add fields after the existing fields in the tree view -->
+            <field name="display_name" position="after">
+                <field name="student_type" widget="many2one"/>
                 <field name="student_type_change_pending" 
                        widget="boolean_button" 
                        string="Pending"/>
@@ -102,11 +103,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_search"/>
         <field name="arch" type="xml">
+            <!-- Add student_type to search fields -->
             <field name="name" position="after">
                 <field name="student_type"/>
             </field>
-            <filter name="student_type_general" 
-                    position="after">
+            <!-- Add filters -->
+            <filter name="customer" position="after">
                 <separator/>
                 <filter name="student_type_general" 
                         string="General Channel"
@@ -145,12 +147,13 @@
         <field name="inherit_id" ref="base.view_partner_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@class='oe_kanban_global_click']" position="inside">
+                <field name="student_type_change_pending" invisible="1"/>
                 <div class="oe_kanban_details">
                     <field name="student_type" readonly="1"/>
                     <div attrs="{'invisible': [('student_type_change_pending', '!=', True)]}">
                         <span class="badge badge-warning">
                             <i class="fa fa-exclamation-triangle"/>
-                            <t>Pending</t>
+                            <span>Pending</span>
                         </span>
                     </div>
                 </div>
