@@ -98,47 +98,7 @@
     </record>
 
     <!-- Add search filters -->
-    <record id="view_partner_search_inherit" model="ir.ui.view">
-        <field name="name">res.partner.search.inherit.student.type</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_search"/>
-        <field name="arch" type="xml">
-            <!-- Add student_type to search fields -->
-            <field name="name" position="after">
-                <field name="student_type"/>
-            </field>
-            <!-- Add filters -->
-            <filter name="customer" position="after">
-                <separator/>
-                <filter name="student_type_general" 
-                        string="General Channel"
-                        domain="[('student_type.name', 'in', ['عامة', 'قناة عامة'])]"/>
-                <filter name="student_type_non_general" 
-                        string="Non-General Channel"
-                        domain="[('student_type.name', 'not in', ['عامة', 'قناة عامة'])]"/>
-                <filter name="student_type_pending_change" 
-                        string="Pending Attachment"
-                        domain="[('student_type_change_pending', '=', True)]"/>
-                <filter name="student_type_with_attachment" 
-                        string="With Official Letter"
-                        domain="[('student_type_attachment', '!=', False)]"/>
-                <filter name="student_type_without_attachment" 
-                        string="Without Official Letter"
-                        domain="[('student_type_attachment', '=', False)]"/>
-                <group expand="0" string="Group By">
-                    <filter name="group_by_student_type" 
-                            string="Student Type"
-                            context="{'group_by': 'student_type'}"/>
-                    <filter name="group_by_pending" 
-                            string="Pending Status"
-                            context="{'group_by': 'student_type_change_pending'}"/>
-                    <filter name="group_by_change_date" 
-                            string="Change Date"
-                            context="{'group_by': 'student_type_change_date'}"/>
-                </group>
-            </filter>
-        </field>
-    </record>
+    
 
     <!-- Kanban view for partners -->
     <record id="view_partner_kanban_inherit" model="ir.ui.view">
