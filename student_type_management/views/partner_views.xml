@@ -7,6 +7,13 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <!-- Add student_type field after category_id -->
+            <field name="category_id" position="before">
+                <field name="student_type_change_pending" invisible="1"/>
+                <field name="student_type_attachment_filename" invisible="1"/>
+                <field name="student_type_change_date" invisible="1"/>
+                <field name="student_type_changed_by" invisible="1"/>
+            </field>
+            
             <xpath expr="//field[@name='category_id']" position="after">
                 <group string="Student Information" name="student_group">
                     <group>
