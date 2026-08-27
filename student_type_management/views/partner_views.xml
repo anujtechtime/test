@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend partner form view -->
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.student.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Add student_type field after category_id -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <group string="Student Information" name="student_group">
+                    <group>
+                        <field name="student_type" 
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               class="oe_inline"
+                               attrs="{'required': [('student_type_change_pending', '=', True)]}"/>
+                        
+                        <field name="previous_student_type" 
+                               attrs="{'invisible': [('previous_student_type', '=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="student_type_change_date" 
+                               attrs="{'invisible': [('student_type_change_date', '=', False)]}"/>
+                        <field name="student_type_changed_by" 
+                               attrs="{'invisible': [('student_type_changed_by', '=', False)]}"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Add attachment field with warning message -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <div class="alert alert-info" 
+                     style="margin-top: 10px; margin-bottom: 10px;"
+                     attrs="{'invisible': [('student_type_change_pending', '!=', True)]}">
+                    <i class="fa fa-info-circle" style="margin-right: 8px;"></i>
+                    <strong>تنبيه مهم:</strong> 
+                    <span style="color: #8a6d3b;">
+                        يجب رفع كتاب رسمي (كتاب رسمي) لتأكيد تغيير نوع الطالب.
+                        <br/>
+                        <small>Official letter is required to confirm student type change.</small>
+                    </span>
+                </div>
+            </xpath>
+
+            <!-- Add attachment field -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <label for="student_type_attachment" 
+                       string="Official Letter (كتاب رسمي)"
+                       class="oe_inline"
+                       attrs="{'invisible': [('student_type_change_pending', '!=', True)]}"/>
+                <field name="student_type_attachment" 
+                       filename="student_type_attachment_filename"
+                       widget="binary"
+                       class="oe_inline"
+                       attrs="{'required': [('student_type_change_pending', '=', True)]}"/>
+                <field name="student_type_attachment_filename" invisible="1"/>
+            </xpath>
+
+            <!-- Add buttons for managing attachments -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_request_attachment"
+                        string="Upload Official Letter"
+                        type="object"
+                        class="btn btn-warning"
+                        attrs="{'invisible': [('student_type_change_pending', '!=', True)]}"/>
+                <button name="action_clear_pending_change"
+                        string="Clear Pending Change"
+                        type="object"
+                        class="btn btn-success"
+                        groups="base.group_system"
+                        attrs="{'invisible': [('student_type_change_pending', '!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add tree view columns -->
+    <record id="view_partner_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit.student.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="student_type" widget="many2one" />
+                <field name="student_type_change_pending" 
+                       widget="boolean_button" 
+                       string="Pending"/>
+                <field name="student_type_change_date"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add search filters -->
+    <record id="view_partner_search_inherit" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.student.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="student_type"/>
+            </field>
+            <filter name="student_type_general" 
+                    position="after">
+                <separator/>
+                <filter name="student_type_general" 
+                        string="General Channel"
+                        domain="[('student_type.name', 'in', ['عامة', 'قناة عامة'])]"/>
+                <filter name="student_type_non_general" 
+                        string="Non-General Channel"
+                        domain="[('student_type.name', 'not in', ['عامة', 'قناة عامة'])]"/>
+                <filter name="student_type_pending_change" 
+                        string="Pending Attachment"
+                        domain="[('student_type_change_pending', '=', True)]"/>
+                <filter name="student_type_with_attachment" 
+                        string="With Official Letter"
+                        domain="[('student_type_attachment', '!=', False)]"/>
+                <filter name="student_type_without_attachment" 
+                        string="Without Official Letter"
+                        domain="[('student_type_attachment', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_student_type" 
+                            string="Student Type"
+                            context="{'group_by': 'student_type'}"/>
+                    <filter name="group_by_pending" 
+                            string="Pending Status"
+                            context="{'group_by': 'student_type_change_pending'}"/>
+                    <filter name="group_by_change_date" 
+                            string="Change Date"
+                            context="{'group_by': 'student_type_change_date'}"/>
+                </group>
+            </filter>
+        </field>
+    </record>
+
+    <!-- Kanban view for partners -->
+    <record id="view_partner_kanban_inherit" model="ir.ui.view">
+        <field name="name">res.partner.kanban.inherit.student.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_global_click']" position="inside">
+                <div class="oe_kanban_details">
+                    <field name="student_type" readonly="1"/>
+                    <div attrs="{'invisible': [('student_type_change_pending', '!=', True)]}">
+                        <span class="badge badge-warning">
+                            <i class="fa fa-exclamation-triangle"/>
+                            <t>Pending</t>
+                        </span>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
