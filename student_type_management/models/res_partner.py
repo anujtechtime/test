@@ -56,7 +56,7 @@ class ResPartner(models.Model):
             general_types = self._get_general_channel_types()
             
             # Check if new type is non-general
-            if self.student_type.name not in general_types:
+            if self.student_type.Student not in general_types:
                 # Check if this is a change from previous value
                 if self.previous_student_type and self.previous_student_type != self.student_type:
                     # Set pending flag
@@ -70,7 +70,7 @@ class ResPartner(models.Model):
                                 'message': _(
                                     'يجب رفع كتاب رسمي لتغيير نوع الطالب إلى: %s\n'
                                     'Please upload an official letter to change student type to: %s'
-                                ) % (self.student_type.name, self.student_type.name)
+                                ) % (self.student_type.Student, self.student_type.Student)
                             }
                         }
                 elif not self.previous_student_type:
@@ -83,7 +83,7 @@ class ResPartner(models.Model):
                                 'message': _(
                                     'يجب رفع كتاب رسمي لتحديد نوع الطالب: %s\n'
                                     'Please upload an official letter for student type: %s'
-                                ) % (self.student_type.name, self.student_type.name)
+                                ) % (self.student_type.Student, self.student_type.Student)
                             }
                         }
             else:
@@ -110,21 +110,21 @@ class ResPartner(models.Model):
                 general_types = record._get_general_channel_types()
                 
                 # Check if student type is non-general
-                if record.student_type.name not in general_types:
+                if record.student_type.Student not in general_types:
                     # Check if this is a change from the original record
                     if record._origin and record._origin.student_type != record.student_type:
                         if not record.student_type_attachment:
                             raise ValidationError(_(
                                 'يجب رفع كتاب رسمي لتغيير نوع الطالب إلى: %s\n'
                                 'An official letter is required to change student type to: %s'
-                            ) % (record.student_type.name, record.student_type.name))
+                            ) % (record.student_type.Student, record.student_type.Student))
                     
                     # Check if this is a new record with non-general type
                     elif not record._origin and not record.student_type_attachment:
                         raise ValidationError(_(
                             'يجب رفع كتاب رسمي لتحديد نوع الطالب: %s\n'
                             'An official letter is required for student type: %s'
-                        ) % (record.student_type.name, record.student_type.name))
+                        ) % (record.student_type.Student, record.student_type.Student))
 
     def _get_general_channel_types(self):
         """Get the list of general channel type names"""
@@ -137,12 +137,12 @@ class ResPartner(models.Model):
             student_type = self.env['level.level'].browse(vals['student_type'])
             general_types = self._get_general_channel_types()
             
-            if student_type and student_type.name not in general_types:
+            if student_type and student_type.Student not in general_types:
                 if not vals.get('student_type_attachment'):
                     raise ValidationError(_(
                         'يجب رفع كتاب رسمي عند تحديد نوع طالب غير القناة العامة: %s\n'
                         'An official letter is required for non-general student type: %s'
-                    ) % (student_type.name, student_type.name))
+                    ) % (student_type.Student, student_type.Student))
         
         # Set change tracking fields
         if 'student_type' in vals:
