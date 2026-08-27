@@ -253,49 +253,7 @@ class SaleOrder(models.Model):
         help='Warning message when attachment is missing for non-general student type'
     )
 
-    @api.depends('partner_id', 'partner_id.student_type', 'partner_id.student_type_attachment')
-    def _compute_student_type_validation(self):
-        """Compute validation status and warning for student type"""
-        general_types = ['عامة', 'قناة عامة', 'General', 'General Channel']
-        
-        for order in self:
-            if not order.partner_id:
-                order.student_type_validation_status = False
-                order.student_type_validation_warning = False
-                continue
-                
-            student_type = order.partner_id.student_type
-            attachment = order.partner_id.student_type_attachment
-            
-            # Check if student type exists
-            if not student_type:
-                order.student_type_validation_status = False
-                order.student_type_validation_warning = False
-                continue
-            
-            # Check if student type is general
-            if student_type.Student in general_types:
-                order.student_type_validation_status = 'general'
-                order.student_type_validation_warning = False
-                continue
-            
-            # For non-general types, check attachment
-            if attachment:
-                order.student_type_validation_status = 'valid'
-                order.student_type_validation_warning = False
-            else:
-                order.student_type_validation_status = 'missing'
-                order.student_type_validation_warning = _(
-                    "⚠️ الكتاب الرسمي غير مرفق لنوع الطالب: %s\n"
-                    "الرجاء رفع الكتاب الرسمي لتأكيد نوع الطالب\n\n"
-                    "⚠️ Official letter is not attached for student type: %s\n"
-                    "Please upload the official letter to confirm student type"
-                ) % (student_type.Student, student_type.Student)
-
-    @api.onchange('partner_id')
-    def _onchange_partner_id_validation(self):
-        """Trigger validation when partner changes"""
-        self._compute_student_type_validation()
+    
 
     def action_confirm(self):
         """
@@ -304,10 +262,9 @@ class SaleOrder(models.Model):
         """
         for order in self:
             # Compute validation first
-            order._compute_student_type_validation()
             
             # Check if student type validation status is 'missing'
-            if order.student_type_validation_status == 'missing':
+            if not order.partner_id.student_type_attachment and order.partner_id.student_type and order.partner_id.student_type.Student not in order.partner_id._get_general_channel_types():
                 # Show warning but allow confirmation (non-blocking)
                 return {
                     'warning': {
