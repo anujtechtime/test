@@ -14,7 +14,7 @@
     """,
     'author': 'Your Company',
     'website': 'https://www.yourcompany.com',
-    'depends': ['base', 'mail', 'contacts'],
+    'depends': ['base', 'mail', 'contacts','sale'],
     'data': [
         # 'security/ir.model.access.csv',
         # 'data/student_type_data.xml',
