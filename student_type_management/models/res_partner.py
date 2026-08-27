@@ -171,7 +171,7 @@ class ResPartner(models.Model):
                     general_types = self._get_general_channel_types()
                     
                     # Check if changing to non-general type
-                    if new_type and new_type.name not in general_types:
+                    if new_type and new_type.Student not in general_types:
                         # Check if this is a real change
                         if old_type and old_type != new_type:
                             # Validate attachment exists
@@ -179,7 +179,7 @@ class ResPartner(models.Model):
                                 raise ValidationError(_(
                                     'يجب رفع كتاب رسمي لتغيير نوع الطالب من "%s" إلى "%s"\n'
                                     'An official letter is required to change student type from "%s" to "%s"'
-                                ) % (old_type.name, new_type.name, old_type.name, new_type.name))
+                                ) % (old_type.Student, new_type.Student, old_type.Student, new_type.Student))
                             
                             # Set pending flag
                             vals['student_type_change_pending'] = True
@@ -189,7 +189,7 @@ class ResPartner(models.Model):
                                 raise ValidationError(_(
                                     'يجب رفع كتاب رسمي لتحديد نوع الطالب: %s\n'
                                     'An official letter is required for student type: %s'
-                                ) % (new_type.name, new_type.name))
+                                ) % (new_type.Student, new_type.Student))
                     else:
                         # Changing to general type, clear pending flag
                         vals['student_type_change_pending'] = False
