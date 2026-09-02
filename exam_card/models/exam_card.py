@@ -135,7 +135,6 @@ class ExamCardWizard(models.TransientModel):
             'academic_year': self.academic_year,
             'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
-            'student_photo': self.partner_id.student_photo,
         }
         data.update(display_data)
         
@@ -160,7 +159,6 @@ class ExamCardPrint(models.AbstractModel):
                 'university_id': data.get('university_id', '________________'),
                 'partner_id': data.get('partner_id'),
                 'partner_name': data.get('partner_name'),
-                'student_photo': data.get('student_photo'),
             }
             docs.append(doc)
         
