@@ -69,6 +69,15 @@
     </record>
 
 
+    <report
+            id="action_report_account_exam_card_wizard"
+            model="exam.card.wizard"
+            string="Exam Card Report"
+            report_type="qweb-pdf"
+            name="exam_card.report_exam_card"
+            file="exam_card.report_exam_card"
+            />
+
         <!-- Action for printing exam card -->
     <record id="action_print_exam_card" model="ir.actions.act_window">
         <field name="name">طباعة البطاقة الامتحانية</field>
