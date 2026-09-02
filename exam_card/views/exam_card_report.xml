@@ -14,11 +14,11 @@
                         </div>
 
                         <!-- Photo (if available) -->
-                        <div class="card-photo" t-if="doc.student_photo">
+                        <!-- <div class="card-photo" t-if="doc.student_photo">
                             <img t-att-src="'data:image/png;base64,%s' % doc.student_photo" 
                                  alt="Student Photo" 
                                  style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; border: 1px solid #ccc;"/>
-                        </div>
+                        </div> -->
 
                         <!-- Info Grid -->
                         <div class="info-grid">
