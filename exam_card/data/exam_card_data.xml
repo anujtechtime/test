@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default exam types -->
+        <record id="exam_type_final" model="exam.card.wizard">
+            <field name="exam_type">الامتحانات النهائية</field>
+        </record>
+        
+        <!-- Default academic years -->
+        <record id="academic_year_2027" model="exam.card.wizard">
+            <field name="academic_year">2027-2028</field>
+        </record>
+    </data>
+</odoo>

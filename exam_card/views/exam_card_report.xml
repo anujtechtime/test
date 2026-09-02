@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_exam_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="exam-card">
+                        <!-- Header -->
+                        <div class="card-header">
+                            <h2>البطاقة الامتحانية <span>Exam Card</span></h2>
+                            <div class="year-badge">
+                                <t t-esc="doc.academic_year or '2027-2028'"/>
+                            </div>
+                        </div>
+
+                        <!-- Photo (if available) -->
+                        <div class="card-photo" t-if="doc.student_photo">
+                            <img t-att-src="'data:image/png;base64,%s' % doc.student_photo" 
+                                 alt="Student Photo" 
+                                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; border: 1px solid #ccc;"/>
+                        </div>
+
+                        <!-- Info Grid -->
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">الأســــــم :</span>
+                                <span class="value">
+                                    <t t-esc="doc.student_name or '________________'"/>
+                                </span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">الكليــــة :</span>
+                                <span class="value">
+                                    <t t-esc="doc.college_name or '________________'"/>
+                                </span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">القســـــــم :</span>
+                                <span class="value">
+                                    <t t-esc="doc.department_name or '________________'"/>
+                                </span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">المرحلــــة :</span>
+                                <span class="value">
+                                    <t t-esc="doc.stage_name or '________________'"/>
+                                </span>
+                            </div>
+                            <div class="info-item" style="grid-column: span 2;">
+                                <span class="label">الرقم الجامعي :</span>
+                                <span class="value">
+                                    <t t-esc="doc.university_id or '________________'"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="card-footer">
+                            <span class="exam-type">
+                                <t t-esc="doc.exam_type or 'الامتحانات النهائية'"/>
+                            </span>
+                            <div class="uni-contact">
+                                <span class="url">www.almaaqal.edu.iq</span>
+                                <span class="phones">07811111509 - 07711111509</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report CSS -->
+    <template id="report_exam_card_style" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <style>
+                /* Exam Card Styles */
+                .exam-card {
+                    width: 9.1cm;
+                    height: 5.5cm;
+                    background: #ffffff;
+                    border: 2px solid #1a3a5c;
+                    border-radius: 6px;
+                    padding: 6px 10px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0 auto;
+                    font-family: 'Segoe UI', 'Arial', sans-serif;
+                    direction: rtl;
+                    position: relative;
+                }
+
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    border-bottom: 1.5px solid #1a3a5c;
+                    padding-bottom: 2px;
+                    margin-bottom: 4px;
+                }
+
+                .card-header h2 {
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: #1a3a5c;
+                    letter-spacing: 0.3px;
+                    margin: 0;
+                }
+
+                .card-header h2 span {
+                    font-weight: 300;
+                    font-size: 9px;
+                    color: #2c3e50;
+                    margin-right: 4px;
+                }
+
+                .card-header .year-badge {
+                    font-size: 9px;
+                    font-weight: 600;
+                    color: #1a3a5c;
+                    background: #eef2f7;
+                    padding: 0 6px;
+                    border-radius: 3px;
+                    border: 1px solid #b0c4d9;
+                    line-height: 1.6;
+                }
+
+                .card-photo {
+                    position: absolute;
+                    top: 25px;
+                    left: 10px;
+                }
+
+                .card-photo img {
+                    width: 40px;
+                    height: 40px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    border: 1px solid #ccc;
+                }
+
+                .info-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1px 8px;
+                    flex: 1;
+                    font-size: 9px;
+                    margin-bottom: 3px;
+                }
+
+                .info-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 2px;
+                    border-bottom: 1px dashed #d0d8e3;
+                    padding: 1px 0;
+                }
+
+                .info-item .label {
+                    font-weight: 600;
+                    color: #1a3a5c;
+                    white-space: nowrap;
+                    font-size: 8.5px;
+                    min-width: 48px;
+                }
+
+                .info-item .value {
+                    font-weight: 500;
+                    color: #0b1e2e;
+                    border-bottom: 1px dotted #a0b4cc;
+                    padding: 0 2px;
+                    min-width: 40px;
+                    flex: 1;
+                    font-size: 8.5px;
+                }
+
+                .card-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-top: 1.5px solid #1a3a5c;
+                    padding-top: 3px;
+                    margin-top: auto;
+                    font-size: 8.5px;
+                }
+
+                .exam-type {
+                    font-weight: 700;
+                    color: #c0392b;
+                    font-size: 10px;
+                    letter-spacing: 0.5px;
+                    background: #fef0ed;
+                    padding: 0 8px;
+                    border-radius: 3px;
+                    border: 1px solid #e6b8b0;
+                    line-height: 1.7;
+                }
+
+                .uni-contact {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 7.5px;
+                    color: #1e3a5a;
+                }
+
+                .uni-contact .url {
+                    font-weight: 500;
+                    color: #1a3a5c;
+                    text-decoration: none;
+                    border-bottom: 1px dotted #7f96b0;
+                }
+
+                .uni-contact .phones {
+                    font-weight: 600;
+                    color: #0b2a44;
+                    direction: ltr;
+                    font-size: 7px;
+                }
+
+                /* Print Styles */
+                @media print {
+                    .exam-card {
+                        box-shadow: none;
+                        border: 2px solid #1a3a5c;
+                        page-break-after: avoid;
+                        margin: 0 auto;
+                    }
+                    .exam-card .info-item .value {
+                        border-bottom: 1px dotted #7f96b0;
+                    }
+                    body {
+                        background: white;
+                        padding: 20px;
+                    }
+                }
+            </style>
+        </xpath>
+    </template>
+</odoo>

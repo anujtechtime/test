@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action for printing exam card -->
+    <record id="action_print_exam_card" model="ir.actions.act_window">
+        <field name="name">طباعة البطاقة الامتحانية</field>
+        <field name="res_model">exam.card.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_exam_card_wizard_form"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                طباعة البطاقة الامتحانية للطلاب
+            </p>
+            <p>
+                اختر الطالب ونوع الامتحان والسنة الدراسية ثم اضغط طباعة
+            </p>
+        </field>
+    </record>
+
+    <!-- Wizard Form View -->
+    <record id="view_exam_card_wizard_form" model="ir.ui.view">
+        <field name="name">exam.card.wizard.form</field>
+        <field name="model">exam.card.wizard</field>
+        <field name="arch" type="xml">
+            <form string="طباعة البطاقة الامتحانية">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>البطاقة الامتحانية</h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" 
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   placeholder="اختر الطالب..."
+                                   class="oe_inline"
+                                   context="{'default_is_student': True}"/>
+                            <field name="exam_type"/>
+                            <field name="academic_year"/>
+                        </group>
+                    </group>
+
+                    <!-- Auto-filled information -->
+                    <group string="معلومات الطالب" name="student_info">
+                        <field name="student_name" readonly="1"/>
+                        <field name="college_name" readonly="1"/>
+                        <field name="department_name" readonly="1"/>
+                        <field name="stage_name" readonly="1"/>
+                        <field name="university_id" readonly="1"/>
+                    </group>
+
+                    <!-- Manual override option -->
+                    <group string="تعديل يدوي" name="manual_edit">
+                        <field name="allow_manual_edit"/>
+                        <group attrs="{'invisible': [('allow_manual_edit', '=', False)]}">
+                            <field name="manual_student_name" 
+                                   placeholder="الاسم (يدوي)"
+                                   attrs="{'required': [('allow_manual_edit', '=', True)]}"/>
+                            <field name="manual_college_name" 
+                                   placeholder="الكلية (يدوي)"
+                                   attrs="{'required': [('allow_manual_edit', '=', True)]}"/>
+                            <field name="manual_department_name" 
+                                   placeholder="القسم (يدوي)"
+                                   attrs="{'required': [('allow_manual_edit', '=', True)]}"/>
+                            <field name="manual_stage_name" 
+                                   placeholder="المرحلة (يدوي)"
+                                   attrs="{'required': [('allow_manual_edit', '=', True)]}"/>
+                            <field name="manual_university_id" 
+                                   placeholder="الرقم الجامعي (يدوي)"
+                                   attrs="{'required': [('allow_manual_edit', '=', True)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print_exam_card" 
+                            string="طباعة" 
+                            type="object" 
+                            class="btn-primary"
+                            icon="fa-print"/>
+                    <button string="إلغاء" 
+                            class="btn-secondary" 
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_exam_card_root" 
+              name="البطاقة الامتحانية" 
+              sequence="10"
+              groups="base.group_user"/>
+    
+    <menuitem id="menu_exam_card" 
+              name="طباعة البطاقة الامتحانية" 
+              parent="menu_exam_card_root"
+              action="action_print_exam_card"
+              sequence="10"/>
+
+</odoo>
