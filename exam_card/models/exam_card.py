@@ -10,7 +10,6 @@ class ExamCardWizard(models.TransientModel):
         'res.partner', 
         string='الطالب',
         required=True,
-        domain=[('is_student', '=', True)],
         help='Select the student for the exam card'
     )
     
@@ -79,10 +78,10 @@ class ExamCardWizard(models.TransientModel):
         for record in self:
             if record.partner_id:
                 record.student_name = record.partner_id.name or ''
-                record.college_name = record.partner_id.college_name or ''
-                record.department_name = record.partner_id.department_name or ''
-                record.stage_name = record.partner_id.stage_name or ''
-                record.university_id = record.partner_id.university_id or ''
+                record.college_name = record.partner_id.college.college or ''
+                record.department_name = record.partner_id.department.department or ''
+                record.stage_name = record.partner_id.level or ''
+                record.university_id = record.partner_id.college_number or ''
             else:
                 record.student_name = ''
                 record.college_name = ''
