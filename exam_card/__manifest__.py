@@ -17,11 +17,6 @@
         'views/exam_card_views.xml',
         'views/exam_card_report.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'exam_card/static/src/js/exam_card.js',
-        ],
-    },
     'installable': True,
     'application': True,
     'auto_install': False,
