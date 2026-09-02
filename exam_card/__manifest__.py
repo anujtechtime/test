@@ -12,7 +12,6 @@
     'depends': ['base', 'web', 'contacts'],
     'data': [
         'security/ir.model.access.csv',
-        'data/exam_card_data.xml',
         'views/exam_card_views.xml',
         'views/exam_card_report.xml',
     ],
