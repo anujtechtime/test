@@ -151,6 +151,7 @@ class ExamCardWizard(models.TransientModel):
         # Get display data
         display_data = self.get_display_data()
         
+        # Build data dictionary
         data = {
             'exam_type': self.exam_type,
             'academic_year': self.academic_year,
@@ -159,13 +160,18 @@ class ExamCardWizard(models.TransientModel):
         }
         data.update(display_data)
         
-        # Alternative: Return action dictionary directly
+        # Create a context with the data
+        context = dict(self.env.context)
+        context.update({
+            'exam_card_data': data,
+        })
+        
+        # Return report action with context
         return {
             'type': 'ir.actions.report',
             'report_name': 'exam_card.report_exam_card',
             'report_type': 'qweb-pdf',
-            'data': data,
-            'context': self.env.context,
+            'context': context,
         }
 
 
