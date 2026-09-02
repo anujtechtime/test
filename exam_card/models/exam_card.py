@@ -119,6 +119,27 @@ class ExamCardWizard(models.TransientModel):
                 'university_id': self.university_id or '________________',
             }
 
+    # def action_print_exam_card(self):
+    #     """Generate and print the exam card"""
+    #     self.ensure_one()
+        
+    #     # Validate required fields
+    #     if not self.partner_id:
+    #         raise ValidationError('الرجاء اختيار الطالب')
+        
+    #     # Get display data
+    #     display_data = self.get_display_data()
+        
+    #     data = {
+    #         'exam_type': self.exam_type,
+    #         'academic_year': self.academic_year,
+    #         'partner_id': self.partner_id.id,
+    #         'partner_name': self.partner_id.name,
+    #     }
+    #     data.update(display_data)
+        
+    #     return self.env.ref('exam_card.report_exam_card').report_action(self, data=data)
+
     def action_print_exam_card(self):
         """Generate and print the exam card"""
         self.ensure_one()
@@ -138,7 +159,14 @@ class ExamCardWizard(models.TransientModel):
         }
         data.update(display_data)
         
-        return self.env.ref('exam_card.report_exam_card').report_action(self, data=data)
+        # Alternative: Return action dictionary directly
+        return {
+            'type': 'ir.actions.report',
+            'report_name': 'exam_card.report_exam_card',
+            'report_type': 'qweb-pdf',
+            'data': data,
+            'context': self.env.context,
+        }
 
 
 class ExamCardPrint(models.AbstractModel):
