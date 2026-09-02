@@ -13,7 +13,6 @@
     'data': [
         'security/ir.model.access.csv',
         'data/exam_card_data.xml',
-        'views/res_partner_views.xml',
         'views/exam_card_views.xml',
         'views/exam_card_report.xml',
     ],
