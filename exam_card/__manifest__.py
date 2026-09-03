@@ -9,7 +9,7 @@
     """,
     'author': 'Your Company',
     'website': 'http://www.yourcompany.com',
-    'depends': ['base', 'web', 'contacts','docx_report_generation'],
+    'depends': ['base', 'web', 'contacts','docx_report_generation','techtime_univeristy'],
     'data': [
         'security/ir.model.access.csv',
         'views/exam_card_views.xml',
