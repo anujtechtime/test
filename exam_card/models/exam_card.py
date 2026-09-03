@@ -23,9 +23,9 @@ class ExamCardWizard(models.TransientModel):
     academic_year = fields.Many2one(
         'year.year',
         string='السنة الدراسية',
-        default=lambda self: self.env['year.year'].search([], limit=1),
         required=True
     )
+
     
     # Auto-filled fields from partner
     student_name = fields.Char(
@@ -116,7 +116,7 @@ class ExamCardWizard(models.TransientModel):
         self.ensure_one()
         if self.allow_manual_edit:
             return {
-                'student_name': self.student_name or '________________',
+                'student_name': self.manual_student_name or self.student_name or '________________',
                 'college_name': self.manual_college_name or self.college_name or '________________',
                 'department_name': self.manual_department_name or self.department_name or '________________',
                 'stage_name': self.manual_stage_name or self.stage_name or '________________',
@@ -144,7 +144,7 @@ class ExamCardWizard(models.TransientModel):
         
         data = {
             'exam_type': self.exam_type,
-            'academic_year': self.academic_year.year if self.academic_year else '',
+            'academic_year': self.academic_year.year if self.academic_year else None,
             'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
             'student_name': display_data['student_name'],
@@ -168,7 +168,7 @@ class ExamCardPrint(models.AbstractModel):
         if data:
             doc = {
                 'exam_type': data.get('exam_type', 'الامتحانات النهائية'),
-                'academic_year': data.get('academic_year', ''),
+                'academic_year': data.get('academic_year', None),
                 'student_name': data.get('student_name', '________________'),
                 'college_name': data.get('college_name', '________________'),
                 'department_name': data.get('department_name', '________________'),
