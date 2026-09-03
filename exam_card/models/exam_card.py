@@ -148,7 +148,7 @@ class ExamCardWizard(models.TransientModel):
         
         data = {
             'exam_type': self.exam_type,
-            'academic_year': self.academic_year.year if self.academic_year else None,
+            'academic_year': self.academic_year if self.academic_year else None,
             'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
             'student_name': display_data['student_name'],

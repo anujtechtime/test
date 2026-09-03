@@ -2,14 +2,19 @@
 <odoo>
     <template id="report_exam_card">
         <t t-call="web.html_container">
+          
             <t t-foreach="docs" t-as="doc">
-                <div class="page">
-                    <div class="exam-card">
+                <div class="page"  >
+                <div class="exam-card" 
+                    style="background-image: url('https://almaaqal-test.erp.techtime.me/web/content/126575?download=True');  
+                                                        
+                                                ">
                         <!-- Header -->
-                        <div class="card-header">
-                            <h2>البطاقة الامتحانية <span>Exam Card</span></h2>
-                            <div class="year-badge">
-                                <t t-esc="doc.academic_year or '2027-2028'"/>
+                        <div class="card-header"  style="padding-top : 330px; padding-right: 50px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                            <!--<h2>البطاقة الامتحانية <span>Exam Card</span></h2>-->
+                            <div class="year-badge" >
+                                <t t-esc="academic_year"/>
                             </div>
                         </div>
 
@@ -22,52 +27,75 @@
 
                         <!-- Info Grid -->
                         <div class="info-grid">
-                            <div class="info-item">
-                                <span class="label">الأســــــم :</span>
-                                <span class="value">
-                                    <t t-esc="doc.student_name or '________________'"/>
+                            <div class="info-item" style="padding-top : 130px; padding-right: 200px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                                <!--<span class="label">الأســــــم :</span>-->
+                                <span class="value" >
+                                    <t t-esc="student_name or '________________'"/>
                                 </span>
                             </div>
-                            <div class="info-item">
-                                <span class="label">الكليــــة :</span>
+                            <div class="info-item" style="padding-top : 40px; padding-right: 200px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                                <!--<span class="label">الكليــــة :</span>-->
                                 <span class="value">
-                                    <t t-esc="doc.college_name or '________________'"/>
+                                    <t t-esc="college_name or 'teeeeeeee________________'"/>
                                 </span>
                             </div>
-                            <div class="info-item">
-                                <span class="label">القســـــــم :</span>
+                            <div class="info-item" style="padding-top : 40px; padding-right: 200px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                                <!--<span class="label">القســـــــم :</span>-->
                                 <span class="value">
-                                    <t t-esc="doc.department_name or '________________'"/>
+                                    <t t-esc="department_name or '________________'"/>
                                 </span>
                             </div>
-                            <div class="info-item">
-                                <span class="label">المرحلــــة :</span>
+                            <div class="info-item" style="padding-top : 40px; padding-right: 200px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                                <!--<span class="label">المرحلــــة :</span>-->
                                 <span class="value">
-                                    <t t-esc="doc.stage_name or '________________'"/>
+                                    <t t-esc="stage_name or '________________'"/>
                                 </span>
                             </div>
-                            <div class="info-item" style="grid-column: span 2;">
-                                <span class="label">الرقم الجامعي :</span>
+                            <div class="info-item" style="grid-column: span 2; padding-top : 46px; padding-right: 260px; text-align : right; font-size : 32px; 
+                    font-weight: 700;">
+                                <!--<span class="label">الرقم الجامعي :</span>-->
                                 <span class="value">
-                                    <t t-esc="doc.university_id or '________________'"/>
+                                    <t t-esc="university_id or '________________'"/>
                                 </span>
                             </div>
                         </div>
 
                         <!-- Footer -->
-                        <div class="card-footer">
-                            <span class="exam-type">
-                                <t t-esc="doc.exam_type or 'الامتحانات النهائية'"/>
+                        <div class="card-footer" style="  grid-column: span 2; padding-top : 150px;  text-align: center; font-size : 42px; 
+                    font-weight: 700; ">
+                            <span class="exam-type" style="justify-content: space-between;
+                    align-items: center;
+                    border: 2px solid #1a3a5c;
+                    border-radius: 60px;
+                    padding: 30px;">
+                                <t t-esc="exam_type or 'الامتحانات النهائية'"/>
                             </span>
-                            <div class="uni-contact">
-                                <span class="url">www.almaaqal.edu.iq</span>
-                                <span class="phones">07811111509 - 07711111509</span>
-                            </div>
+
                         </div>
+                        
+                        
+                        
+                        <div class="card-footer" style="  padding-top : 210px;  text-align: center; ">
+                            <span class="exam-type" >
+                                ......
+                            </span>
+
+                        </div>
+                        
+                        <div class="exam-card" >
+                            <img  src='https://almaaqal-test.erp.techtime.me/web/content/126576?download=True'/>
+                                         
+                          </div>
+                        
                     </div>
                 </div>
             </t>
         </t>
+    
     </template>
 
     <!-- Report CSS -->
