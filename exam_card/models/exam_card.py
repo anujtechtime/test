@@ -144,7 +144,7 @@ class ExamCardWizard(models.TransientModel):
         
         data = {
             'exam_type': self.exam_type,
-            'academic_year': self.academic_year.name if self.academic_year else '2027-2028',
+            'academic_year': self.academic_year.year if self.academic_year else '',
             'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
             'student_name': display_data['student_name'],
@@ -168,7 +168,7 @@ class ExamCardPrint(models.AbstractModel):
         if data:
             doc = {
                 'exam_type': data.get('exam_type', 'الامتحانات النهائية'),
-                'academic_year': data.get('academic_year', '2027-2028'),
+                'academic_year': data.get('academic_year', ''),
                 'student_name': data.get('student_name', '________________'),
                 'college_name': data.get('college_name', '________________'),
                 'department_name': data.get('department_name', '________________'),
