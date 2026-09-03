@@ -20,12 +20,12 @@ class ExamCardWizard(models.TransientModel):
         ('الامتحان التكميلي', 'الامتحان التكميلي')
     ], string='نوع الامتحان', default='الامتحانات النهائية', required=True)
     
-    academic_year = fields.Selection([
-        ('2025-2026', '2025-2026'),
-        ('2026-2027', '2026-2027'),
-        ('2027-2028', '2027-2028'),
-        ('2028-2029', '2028-2029'),
-    ], string='السنة الدراسية', default='2027-2028', required=True)
+    academic_year = fields.Many2one(
+        'year.year',
+        string='السنة الدراسية',
+        default=lambda self: self.env['year.year'].search([], limit=1),
+        required=True
+    )
     
     # Auto-filled fields from partner
     student_name = fields.Char(
@@ -80,7 +80,19 @@ class ExamCardWizard(models.TransientModel):
                 record.student_name = record.partner_id.name or ''
                 record.college_name = record.partner_id.college.college or ''
                 record.department_name = record.partner_id.department.department or ''
-                record.stage_name = record.partner_id.level or ''
+                lev = record.partner_id.level
+                if lev == 'leve1':
+                    depp = 'المرحلة الاولى'
+                if lev == 'level2':
+                    depp = 'المرحلة الثانية'
+                if lev == 'level3':
+                    depp = 'المرحلة الثالثة'
+                if lev == 'level4':
+                    depp = 'المرحلة الرابعة'
+                if lev == 'level5':
+                    depp = 'المرحلة الخامسة'
+
+                record.stage_name = depp or ''
                 record.university_id = record.partner_id.college_number or ''
             else:
                 record.student_name = ''
@@ -104,7 +116,7 @@ class ExamCardWizard(models.TransientModel):
         self.ensure_one()
         if self.allow_manual_edit:
             return {
-                'student_name': self.manual_student_name or self.student_name or '________________',
+                'student_name': self.student_name or '________________',
                 'college_name': self.manual_college_name or self.college_name or '________________',
                 'department_name': self.manual_department_name or self.department_name or '________________',
                 'stage_name': self.manual_stage_name or self.stage_name or '________________',
@@ -132,9 +144,14 @@ class ExamCardWizard(models.TransientModel):
         
         data = {
             'exam_type': self.exam_type,
-            'academic_year': self.academic_year,
+            'academic_year': self.academic_year.name if self.academic_year else '2027-2028',
             'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
+            'student_name': display_data['student_name'],
+            'college_name': display_data['college_name'],
+            'department_name': display_data['department_name'],
+            'stage_name': display_data['stage_name'],
+            'university_id': display_data['university_id'],
         }
         data.update(display_data)
         
