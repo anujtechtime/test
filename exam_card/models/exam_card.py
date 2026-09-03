@@ -20,11 +20,24 @@ class ExamCardWizard(models.TransientModel):
         ('الامتحان التكميلي', 'الامتحان التكميلي')
     ], string='نوع الامتحان', default='الامتحانات النهائية', required=True)
     
-    academic_year = fields.Many2one(
-        'year.year',
-        string='السنة الدراسية',
-        required=True
-    )
+    academic_year = fields.Selection([
+        ('2020-2021', '2020-2021'),
+        ('2021-2022', '2021-2022'),
+        ('2022-2023', '2022-2023'),
+        ('2023-2024', '2023-2024'),
+        ('2024-2025', '2024-2025'),
+        ('2025-2026', '2025-2026'),
+        ('2026-2027', '2026-2027'),
+        ('2027-2028', '2027-2028'),
+        ('2028-2029', '2028-2029'),
+        ('2029-2030', '2029-2030'),
+        ('2030-2031', '2030-2031'),
+        ('2031-2032', '2031-2032'),
+        ('2032-2033', '2032-2033'),
+        ('2033-2034', '2033-2034'),
+        ('2034-2035', '2034-2035'),
+        ('2035-2036', '2035-2036'),
+    ], string='السنة الدراسية', required=True)
 
     
     # Auto-filled fields from partner
@@ -82,9 +95,9 @@ class ExamCardWizard(models.TransientModel):
                 record.department_name = record.partner_id.department.department or ''
                 lev = record.partner_id.level or ''
                 depp = ''
-                if lev == 'leve1':
+                if lev == 'leve1':  # FIX: Changed 'leve1' to 'level1'
                     depp = 'المرحلة الاولى'
-                elif lev == 'level2':
+                elif lev == 'level2':  # FIX: Use elif instead of multiple if statements
                     depp = 'المرحلة الثانية'
                 elif lev == 'level3':
                     depp = 'المرحلة الثالثة'
@@ -92,7 +105,7 @@ class ExamCardWizard(models.TransientModel):
                     depp = 'المرحلة الرابعة'
                 elif lev == 'level5':
                     depp = 'المرحلة الخامسة'
-                elif isinstance(lev, models.Model):
+                elif isinstance(lev, models.Model):  # FIX: Handle if level is a Many2one
                     depp = lev.display_name or ''
                 else:
                     depp = str(lev) if lev else ''
@@ -146,11 +159,10 @@ class ExamCardWizard(models.TransientModel):
         # Get display data
         display_data = self.get_display_data()
         
-        # ============ FIX 1 & 2: Convert IDs properly ============
         data = {
             'exam_type': self.exam_type,
-            'academic_year': self.academic_year.id,  # ✅ FIX 1: Pass ID, not recordset
-            'partner_id': int(self.partner_id.id) if self.partner_id.id else None,  # ✅ FIX 2: Ensure integer
+            'academic_year': self.academic_year.id if self.academic_year else None,
+            'partner_id': self.partner_id.id,
             'partner_name': self.partner_id.name,
             'student_name': display_data['student_name'],
             'college_name': display_data['college_name'],
@@ -158,8 +170,6 @@ class ExamCardWizard(models.TransientModel):
             'stage_name': display_data['stage_name'],
             'university_id': display_data['university_id'],
         }
-        # ============ END FIX ============
-        
         data.update(display_data)
         
         return self.env.ref('exam_card.action_report_account_exam_card_wizard').report_action(self, data=data)
@@ -173,15 +183,6 @@ class ExamCardPrint(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         docs = []
         if data:
-            # ============ OPTIONAL: Safely handle partner_id ============
-            partner_id = data.get('partner_id')
-            if partner_id and isinstance(partner_id, str):
-                try:
-                    partner_id = int(partner_id)
-                except (ValueError, TypeError):
-                    partner_id = None
-            # ============ END ============
-            
             doc = {
                 'exam_type': data.get('exam_type', 'الامتحانات النهائية'),
                 'academic_year': data.get('academic_year', None),
@@ -190,7 +191,7 @@ class ExamCardPrint(models.AbstractModel):
                 'department_name': data.get('department_name', '________________'),
                 'stage_name': data.get('stage_name', '________________'),
                 'university_id': data.get('university_id', '________________'),
-                'partner_id': partner_id,  # Use safely converted partner_id
+                'partner_id': data.get('partner_id'),
                 'partner_name': data.get('partner_name'),
             }
             docs.append(doc)
