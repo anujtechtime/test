@@ -82,7 +82,7 @@ class ExamCardWizard(models.TransientModel):
                 record.department_name = record.partner_id.department.department or ''
                 lev = record.partner_id.level or ''
                 depp = ''
-                if lev == 'level1':  # FIX: Changed 'leve1' to 'level1'
+                if lev == 'leve1':  # FIX: Changed 'leve1' to 'level1'
                     depp = 'المرحلة الاولى'
                 elif lev == 'level2':  # FIX: Use elif instead of multiple if statements
                     depp = 'المرحلة الثانية'
