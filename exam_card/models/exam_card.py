@@ -80,19 +80,23 @@ class ExamCardWizard(models.TransientModel):
                 record.student_name = record.partner_id.name or ''
                 record.college_name = record.partner_id.college.college or ''
                 record.department_name = record.partner_id.department.department or ''
-                lev = record.partner_id.level
-                if lev == 'leve1':
+                lev = record.partner_id.level or ''
+                depp = ''
+                if lev == 'level1':  # FIX: Changed 'leve1' to 'level1'
                     depp = 'المرحلة الاولى'
-                if lev == 'level2':
+                elif lev == 'level2':  # FIX: Use elif instead of multiple if statements
                     depp = 'المرحلة الثانية'
-                if lev == 'level3':
+                elif lev == 'level3':
                     depp = 'المرحلة الثالثة'
-                if lev == 'level4':
+                elif lev == 'level4':
                     depp = 'المرحلة الرابعة'
-                if lev == 'level5':
+                elif lev == 'level5':
                     depp = 'المرحلة الخامسة'
-
-                record.stage_name = depp or ''
+                elif isinstance(lev, models.Model):  # FIX: Handle if level is a Many2one
+                    depp = lev.display_name or ''
+                else:
+                    depp = str(lev) if lev else ''
+                record.stage_name = depp or ''    
                 record.university_id = record.partner_id.college_number or ''
             else:
                 record.student_name = ''
