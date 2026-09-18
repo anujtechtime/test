@@ -56,10 +56,17 @@
                 </sheet>
                 <footer>
                     <button name="action_print_exam_card" 
-                            string="طباعة" 
+                            string="لون اصف" 
                             type="object" 
                             class="btn-primary"
                             icon="fa-print"/>
+                    <button name="action_print_exam_card_duplicate" 
+                            string="لون ازرق" 
+                            type="object" 
+                            class="btn-primary"
+                            icon="fa-print"/>
+
+
                     <button string="إلغاء" 
                             class="btn-secondary" 
                             special="cancel"/>
@@ -77,6 +84,15 @@
             name="exam_card.report_exam_card"
             file="exam_card.report_exam_card"
             />
+
+    <report
+            id="action_report_account_exam_card_wizard_duplicate"
+            model="exam.card.wizard"
+            string="Exam Card Report"
+            report_type="qweb-pdf"
+            name="exam_card.report_exam_card_duplicate"
+            file="exam_card.report_exam_card_duplicate"
+            />        
 
         <!-- Action for printing exam card -->
     <record id="action_print_exam_card" model="ir.actions.act_window">

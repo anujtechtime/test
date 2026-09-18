@@ -174,6 +174,31 @@ class ExamCardWizard(models.TransientModel):
         
         return self.env.ref('exam_card.action_report_account_exam_card_wizard').report_action(self, data=data)
 
+    def action_print_exam_card_duplicate(self):
+        """Generate and print the duplicate exam card"""
+        self.ensure_one()
+        
+        # Validate required fields
+        if not self.partner_id:
+            raise ValidationError('الرجاء اختيار الطالب')
+        
+        # Get display data
+        display_data = self.get_display_data()
+        
+        data = {
+            'exam_type': self.exam_type,
+            'academic_year': self.academic_year if self.academic_year else None,
+            'partner_id': self.partner_id.id,
+            'partner_name': self.partner_id.name,
+            'student_name': display_data['student_name'],
+            'college_name': display_data['college_name'],
+            'department_name': display_data['department_name'],
+            'stage_name': display_data['stage_name'],
+            'university_id': display_data['university_id'],
+        }
+        data.update(display_data)
+        
+        return self.env.ref('exam_card.action_report_account_exam_card_wizard_duplicate').report_action(self, data=data)
 
 class ExamCardPrint(models.AbstractModel):
     _name = 'report.exam_card.report_exam_card'
