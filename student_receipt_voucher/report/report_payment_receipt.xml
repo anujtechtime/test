@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_payment_receipt_document_student"
+                  name="Student Receipt Voucher">
+
+            <t t-call="web.basic_layout">
+
+        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+
+        <style>
+            /* Hide Odoo chrome */
+            .header, .footer, .page-header, .page-footer,
+            .oe_structure, .breadcrumb, .navbar,
+            #footer, header, footer { display: none !important; }
+            .page { margin: 0 !important; padding: 0 !important; }
+
+            /* Voucher */
+            .vch-wrap {
+                font-family: 'Amiri', 'Arial', sans-serif;
+                direction: rtl;
+                color: #000;
+                font-size: 13px;
+                padding: 6px 14px;
+            }
+            .vch-wrap table { width: 100%; border-collapse: collapse; }
+
+            .vch-latin {
+                text-align: right;
+                letter-spacing: 2px;
+                font-size: 11px;
+                font-weight: bold;
+                margin: 4px 0;
+            }
+            .vch-title {
+                text-align: center;
+                font-size: 22px;
+                font-weight: bold;
+                margin: 4px 0 6px 0;
+            }
+            .vch-hr { border-top: 2px solid #000; margin: 2px 0 6px 0; }
+
+            .vch-topbar td {
+                font-weight: bold;
+                font-size: 13px;
+                padding: 2px 0;
+                text-align: right;
+            }
+
+            .vch-section {
+                background: #f4f6f8;
+                border: 1px solid #e0e0e0;
+                text-align: center;
+                font-weight: bold;
+                padding: 5px 8px;
+                margin: 8px 0 4px 0;
+            }
+
+            .vch-info td {
+                padding: 6px 4px;
+                border-bottom: 1px solid #e0e0e0;
+                font-size: 13px;
+                vertical-align: middle;
+            }
+            .vch-info .lbl {
+                font-weight: bold;
+                white-space: nowrap;
+                width: 22%;
+                text-align: right;
+            }
+            .vch-info .val {
+                text-align: right;
+                width: 28%;
+            }
+            .vch-info .lbl2 {
+                font-weight: bold;
+                white-space: nowrap;
+                width: 22%;
+                text-align: right;
+            }
+            .vch-info .val2 {
+                text-align: right;
+                width: 28%;
+            }
+
+            .vch-pay {
+                margin-top: 6px;
+                border: 1px solid #000;
+            }
+            .vch-pay td {
+                border: 1px solid #000;
+                padding: 8px 10px;
+                font-size: 13px;
+                vertical-align: middle;
+                text-align: right;
+            }
+            .vch-pay .big {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .vch-qr {
+                width: 110px;
+                height: 110px;
+                border: 1px solid #e0e0e0;
+                text-align: center;
+                vertical-align: middle !important;
+                font-size: 11px;
+                color: #666;
+            }
+
+            .vch-sign {
+                margin-top: 20px;
+                font-weight: bold;
+                font-size: 13px;
+                text-align: right;
+            }
+            .vch-foot {
+                margin-top: 22px;
+                border-top: 2px solid #000;
+                padding-top: 6px;
+                font-size: 11px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-align: left;
+                direction: ltr;
+            }
+        </style>
+
+        <div class="page">
+            <div class="vch-wrap">
+
+                <!-- ================= HEADER : QR (left) + Logo (right) ================= -->
+                <table>
+                    <tr>
+                        <!--<td style="width:100%; text-align:center; vertical-align:middle;">-->
+                        <!--    <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', o.name or 'NA', 90, 90)"-->
+                        <!--         style="width:90px; height:90px;"/>-->
+                        <!--</td>-->
+                        <td style="width:100%; text-align:center; vertical-align:middle;">
+                            <img src="/web/content/126581" style="max-height:70px;"/>
+                        </td>
+                        <!--<td style="width:20%;"></td>-->
+                    </tr>
+                </table>
+
+                <!--<div class="vch-latin">RECEIPT VOUCHER</div>-->
+                <!--<div class="vch-title">وصل قبض</div>-->
+                <div class="vch-hr"></div>
+
+                <!-- ================= TOP BAR : date + voucher no ================= -->
+                <table class="vch-topbar">
+                    <tr>
+                        <td style="text-align:left; width:33%;">
+                            <strong>التاريخ :</strong>
+                            <span t-field="o.payment_date" t-options='{"format": "YYYY/MM/DD"}'/>
+                        </td>
+                        
+                        <td style="text-align:center; width:33%;">
+                            <div class="vch-title">وصل قبض</div>
+                        </td>
+                        
+                        
+                        <td style="text-align:right; width:33%;">
+                            <strong>رقم الوصل :</strong>
+                            <t t-if="o.name">
+                                <t t-set="my_name" t-value="o.name.split('/')"/>
+                                <t t-esc="my_name[1]"/>/<t t-esc="my_name[2]"/>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ================= معلومات الطالب ================= -->
+                <div class="vch-section">معلومات الطالب</div>
+
+                <table class="vch-info">
+                    <!-- Row 1 : اسم الطالب  |  السنة الدراسية -->
+                    <tr>
+                        <td class="lbl">اسم الطالب :</td>
+                        <td class="val"><span t-field="o.partner_id"/></td>
+                        <td class="lbl2">السنة الدراسية :</td>
+                        <td class="val2"><span t-field="o.year"/></td>
+                    </tr>
+                    <!-- Row 2 : الكلية | دعم الطالب -->
+                    <tr>
+                        <td class="lbl">الكلية :</td>
+                        <td class="val"><span t-field="o.college"/></td>
+                        <td class="lbl2">دعم الطالب :</td>
+                        <td class="val2"><span t-field="o.student"/></td>
+                    </tr>
+                    <!-- Row 3 : القسم | نافذة القبول -->
+                    <tr>
+                        <td class="lbl">القسم :</td>
+                        <td class="val"><span t-field="o.department"/></td>
+                        <td class="lbl2">نافذة القبول :</td>
+                        <td class="val2"><span t-field="o.partner_id.data_one"/></td>
+                    </tr>
+                    <!-- Row 4 : المرحلة | نوع الدراسة -->
+                    <tr>
+                        <td class="lbl">المرحلة :</td>
+                        <td class="val"><span t-field="o.level"/></td>
+                        <td class="lbl2">نوع الدراسة :</td>
+                        <td class="val2"><span t-field="o.Subject"/></td>
+                    </tr>
+                    <!-- Row 5 : المستوى -->
+                    <tr>
+                        <td class="lbl">المستوى :</td>
+                        <td class="val"><span t-field="o.partner_id.stage_id"/></td>
+                        <td class="lbl2"></td>
+                        <td class="val2"></td>
+                    </tr>
+                </table>
+
+                <!-- ================= معلومات الدفع ================= -->
+                <div class="vch-section">معلومات الدفع</div>
+
+                <table class="vch-info">
+                    <tr>
+                        <td class="lbl">نوع الدفع :</td>
+                        <td class="val"><span t-field="o.payment_type_name"/></td>
+                        <td class="lbl2">التفاصيل :</td>
+                        <td class="val2"><span t-field="o.communication"/></td>
+                    </tr>
+                </table>
+
+                <!-- ================= QR + Amount table ================= -->
+                <table class="vch-pay" style="margin-top:8px;">
+                    <tr>
+                        <!--<td rowspan="2" class="vch-qr">-->
+                        <!--    QR Code-->
+                        <!--</td>-->
+                        <td style="width:55%;">
+                            <strong>المبلغ المستلم :</strong>
+                            <span class="big" t-field="o.amount"
+                                  t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                        </td>
+                        <td style="width:45%;">
+                            <strong>المبلغ المتبقي :</strong>
+                            <t t-set="balance_data" t-value="0"/>
+                            <t t-foreach="request.env['account.move.line'].sudo().search([
+                                    ('partner_id','=',o.partner_id.id),
+                                    ('move_id.state','=','posted'),
+                                    '|',('account_id.internal_type','=','payable'),
+                                        ('account_id.internal_type','=','receivable'),
+                                    ('full_reconcile_id','=',False),
+                                    ('balance','!=',0),
+                                    ('account_id.reconcile','=',True)])" t-as="line">
+                                <t t-set="balance_data" t-value="balance_data + line.balance"/>
+                            </t>
+                            <span class="big" t-esc="balance_data"/>
+                        </td>
+                        <!--class="vch-qr"-->
+                        <td rowspan="2" >
+                            <img src="/web/content/126578" style="max-height:50px;"/>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right;">
+                            <strong>المبلغ كتابةً :</strong>
+                            <t t-set="in_words"
+                               t-value="o.currency_id.with_context(lang='ar_001').amount_to_text(o.amount).split('Dinar')"/>
+                            <span t-esc="in_words[0]"/> دينار عراقي
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- ================= Signatures ================= -->
+                <div class="vch-sign">
+                    <div>الختم والتوقيع:</div>
+                </div>
+              
+
+                <!-- ================= Footer ================= -->
+                <div class="vch-foot row">
+                  <div class="col-3">
+                    ALMAQAL UNIVERSITY<br/>
+                    FINANCE DEPARTMENT
+                    </div>
+                    
+                    
+                      <div class="vch-sign col-9" style="margin-top:4px;">
+                    <strong>انشأت بواسطة :</strong> <span t-field="o.create_uid"/>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </t>
+        </template>
+
+    </data>
+</odoo>
