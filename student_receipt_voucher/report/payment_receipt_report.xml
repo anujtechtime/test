@@ -11,7 +11,6 @@
             <field name="print_report_name">'وصل طالب جديد - %s' % (object.name or '')</field>
             <field name="binding_model_id" ref="account.model_account_payment"/>
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="base.paperformat_a4"/>
         </record>
 
     </data>
