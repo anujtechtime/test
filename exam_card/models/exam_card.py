@@ -226,3 +226,31 @@ class ExamCardPrint(models.AbstractModel):
             'doc_model': 'exam.card.wizard',
             'docs': docs,
         }
+    
+
+class ExamCardPrintDuplivcate(models.AbstractModel):
+    _name = 'report.exam_card.report_exam_card_duplicate'
+    _description = 'Exam Card Report'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = []
+        if data:
+            doc = {
+                'exam_type': data.get('exam_type', 'الامتحانات النهائية'),
+                'academic_year': data.get('academic_year', None),
+                'student_name': data.get('student_name', '________________'),
+                'college_name': data.get('college_name', '________________'),
+                'department_name': data.get('department_name', '________________'),
+                'stage_name': data.get('stage_name', '________________'),
+                'university_id': data.get('university_id', '________________'),
+                'partner_id': data.get('partner_id'),
+                'partner_name': data.get('partner_name'),
+            }
+            docs.append(doc)
+        
+        return {
+            'doc_ids': docids,
+            'doc_model': 'exam.card.wizard',
+            'docs': docs,
+        }    
