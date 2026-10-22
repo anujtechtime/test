@@ -138,6 +138,7 @@ class AccountStatementWizard(models.TransientModel):
                         'year': pay.year,
                         'invoice': 0.0,
                         'payment': pay_amount,
+                        'installment_amount': 0.0,
                     })
             except Exception as e:
                 print("Skipping broken payment:", e)
