@@ -56,83 +56,85 @@ class AccountStatementWizard(models.TransientModel):
         row += 3
 
         # =====================================================
-        # FETCH DATA
+        # FETCH DATA SAFELY USING SAVEPOINTS
         # =====================================================
         
-        # 1. Invoices
+        invoices = self.env['account.move']
         try:
-            invoices = self.env['account.move'].search([
-                ('partner_id', '=', partner.id),
-                ('type', '=', 'out_invoice')
-            ], order='invoice_date_due asc')
-        except Exception:
-            invoices = self.env['account.move']
+            with self.env.cr.savepoint():
+                invoices = self.env['account.move'].search([
+                    ('partner_id', '=', partner.id),
+                    ('type', '=', 'out_invoice')
+                ], order='invoice_date_due asc')
+        except Exception as e:
+            print("Error loading invoices:", e)
 
-        # 2. Payments
+        payments = self.env['account.payment']
         try:
-            payments = self.env['account.payment'].search([
-                ('partner_id', '=', partner.id)
-            ], order='payment_date asc')
-        except Exception:
-            payments = self.env['account.payment']
+            with self.env.cr.savepoint():
+                payments = self.env['account.payment'].search([
+                    ('partner_id', '=', partner.id)
+                ], order='payment_date asc')
+        except Exception as e:
+            print("Error loading payments:", e)
 
-        # 3. Installments
         installment_by_year = defaultdict(float)
         try:
-            sale_orders = self.env['sale.order'].search([('partner_id', '=', partner.id)])
-            for sale in sale_orders:
-                if hasattr(sale, 'sale_installment_line_ids'):
-                    for inst in sale.sale_installment_line_ids:
-                        if getattr(inst, 'amount_installment', False) and getattr(inst, 'payment_date', False):
-                            year_str = getattr(sale, 'year', str(inst.payment_date.year))
-                            installment_by_year[year_str] += inst.amount_installment
-        except Exception:
-            pass
+            with self.env.cr.savepoint():
+                sale_orders = self.env['sale.order'].search([('partner_id', '=', partner.id)])
+                for sale in sale_orders:
+                    if hasattr(sale, 'sale_installment_line_ids'):
+                        for inst in sale.sale_installment_line_ids:
+                            if getattr(inst, 'amount_installment', False) and getattr(inst, 'payment_date', False):
+                                year_str = getattr(sale, 'year', str(inst.payment_date.year))
+                                installment_by_year[year_str] += inst.amount_installment
+        except Exception as e:
+            print("Error loading installments:", e)
 
         # =====================================================
         # BUILD LEDGER LINES
         # =====================================================
         ledger = []
 
-        # Process Invoices using the 'year' Char field
+        # Process Invoices safely
         for inv in invoices:
             try:
-                # We use .read() to safely get the data and avoid the CacheMiss error
-                inv_data = inv.read(['invoice_date_due', 'amount_total', 'year'])[0]
-                inv_date = inv_data.get('invoice_date_due')
-                inv_amount = inv_data.get('amount_total', 0.0)
-                
-                # HERE: Using the 'year' Char field directly as requested
-                inv_year_char = inv_data.get('year')
-                
-                # Fallback to date year ONLY if the Char field is empty
-                year_str = str(inv_year_char) if inv_year_char else str(inv_date.year if inv_date else '')
-                
-                ledger.append({
-                    'date': inv_date,
-                    'year': year_str,
-                    'invoice': inv_amount,
-                    'payment': 0.0,
-                })
-            except Exception:
+                with self.env.cr.savepoint():
+                    inv_data = inv.read(['invoice_date_due', 'amount_total', 'year'])[0]
+                    inv_date = inv_data.get('invoice_date_due')
+                    inv_amount = inv_data.get('amount_total', 0.0)
+                    
+                    inv_year_char = inv_data.get('year')
+                    year_str = str(inv_year_char) if inv_year_char else str(inv_date.year if inv_date else '')
+                    
+                    ledger.append({
+                        'date': inv_date,
+                        'year': year_str,
+                        'invoice': inv_amount,
+                        'payment': 0.0,
+                    })
+            except Exception as e:
+                print("Skipping broken invoice:", e)
                 continue 
 
-        # Process Payments
+        # Process Payments safely
         for pay in payments:
             try:
-                pay_data = pay.read(['payment_date', 'amount'])[0]
-                pay_date = pay_data.get('payment_date')
-                pay_amount = pay_data.get('amount', 0.0)
-                
-                year_str = str(pay_date.year if pay_date else '')
-                
-                ledger.append({
-                    'date': pay_date,
-                    'year': year_str,
-                    'invoice': 0.0,
-                    'payment': pay_amount,
-                })
-            except Exception:
+                with self.env.cr.savepoint():
+                    pay_data = pay.read(['payment_date', 'amount'])[0]
+                    pay_date = pay_data.get('payment_date')
+                    pay_amount = pay_data.get('amount', 0.0)
+                    
+                    year_str = str(pay_date.year if pay_date else '')
+                    
+                    ledger.append({
+                        'date': pay_date,
+                        'year': year_str,
+                        'invoice': 0.0,
+                        'payment': pay_amount,
+                    })
+            except Exception as e:
+                print("Skipping broken payment:", e)
                 continue 
 
         # Sort lines by date ascending
@@ -211,8 +213,13 @@ class AccountStatementWizard(models.TransientModel):
         workbook.close()
         output.seek(0)
 
-        self.file_name = 'Account_Statement.xlsx'
-        self.file_data = base64.b64encode(output.read())
+        # Wrap file saving in a savepoint too, to be 100% safe
+        try:
+            with self.env.cr.savepoint():
+                self.file_name = 'Account_Statement.xlsx'
+                self.file_data = base64.b64encode(output.read())
+        except Exception as e:
+            print("Error saving file to wizard:", e)
 
         return {
             'type': 'ir.actions.act_url',
@@ -220,19 +227,3 @@ class AccountStatementWizard(models.TransientModel):
                    % (self._name, self.id, self.file_name),
             'target': 'self',
         }
-        # =====================================================
-        # SAVE FILE
-        # =====================================================
-        # workbook.close()
-
-        # output.seek(0)
-
-        # self.file_name = 'Account_Statement.xlsx'
-        # self.file_data = base64.b64encode(output.read())
-
-        # return {
-        #     'type': 'ir.actions.act_url',
-        #     'url': '/web/content/?model=%s&id=%s&field=file_data&download=true&filename=%s'
-        #            % (self._name, self.id, self.file_name),
-        #     'target': 'self',
-        # }
