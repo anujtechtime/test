@@ -173,7 +173,7 @@ class AccountStatementWizard(models.TransientModel):
                 inv_amt = item['invoice']
                 pay_amt = item['payment']
                 
-                current_balance += (inv_amt - pay_amt)
+                current_balance = (inv_amt - pay_amt)
 
                 date_str = item['date'].strftime('%Y-%m-%d') if item['date'] else ''
                 sheet.write(row, 0, date_str, normal)
