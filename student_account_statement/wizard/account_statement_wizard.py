@@ -153,8 +153,10 @@ class AccountStatementWizard(models.TransientModel):
         grand_invoice_total = 0
         grand_payment_total = 0
 
-        for year in sorted_years:
-            sheet.merge_range(row, 0, row, 4, f'السنة الدراسية : {year}', title_format)
+        years = self.env['year.year'].search([])
+
+        for year in years:
+            sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year}', title_format)
             row += 1
 
             sheet.write(row, 0, 'التاريخ', header)
@@ -191,7 +193,7 @@ class AccountStatementWizard(models.TransientModel):
             sheet.write(row, 1, year_invoice_total, header)
             sheet.write(row, 2, year_payment_total, header)
             sheet.write(row, 3, '', header)
-            sheet.write(row, 4, '', header)
+            # sheet.write(row, 4, '', header)
             row += 1
             
             # Total Installment (القسط الكلي)
@@ -199,7 +201,7 @@ class AccountStatementWizard(models.TransientModel):
             sheet.write(row, 1, '', header)
             sheet.write(row, 2, '', header)
             sheet.write(row, 3, '', header)
-            sheet.write(row, 4, year_installment_total, header)
+            # sheet.write(row, 4, year_installment_total, header)
             row += 2
 
             grand_invoice_total += year_invoice_total
