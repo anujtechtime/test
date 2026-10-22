@@ -109,12 +109,14 @@ class AccountStatementWizard(models.TransientModel):
                     
                     inv_year_char = inv_data.get('year')
                     year_str = str(inv_year_char) if inv_year_char else str(inv_date.year if inv_date else '')
-                    
+
+                    sale_orders = self.env['sale.order'].search([('name', '=', inv.invoice_origin)])
                     ledger.append({
                         'date': inv_date,
                         'year': inv.year,
                         'invoice': inv_amount,
                         'payment': 0.0,
+                        'installment_amount': sale_orders.installment_amount if sale_orders else 0.0,
                     })
                     _logger.info(f"Processed Invoice: {inv.id}, Date: {inv_date}, Amount: {inv_amount}, Year: {year_str}")
             except Exception as e:
@@ -171,7 +173,7 @@ class AccountStatementWizard(models.TransientModel):
                 sheet.write(row, 1, 'فواتير (مطلوبة السداد)', header)
                 sheet.write(row, 2, 'دفعات (وصولات مسددة)', header)
                 sheet.write(row, 3, 'المدور', header)
-                # sheet.write(row, 4, 'القسط الكلي', header)
+                sheet.write(row, 4, 'القسط الكلي', header)
                 row += 1
 
                 year_invoice_total = 0
@@ -184,25 +186,26 @@ class AccountStatementWizard(models.TransientModel):
                     _logger.info(f"Processing Year: {year}, Item: {item}, Invoice Amount: {inv_amt}")
                     pay_amt = item['payment']
                     
-                    current_balance = (inv_amt - pay_amt)
+                    current_balance += (inv_amt - pay_amt)
 
                     date_str = item['date'].strftime('%Y-%m-%d') if item['date'] else ''
                     sheet.write(row, 0, date_str, normal)
                     sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
                     sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
                     sheet.write(row, 3, current_balance, amount_format)
-                    # sheet.write(row, 4, '', amount_format)
+                    sheet.write(row, 4, item['installment_amount'], amount_format)
                     
                     row += 1
                     year_invoice_total += inv_amt
                     year_payment_total += pay_amt
 
+                    year_installment_total += item['installment_amount']
                 # Year Totals (المجموع)
                 sheet.write(row, 0, 'المجموع', header)
                 sheet.write(row, 1, year_invoice_total, header)
                 sheet.write(row, 2, year_payment_total, header)
                 sheet.write(row, 3, '', header)
-                # sheet.write(row, 4, '', header)
+                sheet.write(row, 4, '', header)
                 row += 1
                 
                 # Total Installment (القسط الكلي)
@@ -210,7 +213,7 @@ class AccountStatementWizard(models.TransientModel):
                 sheet.write(row, 1, '', header)
                 sheet.write(row, 2, '', header)
                 sheet.write(row, 3, '', header)
-                # sheet.write(row, 4, year_installment_total, header)
+                sheet.write(row, 4, year_installment_total, header)
                 row += 2
 
                 grand_invoice_total += year_invoice_total
