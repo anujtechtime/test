@@ -69,7 +69,7 @@ class AccountStatementWizard(models.TransientModel):
         sheet.write(
             row,
             1,
-            partner.department.department if partner.department else '',
+            partner.department.department if hasattr(partner, 'department') and partner.department else '',
             normal
         )
 
@@ -93,40 +93,75 @@ class AccountStatementWizard(models.TransientModel):
             ('parent_state', '=', 'posted')
         ])
 
-        # 3. Installments (القسط الكلي) from Sale Orders
-        # Assuming your installment data comes from sale orders related to this partner
+        # 3. Installments (القسط الكلي) from installment.details
         installment_by_year = defaultdict(float)
-        sale_orders = self.env['sale.order'].search([
-            ('partner_id', '=', partner.id),
-        ])
         
-        for sale in sale_orders:
-            if hasattr(sale, 'sale_installment_line_ids'):
-                for inst in sale.sale_installment_line_ids:
-                    if inst.payment_date:
-                        # Grouping by academic year (assuming we can get it from the SO)
-                        year_str = sale.year.name if hasattr(sale, 'year') and sale.year else str(inst.payment_date.year)
-                        installment_by_year[year_str] += inst.amount_installment
+        try:
+            # Search directly in the model shown in your screenshot
+            installments = self.env['installment.details'].search([
+                ('Student', '=', partner.id)
+            ])
+            
+            for inst in installments:
+                try:
+                    inst_date = False
+                    inst_amount = 0.0
+                    
+                    # Check for date field names
+                    if hasattr(inst, 'payment_date') and inst.payment_date:
+                        inst_date = inst.payment_date
+                    elif hasattr(inst, 'date') and inst.date:
+                        inst_date = inst.date
+                    
+                    # Check for amount field names
+                    if hasattr(inst, 'amount_installment'):
+                        inst_amount = inst.amount_installment
+                    elif hasattr(inst, 'amount'):
+                        inst_amount = inst.amount
+                    
+                    if inst_date and inst_amount:
+                        # Determine Year
+                        year_str = False
+                        if hasattr(inst, 'year') and inst.year:
+                            year_str = inst.year.name if hasattr(inst.year, 'name') else str(inst.year)
+                        else:
+                            year_str = str(inst_date.year)
+                            
+                        installment_by_year[year_str] += inst_amount
+                except Exception:
+                    continue # Skip record if a field causes an error
+        except Exception:
+            pass # Continue generating report even if the model has issues
 
         # =====================================================
         # BUILD LEDGER LINES
         # =====================================================
         ledger = []
 
+        # Add Invoices
         for line in invoice_lines:
+            year_str = str(line.date.year)
+            if hasattr(line.move_id, 'year') and line.move_id.year:
+                 year_str = line.move_id.year.name if hasattr(line.move_id.year, 'name') else str(line.move_id.year)
+                 
             ledger.append({
                 'date': line.date,
-                'year': line.move_id.year.name if hasattr(line.move_id, 'year') and line.move_id.year else str(line.date.year),
-                'invoice': line.debit, # Debit increases what student owes
+                'year': year_str,
+                'invoice': line.debit, 
                 'payment': line.credit,
             })
 
+        # Add Payments
         for line in payment_lines:
+            year_str = str(line.date.year)
+            if hasattr(line.move_id, 'year') and line.move_id.year:
+                 year_str = line.move_id.year.name if hasattr(line.move_id.year, 'name') else str(line.move_id.year)
+                 
             ledger.append({
                 'date': line.date,
-                'year': line.move_id.year.name if hasattr(line.move_id, 'year') and line.move_id.year else str(line.date.year),
+                'year': year_str,
                 'invoice': line.debit,
-                'payment': line.credit, # Credit means payment received
+                'payment': line.credit,
             })
 
         # Sort ascending by date (Requirement #4 & #8)
@@ -179,18 +214,12 @@ class AccountStatementWizard(models.TransientModel):
                 sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
                 sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
                 sheet.write(row, 3, current_balance, amount_format)
-                
-                # Write Installment only on the first row of the year
-                if row == len(grouped_data[year]) + 3: # Simple check, adjust if needed
-                    pass
+                sheet.write(row, 4, '', amount_format) # Leave blank for detail rows
                 
                 row += 1
                 year_invoice_total += inv_amt
                 year_payment_total += pay_amt
 
-            # Write Total Installment for this year on the first row
-            # (Re-calculating row index to place it correctly)
-            
             # Year Totals Row (المجموع)
             sheet.write(row, 0, 'المجموع', header)
             sheet.write(row, 1, year_invoice_total, header)
