@@ -179,6 +179,7 @@ class AccountStatementWizard(models.TransientModel):
 
             for item in grouped_data[year]:
                 inv_amt = item['invoice']
+                _logger.info(f"Processing Year: {year}, Item: {item}, Invoice Amount: {inv_amt}")
                 pay_amt = item['payment']
                 
                 current_balance = (inv_amt - pay_amt)
