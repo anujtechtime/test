@@ -4,6 +4,9 @@ import xlsxwriter
 
 from odoo import models, fields
 from collections import defaultdict
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class AccountStatementWizard(models.TransientModel):
     _name = 'account.statement.wizard'
@@ -113,8 +116,9 @@ class AccountStatementWizard(models.TransientModel):
                         'invoice': inv_amount,
                         'payment': 0.0,
                     })
+                    _logger.info(f"Processed Invoice: {inv.id}, Date: {inv_date}, Amount: {inv_amount}, Year: {year_str}")
             except Exception as e:
-                print("Skipping broken invoice:", e)
+                _logger.error(f"Error processing invoice {inv.id}: {e}")
                 continue 
 
         # Process Payments safely
@@ -147,6 +151,8 @@ class AccountStatementWizard(models.TransientModel):
 
         sorted_years = sorted(grouped_data.keys())
 
+        _logger.info(f"Grouped Data by Year: {grouped_data}")
+
         # =====================================================
         # WRITE TO EXCEL
         # =====================================================
@@ -156,7 +162,7 @@ class AccountStatementWizard(models.TransientModel):
         years = self.env['year.year'].search([])
 
         for year in years:
-            sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year}', title_format)
+            sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year.year}', title_format)
             row += 1
 
             sheet.write(row, 0, 'التاريخ', header)
