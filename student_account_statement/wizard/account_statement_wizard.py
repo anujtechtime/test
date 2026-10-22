@@ -112,7 +112,7 @@ class AccountStatementWizard(models.TransientModel):
                     
                     ledger.append({
                         'date': inv_date,
-                        'year': year_str,
+                        'year': inv.year,
                         'invoice': inv_amount,
                         'payment': 0.0,
                     })
@@ -133,7 +133,7 @@ class AccountStatementWizard(models.TransientModel):
                     
                     ledger.append({
                         'date': pay_date,
-                        'year': year_str,
+                        'year': pay.year,
                         'invoice': 0.0,
                         'payment': pay_amount,
                     })
