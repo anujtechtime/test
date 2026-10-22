@@ -208,6 +208,7 @@ class AccountStatementWizard(models.TransientModel):
         # SAVE FILE
         # =====================================================
         workbook.close()
+
         output.seek(0)
 
         self.file_name = 'Account_Statement.xlsx'
