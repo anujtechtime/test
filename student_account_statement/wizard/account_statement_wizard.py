@@ -208,11 +208,7 @@ class AccountStatementWizard(models.TransientModel):
         sheet.write(row, 0, 'الرصيد النهائي (Balance)', header)
         sheet.write(row, 1, final_balance, header)
 
-        # =====================================================
-        # SAVE FILE
-        # =====================================================
         workbook.close()
-
         output.seek(0)
 
         self.file_name = 'Account_Statement.xlsx'
@@ -224,3 +220,19 @@ class AccountStatementWizard(models.TransientModel):
                    % (self._name, self.id, self.file_name),
             'target': 'self',
         }
+        # =====================================================
+        # SAVE FILE
+        # =====================================================
+        # workbook.close()
+
+        # output.seek(0)
+
+        # self.file_name = 'Account_Statement.xlsx'
+        # self.file_data = base64.b64encode(output.read())
+
+        # return {
+        #     'type': 'ir.actions.act_url',
+        #     'url': '/web/content/?model=%s&id=%s&field=file_data&download=true&filename=%s'
+        #            % (self._name, self.id, self.file_name),
+        #     'target': 'self',
+        # }
