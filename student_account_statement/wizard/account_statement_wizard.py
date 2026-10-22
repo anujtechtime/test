@@ -37,17 +37,15 @@ class AccountStatementWizard(models.TransientModel):
         
         partner = self.partner_id
 
-        # 4 Columns Only
-        sheet.set_column('A:A', 15) # التاريخ
-        sheet.set_column('B:B', 25) # فواتير (مطلوبة السداد)
-        sheet.set_column('C:C', 25) # دفعات (وصولات مسددة)
-        sheet.set_column('D:D', 25) # المدور
+        sheet.set_column('A:A', 15) # Date
+        sheet.set_column('B:B', 25) # Invoices
+        sheet.set_column('C:C', 25) # Payments
+        sheet.set_column('D:D', 25) # Balance
+        sheet.set_column('E:E', 25) # Installment
 
         row = 0
 
-        # =====================================================
-        # STUDENT INFORMATION
-        # =====================================================
+        # Student Info
         sheet.write(row, 0, 'Student Name:', header)
         sheet.write(row, 1, partner.name or '', normal_right)
         row += 1
@@ -58,8 +56,9 @@ class AccountStatementWizard(models.TransientModel):
         row += 3
 
         # =====================================================
-        # FETCH DATA SAFELY
+        # FETCH DATA SAFELY USING SAVEPOINTS
         # =====================================================
+        
         invoices = self.env['account.move']
         try:
             with self.env.cr.savepoint():
@@ -79,7 +78,6 @@ class AccountStatementWizard(models.TransientModel):
         except Exception as e:
             print("Error loading payments:", e)
 
-        # Fetch Installments by Year
         installment_by_year = defaultdict(float)
         try:
             with self.env.cr.savepoint():
@@ -88,12 +86,7 @@ class AccountStatementWizard(models.TransientModel):
                     if hasattr(sale, 'sale_installment_line_ids'):
                         for inst in sale.sale_installment_line_ids:
                             if getattr(inst, 'amount_installment', False) and getattr(inst, 'payment_date', False):
-                                if hasattr(sale, 'year') and sale.year:
-                                    # Using the correct year.year model here
-                                    year_record = self.env['year.year'].browse(sale.year.id)
-                                    year_str = year_record.name if year_record else str(inst.payment_date.year)
-                                else:
-                                    year_str = str(inst.payment_date.year)
+                                year_str = getattr(sale, 'year', str(inst.payment_date.year))
                                 installment_by_year[year_str] += inst.amount_installment
         except Exception as e:
             print("Error loading installments:", e)
@@ -103,7 +96,7 @@ class AccountStatementWizard(models.TransientModel):
         # =====================================================
         ledger = []
 
-        # 1. Process Invoices
+        # Process Invoices safely
         for inv in invoices:
             try:
                 with self.env.cr.savepoint():
@@ -111,13 +104,8 @@ class AccountStatementWizard(models.TransientModel):
                     inv_date = inv_data.get('invoice_date_due')
                     inv_amount = inv_data.get('amount_total', 0.0)
                     
-                    year_rel = inv_data.get('year')
-                    if year_rel:
-                        # Fetching the text from the year.year model
-                        year_record = self.env['year.year'].browse(year_rel[0])
-                        year_str = year_record.name if year_record else str(year_rel[1])
-                    else:
-                        year_str = str(inv_date.year if inv_date else '')
+                    inv_year_char = inv_data.get('year')
+                    year_str = str(inv_year_char) if inv_year_char else str(inv_date.year if inv_date else '')
                     
                     ledger.append({
                         'date': inv_date,
@@ -126,24 +114,18 @@ class AccountStatementWizard(models.TransientModel):
                         'payment': 0.0,
                     })
             except Exception as e:
-                print("Skipping invoice error:", e)
+                print("Skipping broken invoice:", e)
                 continue 
 
-        # 2. Process Payments
+        # Process Payments safely
         for pay in payments:
             try:
                 with self.env.cr.savepoint():
-                    # Read 'year' from payment as you requested
-                    pay_data = pay.read(['payment_date', 'amount', 'year'])[0]
+                    pay_data = pay.read(['payment_date', 'amount'])[0]
                     pay_date = pay_data.get('payment_date')
                     pay_amount = pay_data.get('amount', 0.0)
                     
-                    year_rel = pay_data.get('year')
-                    if year_rel:
-                        year_record = self.env['year.year'].browse(year_rel[0])
-                        year_str = year_record.name if year_record else str(year_rel[1])
-                    else:
-                        year_str = str(pay_date.year if pay_date else '')
+                    year_str = str(pay_date.year if pay_date else '')
                     
                     ledger.append({
                         'date': pay_date,
@@ -152,7 +134,7 @@ class AccountStatementWizard(models.TransientModel):
                         'payment': pay_amount,
                     })
             except Exception as e:
-                print("Skipping payment error:", e)
+                print("Skipping broken payment:", e)
                 continue 
 
         # Sort lines by date ascending
@@ -166,19 +148,20 @@ class AccountStatementWizard(models.TransientModel):
         sorted_years = sorted(grouped_data.keys())
 
         # =====================================================
-        # WRITE TO EXCEL (EXACTLY 4 COLUMNS)
+        # WRITE TO EXCEL
         # =====================================================
         grand_invoice_total = 0
         grand_payment_total = 0
 
         for year in sorted_years:
-            sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year}', title_format)
+            sheet.merge_range(row, 0, row, 4, f'السنة الدراسية : {year}', title_format)
             row += 1
 
             sheet.write(row, 0, 'التاريخ', header)
             sheet.write(row, 1, 'فواتير (مطلوبة السداد)', header)
             sheet.write(row, 2, 'دفعات (وصولات مسددة)', header)
             sheet.write(row, 3, 'المدور', header)
+            # sheet.write(row, 4, 'القسط الكلي', header)
             row += 1
 
             year_invoice_total = 0
@@ -190,15 +173,14 @@ class AccountStatementWizard(models.TransientModel):
                 inv_amt = item['invoice']
                 pay_amt = item['payment']
                 
-                # Balance logic: (Invoice - Payment)
                 current_balance += (inv_amt - pay_amt)
 
                 date_str = item['date'].strftime('%Y-%m-%d') if item['date'] else ''
-                
                 sheet.write(row, 0, date_str, normal)
                 sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
                 sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
                 sheet.write(row, 3, current_balance, amount_format)
+                # sheet.write(row, 4, '', amount_format)
                 
                 row += 1
                 year_invoice_total += inv_amt
@@ -209,19 +191,21 @@ class AccountStatementWizard(models.TransientModel):
             sheet.write(row, 1, year_invoice_total, header)
             sheet.write(row, 2, year_payment_total, header)
             sheet.write(row, 3, '', header)
+            sheet.write(row, 4, '', header)
             row += 1
             
             # Total Installment (القسط الكلي)
             sheet.write(row, 0, 'القسط الكلي', header)
             sheet.write(row, 1, '', header)
             sheet.write(row, 2, '', header)
-            sheet.write(row, 3, year_installment_total, header) 
+            sheet.write(row, 3, '', header)
+            sheet.write(row, 4, year_installment_total, header)
             row += 2
 
             grand_invoice_total += year_invoice_total
             grand_payment_total += year_payment_total
 
-        # Grand Balance at the very end
+        # Grand Balance
         final_balance = grand_invoice_total - grand_payment_total
         sheet.write(row, 0, 'الرصيد النهائي (Balance)', header)
         sheet.write(row, 1, final_balance, header)
@@ -229,12 +213,13 @@ class AccountStatementWizard(models.TransientModel):
         workbook.close()
         output.seek(0)
 
+        # Wrap file saving in a savepoint too, to be 100% safe
         try:
             with self.env.cr.savepoint():
                 self.file_name = 'Account_Statement.xlsx'
                 self.file_data = base64.b64encode(output.read())
         except Exception as e:
-            print("Error saving file:", e)
+            print("Error saving file to wizard:", e)
 
         return {
             'type': 'ir.actions.act_url',
