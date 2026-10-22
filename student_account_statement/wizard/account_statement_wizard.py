@@ -162,62 +162,64 @@ class AccountStatementWizard(models.TransientModel):
         years = self.env['year.year'].search([])
 
         for year in years:
-            sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year.year}', title_format)
-            row += 1
-
-            sheet.write(row, 0, 'التاريخ', header)
-            sheet.write(row, 1, 'فواتير (مطلوبة السداد)', header)
-            sheet.write(row, 2, 'دفعات (وصولات مسددة)', header)
-            sheet.write(row, 3, 'المدور', header)
-            # sheet.write(row, 4, 'القسط الكلي', header)
-            row += 1
-
-            year_invoice_total = 0
-            year_payment_total = 0
-            current_balance = 0
-            year_installment_total = installment_by_year.get(year, 0)
-
-            for item in grouped_data[year]:
-                inv_amt = item['invoice']
-                _logger.info(f"Processing Year: {year}, Item: {item}, Invoice Amount: {inv_amt}")
-                pay_amt = item['payment']
-                
-                current_balance = (inv_amt - pay_amt)
-
-                date_str = item['date'].strftime('%Y-%m-%d') if item['date'] else ''
-                sheet.write(row, 0, date_str, normal)
-                sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
-                sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
-                sheet.write(row, 3, current_balance, amount_format)
-                # sheet.write(row, 4, '', amount_format)
-                
+            if grouped_data[year]:
+                _logger.info(f"Writing data for Year: {year.year}, Entries: {grouped_data[year]}")
+                sheet.merge_range(row, 0, row, 3, f'السنة الدراسية : {year.year}', title_format)
                 row += 1
-                year_invoice_total += inv_amt
-                year_payment_total += pay_amt
 
-            # Year Totals (المجموع)
-            sheet.write(row, 0, 'المجموع', header)
-            sheet.write(row, 1, year_invoice_total, header)
-            sheet.write(row, 2, year_payment_total, header)
-            sheet.write(row, 3, '', header)
-            # sheet.write(row, 4, '', header)
-            row += 1
-            
-            # Total Installment (القسط الكلي)
-            sheet.write(row, 0, 'القسط الكلي', header)
-            sheet.write(row, 1, '', header)
-            sheet.write(row, 2, '', header)
-            sheet.write(row, 3, '', header)
-            # sheet.write(row, 4, year_installment_total, header)
-            row += 2
+                sheet.write(row, 0, 'التاريخ', header)
+                sheet.write(row, 1, 'فواتير (مطلوبة السداد)', header)
+                sheet.write(row, 2, 'دفعات (وصولات مسددة)', header)
+                sheet.write(row, 3, 'المدور', header)
+                # sheet.write(row, 4, 'القسط الكلي', header)
+                row += 1
 
-            grand_invoice_total += year_invoice_total
-            grand_payment_total += year_payment_total
+                year_invoice_total = 0
+                year_payment_total = 0
+                current_balance = 0
+                year_installment_total = installment_by_year.get(year, 0)
 
-        # Grand Balance
-        final_balance = grand_invoice_total - grand_payment_total
-        sheet.write(row, 0, 'الرصيد النهائي (Balance)', header)
-        sheet.write(row, 1, final_balance, header)
+                for item in grouped_data[year]:
+                    inv_amt = item['invoice']
+                    _logger.info(f"Processing Year: {year}, Item: {item}, Invoice Amount: {inv_amt}")
+                    pay_amt = item['payment']
+                    
+                    current_balance = (inv_amt - pay_amt)
+
+                    date_str = item['date'].strftime('%Y-%m-%d') if item['date'] else ''
+                    sheet.write(row, 0, date_str, normal)
+                    sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
+                    sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
+                    sheet.write(row, 3, current_balance, amount_format)
+                    # sheet.write(row, 4, '', amount_format)
+                    
+                    row += 1
+                    year_invoice_total += inv_amt
+                    year_payment_total += pay_amt
+
+                # Year Totals (المجموع)
+                sheet.write(row, 0, 'المجموع', header)
+                sheet.write(row, 1, year_invoice_total, header)
+                sheet.write(row, 2, year_payment_total, header)
+                sheet.write(row, 3, '', header)
+                # sheet.write(row, 4, '', header)
+                row += 1
+                
+                # Total Installment (القسط الكلي)
+                sheet.write(row, 0, 'القسط الكلي', header)
+                sheet.write(row, 1, '', header)
+                sheet.write(row, 2, '', header)
+                sheet.write(row, 3, '', header)
+                # sheet.write(row, 4, year_installment_total, header)
+                row += 2
+
+                grand_invoice_total += year_invoice_total
+                grand_payment_total += year_payment_total
+
+            # Grand Balance
+            final_balance = grand_invoice_total - grand_payment_total
+            sheet.write(row, 0, 'الرصيد النهائي (Balance)', header)
+            sheet.write(row, 1, final_balance, header)
 
         workbook.close()
         output.seek(0)
