@@ -174,7 +174,7 @@ class AccountStatementWizard(models.TransientModel):
                 sheet.write(row, 1, 'فواتير (مطلوبة السداد)', header)
                 sheet.write(row, 2, 'دفعات (وصولات مسددة)', header)
                 sheet.write(row, 3, 'المدور', header)
-                sheet.write(row, 4, 'القسط الكلي', header)
+                # sheet.write(row, 4, 'القسط الكلي', header)
                 row += 1
 
                 year_invoice_total = 0
@@ -194,27 +194,27 @@ class AccountStatementWizard(models.TransientModel):
                     sheet.write(row, 1, inv_amt if inv_amt > 0 else '', amount_format)
                     sheet.write(row, 2, pay_amt if pay_amt > 0 else '', amount_format)
                     sheet.write(row, 3, current_balance, amount_format)
-                    sheet.write(row, 4, item['installment_amount'], amount_format)
+                    # sheet.write(row, 4, item['installment_amount'], amount_format)
                     
                     row += 1
                     year_invoice_total += inv_amt
                     year_payment_total += pay_amt
 
-                    year_installment_total += item['installment_amount']
+                    year_installment_total = item['installment_amount']
                 # Year Totals (المجموع)
                 sheet.write(row, 0, 'المجموع', header)
                 sheet.write(row, 1, year_invoice_total, header)
                 sheet.write(row, 2, year_payment_total, header)
-                sheet.write(row, 3, '', header)
-                sheet.write(row, 4, '', header)
+                sheet.write(row, 3, current_balance, header)
+                # sheet.write(row, 4, '', header)
                 row += 1
                 
                 # Total Installment (القسط الكلي)
                 sheet.write(row, 0, 'القسط الكلي', header)
-                sheet.write(row, 1, '', header)
+                sheet.write(row, 1, year_installment_total, header)
                 sheet.write(row, 2, '', header)
                 sheet.write(row, 3, '', header)
-                sheet.write(row, 4, year_installment_total, header)
+                # sheet.write(row, 4, year_installment_total, header)
                 row += 2
 
                 grand_invoice_total += year_invoice_total
